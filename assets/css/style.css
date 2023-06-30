@@ -1,0 +1,44 @@
+body {
+    font-family: Verdana;
+    flex-direction: column;
+    background-color: grey;
+}
+
+ul.nav-items {
+    clear:both;
+    height: 0;
+    overflow: hidden;
+    columns: 3;
+    transition: height 0.4s ease-in-out 0s, background-color 2s ease 0s;
+}
+
+#navigation:target .nav-items {
+    background: #f0f0f0 none repeat scroll 0 0;
+    height: 16.8em;
+    transition:height 0.4s ease-in-out 0s, background-color 0.9s ease 0s;
+}
+
+.close {
+    display: none;
+}
+
+#navigation:target .open {
+    display: none;
+}
+
+#navigation:target .close {
+    display:block;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 70px;
+    background-color: #f5f5f5;
+    flex-shrink: none;
+}
+
+
+
