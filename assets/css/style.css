@@ -1,20 +1,48 @@
 body {
     font-family: Verdana;
-    flex-direction: column;
-    background-color: grey;
+    color:white;
 }
 
+header {
+    background-color: grey;
+    border-radius: 15px;
+    padding:1% 2% 0% 1%;
+}
+
+a {
+    color:white !important;
+    text-decoration: none;
+}
+
+a:hover {
+    color:rgb(203, 203, 203) !important;
+}
+ 
+p {
+    text-align: center;
+}
+
+/* Menu desplegable */
+
+.control-menu a {
+    color:white !important;
+}
 ul.nav-items {
     clear:both;
     height: 0;
+    width:40em;
+    border-radius: 15px;
     overflow: hidden;
-    columns: 3;
+    columns: 2;
     transition: height 0.4s ease-in-out 0s, background-color 2s ease 0s;
 }
 
 #navigation:target .nav-items {
-    background: #f0f0f0 none repeat scroll 0 0;
-    height: 16.8em;
+    background: #cecacaa1 none repeat scroll 0 0;
+    height: 19.8em;
+    width:30em;
+    border-radius: 15px;
+    padding:1%;
     transition:height 0.4s ease-in-out 0s, background-color 0.9s ease 0s;
 }
 
@@ -30,15 +58,154 @@ ul.nav-items {
     display:block;
 }
 
+#navigation ul li  {
+    background-color:rgba(250, 62, 0, 0.75);
+    list-style: none;
+    text-align: center;
+    color: white;
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 2px;
+    margin:5px;
+    width:10em;
+}
+
+#navigation ul li a {
+    color:white !important;
+    text-decoration: none;
+}
+
+/* Fin Menu */
+
+#welcome {
+    display: flex;
+    flex-direction: column;
+    background-color: grey;
+    text-align: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+#welcome h1 {
+    text-align: center;
+    color: white;
+    background-color: rgba(250, 62, 0, 0.75);
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 2px;
+    margin:5px;
+}
+
+#portada-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+#welcome iframe {
+    margin:1% 20% 1% 20%;
+    justify-self: center;
+    height: 30%;
+    overflow: hidden;
+
+}
+
+.a-button {
+    margin:2% 20% 1% 20%;
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 1%;
+    text-align: center;
+}
+
+.content {
+    background-color: grey;
+    margin-top:25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; 
+    border-radius: 15px;
+}
+
+.content h2 {
+    text-align: center;
+}
+
+.content-items {
+    background-color: grey;
+    margin-top:25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+    border-radius: 15px;
+}
+
+.item {
+    margin:2%;
+    max-width:10em;
+    text-align: center;
+}
+.item a p {
+    display: flex;
+    width: 5em;
+    text-decoration: none;
+    text-align: center;
+    justify-content: center;
+    background-color: rgba(250, 62, 0, 0.75);
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.item a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid rgba(250, 62, 0, 0.75);
+    border-radius: 20px;
+    background-color: rgb(202, 155, 121);
+    padding: 20px;
+    box-shadow: 10px 10px 5px rgb(108, 93, 93);
+    animation: twinky-button 1s linear alternate;
+}
+
+.item a:hover {
+    animation: none;
+    opacity: 1;
+}
+
+@keyframes twinky-button {
+    from {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 0.9;
+    }
+}
+
 .footer {
     position: absolute;
+    background-color: grey;
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 70px;
-    background-color: #f5f5f5;
     flex-shrink: none;
 }
 
+@media (max-width: 768px) and (orientation:portrait) {
+    .content-items {
+       flex-direction: column;
+    }
+    #navigation ul li  {
+        width: 8em;
+    }
 
+    #navigation:target .nav-items{
+        width:22em;
+    }
+   }
 
