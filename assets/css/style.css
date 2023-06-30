@@ -30,7 +30,7 @@ p {
 ul.nav-items {
     clear:both;
     height: 0;
-    width:40em;
+    width:55em;
     border-radius: 15px;
     overflow: hidden;
     columns: 2;
@@ -39,8 +39,8 @@ ul.nav-items {
 
 #navigation:target .nav-items {
     background: #cecacaa1 none repeat scroll 0 0;
-    height: 19.8em;
-    width:30em;
+    height: 16em;
+    width:55em;
     border-radius: 15px;
     padding:1%;
     transition:height 0.4s ease-in-out 0s, background-color 0.9s ease 0s;
@@ -67,7 +67,7 @@ ul.nav-items {
     border-radius: 15px;
     padding: 2px;
     margin:5px;
-    width:10em;
+    width:15em;
 }
 
 #navigation ul li a {
