@@ -6,7 +6,7 @@ body {
 header {
     background-color: grey;
     border-radius: 15px;
-    padding:1% 2% 0% 1%;
+    padding:1% 2% 0.5% 1%;
 }
 
 a {
@@ -39,7 +39,7 @@ ul.nav-items {
 
 #navigation:target .nav-items {
     background: #cecacaa1 none repeat scroll 0 0;
-    height: 16em;
+    height: 19em;
     width:55em;
     border-radius: 15px;
     padding:1%;
