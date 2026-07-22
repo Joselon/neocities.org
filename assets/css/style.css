@@ -86,7 +86,16 @@ ul.nav-items {
     border-radius: 15px;
 }
 
-#welcome h1 {
+#welcome1 {
+    display: flex;
+    flex-direction: column;
+    background-color: grey;
+    text-align: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+#welcome1 h1 {
     text-align: center;
     color: white;
     background-color: rgba(250, 62, 0, 0.75);
@@ -102,7 +111,7 @@ ul.nav-items {
     border-radius: 15px;
 }
 
-#welcome iframe {
+#welcome1 iframe {
     margin:1% 20% 1% 20%;
     justify-self: center;
     height: 15em;
