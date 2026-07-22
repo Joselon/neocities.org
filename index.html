@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joselon79Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png">
@@ -68,22 +71,27 @@
         </nav>
     </header>
     
-    <div class="content" id="welcome1">
-        <h1> JOSELON79 LAB EXPERIMENTAL </h1>
-         <a class="a-button" href="https://josenavarroportfolio.neocities.org/index.html">
-            <i class="fa fa-history"
-                aria-hidden="true"></i>
-            <small> Consultar </small>
-            <strong><em>Jose Navarro Portfolio</em></strong> 
-         </a>
-        <p id="msj"></p>
-        <p> Tal día como hoy:</p>
-        <a id="wiki" class="a-button"> <i class="fa fa-wikipedia-w" aria-hidden="true"></i> <small
-                id="fecha"></small>&nbsp; </a>
+    <div class="content hero-section" id="welcome1">
+        <div class="hero-badge">LAB EXPERIMENTAL</div>
+        <h1>JOSELON79 LAB EXPERIMENTAL</h1>
+        <p class="hero-subtitle">Proyectos, juegos y pruebas creativas reunidas en una web </p>
+        <div class="hero-actions">
+            <a class="a-button primary" href="https://josenavarroportfolio.neocities.org/index.html">
+                <i class="fa fa-history" aria-hidden="true"></i>
+                <small>Consultar</small>
+                <strong><em>Jose Navarro Portfolio</em></strong>
+            </a>
+            <p id="msj"></p>
+            <a id="wiki" class="a-button secondary">
+                <i class="fa fa-wikipedia-w" aria-hidden="true"></i>
+                <small id="fecha"></small>
+            </a>
+        </div>
 
+        <p>Tal día como hoy:</p>
         <iframe title="wikiframe" id="wikiframe"></iframe>
 
-        <p>Os doy la <strong>bienvenida </strong>a mi página personal.</p>
+        <p>Os doy la <strong>bienvenida</strong> a mi página personal.</p>
     </div>
 
     <div class="content" id="proyectos">
@@ -135,12 +143,13 @@
         <div class="item">
             <a href="https://joselon79.neocities.org/90minutesLD43/index.html" target="_blank">
                 <i class="fa fa-search" aria-hidden="true"></i>
-                <p> 90MINUTOS </p>
-                <small> LudumDare43 proyecto v.Desktop
-                    <a href="https://joselon79.neocities.org/90minutesM/index.html" target="_blank">v.Mobile</a>
-                </small>
-
+                <p>90MINUTOS</p>
             </a>
+            <div class="card-meta">
+                <a class="secondary-link" href="https://joselon79.neocities.org/90minutesM/index.html" target="_blank">v.Mobile</a>
+                <span>LudumDare43 proyecto v.Desktop</span>
+                
+            </div>
         </div>
         <div class="item">
             <a href="https://joselon79.neocities.org/TDOTD2018/index.html">
@@ -152,12 +161,12 @@
         <div class="item">
             <a href="/PruebaTutorial/index.html">
                 <img src="/PruebaTutorial/icon.png">
-                <p> PLATAFORMAS 2D: J2D2</p>
-                <small>Unity WebGL con el tutorial de
-                    Hektor Profe
-                <a href="https://www.dropbox.com/s/3pn091f8jjilsar/J2D.apk?raw=1">Android Apk(25Mb)</a>
-                </small>
+                <p>PLATAFORMAS 2D: J2D2</p>
             </a>
+            <div class="card-meta">
+                <span>Unity WebGL con el tutorial de Hektor Profe</span>
+                <a class="secondary-link" href="https://www.dropbox.com/s/3pn091f8jjilsar/J2D.apk?raw=1">Android Apk (25 Mb)</a>
+            </div>
         </div>
         <div class="item">
             <a href="/HeroeComingSoon/index.html">
@@ -170,10 +179,12 @@
             <a href="https://reviblog.net/" target="_blank">
                 <i class="fa fa-italic" aria-hidden="true"></i>
                 <p>ADIVINA NUMERO</p>
-                <small>App desarrollada con IONIC gracias a los tutoriales de REVIBLOG: edu.revilla.vaquero
-                        <a href="https://www.dropbox.com/s/q7qfp48u7kykzie/adivinanumero.apk?raw=1">Android Apk</a>
-                </small>
             </a>
+            <div class="card-meta">
+                <a class="secondary-link" href="https://www.dropbox.com/s/q7qfp48u7kykzie/adivinanumero.apk?raw=1">Android Apk</a>
+                <span>App desarrollada con IONIC gracias a los tutoriales de REVIBLOG: edu.revilla.vaquero</span>
+                
+            </div>
         </div>
          <div class="item">
             <a href="https://github.com/Joselon/quiz/tree/Estables" target="_blank">
@@ -186,8 +197,11 @@
             <a href="https://jamweb-c8f8d7c9f0a2.herokuapp.com/" target="_blank">
                 <i class="fa fa-microphone" aria-hidden="true"></i>
                 <p>JamWeb</p>
-                <small>Compartir y Reproducir Audios. NodeJS<a href="https://github.com/Joselon/JamWeb" target="_blank"><i class="fa fa-github-square" aria-hidden="true"></i>Código en GitHub</a></small>
             </a>
+            <div class="card-meta">
+                <span>Compartir y reproducir audios. NodeJS</span>
+                <a class="secondary-link" href="https://github.com/Joselon/JamWeb" target="_blank"><i class="fa fa-github-square" aria-hidden="true"></i> Código en GitHub</a>
+            </div>
         </div>
     </div>
 
