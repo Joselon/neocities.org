@@ -1,6 +1,53 @@
 # quevemos.html - WatchList Estructuras de Datos
 
 ```txt
+joselon.neocities.org
+│
+├── index.html
+├── links.html
+├── quevemos.html       ← versión publicada
+│
+└── QueVemosApp/
+      │
+      ├── package.json
+      ├── vite.config.js
+      └── src/
+            │
+            ├── domain/
+            │   ├── Media.js
+            │   ├── WatchItem.js
+            │   ├── WatchProgress.js
+            │   ├── WatchList.js
+            │   │
+            │   ├── Recommendation.js
+            │   ├── RecommendationItem.js
+            │   │
+            │   ├── Import.js
+            │   ├── ImportItem.js
+            │   └── ImportConflict.js
+            ├── services/
+            │   ├── MediaService.js
+            │   ├── WatchListService.js
+            │   ├── RecommendationService.js
+            │   └── ImportService.js
+            ├── catalog/
+            │   ├── CatalogItem.js
+            │   └── Platform.js
+            ├── data/
+            │   ├── settings.json
+            │   ├── media.json
+            │   └── my-watchList.json
+            └── components/
+                    │
+                    ▼
+                 npm run build
+                    │
+                    ▼
+              QueVemosApp/dist/
+                    │
+                    ├── quevemos.html
+                    └── assets/
+                    
 WatchList/
 │
 ├── settings.json
@@ -14,6 +61,19 @@ WatchList/
 └── imports/
     ├── import-001.json
     └── import-002.json
+
+Media
+WatchProgress
+WatchItem
+WatchList
+CatalogItem
+Platform
+Recommendation
+RecommendationItem
+Import
+ImportItem
+ImportConflict
+Settings
 ```
 
 ```ts
