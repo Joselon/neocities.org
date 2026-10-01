@@ -90,7 +90,7 @@
         </div>
     </div>
     <div class="content" id="proyectos">
-        <p>(La búsqueda es por alguna palabra del título en V.O. en iMDB (API oMDB)</p>
+        <p> La búsqueda es por alguna palabra del título en V.O. en iMDB (API oMDB)</p>
         <input type="text" id="find_title" value="Predator" onclick="this.value=''"><br>
         <button id="search_film">Buscar películas</button>
 
@@ -143,8 +143,8 @@
             var title_find = $("#find_title").val();
             
             $.ajax({
-                url : 'http://www.omdbapi.com/?apikey=3f9e38c3',
-                data : { 's':title_find, 'r' : 'json' },
+                url : 'https://omdb-proxy.joselon79.workers.dev/search',
+                data : { 'title': title_find },
                 type : 'GET',
                 dataType : 'json',
 
@@ -192,8 +192,8 @@
             var title_find2=tituloID;
                     
                 $.ajax({
-                    url : 'http://www.omdbapi.com/?apikey=3f9e38c3',
-                    data : { 'i':title_find2, 'plot' : 'full', 'r' : 'json' },
+                    url : 'https://omdb-proxy.joselon79.workers.dev/detail',
+                    data : { 'id': title_find2 },
                     type : 'GET',
                     dataType : 'json',
 
