@@ -58,6 +58,26 @@ export class WatchList {
         // ¿considerarlo conflicto?
         this.media.push(media);
     }
+    removeMedia(mediaId) {
+        const hasWatchItem = this.watchItems.some(
+            item => item.mediaId === mediaId
+        );
+
+        if (hasWatchItem) {
+            return false;
+        }
+
+        const index = this.media.findIndex(
+            media => media.id === mediaId
+        );
+
+        if (index === -1) {
+            return false;
+        }
+
+        this.media.splice(index, 1);
+        return true;
+    }
 
     addWatchItem(watchItem) {
         const mediaExists = this.media.some(

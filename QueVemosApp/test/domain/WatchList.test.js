@@ -92,3 +92,21 @@ test("WatchList rejects a WatchItem whose Media does not exist", () => {
 });
 
 //ToDo: Test de addMedia y addWatchItem con tipos
+
+test("removeMedia no elimina un Media que tiene un WatchItem asociado", () => {
+    const watchList = new WatchList();
+
+    const media = new Media({ title: "Matrix", type: "movie" });
+    const watchItem = new WatchItem({
+        mediaId: media.id
+    });
+
+    watchList.addMedia(media);
+    watchList.addWatchItem(watchItem);
+
+    const result = watchList.removeMedia(media.id);
+
+    assert.equal(result, false);
+    assert.equal(watchList.media.length, 1);
+    assert.equal(watchList.watchItems.length, 1);
+});
