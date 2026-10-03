@@ -45,12 +45,12 @@ test("Media generates a different id for each instance", () => {
 
 test("Media stores its basic data", () => {
     const media = new Media({
-        title: "Dune",
-        type: "movie"
+        title: " Game of Thrones ",
+        type: "series"
     });
 
-    assert.equal(media.title, "Dune");
-    assert.equal(media.type, "movie");
+    assert.equal(media.title, "Game of Thrones");
+    assert.equal(media.type, "series");
 });
 
 test("Media generates a matchKey from title and type", () => {
