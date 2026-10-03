@@ -9,7 +9,7 @@ export class WatchItem {
         status = "pending",
         userRating = undefined,
         progress = undefined,
-        addedAt,
+        addedAt = new Date().toISOString(),
         watchedAt = undefined
     }) {
         this.mediaId = mediaId;

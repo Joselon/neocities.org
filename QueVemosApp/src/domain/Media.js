@@ -1,3 +1,5 @@
+import { MediaType } from "../../src/domain/MediaType.js";
+
 export class Media {
 
     constructor({
@@ -13,9 +15,9 @@ export class Media {
         ratings = undefined
     }) {
         this.id = id;
-        this.title = title;
+        this.title = Media.validateTitle(Media.normalizeTitle(title));
         this.originalTitle = originalTitle;
-        this.type = type;
+        this.type = Media.validateType(type);
         this.year = year;
         this.runtimeMinutes = runtimeMinutes;
         this.genres = genres;
@@ -48,5 +50,33 @@ export class Media {
         return year
             ? `${key}|${year}`
             : key;
+    }
+
+    static normalizeTitle(title) {
+        if (typeof title !== "string") {
+            throw new Error("Media title is required");
+        }
+
+        return title
+            .trim()
+            .replace(/\s+/g, " ");
+    }
+
+    static validateTitle(title) {
+        if (!title) {
+            throw new Error("Media title cannot be empty");
+        }
+
+        if (title.length > 250) {
+            throw new Error("Media title cannot exceed 250 characters");
+        }
+
+        return title;
+    }
+    static validateType(type) {
+        if (!Object.values(MediaType).includes(type)) {
+            throw new Error("Invalid media type");
+        }
+        return type;
     }
 }
