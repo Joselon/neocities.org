@@ -46,4 +46,17 @@ export class WatchListService {
             };
         }
     }
+
+    getItems() {
+        return this.watchList.watchItems.map(watchItem => {
+            const media = this.watchList.media.find(
+                media => media.id === watchItem.mediaId
+            );
+
+            return {
+                media,
+                watchItem
+            };
+        });
+    }
 }
