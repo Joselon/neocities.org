@@ -1,4 +1,5 @@
 import { WatchStatus } from "./WatchStatus.js";
+import { WatchProgress } from "./WatchProgress.js";
 
 export class WatchItem {
 
@@ -19,7 +20,7 @@ export class WatchItem {
         this.reason = reason;
         this.spanishAudio = spanishAudio;
         this.spanishSubtitles = spanishSubtitles;
-        this.status =  WatchItem.validateStatus(status);
+        this.status = WatchItem.validateStatus(status);
         this.userRating = userRating;
         this.progress = progress;
         this.addedAt = addedAt;
@@ -33,12 +34,24 @@ export class WatchItem {
 
         return mediaId;
     }
-    
+
     static validateStatus(status) {
         if (!Object.values(WatchStatus).includes(status)) {
             throw new Error("Invalid status type");
         }
         return status;
     }
-    
+
+    start() {
+        this.status = WatchStatus.WATCHING;
+    }
+
+    setProgress(progress) {
+        if (!(progress instanceof WatchProgress)) {
+            throw new Error("Invalid progress");
+        }
+
+        this.progress = progress;
+    }
+
 }

@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import { WatchItem } from "../../src/domain/WatchItem.js";
 import { WatchStatus } from "../../src/domain/WatchStatus.js";
+import { WatchProgress } from "../../src/domain/WatchProgress.js";
 
 test("WatchItem requires a mediaId", () => {
     assert.throws(() => {
@@ -87,6 +88,54 @@ test("WatchItem accepts a userRating", () => {
 
     assert.equal(watchingItem.userRating, 1);
 
+});
+
+test("WatchItem can start watching", () => {
+    const item = new WatchItem({
+        mediaId: "media-001"
+    });
+
+    item.start();
+
+    assert.equal(item.status, WatchStatus.WATCHING);
+});
+
+test("WatchItem manages progress", () => {
+    const item = new WatchItem({
+        mediaId: "media-001"
+    });
+
+    const progress = new WatchProgress({
+        minute: 47
+    });
+
+    item.setProgress(progress);
+
+    assert.deepEqual(item.progress, progress);
+});
+
+test("WatchItem requires a WatchProgress", () => {
+    const item = new WatchItem({
+        mediaId: "media-001"
+    });
+
+    assert.throws(() => {
+        item.setProgress({ minute: 47 });
+    });
+});
+
+test("WatchItem accepts a WatchProgress", () => {
+    const item = new WatchItem({
+        mediaId: "media-001"
+    });
+
+    const progress = new WatchProgress({
+        minute: 47
+    });
+
+    item.setProgress(progress);
+
+    assert.deepEqual(item.progress, progress);
 });
 
 /*

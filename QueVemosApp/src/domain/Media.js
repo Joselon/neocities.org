@@ -1,4 +1,4 @@
-import { MediaType } from "../../src/domain/MediaType.js";
+import { MediaType } from "./MediaType.js";
 
 export class Media {
 
