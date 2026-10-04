@@ -63,10 +63,10 @@ test("WatchItem rejects an invalid status", () => {
 test("WatchItem accepts a platform", () => {
     const watchingItem = new WatchItem({
         mediaId: "media-001",
-        platformId: "netflix-es"
+        platforms: ["netflix-es"]
     });
 
-    assert.equal(watchingItem.platformId, "netflix-es");
+    assert.equal(watchingItem.platforms[0], "netflix-es");
 
 });
 

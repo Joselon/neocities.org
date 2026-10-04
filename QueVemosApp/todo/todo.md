@@ -613,3 +613,74 @@ function jsonResponse(data, status, origin) {
   });
 }
 ```
+
+```js
+render() {
+        if (!this.media || !this.watchItem) {
+            return html``;
+        }
+
+        return html`
+            <article class="media-card">
+
+                ${this.media.poster
+                    ? html`
+                        <img
+                            class="poster"
+                            src="${this.media.poster}"
+                            alt="Poster de ${this.media.title}"
+                        >
+                    `
+                    : ""
+                }
+
+                <div class="media-info">
+                    <h3>${this.media.title}</h3>
+
+                    <div class="media-meta">
+                        <span>${this.media.type}</span>
+
+                        ${this.media.year
+                            ? html`<span>${this.media.year}</span>`
+                            : ""
+                        }
+                    </div>
+
+                    ${this.media.genres?.length
+                        ? html`
+                            <div class="genres">
+                                ${this.media.genres.map(
+                                    genre => html`
+                                        <span>${genre}</span>
+                                    `
+                                )}
+                            </div>
+                        `
+                        : ""
+                    }
+
+                    <div class="watch-info">
+                        ${this.watchItem.platform
+                            ? html`
+                                <span>
+                                    📺 ${this.watchItem.platform}
+                                </span>
+                            `
+                            : ""
+                        }
+
+                        ${this.watchItem.status
+                            ? html`
+                                <span>
+                                    🟠 ${this.watchItem.status}
+                                </span>
+                            `
+                            : ""
+                        }
+                    </div>
+                </div>
+
+            </article>
+        `;
+    }
+```

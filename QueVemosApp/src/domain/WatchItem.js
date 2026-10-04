@@ -5,7 +5,7 @@ export class WatchItem {
 
     constructor({
         mediaId,
-        platformId = undefined,
+        platforms = [],
         reason = undefined,
         spanishAudio = false,
         spanishSubtitles = false,
@@ -16,7 +16,7 @@ export class WatchItem {
         watchedAt = undefined
     }) {
         this.mediaId = WatchItem.validateMediaId(mediaId);
-        this.platformId = platformId;
+        this.platforms = platforms;
         this.reason = reason;
         this.spanishAudio = spanishAudio;
         this.spanishSubtitles = spanishSubtitles;
