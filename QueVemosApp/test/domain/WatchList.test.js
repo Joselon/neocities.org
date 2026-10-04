@@ -93,7 +93,7 @@ test("WatchList rejects a WatchItem whose Media does not exist", () => {
 
 //ToDo: Test de addMedia y addWatchItem con tipos
 
-test("removeMedia no elimina un Media que tiene un WatchItem asociado", () => {
+test("WatchList removeMedia no elimina un Media que tiene un WatchItem asociado", () => {
     const watchList = new WatchList();
 
     const media = new Media({ title: "Matrix", type: "movie" });
@@ -111,7 +111,7 @@ test("removeMedia no elimina un Media que tiene un WatchItem asociado", () => {
     assert.equal(watchList.watchItems.length, 1);
 });
 
-test("removeMedia elimina un Media sin WatchItem asociado", () => {
+test("WatchList:removeMedia elimina un Media sin WatchItem asociado", () => {
     const watchList = new WatchList();
 
     const media = new Media({ title: "Matrix", type: "movie" });
@@ -124,7 +124,7 @@ test("removeMedia elimina un Media sin WatchItem asociado", () => {
     assert.equal(watchList.media.length, 0);
 });
 
-test("does not allow adding the same media twice", () => {
+test("WatchList: does not allow adding the same media twice", () => {
     const watchList = new WatchList();
 
     const media1 = new Media({
@@ -145,7 +145,7 @@ test("does not allow adding the same media twice", () => {
     );
 });
 
-test("allows media with the same title but different type", () => {
+test("WatchList: allows media with the same title but different type", () => {
     const watchList = new WatchList();
 
     const movie = new Media({

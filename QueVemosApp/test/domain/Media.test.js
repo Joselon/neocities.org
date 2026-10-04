@@ -62,7 +62,7 @@ test("Media generates a matchKey from title and type", () => {
     assert.equal(media.matchKey, "dune|movie");
 });
 
-test("matchKey normalizes title case and surrounding spaces", () => {
+test("Media:matchKey normalizes title case and surrounding spaces", () => {
     const media = new Media({
         title: "  DUNE  ",
         type: "movie"
@@ -71,7 +71,7 @@ test("matchKey normalizes title case and surrounding spaces", () => {
     assert.equal(media.matchKey, "dune|movie");
 });
 
-test("matchKey includes the year when available", () => {
+test("Media:matchKey includes the year when available", () => {
     const media = new Media({
         title: "Dune",
         type: "movie",
@@ -81,7 +81,7 @@ test("matchKey includes the year when available", () => {
     assert.equal(media.matchKey, "dune|movie|2021");
 });
 
-test("matchKey changes when year is added", () => {
+test("Media:matchKey changes when year is added", () => {
     const media = new Media({
         title: "Dune",
         type: "movie"

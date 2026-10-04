@@ -6,7 +6,7 @@ import { WatchList } from "../../src/domain/WatchList.js";
 import { Media } from "../../src/domain/Media.js";
 
 
-test("addItem añade un Media y su WatchItem", () => {
+test("Services: addItem añade un Media y su WatchItem", () => {
     const watchList = new WatchList();
     const service = new WatchListService(watchList);
 
@@ -23,7 +23,7 @@ test("addItem añade un Media y su WatchItem", () => {
 });
 
 
-test("addItem no añade nada si falla la creación del Media", () => {
+test("Services: addItem no añade nada si falla la creación del Media", () => {
     const watchList = new WatchList();
     const service = new WatchListService(watchList);
 
@@ -34,7 +34,7 @@ test("addItem no añade nada si falla la creación del Media", () => {
     assert.equal(watchList.watchItems.length, 0);
 });
 
-test("addItem elimina el Media si falla al añadir el WatchItem", () => {
+test("Services: addItem elimina el Media si falla al añadir el WatchItem", () => {
     class WatchListQueFalla extends WatchList {
 
         addWatchItem() {

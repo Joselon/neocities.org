@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { WatchList } from "./domain/WatchList.js";
 import { WatchListService } from "./services/WatchListService.js";
+import { WatchListStorage } from "./storage/WatchListStorage.js";
 
 import "./components/AppHeader.js";
 import "./components/AppFooter.js";
@@ -128,12 +129,11 @@ export class App extends LitElement {
         super();
         
         this.items = [];
-
-        const watchList = new WatchList({
-            name: "La nuestra"
-        });
+        const watchListStorage = new WatchListStorage(localStorage);
+        const watchList = watchListStorage.load();
 
         this.service = new WatchListService(watchList);
+        this.storage = watchListStorage;
         this.items = this.service.getItems();
     }
 
@@ -145,7 +145,12 @@ export class App extends LitElement {
             <app-header></app-header>
             <main>
                 <section class="content">
-                    <h2>Mi lista</h2>
+                    <div class="storage-actions">
+                        <button @click=${this.resetWatchList}>
+                            Reset
+                        </button>
+                    </div>
+                    <h2>${this.service.watchList.name}</h2>
 
                     <add-item-form @add-item=${this.addItem}></add-item-form>
                     <br/>
@@ -185,10 +190,28 @@ export class App extends LitElement {
             console.error(result.error);
             return;
         }
-
+        this.storage.save(this.service.watchList);
         this.items = this.service.getItems();
 
         event.target.resetForm();
+    }
+
+    resetWatchList() {
+        const confirmed = confirm(
+            "Se perderán todos los datos de la lista. ¿Deseas continuar?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        const watchList = new WatchList({
+            name: "Mi nueva lista"
+        });
+
+        this.service = new WatchListService(watchList);
+        this.storage.save(watchList);
+        this.items = this.service.getItems();
     }
 }
 
