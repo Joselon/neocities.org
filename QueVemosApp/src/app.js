@@ -5,6 +5,7 @@ import { WatchListService } from "./services/WatchListService.js";
 import "./components/AppHeader.js";
 import "./components/AppFooter.js";
 import "./components/WatchItemView.js";
+import "./components/AddItemForm.js";
 
 export class App extends LitElement {
     static styles = css`
@@ -136,28 +137,6 @@ export class App extends LitElement {
         this.items = this.service.getItems();
     }
 
-    addItem(event) {
-        event.preventDefault();
-
-        const form = event.target;
-        const title = form.title.value.trim();
-        const type = form.type.value;
-
-        if (!title) {
-            return;
-        }
-
-        const result = this.service.addItem(title, type);
-
-        if (!result.success) {
-            console.error(result.error);
-            return;
-        }
-
-        this.items = this.service.getItems();
-
-        form.reset();
-    }
 
     render() {
         const items = this.items;
@@ -168,23 +147,7 @@ export class App extends LitElement {
                 <section class="content">
                     <h2>Mi lista</h2>
 
-                    <form @submit=${this.addItem}>
-                        <input
-                            name="title"
-                            type="text"
-                            placeholder="Título"
-                            required
-                        >
-
-                        <select name="type">
-                            <option value="movie">Película</option>
-                            <option value="series">Serie</option>
-                        </select>
-
-                        <button type="submit">
-                            Añadir
-                        </button>
-                    </form>
+                    <add-item-form @add-item=${this.addItem}></add-item-form>
                     <br/>
                     ${items.length === 0
                         ? html`
@@ -207,6 +170,25 @@ export class App extends LitElement {
             </main>
             <app-footer></app-footer>
         `;
+    }
+
+    addItem(event) {
+        const { title, type } = event.detail;
+
+        if (!title) {
+            return;
+        }
+
+        const result = this.service.addItem(event.detail);
+
+        if (!result.success) {
+            console.error(result.error);
+            return;
+        }
+
+        this.items = this.service.getItems();
+
+        event.target.resetForm();
     }
 }
 

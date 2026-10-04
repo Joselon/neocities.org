@@ -10,7 +10,7 @@ test("addItem añade un Media y su WatchItem", () => {
     const watchList = new WatchList();
     const service = new WatchListService(watchList);
 
-    const result = service.addItem("Matrix", "movie");
+    const result = service.addItem({title: "Matrix", type: "movie"});
 
     assert.equal(result.success, true);
     assert.equal(watchList.media.length, 1);
@@ -27,7 +27,7 @@ test("addItem no añade nada si falla la creación del Media", () => {
     const watchList = new WatchList();
     const service = new WatchListService(watchList);
 
-    const result = service.addItem("", "movie");
+    const result = service.addItem({title: "", type: "movie"});
 
     assert.equal(result.success, false);
     assert.equal(watchList.media.length, 0);
@@ -45,7 +45,7 @@ test("addItem elimina el Media si falla al añadir el WatchItem", () => {
     const watchList = new WatchListQueFalla();
     const service = new WatchListService(watchList);
 
-    const result = service.addItem("Matrix", "movie");
+    const result = service.addItem({title: "Matrix", type: "movie"});
 
     assert.equal(result.success, false);
 

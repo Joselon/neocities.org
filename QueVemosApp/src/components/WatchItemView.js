@@ -1,4 +1,5 @@
 import { LitElement, html, css } from "lit";
+import settings from "../data/setting.json";
 
 export class WatchItemView extends LitElement {
 
@@ -79,6 +80,39 @@ export class WatchItemView extends LitElement {
             font-size: 0.78rem;
         }
 
+        .status {
+            display: inline-block;
+            margin-top: 0.6rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .status-pending {
+            opacity: 0.8;
+        }
+
+        .status-watching {
+            background: rgba(255, 154, 60, 0.25);
+            border: 1px solid var(--accent-2);
+        }
+
+        .status-paused {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .status-watched {
+            background: rgba(100, 200, 120, 0.25);
+            border: 1px solid rgba(100, 200, 120, 0.7);
+        }
+
+        .status-discarded {
+            background: rgba(220, 80, 80, 0.25);
+            border: 1px solid rgba(220, 80, 80, 0.7);
+        }
+
         /* Móvil */
 
         @media (max-width: 768px) {
@@ -94,11 +128,39 @@ export class WatchItemView extends LitElement {
         media: { type: Object },
         watchItem: { type: Object }
     };
+    static getCatalogName(catalog, id) {
+        const item = catalog.find(item => item.id === id);
+        return item?.name ?? id;
+    }
 
     render() {
         if (!this.media || !this.watchItem) {
             return html``;
         }
+        const typeName = WatchItemView.getCatalogName(
+            settings.mediaTypes,
+            this.media.type
+        );
+
+        const genres = this.media.genres.map(
+            genreId => WatchItemView.getCatalogName(
+                settings.genres,
+                genreId
+            )
+        );
+        const platforms = this.watchItem.platforms.map(
+            platformId => WatchItemView.getCatalogName(
+                settings.platforms,
+                platformId
+            )
+        );
+
+        const statusName = WatchItemView.getCatalogName(
+            settings.watchStatuses,
+            this.watchItem.status
+        );
+
+        const statusClass = `status-${this.watchItem.status}`;
 
         return html`
             <article class="media-card">
@@ -106,10 +168,52 @@ export class WatchItemView extends LitElement {
                     <h3>
                         ${this.media.title}
                     </h3>
+                    <div class="media-meta">
+                        <span class="media-type">${typeName}</span>
+                        ${this.media.year
+                            ? html`<span>${this.media.year}</span>`
+                            : ""
+                        }
+                        ${this.media.runtimeMinutes
+                            ? html`
+                                <span>
+                                    ${this.media.runtimeMinutes} min
+                                </span>
+                            `
+                            : ""
+                        }
+                    </div>
 
-                    <span class="media-type">
-                        ${this.media.type}
-                    </span>
+                    ${genres.length
+                        ? html`
+                            <div class="genres">
+                                ${genres.map(
+                                    genre => html`
+                                        <span>${genre}</span>
+                                    `
+                                )}
+                            </div>
+                        `
+                        : ""
+                    }
+
+                    ${platforms.length
+                        ? html`
+                            <div class="platforms">
+                                📺 ${platforms.join(" · ")}
+                            </div>
+                        `
+                        : ""
+                    }
+
+                    ${statusName
+                        ? html`
+                            <div class="status ${statusClass}">
+                                ${statusName}
+                            </div>
+                        `
+                        : ""
+                    }
                 </div>
             </article>
         `;

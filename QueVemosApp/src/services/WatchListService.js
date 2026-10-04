@@ -14,15 +14,29 @@ export class WatchListService {
         this.watchList = watchList;
     }
 
-    addItem(title, type) {
+    addItem({
+        title,
+        type,
+        year,
+        originalTitle,
+        genres,
+        platforms
+    }) {
         let media = null;
         let mediaAdded = false;
 
         try {
-            media = new Media({ title, type });
+            media = new Media({
+                title,
+                type,
+                year,
+                originalTitle,
+                genres
+            });
 
             const watchItem = new WatchItem({
-                mediaId: media.id
+                mediaId: media.id,
+                platforms
             });
 
             this.watchList.addMedia(media);
