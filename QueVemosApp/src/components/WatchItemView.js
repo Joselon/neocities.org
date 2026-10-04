@@ -163,6 +163,10 @@ export class WatchItemView extends LitElement {
         const statusClass = `status-${this.watchItem.status}`;
 
         return html`
+            <link
+                rel="stylesheet"
+                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
+            >
             <article class="media-card">
                 <div class="media-info">
                     <h3>
@@ -200,7 +204,7 @@ export class WatchItemView extends LitElement {
                     ${platforms.length
                         ? html`
                             <div class="platforms">
-                                <i class="fad fa-tv"></i> En: ${platforms.join(" · ")}
+                                <i class="fa fa-tv"></i> : ${platforms.join(" · ")}
                             </div>
                         `
                         : ""
