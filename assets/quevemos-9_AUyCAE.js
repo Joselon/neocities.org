@@ -345,6 +345,10 @@
         }
 
     `;static properties={media:{type:Object},watchItem:{type:Object}};static getCatalogName(e,t){return e.find(e=>e.id===t)?.name??t}render(){if(!this.media||!this.watchItem)return I``;let t=e.getCatalogName($.mediaTypes,this.media.type),n=this.media.genres.map(t=>e.getCatalogName($.genres,t)),r=this.watchItem.platforms.map(t=>e.getCatalogName($.platforms,t)),i=e.getCatalogName($.watchStatuses,this.watchItem.status),a=`status-${this.watchItem.status}`;return I`
+            <link
+                rel="stylesheet"
+                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
+            >
             <article class="media-card">
                 <div class="media-info">
                     <h3>
@@ -370,7 +374,7 @@
 
                     ${r.length?I`
                             <div class="platforms">
-                                <i class="fa fa-tv"></i> En: ${r.join(` · `)}
+                                <i class="fa fa-tv"></i> : ${r.join(` · `)}
                             </div>
                         `:``}
 
