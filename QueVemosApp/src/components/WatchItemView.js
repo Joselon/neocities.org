@@ -113,6 +113,20 @@ export class WatchItemView extends LitElement {
             border: 1px solid rgba(220, 80, 80, 0.7);
         }
 
+        .action-button {
+            padding: 0.4rem 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            color: var(--text);
+            border-color: var(--text);
+        }
+
         /* Móvil */
 
         @media (max-width: 768px) {
@@ -131,6 +145,28 @@ export class WatchItemView extends LitElement {
     static getCatalogName(catalog, id) {
         const item = catalog.find(item => item.id === id);
         return item?.name ?? id;
+    }
+
+    editItem() {
+        this.dispatchEvent(new CustomEvent("edit-item", {
+            detail: {
+                media: this.media,
+                watchItem: this.watchItem
+            },
+            bubbles: true,
+            composed: true
+        }));
+    }
+
+    changeStatus(status) {
+        this.dispatchEvent(new CustomEvent("change-status", {
+            detail: {
+                mediaId: this.media.id,
+                status
+            },
+            bubbles: true,
+            composed: true
+        }));
     }
 
     render() {
@@ -218,11 +254,84 @@ export class WatchItemView extends LitElement {
                         `
                         : ""
                     }
+                    <div class="actions">
+
+                        ${this.renderStatusActions()}
+
+                        <button
+                            type="button"
+                            class="action-button"
+                            title="Editar"
+                            @click=${this.editItem}
+                        >
+                            <i class="fa fa-pencil"></i>
+                        </button>
+
+                    </div>
                 </div>
             </article>
         `;
     }
+
+    renderStatusActions() {
+
+        switch (this.watchItem.status) {
+
+            case "pending":
+                return html`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Empezar"
+                        @click=${() =>
+                            this.changeStatus("watching")}
+                    >
+                        <i class="fa fa-play"></i>
+                    </button>
+                `;
+
+            case "watching":
+                return html`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Pausar"
+                        @click=${() =>
+                            this.changeStatus("paused")}
+                    >
+                        <i class="fa fa-pause"></i>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Marcar como vista"
+                        @click=${() =>
+                            this.changeStatus("watched")}
+                    >
+                        <i class="fa fa-check"></i>
+                    </button>
+                `;
+
+            case "paused":
+                return html`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Continuar"
+                        @click=${() =>
+                            this.changeStatus("watching")}
+                    >
+                        <i class="fa fa-play"></i>
+                    </button>
+                `;
+
+            default:
+                return "";
+        }
+    }
 }
+
 
 
 customElements.define("watch-item-view", WatchItemView);

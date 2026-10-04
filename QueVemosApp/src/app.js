@@ -7,6 +7,7 @@ import "./components/AppHeader.js";
 import "./components/AppFooter.js";
 import "./components/WatchItemView.js";
 import "./components/AddItemForm.js";
+import "./components/EditItemForm.js";
 
 export class App extends LitElement {
     static styles = css`
@@ -106,6 +107,26 @@ export class App extends LitElement {
             text-align: center;
         }
 
+        .item-container {
+            position: relative;
+        }
+
+        .edit-transition {
+            animation: edit-in 0.25s ease;
+        }
+
+        @keyframes edit-in {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Móvil */
 
         @media (max-width: 768px) {
@@ -122,7 +143,8 @@ export class App extends LitElement {
     `;
 
     static properties = {
-        items: { state: true }
+        items: { state: true },
+        editingItem: { state: true }
     };
     
     constructor() {
@@ -135,7 +157,10 @@ export class App extends LitElement {
         this.service = new WatchListService(watchList);
         this.storage = watchListStorage;
         this.items = this.service.getItems();
+
+        this.editingItem = undefined;
     }
+
 
 
     render() {
@@ -143,17 +168,31 @@ export class App extends LitElement {
 
         return html`
             <app-header></app-header>
+
             <main>
                 <section class="content">
+
                     <div class="storage-actions">
                         <button @click=${this.resetWatchList}>
                             Reset
                         </button>
                     </div>
+
                     <h2>${this.service.watchList.name}</h2>
 
-                    <add-item-form @add-item=${this.addItem}></add-item-form>
                     <br/>
+
+                    ${!this.editingItem
+                        ? html`
+                            <add-item-form
+                                @add-item=${this.addItem}
+                            ></add-item-form>
+                        `
+                        : ""
+                    }
+
+                    <br/>
+
                     ${items.length === 0
                         ? html`
                             <p class="empty">
@@ -162,20 +201,53 @@ export class App extends LitElement {
                         `
                         : html`
                             <div class="media-list">
-                                ${items.map(item => html`
-                                    <watch-item-view
-                                        .media=${item.media}
-                                        .watchItem=${item.watchItem}
-                                    ></watch-item-view>
-                                `)}
+
+                                ${items.map(item => {
+
+                                    const isEditing =
+                                        this.editingItem?.media.id === item.media.id;
+
+                                    return html`
+                                        <div class="item-container">
+
+                                            ${isEditing
+                                                ? html`
+                                                    <div class="edit-transition">
+                                                        <edit-item-form
+                                                            .media=${item.media}
+                                                            .watchItem=${item.watchItem}
+                                                            @save-item=${this.saveItem}
+                                                            @cancel-edit=${this.cancelEdit}
+                                                        ></edit-item-form>
+                                                    </div>
+                                                `
+                                                : html`
+                                                    <div class="edit-transition">
+                                                        <watch-item-view
+                                                            .media=${item.media}
+                                                            .watchItem=${item.watchItem}
+                                                            @edit-item=${this.editItem}
+                                                            @change-status=${this.changeStatus}
+                                                        ></watch-item-view>
+                                                    </div>
+                                                `
+                                            }
+
+                                        </div>
+                                    `;
+                                })}
+
                             </div>
                         `
                     }
+
                 </section>
             </main>
+
             <app-footer></app-footer>
         `;
     }
+
 
     addItem(event) {
         const { title, type } = event.detail;
@@ -194,6 +266,48 @@ export class App extends LitElement {
         this.items = this.service.getItems();
 
         event.target.resetForm();
+    }
+
+    editItem(event) {
+        this.editingItem = event.detail;
+    }
+
+    cancelEdit() {
+        this.editingItem = undefined;
+    }
+
+    saveItem(event) {
+        const result = this.service.updateItem(event.detail);
+
+        if (!result.success) {
+            console.error(result.error);
+            return;
+        }
+
+        this.storage.save(this.service.watchList);
+
+        this.items = this.service.getItems();
+
+        this.editingItem = undefined;
+    }
+
+    changeStatus(event) {
+        console.log("changeStatus", event.detail);
+        const result = this.service.changeStatus(
+            event.detail.mediaId,
+            event.detail.status
+        );
+
+        if (!result.success) {
+            console.error(result.error);
+            return;
+        }
+
+        this.storage.save(this.service.watchList);
+
+        this.items = [...this.service.getItems()];
+
+        console.log("nuevo estado:", event.detail.status);
     }
 
     resetWatchList() {
