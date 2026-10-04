@@ -200,7 +200,7 @@ export class WatchItemView extends LitElement {
                     ${platforms.length
                         ? html`
                             <div class="platforms">
-                                <i class="fa-solid fa-tv"></i> En: ${platforms.join(" · ")}
+                                <i class="fad fa-tv"></i> En: ${platforms.join(" · ")}
                             </div>
                         `
                         : ""
