@@ -116,10 +116,10 @@ export class AddItemForm extends LitElement {
             detail: {
                 title: form.title.value.trim(),
                 type: form.type.value,
-                year: form.year.value
+                year: form.year?.value
                     ? Number(form.year.value)
                     : undefined,
-                originalTitle: form.originalTitle.value.trim() || undefined,
+                originalTitle: form.originalTitle?.value.trim() || undefined,
                 genres,
                 platforms
             },
