@@ -76,68 +76,6 @@ ImportConflict
 Settings
 ```
 
-```ts
-interface WatchList {
-    version: number;
-
-    id: string;
-    name: string;
-
-    items: WatchItem[];
-}
-
-interface WatchItem {
-    mediaId: string;
-
-    platformId?: string;
-
-    reason?: string;
-
-    spanishAudio: boolean;
-    spanishSubtitles: boolean;
-
-    status: WatchStatus;
-
-    userRating?: number;
-
-    addedAt: string;
-}
-
-type WatchStatus =
-    | "pending"
-    | "watching"
-    | "paused"
-    | "watched"
-    | "discarded";
-
-interface Media {
-    id: string;
-    title: string;
-    originalTitle?: string;
-
-    type: "movie" | "series";
-
-    year?: number;
-
-    genres: Genre[];
-
-    matchKey: string;
-
-    omdbId?: string;
-
-    poster?: string;
-
-    ratings?: {
-        imdb?: number;
-        metacritic?: number;
-    };
-}
-
-type MediaType =
-    | "movie"
-    | "series";
-
-```
 
 | Campo           | Tipo       | Obligatorio | Valores                          |
 | --------------- | ---------- | ----------: | -------------------------------- |

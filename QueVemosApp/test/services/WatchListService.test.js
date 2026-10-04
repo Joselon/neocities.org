@@ -52,16 +52,3 @@ test("addItem elimina el Media si falla al añadir el WatchItem", () => {
     assert.equal(watchList.media.length, 0);
     assert.equal(watchList.watchItems.length, 0);
 });
-
-test("removeMedia elimina un Media sin WatchItem asociado", () => {
-    const watchList = new WatchList();
-
-    const media = new Media({ title: "Matrix", type: "movie" });
-
-    watchList.addMedia(media);
-
-    const result = watchList.removeMedia(media.id);
-
-    assert.equal(result, true);
-    assert.equal(watchList.media.length, 0);
-});

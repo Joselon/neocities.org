@@ -51,8 +51,11 @@ export class WatchList {
         if (this.media.some(item => item.id === media.id)) {
             throw new Error("Media already exists");
         }
-        //ToDo: por matchKey y comparación de campos
-        // ¿devolver media1?
+        if (this.media.some(item => item.matchKey === media.matchKey)) {
+            throw new Error("Media already exists");
+        }
+        //ToDo: comparación de campos
+        // ¿devolver coincidencias?
         // ¿rechazar?
         // ¿comparar campos?
         // ¿considerarlo conflicto?

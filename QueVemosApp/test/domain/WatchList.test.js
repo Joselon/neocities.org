@@ -110,3 +110,56 @@ test("removeMedia no elimina un Media que tiene un WatchItem asociado", () => {
     assert.equal(watchList.media.length, 1);
     assert.equal(watchList.watchItems.length, 1);
 });
+
+test("removeMedia elimina un Media sin WatchItem asociado", () => {
+    const watchList = new WatchList();
+
+    const media = new Media({ title: "Matrix", type: "movie" });
+
+    watchList.addMedia(media);
+
+    const result = watchList.removeMedia(media.id);
+
+    assert.equal(result, true);
+    assert.equal(watchList.media.length, 0);
+});
+
+test("does not allow adding the same media twice", () => {
+    const watchList = new WatchList();
+
+    const media1 = new Media({
+        title: "Robocop",
+        type: "movie"
+    });
+
+    const media2 = new Media({
+        title: "Robocop",
+        type: "movie"
+    });
+
+    watchList.addMedia(media1);
+
+    assert.throws(
+        () => watchList.addMedia(media2),
+        /Media already exists/
+    );
+});
+
+test("allows media with the same title but different type", () => {
+    const watchList = new WatchList();
+
+    const movie = new Media({
+        title: "Robocop",
+        type: "movie"
+    });
+
+    const series = new Media({
+        title: "Robocop",
+        type: "series"
+    });
+
+    watchList.addMedia(movie);
+    watchList.addMedia(series);
+
+    assert.strictEqual(watchList.media.length, 2);
+});
