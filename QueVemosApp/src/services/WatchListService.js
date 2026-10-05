@@ -204,6 +204,21 @@ export class WatchListService {
             };
         }
     }
+
+    renameWatchList(name) {
+        if (!name || !name.trim()) {
+            return {
+                success: false,
+                error: "El nombre no puede estar vacío"
+            };
+        }
+
+        this.watchList.name = name.trim();
+
+        return {
+            success: true
+        };
+    }
     
     getItems() {
         return this.watchList.watchItems.map(watchItem => {

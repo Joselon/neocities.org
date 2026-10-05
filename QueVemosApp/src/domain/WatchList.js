@@ -4,9 +4,9 @@ import { WatchItem } from "./WatchItem.js";
 export class WatchList {
 
     constructor({
-        version = undefined,
-        id = undefined,
-        name = undefined,
+        version = 1,
+        id =  WatchList.generateId(),
+        name = "Mi primera lista",
         watchItems = undefined, //WatchItem[]
         media = undefined
     } = {}) {
@@ -15,6 +15,10 @@ export class WatchList {
         this.name = name;
         this.watchItems = WatchList.validatesItems(watchItems);
         this.media = WatchList.validatesMedia(media);
+    }
+
+    static generateId() {
+        return crypto.randomUUID();
     }
 
     static validatesItems(watchItems) {

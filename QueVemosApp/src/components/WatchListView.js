@@ -2,6 +2,7 @@ import { LitElement, html, css } from "lit";
 import { WatchList } from "../domain/WatchList.js";
 import { WatchListService } from "../services/WatchListService.js";
 import { WatchListStorage } from "../storage/WatchListStorage.js";
+import { WatchListFileStorage } from "../storage/WatchListFileStorage.js";
 
 import "./WatchItemView.js";
 import "./AddItemForm.js";
@@ -142,7 +143,8 @@ export class WatchListView extends LitElement {
 
     static properties = {
         items: { state: true },
-        editingItem: { state: true }
+        editingItem: { state: true },
+        listName: { state: true }
     };
 
     constructor() {
@@ -151,10 +153,13 @@ export class WatchListView extends LitElement {
         this.items = [];
         const watchListStorage = new WatchListStorage(localStorage);
         const watchList = watchListStorage.load();
+        const watchListFileStorage = new WatchListFileStorage();
 
         this.service = new WatchListService(watchList);
-        this.storage = watchListStorage;
+        this.listName = this.service.watchList.name;
         this.items = this.service.getItems();
+        this.storage = watchListStorage;
+        this.fileStorage = watchListFileStorage;
 
         this.editingItem = undefined;
     }
@@ -168,12 +173,40 @@ export class WatchListView extends LitElement {
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
             >
             <div class="storage-actions">
-                <button @click=${this.resetWatchList}>
+                <button
+                    type="button"
+                    @click=${this.exportWatchList}
+                >
+                    <i class="fa fa-download"></i>
+                    Exportar lista
+                </button>
+
+                <button
+                    type="button"
+                    @click=${this.importWatchList}
+                >
+                    <i class="fa fa-upload"></i>
+                    Importar lista
+                </button>
+
+                <button
+                    type="button"
+                    @click=${this.resetWatchList}
+                >
+                    <i class="fa fa-refresh"></i>
                     Reset
                 </button>
             </div>
-            <h2>${this.service.watchList.name}</h2>
-
+            <h2>${this.listName} <button
+                    type="button"
+                    class="action-button"
+                    title="Editar Nombre de la lista"
+                    @click=${this.editListName}
+                >
+                    <i class="fa fa-pencil"></i>
+                </button>
+            </h2>
+            
             <br/>
 
             ${!this.editingItem
@@ -203,7 +236,7 @@ export class WatchListView extends LitElement {
                                     title="Ordenar"
                                     disabled
                                 >
-                                    <i class="fa fa-sort-down"></i>
+                                    <i class="fa fa-sort-alpha-desc"></i>
                                 </button>
                                 <button
                                     class="action-button"
@@ -298,7 +331,6 @@ export class WatchListView extends LitElement {
     }
 
     changeStatus(event) {
-        console.log("changeStatus", event.detail);
         const result = this.service.changeStatus(
             event.detail.mediaId,
             event.detail.status
@@ -312,8 +344,103 @@ export class WatchListView extends LitElement {
         this.storage.save(this.service.watchList);
 
         this.items = [...this.service.getItems()];
+    }
 
-        console.log("nuevo estado:", event.detail.status);
+    editListName() {
+        const newName = prompt(
+            "Ingrese el nuevo nombre para la lista:",
+            this.service.watchList.name
+        );
+
+        if (!newName) {
+            return;
+        }
+
+        const result = this.service.renameWatchList(newName);
+
+        if (!result.success) {
+            console.error(result.error);
+            return;
+        }
+
+        this.storage.save(this.service.watchList);
+        this.listName = this.service.watchList.name;
+    }
+
+    exportWatchList() {
+
+        const json = this.fileStorage.export(
+            this.service.watchList
+        );
+
+        const blob = new Blob(
+            [json],
+            { type: "application/json" }
+        );
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "quevemos-watchlist.json";
+
+        link.click();
+
+        URL.revokeObjectURL(url);
+    }
+
+    importWatchList() {
+
+        const confirmed = confirm(
+            "La lista actual será sustituida por la lista importada. ¿Deseas continuar?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        const input = document.createElement("input");
+
+        input.type = "file";
+        input.accept = "application/json,.json";
+
+        input.addEventListener("change", async () => {
+
+            const file = input.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            try {
+
+                const json = await file.text();
+
+                const watchList =
+                    this.fileStorage.import(json);
+
+                this.service =
+                    new WatchListService(watchList);
+
+                this.storage.save(watchList);
+
+                this.items =
+                    this.service.getItems();
+
+                this.editingItem = undefined;
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    `No se pudo importar la lista:\n${error.message}`
+                );
+            }
+        });
+
+        input.click();
     }
 
     resetWatchList() {
