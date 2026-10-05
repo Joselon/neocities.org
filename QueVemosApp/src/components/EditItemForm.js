@@ -6,6 +6,10 @@ import settings from "../data/setting.json";
 export class EditItemForm extends LitElement {
 
     static styles = css`
+        :host {
+            display: block;
+        }
+            
         *,
         *::before,
         *::after {

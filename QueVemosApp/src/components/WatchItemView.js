@@ -6,6 +6,10 @@ import { WatchStatus } from "../domain/WatchStatus.js";
 export class WatchItemView extends LitElement {
 
     static styles = css`
+        :host {
+            display: block;
+        }
+            
         *,
         *::before,
         *::after {
@@ -541,7 +545,5 @@ export class WatchItemView extends LitElement {
         }
     }
 }
-
-
 
 customElements.define("watch-item-view", WatchItemView);

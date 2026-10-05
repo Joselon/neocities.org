@@ -4,16 +4,16 @@ import settings from "../data/setting.json";
 export class AddItemForm extends LitElement {
 
     static styles = css`
+        :host {
+            display: block;
+        }
+
         *,
         *::before,
         *::after {
             box-sizing: border-box;
         }
-
-        :host {
-            display: block;
-        }
-
+            
         a {
             color: var(--text);
             text-decoration: none;

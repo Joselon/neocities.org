@@ -3,6 +3,10 @@ import { LitElement, html, css } from "lit";
 export class AppFooter extends LitElement {
 
     static styles = css`
+        :host {
+            display: block;
+        }
+            
         *,
         *::before,
         *::after {
