@@ -10,6 +10,10 @@ export class AddItemForm extends LitElement {
             box-sizing: border-box;
         }
 
+        :host {
+            display: block;
+        }
+
         a {
             color: var(--text);
             text-decoration: none;
@@ -140,6 +144,17 @@ export class AddItemForm extends LitElement {
     render() {
 
         return html`
+            <hr class="divider"></hr>
+            <div class="header">
+                <div class="header-icon">
+                    <i class="fa fa-plus"></i>
+                </div>
+
+                <div>
+                    <h2>Añadir elemento</h2>
+                    <p>Estás añadiendo un elemento a tu lista manualmente</p>
+                </div>
+            </div>
             <form @submit=${this.addItem}>
                 <div class="field">
                     <label for="title">
@@ -262,6 +277,7 @@ export class AddItemForm extends LitElement {
                 </button>
 
             </form>
+           <hr class="divider"></hr>
         `;
     }
 }

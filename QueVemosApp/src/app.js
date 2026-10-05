@@ -88,6 +88,38 @@ export class App extends LitElement {
 
         /* Lista */
 
+        header {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(70, 70, 70, 0.95),
+                    rgba(35, 35, 35, 0.95)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.1rem 1.3rem 1.3rem;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.25);
+
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            padding: 0.35rem 0.8rem;
+
+            border-radius: 999px;
+
+            background: rgba(255, 107, 44, 0.18);
+            color: #ffd7bf;
+
+            font-size: 0.82rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
         .media-list {
             display: flex;
             flex-direction: column;
@@ -138,6 +170,9 @@ export class App extends LitElement {
                 padding: 1rem 0.8rem 1.2rem;
             }
 
+            header {
+                padding: 1rem 0.8rem 1.1rem;
+            }
 
         }
     `;
@@ -201,7 +236,9 @@ export class App extends LitElement {
                         `
                         : html`
                             <div class="media-list">
-
+                                <header>
+                                    <div class="hero-badge"> Mostrando todos los elementos </div>
+                                </header>
                                 ${items.map(item => {
 
                                     const isEditing =
