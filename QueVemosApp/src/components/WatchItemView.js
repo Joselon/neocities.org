@@ -380,13 +380,13 @@ export class WatchItemView extends LitElement {
                         <div class="status-actions">
                             ${this.renderStatusActions()}
                             <!-- ToDo -->
-                            <!--<button
+                            <button
                                 class="action-button"
                                 title="Recomendar"
-                                
+                                disabled
                             >
                                 <i class="fa fa-share-alt"></i>
-                            </button>-->
+                            </button>
                         </div>
                     </div>
                 </div>

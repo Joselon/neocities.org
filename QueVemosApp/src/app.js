@@ -159,6 +159,40 @@ export class App extends LitElement {
             }
         }
 
+        /* -------------------------
+        Botones
+        ------------------------- */
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 34px;
+            height: 34px;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+
+            transform: translateY(-1px);
+        }
+
         /* Móvil */
 
         @media (max-width: 768px) {
@@ -172,6 +206,11 @@ export class App extends LitElement {
 
             header {
                 padding: 1rem 0.8rem 1.1rem;
+            }
+
+            .action-button {
+                width: 32px;
+                height: 32px;
             }
 
         }
@@ -237,7 +276,22 @@ export class App extends LitElement {
                         : html`
                             <div class="media-list">
                                 <header>
+                                     <button
+                                        class="action-button"
+                                        title="Filtrar"
+                                        disabled
+                                    >
+                                        <i class="fa fa-filter"></i>
+                                    </button>
+
                                     <div class="hero-badge"> Mostrando todos los elementos </div>
+                                    <button
+                                        class="action-button"
+                                        title="Ordenar"
+                                        disabled
+                                    >
+                                        <i class="fa fa-sort-down"></i>
+                                    </button>
                                 </header>
                                 ${items.map(item => {
 

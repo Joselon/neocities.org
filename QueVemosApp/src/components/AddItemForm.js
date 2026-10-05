@@ -31,6 +31,10 @@ export class AddItemForm extends LitElement {
             margin-bottom: 1rem;
         }
         
+        .fit-content {
+            width: fit-content; 
+        }
+
         label {
             display: block;
             margin-bottom: 0.35rem;
@@ -170,7 +174,7 @@ export class AddItemForm extends LitElement {
                     >
                 </div>
 
-                <div class="field">
+                <div class="field fit-content">
                     <label for="type">
                         Tipo
                     </label>
@@ -199,7 +203,7 @@ export class AddItemForm extends LitElement {
                     ? html`
                         <div class="details">
 
-                            <div class="field">
+                            <div class="field fit-content">
                                 <label for="year">
                                     Año
                                 </label>
@@ -212,6 +216,26 @@ export class AddItemForm extends LitElement {
                                     max="2100"
                                     placeholder="Año"
                                 >
+                            </div>
+                            <div class="field">
+                                <label>
+                                    Plataformas
+                                </label>
+
+                                <div class="checkbox-list">
+                                    ${settings.platforms
+                                        .filter(platform => platform.active)
+                                        .map(platform => html`
+                                            <label class="checkbox">
+                                                <input
+                                                    type="checkbox"
+                                                    name="platforms"
+                                                    value=${platform.id}
+                                                >
+                                                ${platform.name}
+                                            </label>
+                                        `)}
+                                </div>
                             </div>
 
                             <div class="field">
@@ -245,28 +269,7 @@ export class AddItemForm extends LitElement {
                                     `)}
                                 </div>
                             </div>
-
-                            <div class="field">
-                                <label>
-                                    Plataformas
-                                </label>
-
-                                <div class="checkbox-list">
-                                    ${settings.platforms
-                                        .filter(platform => platform.active)
-                                        .map(platform => html`
-                                            <label class="checkbox">
-                                                <input
-                                                    type="checkbox"
-                                                    name="platforms"
-                                                    value=${platform.id}
-                                                >
-                                                ${platform.name}
-                                            </label>
-                                        `)}
-                                </div>
-                            </div>
-
+                            
                         </div>
                     `
                     : ""

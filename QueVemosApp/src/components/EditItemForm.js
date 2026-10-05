@@ -60,6 +60,10 @@ export class EditItemForm extends LitElement {
             margin-bottom: 1rem;
         }
 
+        .fit-content {
+            width: fit-content; 
+        }
+
         label {
             display: block;
             margin-bottom: 0.35rem;
@@ -261,6 +265,7 @@ export class EditItemForm extends LitElement {
 
         const season = form.season.value;
         const episode = form.episode.value;
+        const minute = form.minute.value;
 
         if (!season && !episode) {
             return undefined;
@@ -272,6 +277,9 @@ export class EditItemForm extends LitElement {
                 : undefined,
             episode: episode
                 ? Number(episode)
+                : undefined,
+            minute: minute
+                ? Number(minute)
                 : undefined
         });
     }
@@ -291,7 +299,7 @@ export class EditItemForm extends LitElement {
     renderProgress() {
         if (this.media?.type === MediaType.MOVIE) {
             return html`
-                <div class="field">
+                <div class="field fit-content">
                     <label for="minute">
                         Progreso (minutos)
                     </label>
@@ -310,7 +318,7 @@ export class EditItemForm extends LitElement {
         return html`
             <div class="progress">
 
-                <div class="field">
+                <div class="field fit-content">
                     <label for="season">
                         Temporada
                     </label>
@@ -324,7 +332,7 @@ export class EditItemForm extends LitElement {
                     >
                 </div>
 
-                <div class="field">
+                <div class="field fit-content">
                     <label for="episode">
                         Episodio
                     </label>
@@ -335,6 +343,20 @@ export class EditItemForm extends LitElement {
                         type="number"
                         min="1"
                         value=${this.getProgressValue("episode")}
+                    >
+                </div>
+
+                <div class="field fit-content">
+                    <label for="minute">
+                       (minutos)
+                    </label>
+
+                    <input
+                        id="minute"
+                        name="minute"
+                        type="number"
+                        min="0"
+                        value=${this.getProgressValue("minute")}
                     >
                 </div>
 
@@ -374,7 +396,7 @@ export class EditItemForm extends LitElement {
                     >
                 </div>
 
-                <div class="field">
+                <div class="field fit-content">
                     <label for="type">
                         Tipo
                     </label>
@@ -394,7 +416,7 @@ export class EditItemForm extends LitElement {
                     </select>
                 </div>
 
-                <div class="field">
+                <div class="field fit-content">
                     <label for="year">
                         Año
                     </label>
@@ -406,6 +428,94 @@ export class EditItemForm extends LitElement {
                         min="1888"
                         max="2100"
                         value=${this.media.year ?? ""}
+                    >
+                </div>
+
+                <div class="field">
+                    <label>
+                        Plataformas
+                    </label>
+
+                    <div class="checkbox-list">
+                        ${settings.platforms
+                            .filter(platform => platform.active)
+                            .map(platform => html`
+                                <label class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="platforms"
+                                        value=${platform.id}
+                                        ?checked=${this.isPlatformSelected(
+                                            platform.id
+                                        )}
+                                    >
+                                    ${platform.name}
+                                </label>
+                            `)}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>
+                        Audio y subtítulos
+                    </label>
+
+                    <div class="checkbox-list">
+
+                        <label class="checkbox">
+                            <input
+                                type="checkbox"
+                                name="spanishAudio"
+                                ?checked=${this.watchItem.spanishAudio}
+                            >
+                            Audio español
+                        </label>
+
+                        <label class="checkbox">
+                            <input
+                                type="checkbox"
+                                name="spanishSubtitles"
+                                ?checked=${this.watchItem.spanishSubtitles}
+                            >
+                            Subtítulos español
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="reason">
+                        Motivo / observaciones
+                    </label>
+
+                    <textarea
+                        id="reason"
+                        name="reason"
+                        placeholder="¿Por qué quieres ver esta película o serie?"
+                    >${this.watchItem.reason ?? ""}</textarea>
+                </div>
+
+                 <div class="field fit-content">
+                    <label>
+                        Progreso
+                    </label>
+
+                    ${this.renderProgress()}
+                </div>
+
+                <div class="field fit-content">
+                    <label for="userRating">
+                        Puntuación personal
+                    </label>
+
+                    <input
+                        id="userRating"
+                        name="userRating"
+                        type="number"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        value=${this.watchItem.userRating ?? ""}
                     >
                 </div>
 
@@ -440,94 +550,6 @@ export class EditItemForm extends LitElement {
                             </label>
                         `)}
                     </div>
-                </div>
-
-                <div class="field">
-                    <label>
-                        Plataformas
-                    </label>
-
-                    <div class="checkbox-list">
-                        ${settings.platforms
-                            .filter(platform => platform.active)
-                            .map(platform => html`
-                                <label class="checkbox">
-                                    <input
-                                        type="checkbox"
-                                        name="platforms"
-                                        value=${platform.id}
-                                        ?checked=${this.isPlatformSelected(
-                                            platform.id
-                                        )}
-                                    >
-                                    ${platform.name}
-                                </label>
-                            `)}
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label for="reason">
-                        Motivo / observaciones
-                    </label>
-
-                    <textarea
-                        id="reason"
-                        name="reason"
-                        placeholder="¿Por qué quieres ver esta película o serie?"
-                    >${this.watchItem.reason ?? ""}</textarea>
-                </div>
-
-                <div class="field">
-                    <label for="userRating">
-                        Nota personal
-                    </label>
-
-                    <input
-                        id="userRating"
-                        name="userRating"
-                        type="number"
-                        min="0"
-                        max="10"
-                        step="0.1"
-                        value=${this.watchItem.userRating ?? ""}
-                    >
-                </div>
-
-                <div class="field">
-                    <label>
-                        Audio y subtítulos
-                    </label>
-
-                    <div class="checkbox-list">
-
-                        <label class="checkbox">
-                            <input
-                                type="checkbox"
-                                name="spanishAudio"
-                                ?checked=${this.watchItem.spanishAudio}
-                            >
-                            Audio español
-                        </label>
-
-                        <label class="checkbox">
-                            <input
-                                type="checkbox"
-                                name="spanishSubtitles"
-                                ?checked=${this.watchItem.spanishSubtitles}
-                            >
-                            Subtítulos español
-                        </label>
-
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label>
-                        Progreso
-                    </label>
-
-                    ${this.renderProgress()}
                 </div>
 
                 <div class="actions">

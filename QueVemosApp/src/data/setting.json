@@ -117,70 +117,70 @@
   "platforms": [
     {
       "id": "netflix-es",
-      "name": "Netflix España",
+      "name": "Netflix",
       "country": "ES",
       "active": true,
       "logo": "netflix"
     },
     {
       "id": "max-es",
-      "name": "Max España",
+      "name": "HBO Max",
       "country": "ES",
       "active": true,
       "logo": "max"
     },
     {
       "id": "prime-video-es",
-      "name": "Prime Video España",
+      "name": "Prime",
       "country": "ES",
       "active": true,
       "logo": "prime-video"
     },
     {
       "id": "disney-plus-es",
-      "name": "Disney+ España",
+      "name": "Disney+",
       "country": "ES",
       "active": true,
       "logo": "disney-plus"
     },
     {
       "id": "movistar-plus-es",
-      "name": "Movistar Plus+ España",
+      "name": "Movistar Plus+",
       "country": "ES",
       "active": true,
       "logo": "movistar-plus"
     },
     {
       "id": "apple-tv-plus-es",
-      "name": "Apple TV+ España",
+      "name": "Apple TV+",
       "country": "ES",
       "active": true,
       "logo": "apple-tv-plus"
     },
     {
       "id": "filmin-es",
-      "name": "Filmin España",
+      "name": "Filmin",
       "country": "ES",
       "active": true,
       "logo": "filmin"
     },
     {
       "id": "skyshowtime-es",
-      "name": "SkyShowtime España",
+      "name": "SkyShowtime",
       "country": "ES",
       "active": true,
       "logo": "skyshowtime"
     },
     {
       "id": "atresplayer-es",
-      "name": "Atresplayer España",
+      "name": "Atresplayer",
       "country": "ES",
       "active": true,
       "logo": "atresplayer"
     },
     {
       "id": "rtve-play-es",
-      "name": "RTVE Play España",
+      "name": "RTVE Play",
       "country": "ES",
       "active": true,
       "logo": "rtve-play"

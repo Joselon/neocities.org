@@ -224,50 +224,35 @@
                     Copyleft © Joselon79
                 </p>
             </footer>
-        `}};customElements.define(`app-footer`,Se);var $={version:1,mediaTypes:[{id:`movie`,name:`Película`},{id:`series`,name:`Serie`}],genres:[{id:`action`,name:`Acción`},{id:`adventure`,name:`Aventuras`},{id:`animation`,name:`Animación`},{id:`comedy`,name:`Comedia`},{id:`crime`,name:`Crimen`},{id:`documentary`,name:`Documental`},{id:`drama`,name:`Drama`},{id:`family`,name:`Familiar`},{id:`fantasy`,name:`Fantasía`},{id:`history`,name:`Historia`},{id:`horror`,name:`Terror`},{id:`music`,name:`Musical`},{id:`mystery`,name:`Misterio`},{id:`romance`,name:`Romance`},{id:`science-fiction`,name:`Ciencia ficción`},{id:`sport`,name:`Deporte`},{id:`thriller`,name:`Thriller`},{id:`war`,name:`Bélica`},{id:`western`,name:`Western`}],watchStatuses:[{id:`pending`,name:`Pendiente`},{id:`watching`,name:`Viendo`},{id:`paused`,name:`En pausa`},{id:`watched`,name:`Vista`},{id:`discarded`,name:`Descartada`}],platforms:[{id:`netflix-es`,name:`Netflix España`,country:`ES`,active:!0,logo:`netflix`},{id:`max-es`,name:`Max España`,country:`ES`,active:!0,logo:`max`},{id:`prime-video-es`,name:`Prime Video España`,country:`ES`,active:!0,logo:`prime-video`},{id:`disney-plus-es`,name:`Disney+ España`,country:`ES`,active:!0,logo:`disney-plus`},{id:`movistar-plus-es`,name:`Movistar Plus+ España`,country:`ES`,active:!0,logo:`movistar-plus`},{id:`apple-tv-plus-es`,name:`Apple TV+ España`,country:`ES`,active:!0,logo:`apple-tv-plus`},{id:`filmin-es`,name:`Filmin España`,country:`ES`,active:!0,logo:`filmin`},{id:`skyshowtime-es`,name:`SkyShowtime España`,country:`ES`,active:!0,logo:`skyshowtime`},{id:`atresplayer-es`,name:`Atresplayer España`,country:`ES`,active:!0,logo:`atresplayer`},{id:`rtve-play-es`,name:`RTVE Play España`,country:`ES`,active:!0,logo:`rtve-play`}]},Ce=class e extends K{static styles=o`
+        `}};customElements.define(`app-footer`,Se);var $={version:1,mediaTypes:[{id:`movie`,name:`Película`},{id:`series`,name:`Serie`}],genres:[{id:`action`,name:`Acción`},{id:`adventure`,name:`Aventuras`},{id:`animation`,name:`Animación`},{id:`comedy`,name:`Comedia`},{id:`crime`,name:`Crimen`},{id:`documentary`,name:`Documental`},{id:`drama`,name:`Drama`},{id:`family`,name:`Familiar`},{id:`fantasy`,name:`Fantasía`},{id:`history`,name:`Historia`},{id:`horror`,name:`Terror`},{id:`music`,name:`Musical`},{id:`mystery`,name:`Misterio`},{id:`romance`,name:`Romance`},{id:`science-fiction`,name:`Ciencia ficción`},{id:`sport`,name:`Deporte`},{id:`thriller`,name:`Thriller`},{id:`war`,name:`Bélica`},{id:`western`,name:`Western`}],watchStatuses:[{id:`pending`,name:`Pendiente`},{id:`watching`,name:`Viendo`},{id:`paused`,name:`En pausa`},{id:`watched`,name:`Vista`},{id:`discarded`,name:`Descartada`}],platforms:[{id:`netflix-es`,name:`Netflix`,country:`ES`,active:!0,logo:`netflix`},{id:`max-es`,name:`HBO Max`,country:`ES`,active:!0,logo:`max`},{id:`prime-video-es`,name:`Prime`,country:`ES`,active:!0,logo:`prime-video`},{id:`disney-plus-es`,name:`Disney+`,country:`ES`,active:!0,logo:`disney-plus`},{id:`movistar-plus-es`,name:`Movistar Plus+`,country:`ES`,active:!0,logo:`movistar-plus`},{id:`apple-tv-plus-es`,name:`Apple TV+`,country:`ES`,active:!0,logo:`apple-tv-plus`},{id:`filmin-es`,name:`Filmin`,country:`ES`,active:!0,logo:`filmin`},{id:`skyshowtime-es`,name:`SkyShowtime`,country:`ES`,active:!0,logo:`skyshowtime`},{id:`atresplayer-es`,name:`Atresplayer`,country:`ES`,active:!0,logo:`atresplayer`},{id:`rtve-play-es`,name:`RTVE Play`,country:`ES`,active:!0,logo:`rtve-play`}]},Ce=class e extends K{static styles=o`
         *,
         *::before,
         *::after {
             box-sizing: border-box;
         }
 
-        a {
-            color: var(--text);
-            text-decoration: none;
+        .media-card {
+            display: grid;
+            grid-template-columns: 180px minmax(0, 1fr);
+
+            overflow: hidden;
+
+            border: 2px solid rgba(250, 62, 0, 0.7);
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(202, 155, 121, 0.96),
+                    rgba(161, 114, 89, 0.96)
+                );
+
+            box-shadow:
+                0 10px 24px rgba(0, 0, 0, 0.2);
+
             transition:
-                color 0.2s ease,
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
-        }
-
-        a:hover {
-            color: #ffffff;
-        }
-
-        .media-card {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 1rem;
-    
-                padding: 1rem;
-    
-                border: 2px solid rgba(250, 62, 0, 0.7);
-                border-radius: 18px;
-    
-                background:
-                    linear-gradient(
-                        135deg,
-                        rgba(202, 155, 121, 0.96),
-                        rgba(161, 114, 89, 0.96)
-                    );
-    
-                box-shadow:
-                    0 10px 24px rgba(0, 0, 0, 0.2);
-    
-                transition:
-                    transform 0.2s ease,
-                    box-shadow 0.2s ease;
         }
 
         .media-card:hover {
@@ -277,98 +262,333 @@
                 0 14px 30px rgba(0, 0, 0, 0.25);
         }
 
-        .media-info {
+        /* -------------------------
+        Poster
+        ------------------------- */
+
+        .poster {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 1rem;
+
+            background: rgba(0, 0, 0, 0.12);
+        }
+
+        .poster img {
+            display: block;
+
+            width: 100%;
+            max-width: 150px;
+            height: auto;
+
+            border-radius: 10px;
+
+            object-fit: cover;
+
+            box-shadow:
+                0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        .poster-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+            max-width: 150px;
+            aspect-ratio: 2 / 3;
+
+            border-radius: 10px;
+
+            background: rgba(0, 0, 0, 0.18);
+
+            color: rgba(255, 255, 255, 0.7);
+
+            font-size: 2.5rem;
+        }
+
+        /* -------------------------
+        Información
+        ------------------------- */
+
+        .media-content {
+            display: flex;
+            flex-direction: column;
+
             min-width: 0;
         }
 
-        .media-card h3 {
+        .information {
+            padding: 1rem 1.2rem;
+
+            flex: 1;
+        }
+
+        .information-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            gap: 1rem;
+        }
+
+        .information-header h3 {
             margin: 0;
+
             color: #ffffff;
+
             font-size: 1.15rem;
         }
 
-        .media-type {
-            display: inline-block;
+        .information-actions {
+            display: flex;
+            gap: 0.4rem;
 
-            margin-top: 0.35rem;
-            padding: 0.25rem 0.6rem;
+            flex-shrink: 0;
+        }
+
+        /* -------------------------
+        Metadatos
+        ------------------------- */
+
+        .metadata {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 0.4rem;
+
+            margin-top: 0.5rem;
+        }
+
+        .metadata span,
+        .genre,
+        .platform {
+            display: inline-flex;
+            align-items: center;
+
+            padding: 0.25rem 0.55rem;
 
             border-radius: 999px;
 
             background: rgba(255, 255, 255, 0.12);
+
             color: var(--text);
 
             font-size: 0.78rem;
         }
 
-        .status {
-            display: inline-block;
+        .genres,
+        .platforms {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 0.4rem;
+
             margin-top: 0.6rem;
-            padding: 0.25rem 0.7rem;
+        }
+
+        /* -------------------------
+        Barra inferior
+        ------------------------- */
+
+        .media-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 1rem;
+
+            padding: 0.65rem 1rem;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
+
+            background: rgba(0, 0, 0, 0.16);
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+
+            padding: 0.35rem 0.7rem;
+
             border-radius: 999px;
+
+            color: #ffffff;
+
             font-size: 0.8rem;
             font-weight: 600;
-            background: rgba(255, 255, 255, 0.12);
         }
 
         .status-pending {
-            opacity: 0.8;
+            background: rgba(255, 193, 7, 0.35);
         }
 
         .status-watching {
-            background: rgba(255, 154, 60, 0.25);
-            border: 1px solid var(--accent-2);
+            background: rgba(40, 167, 69, 0.45);
         }
 
         .status-paused {
-            background: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 152, 0, 0.45);
         }
 
         .status-watched {
-            background: rgba(100, 200, 120, 0.25);
-            border: 1px solid rgba(100, 200, 120, 0.7);
+            background: rgba(0, 123, 255, 0.45);
         }
 
         .status-discarded {
-            background: rgba(220, 80, 80, 0.25);
-            border: 1px solid rgba(220, 80, 80, 0.7);
+            background: rgba(220, 53, 69, 0.45);
         }
 
+        .status-actions {
+            display: flex;
+            align-items: center;
+
+            gap: 0.4rem;
+        }
+
+        /* -------------------------
+        Botones
+        ------------------------- */
+
         .action-button {
-            padding: 0.4rem 0.6rem;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            background: transparent;
-            color: var(--muted);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 34px;
+            height: 34px;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: #ffffff;
+
             cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
         }
 
         .action-button:hover {
-            color: var(--text);
-            border-color: var(--text);
+            background: rgba(255, 255, 255, 0.2);
+
+            transform: translateY(-1px);
         }
 
-        /* Móvil */
+        /* -------------------------
+        Móvil
+        ------------------------- */
 
-        @media (max-width: 768px) {
+        @media (max-width: 650px) {
 
             .media-card {
-                align-items: flex-start;
-                flex-direction: column;
+                grid-template-columns: 110px minmax(0, 1fr);
+            }
+
+            .poster {
+                padding: 0.65rem;
+            }
+
+            .information {
+                padding: 0.8rem;
+            }
+
+            .information-header h3 {
+                font-size: 1rem;
+            }
+
+            .media-actions {
+                padding: 0.55rem 0.7rem;
+            }
+
+            .action-button {
+                width: 32px;
+                height: 32px;
             }
         }
-
-    `;static properties={media:{type:Object},watchItem:{type:Object}};static getCatalogName(e,t){return e.find(e=>e.id===t)?.name??t}editItem(){this.dispatchEvent(new CustomEvent(`edit-item`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}changeStatus(e){this.dispatchEvent(new CustomEvent(`change-status`,{detail:{mediaId:this.media.id,status:e},bubbles:!0,composed:!0}))}render(){if(!this.media||!this.watchItem)return F``;let t=e.getCatalogName($.mediaTypes,this.media.type),n=this.media.genres.map(t=>e.getCatalogName($.genres,t)),r=this.watchItem.platforms.map(t=>e.getCatalogName($.platforms,t)),i=e.getCatalogName($.watchStatuses,this.watchItem.status),a=`status-${this.watchItem.status}`;return F`
+    `;static properties={media:{type:Object},watchItem:{type:Object}};static getCatalogName(e,t){return e.find(e=>e.id===t)?.name??t}editItem(){this.dispatchEvent(new CustomEvent(`edit-item`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}changeStatus(e){this.dispatchEvent(new CustomEvent(`change-status`,{detail:{mediaId:this.media.id,status:e},bubbles:!0,composed:!0}))}render(){if(!this.media||!this.watchItem)return F``;let t=e.getCatalogName($.watchStatuses,this.watchItem.status),n=`status-${this.watchItem.status}`;return F`
             <link
                 rel="stylesheet"
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
             >
             <article class="media-card">
-                <div class="media-info">
-                    <h3>
-                        ${this.media.title}
-                    </h3>
-                    <div class="media-meta">
+
+                <div class="poster">
+                    ${this.media.poster?F`
+                            <img
+                                src=${this.media.poster}
+                                alt="Cartel de ${this.media.title}"
+                            >
+                        `:F`
+                            <div class="poster-placeholder">
+                                <i class="fa fa-film"></i>
+                            </div>
+                        `}
+                </div>
+
+                <div class="media-content">
+                    
+                    <div class="information">
+                        ${this.renderInformation()}
+                    </div>
+
+                    <div class="media-actions">
+                    ${t?F`
+                            <div class="status ${n}">
+                                ${t}
+                            </div>
+                        `:``}
+                        <div class="status-actions">
+                            ${this.renderStatusActions()}
+                            <!-- ToDo -->
+                            <button
+                                class="action-button"
+                                title="Recomendar"
+                                disabled
+                            >
+                                <i class="fa fa-share-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </article>
+        `}renderInformation(){let t=e.getCatalogName($.mediaTypes,this.media.type),n=this.media.genres.map(t=>e.getCatalogName($.genres,t)),r=this.watchItem.platforms.map(t=>e.getCatalogName($.platforms,t));return F`
+                    <div class="information-header">
+                        <h3>
+                            ${this.media.title}
+                        </h3>
+                        <div class="information-actions">
+
+                            <button
+                                type="button"
+                                class="action-button"
+                                title="Información"
+                                @click=${this.showInformation}
+                            >
+                                <i class="fa fa-info-circle"></i>
+                            </button>
+
+                            <button
+                                type="button"
+                                class="action-button"
+                                title="Editar"
+                                @click=${this.editItem}
+                            >
+                                <i class="fa fa-pencil"></i>
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <div class="metadata">
                         <span class="media-type">${t}</span>
                         ${this.media.year?F`<span>${this.media.year}</span>`:``}
                         ${this.media.runtimeMinutes?F`
@@ -391,43 +611,22 @@
                                 <i class="fa fa-tv"></i> : ${r.join(` · `)}
                             </div>
                         `:``}
-
-                    ${i?F`
-                            <div class="status ${a}">
-                                ${i}
-                            </div>
-                        `:``}
-                    <div class="actions">
-
-                        ${this.renderStatusActions()}
-
-                        <button
-                            type="button"
-                            class="action-button"
-                            title="Editar"
-                            @click=${this.editItem}
-                        >
-                            <i class="fa fa-pencil"></i>
-                        </button>
-
-                    </div>
                 </div>
-            </article>
-        `}renderStatusActions(){switch(this.watchItem.status){case`pending`:return F`
+        `}renderStatusActions(){switch(this.watchItem.status){case Y.PENDING:return F`
                     <button
                         type="button"
                         class="action-button"
                         title="Empezar"
-                        @click=${()=>this.changeStatus(`watching`)}
+                        @click=${()=>this.changeStatus(Y.WATCHING)}
                     >
                         <i class="fa fa-play"></i>
                     </button>
-                `;case`watching`:return F`
+                `;case Y.WATCHING:return F`
                     <button
                         type="button"
                         class="action-button"
                         title="Pausar"
-                        @click=${()=>this.changeStatus(`paused`)}
+                        @click=${()=>this.changeStatus(Y.PAUSED)}
                     >
                         <i class="fa fa-pause"></i>
                     </button>
@@ -436,16 +635,16 @@
                         type="button"
                         class="action-button"
                         title="Marcar como vista"
-                        @click=${()=>this.changeStatus(`watched`)}
+                        @click=${()=>this.changeStatus(Y.WATCHED)}
                     >
                         <i class="fa fa-check"></i>
                     </button>
-                `;case`paused`:return F`
+                `;case Y.PAUSED:return F`
                     <button
                         type="button"
                         class="action-button"
                         title="Continuar"
-                        @click=${()=>this.changeStatus(`watching`)}
+                        @click=${()=>this.changeStatus(Y.WATCHING)}
                     >
                         <i class="fa fa-play"></i>
                     </button>
@@ -454,6 +653,10 @@
         *::before,
         *::after {
             box-sizing: border-box;
+        }
+
+        :host {
+            display: block;
         }
 
         a {
@@ -473,6 +676,10 @@
             margin-bottom: 1rem;
         }
         
+        .fit-content {
+            width: fit-content; 
+        }
+
         label {
             display: block;
             margin-bottom: 0.35rem;
@@ -528,6 +735,17 @@
         }
 
     `;static properties={showDetails:{state:!0}};constructor(){super(),this.showDetails=!1}addItem(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value);this.dispatchEvent(new CustomEvent(`add-item`,{detail:{title:t.title.value.trim(),type:t.type.value,year:t.year?.value?Number(t.year.value):void 0,originalTitle:t.originalTitle?.value.trim()||void 0,genres:n,platforms:r},bubbles:!0,composed:!0}))}resetForm(){this.renderRoot.querySelector(`form`).reset(),this.showDetails=!1}toggleDetails(){this.showDetails=!this.showDetails}render(){return F`
+            <hr class="divider"></hr>
+            <div class="header">
+                <div class="header-icon">
+                    <i class="fa fa-plus"></i>
+                </div>
+
+                <div>
+                    <h2>Añadir elemento</h2>
+                    <p>Estás añadiendo un elemento a tu lista manualmente</p>
+                </div>
+            </div>
             <form @submit=${this.addItem}>
                 <div class="field">
                     <label for="title">
@@ -543,7 +761,7 @@
                     >
                 </div>
 
-                <div class="field">
+                <div class="field fit-content">
                     <label for="type">
                         Tipo
                     </label>
@@ -568,7 +786,7 @@
                 ${this.showDetails?F`
                         <div class="details">
 
-                            <div class="field">
+                            <div class="field fit-content">
                                 <label for="year">
                                     Año
                                 </label>
@@ -581,6 +799,24 @@
                                     max="2100"
                                     placeholder="Año"
                                 >
+                            </div>
+                            <div class="field">
+                                <label>
+                                    Plataformas
+                                </label>
+
+                                <div class="checkbox-list">
+                                    ${$.platforms.filter(e=>e.active).map(e=>F`
+                                            <label class="checkbox">
+                                                <input
+                                                    type="checkbox"
+                                                    name="platforms"
+                                                    value=${e.id}
+                                                >
+                                                ${e.name}
+                                            </label>
+                                        `)}
+                                </div>
                             </div>
 
                             <div class="field">
@@ -614,26 +850,7 @@
                                     `)}
                                 </div>
                             </div>
-
-                            <div class="field">
-                                <label>
-                                    Plataformas
-                                </label>
-
-                                <div class="checkbox-list">
-                                    ${$.platforms.filter(e=>e.active).map(e=>F`
-                                            <label class="checkbox">
-                                                <input
-                                                    type="checkbox"
-                                                    name="platforms"
-                                                    value=${e.id}
-                                                >
-                                                ${e.name}
-                                            </label>
-                                        `)}
-                                </div>
-                            </div>
-
+                            
                         </div>
                     `:``}
 
@@ -642,6 +859,7 @@
                 </button>
 
             </form>
+           <hr class="divider"></hr>
         `}};customElements.define(`add-item-form`,we);var Te=class extends K{static styles=o`
         *,
         *::before,
@@ -695,6 +913,10 @@
 
         .field {
             margin-bottom: 1rem;
+        }
+
+        .fit-content {
+            width: fit-content; 
         }
 
         label {
@@ -816,8 +1038,8 @@
                 width: 100%;
             }
         }
-    `;static properties={media:{attribute:!1},watchItem:{attribute:!1}};constructor(){super(),this.media=void 0,this.watchItem=void 0}save(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value),i=this.createProgress(t);this.dispatchEvent(new CustomEvent(`save-item`,{detail:{mediaId:this.media.id,media:{title:t.title.value.trim(),type:t.type.value,year:t.year.value?Number(t.year.value):void 0,originalTitle:t.originalTitle.value.trim()||void 0,genres:n},watchItem:{platforms:r,reason:t.reason.value.trim()||void 0,spanishAudio:t.spanishAudio.checked,spanishSubtitles:t.spanishSubtitles.checked,userRating:t.userRating.value?Number(t.userRating.value):void 0,progress:i}},bubbles:!0,composed:!0}))}createProgress(e){if(this.media.type===q.MOVIE){let t=e.minute.value;return t?new X({minute:Number(t)}):void 0}let t=e.season.value,n=e.episode.value;if(t||n)return new X({season:t?Number(t):void 0,episode:n?Number(n):void 0})}getProgressValue(e){return this.watchItem?.progress?.[e]??``}isGenreSelected(e){return this.media?.genres?.includes(e)}isPlatformSelected(e){return this.watchItem?.platforms?.includes(e)}renderProgress(){return this.media?.type===q.MOVIE?F`
-                <div class="field">
+    `;static properties={media:{attribute:!1},watchItem:{attribute:!1}};constructor(){super(),this.media=void 0,this.watchItem=void 0}save(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value),i=this.createProgress(t);this.dispatchEvent(new CustomEvent(`save-item`,{detail:{mediaId:this.media.id,media:{title:t.title.value.trim(),type:t.type.value,year:t.year.value?Number(t.year.value):void 0,originalTitle:t.originalTitle.value.trim()||void 0,genres:n},watchItem:{platforms:r,reason:t.reason.value.trim()||void 0,spanishAudio:t.spanishAudio.checked,spanishSubtitles:t.spanishSubtitles.checked,userRating:t.userRating.value?Number(t.userRating.value):void 0,progress:i}},bubbles:!0,composed:!0}))}createProgress(e){if(this.media.type===q.MOVIE){let t=e.minute.value;return t?new X({minute:Number(t)}):void 0}let t=e.season.value,n=e.episode.value,r=e.minute.value;if(t||n)return new X({season:t?Number(t):void 0,episode:n?Number(n):void 0,minute:r?Number(r):void 0})}getProgressValue(e){return this.watchItem?.progress?.[e]??``}isGenreSelected(e){return this.media?.genres?.includes(e)}isPlatformSelected(e){return this.watchItem?.platforms?.includes(e)}renderProgress(){return this.media?.type===q.MOVIE?F`
+                <div class="field fit-content">
                     <label for="minute">
                         Progreso (minutos)
                     </label>
@@ -833,7 +1055,7 @@
             `:F`
             <div class="progress">
 
-                <div class="field">
+                <div class="field fit-content">
                     <label for="season">
                         Temporada
                     </label>
@@ -847,7 +1069,7 @@
                     >
                 </div>
 
-                <div class="field">
+                <div class="field fit-content">
                     <label for="episode">
                         Episodio
                     </label>
@@ -858,6 +1080,20 @@
                         type="number"
                         min="1"
                         value=${this.getProgressValue(`episode`)}
+                    >
+                </div>
+
+                <div class="field fit-content">
+                    <label for="minute">
+                       (minutos)
+                    </label>
+
+                    <input
+                        id="minute"
+                        name="minute"
+                        type="number"
+                        min="0"
+                        value=${this.getProgressValue(`minute`)}
                     >
                 </div>
 
@@ -889,7 +1125,7 @@
                     >
                 </div>
 
-                <div class="field">
+                <div class="field fit-content">
                     <label for="type">
                         Tipo
                     </label>
@@ -909,7 +1145,7 @@
                     </select>
                 </div>
 
-                <div class="field">
+                <div class="field fit-content">
                     <label for="year">
                         Año
                     </label>
@@ -921,6 +1157,90 @@
                         min="1888"
                         max="2100"
                         value=${this.media.year??``}
+                    >
+                </div>
+
+                <div class="field">
+                    <label>
+                        Plataformas
+                    </label>
+
+                    <div class="checkbox-list">
+                        ${$.platforms.filter(e=>e.active).map(e=>F`
+                                <label class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="platforms"
+                                        value=${e.id}
+                                        ?checked=${this.isPlatformSelected(e.id)}
+                                    >
+                                    ${e.name}
+                                </label>
+                            `)}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>
+                        Audio y subtítulos
+                    </label>
+
+                    <div class="checkbox-list">
+
+                        <label class="checkbox">
+                            <input
+                                type="checkbox"
+                                name="spanishAudio"
+                                ?checked=${this.watchItem.spanishAudio}
+                            >
+                            Audio español
+                        </label>
+
+                        <label class="checkbox">
+                            <input
+                                type="checkbox"
+                                name="spanishSubtitles"
+                                ?checked=${this.watchItem.spanishSubtitles}
+                            >
+                            Subtítulos español
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="reason">
+                        Motivo / observaciones
+                    </label>
+
+                    <textarea
+                        id="reason"
+                        name="reason"
+                        placeholder="¿Por qué quieres ver esta película o serie?"
+                    >${this.watchItem.reason??``}</textarea>
+                </div>
+
+                 <div class="field fit-content">
+                    <label>
+                        Progreso
+                    </label>
+
+                    ${this.renderProgress()}
+                </div>
+
+                <div class="field fit-content">
+                    <label for="userRating">
+                        Puntuación personal
+                    </label>
+
+                    <input
+                        id="userRating"
+                        name="userRating"
+                        type="number"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        value=${this.watchItem.userRating??``}
                     >
                 </div>
 
@@ -955,90 +1275,6 @@
                             </label>
                         `)}
                     </div>
-                </div>
-
-                <div class="field">
-                    <label>
-                        Plataformas
-                    </label>
-
-                    <div class="checkbox-list">
-                        ${$.platforms.filter(e=>e.active).map(e=>F`
-                                <label class="checkbox">
-                                    <input
-                                        type="checkbox"
-                                        name="platforms"
-                                        value=${e.id}
-                                        ?checked=${this.isPlatformSelected(e.id)}
-                                    >
-                                    ${e.name}
-                                </label>
-                            `)}
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label for="reason">
-                        Motivo / observaciones
-                    </label>
-
-                    <textarea
-                        id="reason"
-                        name="reason"
-                        placeholder="¿Por qué quieres ver esta película o serie?"
-                    >${this.watchItem.reason??``}</textarea>
-                </div>
-
-                <div class="field">
-                    <label for="userRating">
-                        Nota personal
-                    </label>
-
-                    <input
-                        id="userRating"
-                        name="userRating"
-                        type="number"
-                        min="0"
-                        max="10"
-                        step="0.1"
-                        value=${this.watchItem.userRating??``}
-                    >
-                </div>
-
-                <div class="field">
-                    <label>
-                        Audio y subtítulos
-                    </label>
-
-                    <div class="checkbox-list">
-
-                        <label class="checkbox">
-                            <input
-                                type="checkbox"
-                                name="spanishAudio"
-                                ?checked=${this.watchItem.spanishAudio}
-                            >
-                            Audio español
-                        </label>
-
-                        <label class="checkbox">
-                            <input
-                                type="checkbox"
-                                name="spanishSubtitles"
-                                ?checked=${this.watchItem.spanishSubtitles}
-                            >
-                            Subtítulos español
-                        </label>
-
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label>
-                        Progreso
-                    </label>
-
-                    ${this.renderProgress()}
                 </div>
 
                 <div class="actions">
@@ -1133,6 +1369,38 @@
 
         /* Lista */
 
+        header {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(70, 70, 70, 0.95),
+                    rgba(35, 35, 35, 0.95)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.1rem 1.3rem 1.3rem;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.25);
+
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            padding: 0.35rem 0.8rem;
+
+            border-radius: 999px;
+
+            background: rgba(255, 107, 44, 0.18);
+            color: #ffd7bf;
+
+            font-size: 0.82rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
         .media-list {
             display: flex;
             flex-direction: column;
@@ -1172,6 +1440,40 @@
             }
         }
 
+        /* -------------------------
+        Botones
+        ------------------------- */
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 34px;
+            height: 34px;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+
+            transform: translateY(-1px);
+        }
+
         /* Móvil */
 
         @media (max-width: 768px) {
@@ -1183,6 +1485,14 @@
                 padding: 1rem 0.8rem 1.2rem;
             }
 
+            header {
+                padding: 1rem 0.8rem 1.1rem;
+            }
+
+            .action-button {
+                width: 32px;
+                height: 32px;
+            }
 
         }
     `;static properties={items:{state:!0},editingItem:{state:!0}};constructor(){super(),this.items=[];let e=new be(localStorage),t=e.load();this.service=new ye(t),this.storage=e,this.items=this.service.getItems(),this.editingItem=void 0}render(){let e=this.items;return F`
@@ -1215,7 +1525,24 @@
                             </p>
                         `:F`
                             <div class="media-list">
+                                <header>
+                                     <button
+                                        class="action-button"
+                                        title="Filtrar"
+                                        disabled
+                                    >
+                                        <i class="fa fa-filter"></i>
+                                    </button>
 
+                                    <div class="hero-badge"> Mostrando todos los elementos </div>
+                                    <button
+                                        class="action-button"
+                                        title="Ordenar"
+                                        disabled
+                                    >
+                                        <i class="fa fa-sort-down"></i>
+                                    </button>
+                                </header>
                                 ${e.map(e=>F`
                                         <div class="item-container">
 
