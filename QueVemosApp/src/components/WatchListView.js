@@ -172,42 +172,43 @@ export class WatchListView extends LitElement {
                 rel="stylesheet"
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
             >
-            <div class="storage-actions">
-                <button
-                    type="button"
-                    @click=${this.exportWatchList}
-                >
-                    <i class="fa fa-download"></i>
-                    Exportar lista
-                </button>
+            <div class="list-header">
+                <div class="storage-actions">
+                    <button
+                        type="button"
+                        @click=${this.exportWatchList}
+                    >
+                        <i class="fa fa-download"></i>
+                        Exportar lista
+                    </button>
 
-                <button
-                    type="button"
-                    @click=${this.importWatchList}
-                >
-                    <i class="fa fa-upload"></i>
-                    Importar lista
-                </button>
+                    <button
+                        type="button"
+                        @click=${this.importWatchList}
+                    >
+                        <i class="fa fa-upload"></i>
+                        Importar lista
+                    </button>
 
-                <button
-                    type="button"
-                    @click=${this.resetWatchList}
-                >
-                    <i class="fa fa-refresh"></i>
-                    Reset
-                </button>
+                    <button
+                        type="button"
+                        @click=${this.resetWatchList}
+                    >
+                        <i class="fa fa-refresh"></i>
+                        Reset
+                    </button>
+                </div>
+                <h2>${this.listName} <button
+                        type="button"
+                        class="action-button"
+                        title="Editar Nombre de la lista"
+                        @click=${this.editListName}
+                    >
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                </h2>
             </div>
-            <h2>${this.listName} <button
-                    type="button"
-                    class="action-button"
-                    title="Editar Nombre de la lista"
-                    @click=${this.editListName}
-                >
-                    <i class="fa fa-pencil"></i>
-                </button>
-            </h2>
             
-            <br/>
 
             ${!this.editingItem
                 ? html`
