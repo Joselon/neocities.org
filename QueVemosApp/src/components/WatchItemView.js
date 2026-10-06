@@ -223,6 +223,42 @@ export class WatchItemView extends LitElement {
         /* -------------------------
         Barra inferior
         ------------------------- */
+        .share-button {
+            position: absolute;
+            top: 0.8rem;
+            left: 0.8rem;
+            z-index: 2;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 38px;
+            height: 38px;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50%;
+
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(3px);
+
+            color: #ffffff;
+
+            font-size: 1rem;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .share-button:hover {
+            background: rgba(0, 0, 0, 0.65);
+            transform: scale(1.05);
+        }
 
         .media-actions {
             display: flex;
@@ -420,6 +456,14 @@ export class WatchItemView extends LitElement {
                         `
                     }
                 </div>
+                <!-- ToDo: Seleccionar para compartir -->
+                <button
+                    class="share-button"
+                    title="Recomendar"
+                    disabled
+                >
+                    <i class="fa fa-share-alt"></i>
+                </button>
 
                 <div class="media-content">
                     
@@ -472,7 +516,6 @@ export class WatchItemView extends LitElement {
                         </h3>
    
                         <div class="information-actions">
-
                             <button
                                 type="button"
                                 class="action-button"
@@ -491,17 +534,7 @@ export class WatchItemView extends LitElement {
                             >
                                 <i class="fa fa-pencil"></i>
                             </button>
-                            <!-- ToDo: Seleccionar para compartir -->
-                            <button
-                                class="action-button"
-                                title="Recomendar"
-                                disabled
-                            >
-                                <i class="fa fa-share-alt"></i>
-                            </button>
-
                         </div>
-                        
                     </div>
 
                     <div id="overlay" class="${this.overlayOpened ? "opened" : ""}">

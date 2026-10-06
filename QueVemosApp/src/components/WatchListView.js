@@ -127,6 +127,41 @@ export class WatchListView extends LitElement {
 
             transform: translateY(-1px);
         }
+
+        .add-item {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+        }
+
+        .add-item-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 64px;
+            height: 64px;
+
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+
+            background: rgba(255, 107, 44, 0.15);
+            color: var(--accent);
+
+            font-size: 1.8rem;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .add-item-button:hover {
+            background: rgba(255, 107, 44, 0.25);
+            transform: scale(1.05);
+        }
         /* Móvil */
 
         @media (max-width: 768px) {
@@ -144,7 +179,8 @@ export class WatchListView extends LitElement {
     static properties = {
         items: { state: true },
         editingItem: { state: true },
-        listName: { state: true }
+        listName: { state: true },
+        addingItem: { type: Boolean }
     };
 
     constructor() {
@@ -162,6 +198,7 @@ export class WatchListView extends LitElement {
         this.fileStorage = watchListFileStorage;
 
         this.editingItem = undefined;
+        this.addingItem = false;
     }
     
     render() {
@@ -209,18 +246,6 @@ export class WatchListView extends LitElement {
                 </h2>
             </div>
             
-
-            ${!this.editingItem
-                ? html`
-                    <add-item-form
-                        @add-item=${this.addItem}
-                    ></add-item-form>
-                `
-                : ""
-            }
-
-            <br/>
-
             ${items.length === 0
                 ? html`
                     <p class="empty">
@@ -284,10 +309,41 @@ export class WatchListView extends LitElement {
                             `;
                         })}
 
+                        ${!this.editingItem
+                            ? html`
+                            <div class= "add-item">
+                                ${this.addingItem
+                                    ? html`
+                                        <add-item-form
+                                            @add-item=${this.addItem}
+                                        ></add-item-form>
+                                    `
+                                    : html`
+                                        <button
+                                            type="button"
+                                            class="add-item-button"
+                                            title="Añadir elemento"
+                                            @click=${this.showAddItemForm}
+                                        >
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    `
+                                }
+
+                            </div>
+                            `
+                            : ""
+                        }
+
                     </div>
+                    
                 `
             }
         `;
+    }
+
+    showAddItemForm() {
+        this.addingItem = true;
     }
 
     addItem(event) {
@@ -307,6 +363,7 @@ export class WatchListView extends LitElement {
         this.items = this.service.getItems();
 
         event.target.resetForm();
+        this.addingItem = false;
     }
 
     editItem(event) {
