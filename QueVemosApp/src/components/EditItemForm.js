@@ -422,7 +422,7 @@ export class EditItemForm extends LitElement {
 
                 <div class="field fit-content">
                     <label for="year">
-                        Año
+                       ~ Año ~
                     </label>
 
                     <input

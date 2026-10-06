@@ -179,7 +179,6 @@ export class WatchItemView extends LitElement {
         }
 
         .metadata span,
-        .genre,
         .platform {
             display: inline-flex;
             align-items: center;
@@ -192,10 +191,9 @@ export class WatchItemView extends LitElement {
 
             color: var(--text);
 
-            font-size: 0.78rem;
+            font-size: 0.74rem;
         }
 
-        .genres,
         .platforms {
             display: flex;
             flex-wrap: wrap;
@@ -203,6 +201,23 @@ export class WatchItemView extends LitElement {
             gap: 0.4rem;
 
             margin-top: 0.6rem;
+        }
+
+        .genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .25rem .5rem;
+            margin-top: .5rem;
+        }
+
+        .genre {
+            font-size: .72rem;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .genre:not(:last-child)::after {
+            content: " ·";
         }
 
         /* -------------------------
@@ -607,7 +622,7 @@ export class WatchItemView extends LitElement {
                             <div class="genres">
                                 ${genres.map(
                                     genre => html`
-                                        <span>${genre}</span>
+                                        <span class="genre">${genre}</span>
                                     `
                                 )}
                             </div>
@@ -618,7 +633,7 @@ export class WatchItemView extends LitElement {
                     ${platforms.length
                         ? html`
                             <div class="platforms">
-                                <i class="fa fa-tv"></i> : ${platforms.join(" · ")}
+                                <i class="fa fa-tv"></i> ${platforms.join(" · ")}
                             </div>
                         `
                         : ""
