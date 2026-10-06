@@ -232,7 +232,7 @@
                     Copyleft © Joselon79
                 </p>
             </footer>
-        `}};customElements.define(`app-footer`,xe);var K=Object.freeze({MOVIE:`movie`,SERIES:`series`}),q=class e{constructor({title:t,type:n,id:r=e.generateId(),originalTitle:i=void 0,year:a=void 0,runtimeMinutes:o=void 0,genres:s=[],omdbId:c=void 0,poster:l=void 0,ratings:u=void 0}){this.id=r,this.title=e.validateTitle(e.normalizeTitle(t)),this.originalTitle=i,this.type=e.validateType(n),this.year=a,this.runtimeMinutes=o,this.genres=s,this.omdbId=c,this.poster=l,this.ratings=u}get matchKey(){return e.createMatchKey(this.title,this.type,this.year)}static generateId(){return crypto.randomUUID()}static createMatchKey(e,t,n=void 0){let r=`${e.trim().toLowerCase().replace(/\s+/g,` `)}|${t}`;return n?`${r}|${n}`:r}static normalizeTitle(e){if(typeof e!=`string`)throw Error(`Media title is required`);return e.trim().replace(/\s+/g,` `)}static validateTitle(e){if(!e)throw Error(`Media title cannot be empty`);if(e.length>250)throw Error(`Media title cannot exceed 250 characters`);return e}static validateType(e){if(!Object.values(K).includes(e))throw Error(`Invalid media type`);return e}},J=Object.freeze({PENDING:`pending`,WATCHING:`watching`,PAUSED:`paused`,WATCHED:`watched`,DISCARDED:`discarded`}),Y=class{constructor({season:e=void 0,episode:t=void 0,minute:n=void 0}){this.season=e,this.episode=t,this.minute=n}},X=class e{constructor({mediaId:t,platforms:n=[],reason:r=void 0,spanishAudio:i=!1,spanishSubtitles:a=!1,status:o=J.PENDING,userRating:s=void 0,progress:c=void 0,addedAt:l=new Date().toISOString(),watchedAt:u=void 0}){this.mediaId=e.validateMediaId(t),this.platforms=n,this.reason=r,this.spanishAudio=i,this.spanishSubtitles=a,this.status=e.validateStatus(o),this.userRating=s,this.progress=c,this.addedAt=l,this.watchedAt=u}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(J).includes(e))throw Error(`Invalid status type`);return e}start(){this.status=J.WATCHING}pause(){this.status=J.PAUSED}resume(){this.status=J.WATCHING}markAsWatched(){this.status=J.WATCHED}setProgress(e){if(!(e instanceof Y))throw Error(`Invalid progress`);this.progress=e}},Z=class e{constructor({version:t=1,id:n=e.generateId(),name:r=`Mi primera lista`,watchItems:i=void 0,media:a=void 0}={}){this.version=t,this.id=n,this.name=r,this.watchItems=e.validatesItems(i),this.media=e.validatesMedia(a)}static generateId(){return crypto.randomUUID()}static validatesItems(e){if(e||=[],!Array.isArray(e))throw Error(`watchItems is not an array`);return e.forEach(e=>{if(!(e instanceof X))throw Error(`watchItems must contain only WatchItem`)}),e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e.forEach(e=>{if(!(e instanceof q))throw Error(`media must contain only Media`)}),e}addMedia(e){if(this.media.some(t=>t.id===e.id)||this.media.some(t=>t.matchKey===e.matchKey))throw Error(`Media already exists`);this.media.push(e)}removeMedia(e){if(this.watchItems.some(t=>t.mediaId===e))return!1;let t=this.media.findIndex(t=>t.id===e);return t!==-1&&(this.media.splice(t,1),!0)}addWatchItem(e){if(!this.media.some(t=>t.id===e.mediaId))throw Error(`Media not found`);this.watchItems.push(e)}},Q=class{constructor(e){this.watchList=e}addItem({title:e,type:t,year:n,originalTitle:r,genres:i,platforms:a}){let o=null,s=!1;try{o=new q({title:e,type:t,year:n,originalTitle:r,genres:i});let c=new X({mediaId:o.id,platforms:a});return this.watchList.addMedia(o),s=!0,this.watchList.addWatchItem(c),{success:!0}}catch(e){return s&&this.watchList.removeMedia(o.id),{success:!1,error:e.message}}}updateItem({mediaId:e,media:t,watchItem:n}){let r=this.watchList.media.find(t=>t.id===e),i=this.watchList.watchItems.find(t=>t.mediaId===e);if(!r||!i)return{success:!1,error:`Item not found`};try{let a=new q({id:e,title:t.title,type:t.type,year:t.year,originalTitle:t.originalTitle,genres:t.genres,runtimeMinutes:r.runtimeMinutes,omdbId:r.omdbId,poster:r.poster,ratings:r.ratings});if(this.watchList.media.some(t=>t.id!==e&&t.matchKey===a.matchKey))throw Error(`Media already exists`);return r.title=a.title,r.type=a.type,r.year=a.year,r.originalTitle=a.originalTitle,r.genres=a.genres,i.platforms=n.platforms,i.reason=n.reason,i.spanishAudio=n.spanishAudio,i.spanishSubtitles=n.spanishSubtitles,i.userRating=n.userRating,i.progress=n.progress,{success:!0}}catch(e){return{success:!1,error:e.message}}}changeStatus(e,t){let n=this.watchList.watchItems.find(t=>t.mediaId===e);if(!n)return{success:!1,error:`WatchItem not found`};try{switch(t){case J.WATCHING:if(n.status===J.PENDING)n.start();else if(n.status===J.PAUSED)n.resume();else throw Error(`Invalid status transition`);break;case J.PAUSED:if(n.status!==J.WATCHING)throw Error(`Invalid status transition`);n.pause();break;case J.WATCHED:if(n.status!==J.WATCHING)throw Error(`Invalid status transition`);n.markAsWatched();break;default:throw Error(`Invalid status transition`)}let e=new X({mediaId:n.mediaId,platforms:n.platforms,reason:n.reason,spanishAudio:n.spanishAudio,spanishSubtitles:n.spanishSubtitles,status:n.status,userRating:n.userRating,progress:n.progress,addedAt:n.addedAt,watchedAt:n.watchedAt}),r=this.watchList.watchItems.indexOf(n);return this.watchList.watchItems[r]=e,{success:!0}}catch(e){return{success:!1,error:e.message}}}renameWatchList(e){return!e||!e.trim()?{success:!1,error:`El nombre no puede estar vacío`}:(this.watchList.name=e.trim(),{success:!0})}getItems(){return this.watchList.watchItems.map(e=>({media:this.watchList.media.find(t=>t.id===e.mediaId),watchItem:e}))}},Se=class{constructor(e,t=`quevemos-watchlist`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);if(!e)return new Z;let t=JSON.parse(e),n=t.media.map(e=>new q(e)),r=t.watchItems.map(e=>new X(e));return new Z({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}},Ce=class{export(e){return JSON.stringify(e,null,2)}import(e){let t=this.parse(e);this.validate(t);let n=t.media.map(e=>new q(e)),r=t.watchItems.map(e=>new X(e));return new Z({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}parse(e){try{return JSON.parse(e)}catch{throw Error(`Invalid JSON`)}}validate(e){if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Invalid WatchList file`);if(e.version!==1)throw Error(`Unsupported WatchList version`);if(!Array.isArray(e.media))throw Error(`WatchList media is not an array`);if(!Array.isArray(e.watchItems))throw Error(`WatchList watchItems is not an array`)}},$={version:1,mediaTypes:[{id:`movie`,name:`Película`},{id:`series`,name:`Serie`}],genres:[{id:`action`,name:`Acción`},{id:`adventure`,name:`Aventuras`},{id:`animation`,name:`Animación`},{id:`comedy`,name:`Comedia`},{id:`crime`,name:`Crimen`},{id:`documentary`,name:`Documental`},{id:`drama`,name:`Drama`},{id:`family`,name:`Familiar`},{id:`fantasy`,name:`Fantasía`},{id:`history`,name:`Historia`},{id:`horror`,name:`Terror`},{id:`music`,name:`Musical`},{id:`mystery`,name:`Misterio`},{id:`romance`,name:`Romance`},{id:`science-fiction`,name:`Ciencia ficción`},{id:`sport`,name:`Deporte`},{id:`thriller`,name:`Thriller`},{id:`war`,name:`Bélica`},{id:`western`,name:`Western`}],watchStatuses:[{id:`pending`,name:`Pendiente`},{id:`watching`,name:`Viendo`},{id:`paused`,name:`En pausa`},{id:`watched`,name:`Vista`},{id:`discarded`,name:`Descartada`}],platforms:[{id:`netflix-es`,name:`Netflix`,country:`ES`,active:!0,logo:`netflix`},{id:`max-es`,name:`HBO Max`,country:`ES`,active:!0,logo:`max`},{id:`prime-video-es`,name:`Prime`,country:`ES`,active:!0,logo:`prime-video`},{id:`disney-plus-es`,name:`Disney+`,country:`ES`,active:!0,logo:`disney-plus`},{id:`movistar-plus-es`,name:`Movistar Plus+`,country:`ES`,active:!0,logo:`movistar-plus`},{id:`apple-tv-plus-es`,name:`Apple TV+`,country:`ES`,active:!0,logo:`apple-tv-plus`},{id:`filmin-es`,name:`Filmin`,country:`ES`,active:!0,logo:`filmin`},{id:`skyshowtime-es`,name:`SkyShowtime`,country:`ES`,active:!0,logo:`skyshowtime`},{id:`atresplayer-es`,name:`Atresplayer`,country:`ES`,active:!0,logo:`atresplayer`},{id:`rtve-play-es`,name:`RTVE Play`,country:`ES`,active:!0,logo:`rtve-play`},{id:`youtube-es`,name:`YouTube`,country:`ES`,active:!0,logo:`youtube`}]},we=class e extends G{static styles=o`
+        `}};customElements.define(`app-footer`,xe);var K=Object.freeze({MOVIE:`movie`,SERIES:`series`}),q=class e{constructor({title:t,type:n,id:r=e.generateId(),originalTitle:i=void 0,year:a=void 0,runtimeMinutes:o=void 0,genres:s=[],omdbId:c=void 0,poster:l=void 0,ratings:u=void 0}){this.id=r,this.title=e.validateTitle(e.normalizeTitle(t)),this.originalTitle=i,this.type=e.validateType(n),this.year=a,this.runtimeMinutes=o,this.genres=s,this.omdbId=c,this.poster=l,this.ratings=u}get matchKey(){return e.createMatchKey(this.title,this.type,this.year)}static generateId(){return crypto.randomUUID()}static createMatchKey(e,t,n=void 0){let r=`${e.trim().toLowerCase().replace(/\s+/g,` `)}|${t}`;return n?`${r}|${n}`:r}static normalizeTitle(e){if(typeof e!=`string`)throw Error(`Media title is required`);return e.trim().replace(/\s+/g,` `)}static validateTitle(e){if(!e)throw Error(`Media title cannot be empty`);if(e.length>250)throw Error(`Media title cannot exceed 250 characters`);return e}static validateType(e){if(!Object.values(K).includes(e))throw Error(`Invalid media type`);return e}},J=Object.freeze({PENDING:`pending`,WATCHING:`watching`,PAUSED:`paused`,WATCHED:`watched`,DISCARDED:`discarded`}),Y=class{constructor({season:e=void 0,episode:t=void 0,minute:n=void 0}){this.season=e,this.episode=t,this.minute=n}},X=class e{constructor({mediaId:t,platforms:n=[],reason:r=void 0,spanishAudio:i=!1,spanishSubtitles:a=!1,status:o=J.PENDING,userRating:s=void 0,progress:c=void 0,addedAt:l=new Date().toISOString(),watchedAt:u=void 0}){this.mediaId=e.validateMediaId(t),this.platforms=n,this.reason=r,this.spanishAudio=i,this.spanishSubtitles=a,this.status=e.validateStatus(o),this.userRating=s,this.progress=c,this.addedAt=l,this.watchedAt=u}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(J).includes(e))throw Error(`Invalid status type`);return e}start(){this.status=J.WATCHING}pause(){this.status=J.PAUSED}resume(){this.status=J.WATCHING}markAsWatched(){this.status=J.WATCHED}setProgress(e){if(!(e instanceof Y))throw Error(`Invalid progress`);this.progress=e}},Z=class e{constructor({version:t=1,id:n=e.generateId(),name:r=`Mi primera lista`,watchItems:i=void 0,media:a=void 0}={}){this.version=e.validateVersion(t),this.id=n,this.name=r,this.watchItems=e.validatesItems(i),this.media=e.validatesMedia(a)}static generateId(){return crypto.randomUUID()}static validatesItems(e){if(e||=[],!Array.isArray(e))throw Error(`watchItems is not an array`);return e.forEach(e=>{if(!(e instanceof X))throw Error(`watchItems must contain only WatchItem`)}),e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e.forEach(e=>{if(!(e instanceof q))throw Error(`media must contain only Media`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported watch list version`);return e}addMedia(e){if(this.media.some(t=>t.id===e.id)||this.media.some(t=>t.matchKey===e.matchKey))throw Error(`Media already exists`);this.media.push(e)}removeMedia(e){if(this.watchItems.some(t=>t.mediaId===e))return!1;let t=this.media.findIndex(t=>t.id===e);return t!==-1&&(this.media.splice(t,1),!0)}addWatchItem(e){if(!this.media.some(t=>t.id===e.mediaId))throw Error(`Media not found`);this.watchItems.push(e)}},Q=class{constructor(e){this.watchList=e}addItem({title:e,type:t,year:n,originalTitle:r,genres:i,platforms:a}){let o=null,s=!1;try{o=new q({title:e,type:t,year:n,originalTitle:r,genres:i});let c=new X({mediaId:o.id,platforms:a});return this.watchList.addMedia(o),s=!0,this.watchList.addWatchItem(c),{success:!0}}catch(e){return s&&this.watchList.removeMedia(o.id),{success:!1,error:e.message}}}updateItem({mediaId:e,media:t,watchItem:n}){let r=this.watchList.media.find(t=>t.id===e),i=this.watchList.watchItems.find(t=>t.mediaId===e);if(!r||!i)return{success:!1,error:`Item not found`};try{let a=new q({id:e,title:t.title,type:t.type,year:t.year,originalTitle:t.originalTitle,genres:t.genres,runtimeMinutes:r.runtimeMinutes,omdbId:r.omdbId,poster:r.poster,ratings:r.ratings});if(this.watchList.media.some(t=>t.id!==e&&t.matchKey===a.matchKey))throw Error(`Media already exists`);return r.title=a.title,r.type=a.type,r.year=a.year,r.originalTitle=a.originalTitle,r.genres=a.genres,i.platforms=n.platforms,i.reason=n.reason,i.spanishAudio=n.spanishAudio,i.spanishSubtitles=n.spanishSubtitles,i.userRating=n.userRating,i.progress=n.progress,{success:!0}}catch(e){return{success:!1,error:e.message}}}changeStatus(e,t){let n=this.watchList.watchItems.find(t=>t.mediaId===e);if(!n)return{success:!1,error:`WatchItem not found`};try{switch(t){case J.WATCHING:if(n.status===J.PENDING)n.start();else if(n.status===J.PAUSED)n.resume();else throw Error(`Invalid status transition`);break;case J.PAUSED:if(n.status!==J.WATCHING)throw Error(`Invalid status transition`);n.pause();break;case J.WATCHED:if(n.status!==J.WATCHING)throw Error(`Invalid status transition`);n.markAsWatched();break;default:throw Error(`Invalid status transition`)}let e=new X({mediaId:n.mediaId,platforms:n.platforms,reason:n.reason,spanishAudio:n.spanishAudio,spanishSubtitles:n.spanishSubtitles,status:n.status,userRating:n.userRating,progress:n.progress,addedAt:n.addedAt,watchedAt:n.watchedAt}),r=this.watchList.watchItems.indexOf(n);return this.watchList.watchItems[r]=e,{success:!0}}catch(e){return{success:!1,error:e.message}}}renameWatchList(e){return!e||!e.trim()?{success:!1,error:`El nombre no puede estar vacío`}:(this.watchList.name=e.trim(),{success:!0})}getItems(){return this.watchList.watchItems.map(e=>({media:this.watchList.media.find(t=>t.id===e.mediaId),watchItem:e}))}},Se=class{constructor(e,t=`quevemos-watchlist`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);if(!e)return new Z;let t=JSON.parse(e),n=t.media.map(e=>new q(e)),r=t.watchItems.map(e=>new X(e));return new Z({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}},Ce=class{export(e){return JSON.stringify(e,null,2)}import(e){let t=this.parse(e);this.validate(t);let n=t.media.map(e=>new q(e)),r=t.watchItems.map(e=>new X(e));return new Z({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}parse(e){try{return JSON.parse(e)}catch{throw Error(`Invalid JSON`)}}validate(e){if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Invalid WatchList file`);if(!Number.isInteger(e.version)||e.version<1||e.version>1)throw Error(`Unsupported WatchList version`);if(!Array.isArray(e.media))throw Error(`WatchList media is not an array`);if(!Array.isArray(e.watchItems))throw Error(`WatchList watchItems is not an array`)}},$={version:1,mediaTypes:[{id:`movie`,name:`Película`},{id:`series`,name:`Serie`}],genres:[{id:`action`,name:`Acción`},{id:`adventure`,name:`Aventuras`},{id:`animation`,name:`Animación`},{id:`comedy`,name:`Comedia`},{id:`crime`,name:`Crimen`},{id:`documentary`,name:`Documental`},{id:`drama`,name:`Drama`},{id:`family`,name:`Familiar`},{id:`fantasy`,name:`Fantasía`},{id:`history`,name:`Historia`},{id:`horror`,name:`Terror`},{id:`music`,name:`Musical`},{id:`mystery`,name:`Misterio`},{id:`romance`,name:`Romance`},{id:`science-fiction`,name:`Ciencia ficción`},{id:`sport`,name:`Deporte`},{id:`thriller`,name:`Thriller`},{id:`war`,name:`Bélica`},{id:`western`,name:`Western`}],watchStatuses:[{id:`pending`,name:`Pendiente`},{id:`watching`,name:`Viendo`},{id:`paused`,name:`En pausa`},{id:`watched`,name:`Vista`},{id:`discarded`,name:`Descartada`}],platforms:[{id:`netflix-es`,name:`Netflix`,country:`ES`,active:!0,logo:`netflix`},{id:`max-es`,name:`HBO Max`,country:`ES`,active:!0,logo:`max`},{id:`prime-video-es`,name:`Prime`,country:`ES`,active:!0,logo:`prime-video`},{id:`disney-plus-es`,name:`Disney+`,country:`ES`,active:!0,logo:`disney-plus`},{id:`movistar-plus-es`,name:`Movistar Plus+`,country:`ES`,active:!0,logo:`movistar-plus`},{id:`apple-tv-plus-es`,name:`Apple TV+`,country:`ES`,active:!0,logo:`apple-tv-plus`},{id:`filmin-es`,name:`Filmin`,country:`ES`,active:!0,logo:`filmin`},{id:`skyshowtime-es`,name:`SkyShowtime`,country:`ES`,active:!0,logo:`skyshowtime`},{id:`atresplayer-es`,name:`Atresplayer`,country:`ES`,active:!0,logo:`atresplayer`},{id:`rtve-play-es`,name:`RTVE Play`,country:`ES`,active:!0,logo:`rtve-play`},{id:`youtube-es`,name:`YouTube`,country:`ES`,active:!0,logo:`youtube`}]},we=class e extends G{static styles=o`
         :host {
             display: block;
         }
@@ -450,6 +450,42 @@
         /* -------------------------
         Barra inferior
         ------------------------- */
+        .share-button {
+            position: absolute;
+            top: 0.8rem;
+            left: 0.8rem;
+            z-index: 2;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 38px;
+            height: 38px;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50%;
+
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(3px);
+
+            color: #ffffff;
+
+            font-size: 1rem;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .share-button:hover {
+            background: rgba(0, 0, 0, 0.65);
+            transform: scale(1.05);
+        }
 
         .media-actions {
             display: flex;
@@ -591,6 +627,14 @@
                             </div>
                         `}
                 </div>
+                <!-- ToDo: Seleccionar para compartir -->
+                <button
+                    class="share-button"
+                    title="Recomendar"
+                    disabled
+                >
+                    <i class="fa fa-share-alt"></i>
+                </button>
 
                 <div class="media-content">
                     
@@ -606,14 +650,6 @@
                         `:``}
                         <div class="status-actions">
                             ${this.renderStatusActions()}
-                            <!-- ToDo -->
-                            <button
-                                class="action-button"
-                                title="Recomendar"
-                                disabled
-                            >
-                                <i class="fa fa-share-alt"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -626,7 +662,6 @@
                         </h3>
    
                         <div class="information-actions">
-
                             <button
                                 type="button"
                                 class="action-button"
@@ -645,9 +680,7 @@
                             >
                                 <i class="fa fa-pencil"></i>
                             </button>
-
                         </div>
-                        
                     </div>
 
                     <div id="overlay" class="${this.overlayOpened?`opened`:``}">
@@ -1541,6 +1574,41 @@
 
             transform: translateY(-1px);
         }
+
+        .add-item {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+        }
+
+        .add-item-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 64px;
+            height: 64px;
+
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+
+            background: rgba(255, 107, 44, 0.15);
+            color: var(--accent);
+
+            font-size: 1.8rem;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .add-item-button:hover {
+            background: rgba(255, 107, 44, 0.25);
+            transform: scale(1.05);
+        }
         /* Móvil */
 
         @media (max-width: 768px) {
@@ -1553,7 +1621,7 @@
                 height: 32px;
             }
         }
-    `;static properties={items:{state:!0},editingItem:{state:!0},listName:{state:!0}};constructor(){super(),this.items=[];let e=new Se(localStorage),t=e.load(),n=new Ce;this.service=new Q(t),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.storage=e,this.fileStorage=n,this.editingItem=void 0}render(){let e=this.items;return F`
+    `;static properties={items:{state:!0},editingItem:{state:!0},listName:{state:!0},addingItem:{type:Boolean}};constructor(){super(),this.items=[];let e=new Se(localStorage),t=e.load(),n=new Ce;this.service=new Q(t),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.storage=e,this.fileStorage=n,this.editingItem=void 0,this.addingItem=!1}render(){let e=this.items;return F`
             <link
                 rel="stylesheet"
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
@@ -1595,15 +1663,6 @@
                 </h2>
             </div>
             
-
-            ${this.editingItem?``:F`
-                    <add-item-form
-                        @add-item=${this.addItem}
-                    ></add-item-form>
-                `}
-
-            <br/>
-
             ${e.length===0?F`
                     <p class="empty">
                         La lista está vacía.
@@ -1656,9 +1715,30 @@
                                 </div>
                             `)}
 
+                        ${this.editingItem?``:F`
+                            <div class= "add-item">
+                                ${this.addingItem?F`
+                                        <add-item-form
+                                            @add-item=${this.addItem}
+                                        ></add-item-form>
+                                    `:F`
+                                        <button
+                                            type="button"
+                                            class="add-item-button"
+                                            title="Añadir elemento"
+                                            @click=${this.showAddItemForm}
+                                        >
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    `}
+
+                            </div>
+                            `}
+
                     </div>
+                    
                 `}
-        `}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),e.target.resetForm()}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=[...this.service.getItems()]}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new Q(n),this.storage.save(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new Z({name:`Mi nueva lista`});this.service=new Q(e),this.storage.save(e),this.listName=this.service.watchList.name,this.items=this.service.getItems()}};customElements.define(`watch-list-view`,De);var Oe=class extends G{static styles=o`
+        `}showAddItemForm(){this.addingItem=!0}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),e.target.resetForm(),this.addingItem=!1}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=[...this.service.getItems()]}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new Q(n),this.storage.save(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new Z({name:`Mi nueva lista`});this.service=new Q(e),this.storage.save(e),this.listName=this.service.watchList.name,this.items=this.service.getItems()}};customElements.define(`watch-list-view`,De);var Oe=class extends G{static styles=o`
         :host {
             display: block;
             min-height: 100vh;
