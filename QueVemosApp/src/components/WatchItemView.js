@@ -9,6 +9,11 @@ export class WatchItemView extends LitElement {
         :host {
             display: block;
         }
+
+        :host(.overlay-open) {
+            position: relative;
+            z-index: 10;
+        }
             
         *,
         *::before,
@@ -17,10 +22,12 @@ export class WatchItemView extends LitElement {
         }
 
         .media-card {
+            position: relative;
+
             display: grid;
             grid-template-columns: 180px minmax(0, 1fr);
 
-            overflow: hidden;
+            overflow: visible;
 
             border: 2px solid rgba(250, 62, 0, 0.7);
             border-radius: 18px;
@@ -46,6 +53,29 @@ export class WatchItemView extends LitElement {
             box-shadow:
                 0 14px 30px rgba(0, 0, 0, 0.25);
         }
+
+        #overlay {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            top: 3.8rem;
+            right: 1.2rem;
+
+            width: 280px;
+            max-width: calc(100vw - 2rem);
+
+            background: var(--surface-strong);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+
+            color: var(--text);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        #overlay.opened {
+            display: block;
+        }           
 
         /* -------------------------
         Poster
@@ -106,6 +136,7 @@ export class WatchItemView extends LitElement {
         }
 
         .information {
+            position: relative;
             padding: 1rem 1.2rem;
 
             flex: 1;
@@ -302,11 +333,19 @@ export class WatchItemView extends LitElement {
 
     static properties = {
         media: { type: Object },
-        watchItem: { type: Object }
+        watchItem: { type: Object },
+        overlayOpened: { type: Boolean }
     };
+
     static getCatalogName(catalog, id) {
         const item = catalog.find(item => item.id === id);
         return item?.name ?? id;
+    }
+
+    constructor() {
+        super();
+
+        this.overlayOpened = false;
     }
 
     editItem() {
@@ -348,6 +387,7 @@ export class WatchItemView extends LitElement {
                 rel="stylesheet"
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
             >
+           
             <article class="media-card">
 
                 <div class="poster">
@@ -423,17 +463,19 @@ export class WatchItemView extends LitElement {
                         <h3>
                             ${this.media.title}
                         </h3>
+   
                         <div class="information-actions">
 
                             <button
                                 type="button"
                                 class="action-button"
                                 title="Información"
+                                id="trigger"
                                 @click=${this.showInformation}
                             >
                                 <i class="fa fa-info-circle"></i>
                             </button>
-
+                            
                             <button
                                 type="button"
                                 class="action-button"
@@ -444,9 +486,106 @@ export class WatchItemView extends LitElement {
                             </button>
 
                         </div>
+                        
+                    </div>
+
+                    <div id="overlay" class="${this.overlayOpened ? "opened" : ""}">
+                            
+                        ${this.watchItem.reason
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Motivo</strong>
+                                    <p>${this.watchItem.reason}</p>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        <div class="overlay-section">
+                            <strong>Audio</strong>
+                            <span>
+                                ${this.watchItem.spanishAudio
+                                    ? "Español"
+                                    : "Original"
+                                }
+                            </span>
+                        </div>
+
+                        <div class="overlay-section">
+                            <strong>Subtítulos</strong>
+                            <span>
+                                ${this.watchItem.spanishSubtitles
+                                    ? "Español"
+                                    : "No"
+                                }
+                            </span>
+                        </div>
+
+                        ${this.watchItem.userRating !== undefined
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Mi valoración</strong>
+                                    <span>${this.watchItem.userRating} / 10</span>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.media.ratings
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Valoraciones</strong>
+                                    <span>
+                                        ${this.media.ratings.imdb
+                                            ? `IMDb: ${this.media.ratings.imdb}`
+                                            : ""
+                                        }
+                                        ${this.media.ratings.metascore
+                                            ? ` · Metascore: ${this.media.ratings.metascore}`
+                                            : ""
+                                        }
+                                    </span>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.watchItem.addedAt
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Añadida</strong>
+                                    <span>${this.formatDate(this.watchItem.addedAt)}</span>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.watchItem.watchedAt
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Vista</strong>
+                                    <span>${this.formatDate(this.watchItem.watchedAt)}</span>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.watchItem.progress
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Progreso</strong>
+                                    <span>${this.renderProgress()}</span>
+                                </div>
+                            `
+                            : ""
+                        }
+                        
                     </div>
 
                     <div class="metadata">
+
+
+
                         <span class="media-type">${typeName}</span>
                         ${this.media.year
                             ? html`<span>${this.media.year}</span>`
@@ -461,6 +600,7 @@ export class WatchItemView extends LitElement {
                             : ""
                         }
                     </div>
+                    
 
                     ${genres.length
                         ? html`
@@ -487,6 +627,38 @@ export class WatchItemView extends LitElement {
         `;
     }
 
+    showInformation() {
+        this.overlayOpened = !this.overlayOpened;
+
+        this.classList.toggle(
+            "overlay-open",
+            this.overlayOpened
+        );
+    }
+
+    formatDate(date) {
+        return new Date(date).toLocaleDateString("es-ES");
+    }
+    renderProgress() {
+        const progress = this.watchItem.progress;
+
+        if (!progress) {
+            return "";
+        }
+
+        if (progress.minute !== undefined) {
+            return `${progress.minute} min`;
+        }
+
+        if (
+            progress.season !== undefined &&
+            progress.episode !== undefined
+        ) {
+            return `Temporada ${progress.season}, episodio ${progress.episode}`;
+        }
+
+        return "";
+    }
     renderStatusActions() {
 
         switch (this.watchItem.status) {
