@@ -5,6 +5,7 @@ import { WatchList } from "../../src/domain/WatchList.js";
 import { WatchItem } from "../../src/domain/WatchItem.js";
 import { Media } from "../../src/domain/Media.js";
 import { MediaType } from "../../src/domain/MediaType.js";
+import { DATA_VERSION } from "../../src/data/version.js";
 
 test("WatchList starts empty", () => {
     const watchList = new WatchList();
@@ -162,4 +163,22 @@ test("WatchList: allows media with the same title but different type", () => {
     watchList.addMedia(series);
 
     assert.strictEqual(watchList.media.length, 2);
+});
+
+test("WatchList: accepts supported versions", () => {
+    const watchList = new WatchList();
+
+    assert.equal(watchList.version, DATA_VERSION);
+});
+
+test("WatchList: rejects unsupported version", () => {
+    assert.throws(
+        () => new WatchList({
+            name: "Mi lista",
+            version: DATA_VERSION + 1
+        }),
+        {
+            message: "Unsupported watch list version"
+        }
+    );
 });

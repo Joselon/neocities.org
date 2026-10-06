@@ -1,16 +1,17 @@
+import {DATA_VERSION} from "../data/version.js"
 import { Media } from "./Media.js";
 import { WatchItem } from "./WatchItem.js";
 
 export class WatchList {
 
     constructor({
-        version = 1,
+        version = DATA_VERSION,
         id =  WatchList.generateId(),
         name = "Mi primera lista",
         watchItems = undefined, //WatchItem[]
         media = undefined
     } = {}) {
-        this.version = version;
+        this.version = WatchList.validateVersion(version);
         this.id = id;
         this.name = name;
         this.watchItems = WatchList.validatesItems(watchItems);
@@ -49,6 +50,18 @@ export class WatchList {
             }
         });
         return media;
+    }
+
+    static validateVersion(version) {
+        if (
+            !Number.isInteger(version) ||
+            version < 1 ||
+            version > DATA_VERSION
+        ) {
+            throw new Error("Unsupported watch list version");
+        }
+
+        return version;
     }
 
     addMedia(media) {

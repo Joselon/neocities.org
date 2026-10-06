@@ -5,6 +5,7 @@ import { WatchList } from "../../src/domain/WatchList.js";
 import { Media } from "../../src/domain/Media.js";
 import { WatchItem } from "../../src/domain/WatchItem.js";
 import { WatchListFileStorage } from "../../src/storage/WatchListFileStorage.js";
+import { DATA_VERSION } from "../../src/data/version.js";
 
 test("Storage: export creates JSON from WatchList", () => {
 
@@ -174,7 +175,7 @@ test("Storage: import rejects unsupported version", () => {
     const storage = new WatchListFileStorage();
 
     const json = JSON.stringify({
-        version: 2,
+        version: DATA_VERSION + 1,
         media: [],
         watchItems: []
     });
@@ -185,6 +186,39 @@ test("Storage: import rejects unsupported version", () => {
             message: "Unsupported WatchList version"
         }
     );
+});
+
+test("WatchListFileStorage: rejects version lower than 1", () => {
+    const storage = new WatchListFileStorage();
+    
+    const json = JSON.stringify({
+        version: 0,
+        name: "Mi lista",
+        media: [],
+        watchItems: []
+    });
+
+    assert.throws(
+        () => storage.import(json),
+        {
+            message: "Unsupported WatchList version"
+        }
+    );
+});
+
+test("WatchListFileStorage: imports current version", () => {
+    const storage = new WatchListFileStorage();
+
+    const json = JSON.stringify({
+        version: DATA_VERSION,
+        name: "Mi lista",
+        media: [],
+        watchItems: []
+    });
+
+    const watchList = storage.import(json);
+
+    assert.equal(watchList.version, DATA_VERSION);
 });
 
 test("Storage: import rejects missing media array", () => {

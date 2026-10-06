@@ -92,3 +92,26 @@ test("Recommendation: does not contain WatchItem progress", () => {
     assert.equal(recommendation.progress, undefined);
     assert.equal(recommendation.watchedAt, undefined);
 });
+
+test("Recommendation: starts with pending status", () => {
+    const recommendation = new Recommendation({
+        mediaId: "media-001"
+    });
+
+    assert.equal(
+        recommendation.status,
+        RecommendationStatus.PENDING
+    );
+});
+
+test("Recommendation: rejects invalid status", () => {
+    assert.throws(
+        () => new Recommendation({
+            mediaId: "media-001",
+            status: "invalid"
+        }),
+        {
+            message: "Invalid recommendation status"
+        }
+    );
+});

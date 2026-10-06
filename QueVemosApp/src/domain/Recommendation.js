@@ -36,7 +36,7 @@ export class Recommendation {
 
     static validateStatus(status) {
         if (!Object.values(RecommendationStatus).includes(status)) {
-            throw new Error("Invalid status type");
+            throw new Error("Invalid recommendation status");
         }
         return status;
     }

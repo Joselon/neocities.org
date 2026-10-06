@@ -1,6 +1,7 @@
 import { WatchList } from "../domain/WatchList.js";
 import { Media } from "../domain/Media.js";
 import { WatchItem } from "../domain/WatchItem.js";
+import { DATA_VERSION } from "../data/version.js";
 
 export class WatchListFileStorage {
 
@@ -44,7 +45,11 @@ export class WatchListFileStorage {
             throw new Error("Invalid WatchList file");
         }
 
-        if (data.version !== 1) {
+        if (
+            !Number.isInteger(data.version) ||
+            data.version < 1 ||
+            data.version > DATA_VERSION
+        ) {
             throw new Error("Unsupported WatchList version");
         }
 

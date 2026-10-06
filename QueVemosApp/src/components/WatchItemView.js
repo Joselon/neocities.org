@@ -438,14 +438,6 @@ export class WatchItemView extends LitElement {
                     }
                         <div class="status-actions">
                             ${this.renderStatusActions()}
-                            <!-- ToDo -->
-                            <button
-                                class="action-button"
-                                title="Recomendar"
-                                disabled
-                            >
-                                <i class="fa fa-share-alt"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -498,6 +490,14 @@ export class WatchItemView extends LitElement {
                                 @click=${this.editItem}
                             >
                                 <i class="fa fa-pencil"></i>
+                            </button>
+                            <!-- ToDo: Seleccionar para compartir -->
+                            <button
+                                class="action-button"
+                                title="Recomendar"
+                                disabled
+                            >
+                                <i class="fa fa-share-alt"></i>
                             </button>
 
                         </div>
