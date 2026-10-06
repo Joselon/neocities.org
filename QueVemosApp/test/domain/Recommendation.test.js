@@ -1,13 +1,8 @@
 /* 
-Se crea con un mediaId.
-Genera su propio id local.
-El estado inicial es pending.
 Guarda plataformas.
 Guarda idioma español y subtítulos.
 Guarda la razón.
 Guarda la valoración del recomendador.
-mediaId es obligatorio.
-No tiene campos propios de WatchItem como progress, watchedAt, etc.
 Podemos crear una recomendación aunque alguno de los datos opcionales no esté marcado.
  */
 import test from "node:test";
