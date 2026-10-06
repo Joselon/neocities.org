@@ -155,8 +155,7 @@ export class AddItemForm extends LitElement {
                 </div>
 
                 <div>
-                    <h2>Añadir elemento</h2>
-                    <p>Estás añadiendo un elemento a tu lista manualmente</p>
+                    <h2>Añadir elemento (manual)</h2>
                 </div>
             </div>
             <form @submit=${this.addItem}>

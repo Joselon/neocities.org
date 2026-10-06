@@ -226,8 +226,9 @@ export class WatchListView extends LitElement {
                     <p class="empty">
                         La lista está vacía.
                     </p>
+                    
                 `
-                : html`
+                : html` 
                     <div class="media-list">
                         <div class="list-header">
                             <div class="hero-badge"> Mostrando todos los elementos </div>
@@ -426,8 +427,8 @@ export class WatchListView extends LitElement {
 
                 this.storage.save(watchList);
 
-                this.items =
-                    this.service.getItems();
+                this.listName = this.service.watchList.name;
+                this.items = this.service.getItems();
 
                 this.editingItem = undefined;
 
@@ -459,6 +460,7 @@ export class WatchListView extends LitElement {
 
         this.service = new WatchListService(watchList);
         this.storage.save(watchList);
+        this.listName = this.service.watchList.name;
         this.items = this.service.getItems();
     }
 }

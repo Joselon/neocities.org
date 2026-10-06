@@ -184,6 +184,13 @@
       "country": "ES",
       "active": true,
       "logo": "rtve-play"
+    },
+    {
+      "id": "youtube-es",
+      "name": "YouTube",
+      "country": "ES",
+      "active": true,
+      "logo": "youtube"
     }
   ]
 }
