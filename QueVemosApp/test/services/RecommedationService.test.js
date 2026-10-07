@@ -1,8 +1,3 @@
-/*
-Aceptar una recomendación, creando el WatchItem correspondiente.
-Descartar una recomendación.
-Dejar preparada la gestión de conflictos sin meter un estado CONFLICT.
-*/
 import test from "node:test";
 import assert from "node:assert/strict";
 
@@ -361,8 +356,8 @@ test("RecommendationService: creates a recommendation exchange item", () => {
         );
 
     assert.equal(exchange.length, 1);
-
-    assert.deepEqual(exchange[0].media, media);
+    assert.notEqual(exchange[0].media, media);
+    assert.equal(exchange[0].media.matchKey, media.matchKey);
     assert.equal(
         exchange[0].recommendation,
         recommendation
@@ -396,6 +391,58 @@ test("RecommendationService: exchange rejects a recommendation with unknown medi
             watchList
         ),
         /Media not found in WatchList/
+    );
+});
+
+test("RecommendationService: creates an exchange item with a complete media snapshot", () => {
+
+    const media = new Media({
+        id: "media-001",
+        title: "RoboCop",
+        type: "movie",
+        year: 1987,
+        omdbId: "tt0093870"
+    });
+
+    const watchItem = new WatchItem({
+        mediaId: media.id
+        // ...los datos necesarios
+    });
+
+    const watchList = new WatchList({
+        id: "list-001",
+        name: "La nuestra",
+        media: [media],
+        watchItems: [watchItem]
+    });
+
+    const service = new RecommendationService();
+
+    const recommendationList =
+        service.createRecommendationList(
+            watchList,
+            [watchItem]
+        );
+
+    const exchange =
+        service.createRecommendationExchange(
+            recommendationList,
+            watchList
+        );
+
+    assert.equal(exchange.length, 1);
+
+    assert.equal(exchange[0].media.id, media.id);
+    assert.equal(exchange[0].media.title, media.title);
+    assert.equal(exchange[0].media.originalTitle, media.originalTitle);
+    assert.equal(exchange[0].media.type, media.type);
+    assert.equal(exchange[0].media.year, media.year);
+    assert.equal(exchange[0].media.omdbId, media.omdbId);
+    assert.equal(exchange[0].media.matchKey, media.matchKey);
+
+    assert.equal(
+        exchange[0].recommendation,
+        recommendationList.recommendations[0]
     );
 });
 
@@ -448,9 +495,10 @@ test("RecommendationService: finds media by matching omdbId", () => {
     assert.equal(result[0].status, "matched");
     assert.equal(result[0].matches.length, 1);
     assert.equal(
-        result[0].matches[0],
+        result[0].matches[0].media,
         existingMedia
     );
+    assert.deepEqual(result[0].matches[0].matches, ["omdbId"]);
 });
 
 test("RecommendationService: ignores empty omdbId", () => {
@@ -494,7 +542,7 @@ test("RecommendationService: finds candidate by exact matchKey", () => {
         title: "RoboCop",
         type: "movie",
         year: 1987,
-        matchKey: "robocop-movie-1987"
+        //matchKey: "robocop-movie-1987"
     });
 
     const exchangeMedia = {
@@ -502,7 +550,7 @@ test("RecommendationService: finds candidate by exact matchKey", () => {
         title: "RoboCop",
         type: "movie",
         year: 1987,
-        matchKey: "robocop-movie-1987"
+        matchKey: "robocop|movie|1987"
     };
 
     const watchList = new WatchList({
@@ -520,7 +568,8 @@ test("RecommendationService: finds candidate by exact matchKey", () => {
         );
 
     assert.equal(matches.length, 1);
-    assert.equal(matches[0], existingMedia);
+    assert.equal(matches[0].media, existingMedia);
+    assert.deepEqual(matches[0].matches, ["matchKey"]);
 });
 
 test("RecommendationService: finds media by matching matchKey", () => {
@@ -531,7 +580,7 @@ test("RecommendationService: finds media by matching matchKey", () => {
         type: "movie",
         year: 1987,
         originalTitle: "RoboCop",
-        matchKey: "robocop-movie-1987"
+        //matchKey: "robocop-movie-1987"
     });
 
     const exchangeMedia = {
@@ -540,7 +589,7 @@ test("RecommendationService: finds media by matching matchKey", () => {
         type: "movie",
         year: 1987,
         originalTitle: "RoboCop",
-        matchKey: "robocop-movie-1987"
+        matchKey: "robocop|movie|1987"
     };
 
     const recommendation = new Recommendation({
@@ -569,12 +618,50 @@ test("RecommendationService: finds media by matching matchKey", () => {
         );
 
     assert.equal(result.length, 1);
-    assert.equal(result[0].status, "matched");
+    assert.equal(result[0].status, "candidate");
     assert.equal(result[0].matches.length, 1);
     assert.equal(
-        result[0].matches[0],
+        result[0].matches[0].media,
         existingMedia
     );
+    assert.deepEqual(result[0].matches[0].matches, ["matchKey"]);
+});
+
+test("RecommendationService: does not duplicate candidate matching omdbId and matchKey", () => {
+
+    const existingMedia = new Media({
+        id: "media-local-001",
+        title: "RoboCop",
+        type: "movie",
+        year: 1987,
+        omdbId: "tt0093870"
+    });
+
+    const exchangeMedia = {
+        id: "media-foreign-001",
+        title: "RoboCop",
+        type: "movie",
+        year: 1987,
+        omdbId: "tt0093870",
+        matchKey: "robocop|movie|1987"
+    };
+
+    const watchList = new WatchList({
+        id: "list-001",
+        name: "La nuestra",
+        media: [existingMedia]
+    });
+
+    const service = new RecommendationService();
+
+    const matches = service.findMediaCandidates(
+        exchangeMedia,
+        watchList
+    );
+
+    assert.equal(matches.length, 1);
+    assert.equal(matches[0].media, existingMedia);
+    assert.deepEqual(matches[0].matches, ["omdbId", "matchKey"]);
 });
 
 test("RecommendationService: finds candidate by matchKey despite media differences", () => {
@@ -585,7 +672,7 @@ test("RecommendationService: finds candidate by matchKey despite media differenc
         type: "movie",
         year: 1987,
         originalTitle: "RoboCop",
-        matchKey: "robocop-movie-1987"
+        //matchKey: "robocop-movie-1987"
     });
 
     const exchangeMedia = {
@@ -594,7 +681,7 @@ test("RecommendationService: finds candidate by matchKey despite media differenc
         type: "movie",
         year: 1987,
         originalTitle: "RoboCop",
-        matchKey: "robocop-movie-1987"
+        matchKey: "robocop|movie|1987"
     };
 
     const recommendation = new Recommendation({
@@ -633,7 +720,7 @@ test("RecommendationService: returns new when no media matches", () => {
         title: "Alien",
         type: "movie",
         year: 1979,
-        matchKey: "alien-movie-1979"
+        //matchKey: "alien-movie-1979"
     });
 
     const exchangeMedia = {
@@ -642,7 +729,7 @@ test("RecommendationService: returns new when no media matches", () => {
         type: "movie",
         year: 1987,
         originalTitle: "RoboCop",
-        matchKey: "robocop-movie-1987"
+        matchKey: "robocop|movie|1987"
     };
 
     const recommendation = new Recommendation({
@@ -680,14 +767,14 @@ test("RecommendationService: finds candidate by partial title match", () => {
         id: "media-local-001",
         title: "Indiana Jones",
         type: "movie",
-        matchKey: "indianajones-movie"
+        //matchKey: "indianajones-movie"
     });
 
     const exchangeMedia = {
         id: "media-foreign-001",
         title: "Indiana Jones y el templo maldito",
         type: "movie",
-        matchKey: "indianajonesyeltemplomaldito-movie"
+        matchKey: "indianajonesyeltemplomaldito|movie"
     };
 
     const recommendation = new Recommendation({
@@ -718,7 +805,333 @@ test("RecommendationService: finds candidate by partial title match", () => {
     assert.equal(result[0].status, "candidate");
     assert.equal(result[0].matches.length, 1);
     assert.equal(
-        result[0].matches[0],
+        result[0].matches[0].media,
         existingMedia
+    );
+});
+
+test("RecommendationService: accepts a recommendation and creates a WatchItem", () => {
+
+    const media = new Media({
+        id: "media-1",
+        title: "RoboCop",
+        type: "movie",
+        year: 1987
+    });
+
+    const watchList = new WatchList({
+        name: "La nuestra",
+        media: [media],
+        watchItems: []
+    });
+
+    const recommendationList = new RecommendationList({
+        name: "Recomendaciones desde : Mis padres"
+    });
+
+    const recommendation = new Recommendation({
+        mediaId: media.id,
+        platforms: ["Netflix"],
+        spanishAudio: true,
+        spanishSubtitles: false,
+        reason: "Muy entretenida",
+        recommenderRating: 9
+    });
+
+    const exchangeItem = {
+        media: {
+            ...media,
+            matchKey: media.matchKey
+        },
+        recommendation
+    };
+
+    const service = new RecommendationService();
+
+    service.acceptRecommendation(
+        exchangeItem,
+        recommendationList,
+        watchList
+    );
+
+    assert.equal(watchList.watchItems.length, 1);
+
+    const watchItem = watchList.watchItems[0];
+
+    assert.equal(watchItem.mediaId, media.id);
+    assert.deepEqual(watchItem.platforms, ["Netflix"]);
+    assert.equal(watchItem.spanishAudio, true);
+    assert.equal(watchItem.spanishSubtitles, false);
+
+    assert.equal(
+        watchItem.reason,
+        "Recomendaciones desde : Mis padres | (Nota: 9) | Muy entretenida"
+    );
+
+    assert.equal(watchItem.userRating, undefined);
+
+    assert.equal(
+        recommendation.status,
+        RecommendationStatus.ACCEPTED
+    );
+});
+
+test("RecommendationService: accepts a recommendation without recommenderRating", () => {
+
+    const media = new Media({
+        id: "media-1",
+        title: "RoboCop",
+        type: "movie",
+        year: 1987
+    });
+
+    const watchList = new WatchList({
+        name: "La nuestra",
+        media: [media],
+        watchItems: []
+    });
+
+    const recommendationList = new RecommendationList({
+        name: "Recomendaciones desde : Mis padres"
+    });
+
+    const recommendation = new Recommendation({
+        mediaId: media.id,
+        reason: "Porque os gustará"
+    });
+
+    const exchangeItem = {
+        media: {
+            ...media,
+            matchKey: media.matchKey
+        },
+        recommendation
+    };
+
+    const service = new RecommendationService();
+
+    service.acceptRecommendation(
+        exchangeItem,
+        recommendationList,
+        watchList
+    );
+
+    assert.equal(
+        watchList.watchItems[0].reason,
+        "Recomendaciones desde : Mis padres | Porque os gustará"
+    );
+});
+
+test("RecommendationService: accepts a recommendation without reason", () => {
+
+    const media = new Media({
+        id: "media-1",
+        title: "RoboCop",
+        type: "movie",
+        year: 1987
+    });
+
+    const watchList = new WatchList({
+        name: "La nuestra",
+        media: [media],
+        watchItems: []
+    });
+
+    const recommendationList = new RecommendationList({
+        name: "Recomendaciones desde : Mis padres"
+    });
+
+    const recommendation = new Recommendation({
+        mediaId: media.id,
+        recommenderRating: 9
+    });
+
+    const exchangeItem = {
+        media: {
+            ...media,
+            matchKey: media.matchKey
+        },
+        recommendation
+    };
+
+    const service = new RecommendationService();
+
+    service.acceptRecommendation(
+        exchangeItem,
+        recommendationList,
+        watchList
+    );
+
+    assert.equal(
+        watchList.watchItems[0].reason,
+        "Recomendaciones desde : Mis padres | (Nota: 9)"
+    );
+});
+
+test("RecommendationService: discards a recommendation", () => {
+
+    const recommendation = new Recommendation({
+        mediaId: "media-1",
+        reason: "Creo que os gustará"
+    });
+
+    const service = new RecommendationService();
+
+    service.discardRecommendation(recommendation);
+
+    assert.equal(
+        recommendation.status,
+        RecommendationStatus.DISCARDED
+    );
+});
+
+
+
+test("RecommendationService: discarding a recommendation does not create a WatchItem", () => {
+
+    const media = new Media({
+        id: "media-1",
+        title: "RoboCop",
+        type: "movie",
+        year: 1987
+    });
+
+    const watchList = new WatchList({
+        name: "La nuestra",
+        media: [media],
+        watchItems: []
+    });
+
+    const recommendation = new Recommendation({
+        mediaId: "media-1"
+    });
+
+    const service = new RecommendationService();
+
+    service.discardRecommendation(recommendation);
+
+    assert.equal(watchList.watchItems.length, 0);
+    assert.equal(
+        recommendation.status,
+        RecommendationStatus.DISCARDED
+    );
+});
+
+test("identifies a candidate when matchKey matches but media data differs", () => {
+
+    const localMedia = new Media({
+        id: "local-1",
+        title: "RoboCop",
+        type: "movie",
+        year: 1987,
+        runtimeMinutes: 99
+    });
+
+    const exchangeMedia = {
+        id: "remote-1",
+        title: "RoboCop",
+        type: "movie",
+        year: 1987,
+        runtimeMinutes: 102,
+        genres: [],
+        omdbId: undefined,
+        poster: undefined,
+        ratings: undefined,
+        originalTitle: undefined,
+        matchKey: localMedia.matchKey
+    };
+
+    const watchList = new WatchList({
+        name: "La nuestra",
+        media: [localMedia],
+        watchItems: []
+    });
+
+    const exchangeItem = {
+        media: exchangeMedia,
+        recommendation: new Recommendation({
+            mediaId: "remote-1"
+        })
+    };
+
+    const service = new RecommendationService();
+
+    const result = service.compareRecommendations(
+        [exchangeItem],
+        watchList
+    );
+
+    assert.equal(result[0].status, "candidate");
+    assert.equal(result[0].matches.length, 1);
+    assert.equal(
+        result[0].matches[0].media,
+        localMedia
+    );
+    assert.deepEqual(
+        result[0].matches[0].matches,
+        ["matchKey"]
+    );
+});
+
+test("RecommendationService: detects differences in a candidate media", () => {
+
+    const existingMedia = new Media({
+        id: "media-1",
+        title: "RoboCop",
+        type: "movie",
+        year: 1987,
+        runtimeMinutes: 99,
+        genres: ["Action"]
+    });
+
+    const exchangeMedia = {
+        id: "remote-1",
+        title: "RoboCop",
+        originalTitle: undefined,
+        type: "movie",
+        year: 1987,
+        runtimeMinutes: 102,
+        genres: ["Action", "Sci-Fi"],
+        omdbId: undefined,
+        poster: undefined,
+        ratings: undefined,
+        matchKey: existingMedia.matchKey
+    };
+
+    const watchList = new WatchList({
+        name: "La nuestra",
+        media: [existingMedia],
+        watchItems: []
+    });
+
+    const exchangeItem = {
+        media: exchangeMedia,
+        recommendation: new Recommendation({
+            mediaId: "remote-1"
+        })
+    };
+
+    const service = new RecommendationService();
+    
+    const result = service.compareRecommendations(
+        [exchangeItem],
+        watchList
+    );
+
+    assert.equal(result[0].status, "candidate");
+
+    assert.equal(result[0].matches.length, 1);
+
+    assert.deepEqual(
+        result[0].matches[0].matches,
+        ["matchKey"]
+    );
+
+    assert.deepEqual(
+        result[0].matches[0].differences,
+        [
+            "runtimeMinutes",
+            "genres"
+        ]
     );
 });

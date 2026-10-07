@@ -684,3 +684,30 @@ render() {
         `;
     }
 ```
+
+```js
+       //1. omdbId exacto
+       const matchesOmdbId = watchList.media.filter(
+                media =>
+                    exchangeMedia.omdbId &&
+                    media.omdbId &&
+                    exchangeMedia.omdbId === media.omdbId
+            );
+
+        // 2. matchKey exacto pero exchangeMedia no es Media, hay que añadirle el matchkey que tenga en el momento
+        const matchesMatchKey = watchList.media.filter(
+                media =>
+                    exchangeMedia.matchKey == media.matchKey
+            );
+
+        ToDO:
+        3. matchKey parcial
+        4. originalTitle
+    
+       return [
+            ...new Set([
+                ...matchesOmdbId,
+                ...matchesMatchKey
+            ])
+        ];
+```
