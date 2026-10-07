@@ -3,6 +3,7 @@ import { LitElement, html, css } from "lit";
 import "./components/AppHeader.js";
 import "./components/AppFooter.js";
 import "./components/WatchListView.js";
+import "./components/RecommendationListsView.js";
 
 export class App extends LitElement {
     
@@ -104,7 +105,7 @@ export class App extends LitElement {
                 <section class="content">
 
                     <watch-list-view></watch-list-view>
-
+                    <recommendation-lists-view></recommendation-lists-view>
                 </section>
             </main>
 
