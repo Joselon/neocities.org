@@ -89,7 +89,7 @@ export class RecommendationService {
 
     compareRecommendations(recommendationExchange, watchList) {
 
-        return recommendationExchange.map(
+        return recommendationExchange.items.map(
             exchangeItem => {
 
                 const candidates =

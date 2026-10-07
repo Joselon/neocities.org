@@ -1,26 +1,16 @@
 import { LitElement, html, css } from "lit";
-
+import { RecommendationList } from "../domain/RecommendationList.js";
+import { Recommendation } from "../domain/Recommendation.js";
 import { RecommendationListsStorage } from "../storage/RecommendationListsStorage.js";
 import { RecommendationListsFileStorage } from "../storage/RecommendationListsFileStorage.js";
-
 import "./RecommendationListView.js";
 
 export class RecommendationListsView extends LitElement {
 
     static styles = css`
-        :host {
-            display: block;
+        .recommendation-lists {
+            margin-top: 2rem;
         }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-
-        /* -------------------------
-           Cabecera
-           ------------------------- */
 
         .section-header {
             display: flex;
@@ -82,7 +72,7 @@ export class RecommendationListsView extends LitElement {
         .action-button i {
             margin-right: 0.4rem;
         }
-
+            
         /* -------------------------
            Lista de recomendaciones
            ------------------------- */
@@ -90,7 +80,7 @@ export class RecommendationListsView extends LitElement {
         .lists {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.75rem;
         }
 
         .list {
@@ -122,12 +112,15 @@ export class RecommendationListsView extends LitElement {
             transform: translateY(-1px);
         }
 
-        .list strong {
+        .list strong,
+        .list span {
+            display: block;
             font-size: 1rem;
         }
 
         .list span {
-            margin-top: 0.2rem;
+            margin-top: 0.25rem;
+            opacity: 0.7;
 
             color: var(--muted);
             font-size: 0.9rem;
@@ -138,6 +131,7 @@ export class RecommendationListsView extends LitElement {
            ------------------------- */
 
         .empty {
+            opacity: 0.7;
             margin: 1rem 0 0;
             padding: 1rem;
 
@@ -175,21 +169,94 @@ export class RecommendationListsView extends LitElement {
 
     static properties = {
         lists: { state: true },
-        selectedList: { state: true }
+        selectedList: { state: true },
+        reviewing: {state: true }
     };
 
     constructor() {
         super();
 
-        this.storage =
-            new RecommendationListsStorage(localStorage);
+        this.storage = new RecommendationListsStorage(localStorage);
 
-        this.fileStorage =
-            new RecommendationListsFileStorage();
+        this.fileStorage = new RecommendationListsFileStorage();
 
         this.lists = this.storage.load();
-
         this.selectedList = undefined;
+
+        // TEMPORAL: datos para probar la interfaz
+        if (this.lists.length === 0) {
+            this.lists = this.createTestLists();
+        }
+        this.reviewing = false;
+    }
+
+    createTestLists() {
+
+        const robocopRecommendation = new Recommendation({
+            id: "test-recommendation-robocop",
+            mediaId: "media-from-other-list-robocop",
+            platforms: [
+                "prime-video-es"
+            ],
+            spanishAudio: true,
+            spanishSubtitles: false,
+            reason: "Creo que os va a gustar mucho.",
+            recommenderRating: 9
+        });
+
+        robocopRecommendation.media = {
+            id: "media-from-other-list-robocop",
+            title: "Robocop",
+            originalTitle: "Robocop",
+            type: "movie",
+            year: 1987,
+            genres: [
+                "action",
+                "science-fiction",
+                "thriller"
+            ],
+            omdbId: "tt0093870",
+            poster: "https://m.media-amazon.com/images/M/MV5BZWM1YzRhODktZDE1MC00NzBlLTk0NGMtOGNhZDQyMmJiZGFiXkEyXkFqcGc@._V1_SX300.jpg",
+            matchKey: "robocop|movie|1987"
+        };
+
+        const newRecommendation = new Recommendation({
+            id: "test-recommendation-new",
+            mediaId: "media-from-other-list-new",
+            platforms: [
+                "filmin-es"
+            ],
+            spanishAudio: true,
+            spanishSubtitles: true,
+            reason: "Esta creo que os puede gustar.",
+            recommenderRating: 8
+        });
+
+        newRecommendation.media = {
+            id: "media-from-other-list-new",
+            title: "Movie43",
+            type: "movie",
+            year: 2024,
+            genres: [
+                "mistery"
+            ],
+            matchKey: "movie43|movie|2024"
+        };
+
+        return [
+            new RecommendationList({
+                id: "test-list-001",
+                name: "Recomendaciones desde : Lista Ajena",
+                recommendations: [
+                    robocopRecommendation,
+                    newRecommendation
+                ]
+            })
+        ];
+    }
+
+    selectList(list) {
+        this.selectedList = list;
     }
 
     render() {
@@ -202,7 +269,6 @@ export class RecommendationListsView extends LitElement {
             <section class="recommendation-lists">
 
                 <header class="section-header">
-
                     <h2>Recomendaciones</h2>
 
                     <button
@@ -213,7 +279,6 @@ export class RecommendationListsView extends LitElement {
                         <i class="fa fa-upload"></i>
                         Importar
                     </button>
-
                 </header>
 
                 ${this.lists.length === 0
@@ -224,27 +289,21 @@ export class RecommendationListsView extends LitElement {
                     `
                     : html`
                         <div class="lists">
+                            ${this.lists.map(list => html`
+                                ${this.reviewing? html ``: html`
+                                <button
+                                    class="list"
+                                    @click=${() => this.selectList(list)}
+                                >
+                                    <strong>${list.name}</strong>
 
-                            ${this.lists.map(
-                                list => html`
-                                    <button
-                                        type="button"
-                                        class="list"
-                                        @click=${() =>
-                                            this.selectList(list)}
-                                    >
-                                        <strong>
-                                            ${list.name}
-                                        </strong>
-
-                                        <span>
-                                            ${list.recommendations.length}
-                                            recomendaciones
-                                        </span>
-                                    </button>
-                                `
-                            )}
-
+                                    <span>
+                                        ${list.recommendations.length}
+                                        recomendaciones
+                                    </span>
+                                </button>
+                                `}
+                            `)}
                         </div>
                     `
                 }
@@ -264,10 +323,12 @@ export class RecommendationListsView extends LitElement {
 
     selectList(list) {
         this.selectedList = list;
+        this.reviewing = true;
     }
 
     closeList() {
         this.selectedList = undefined;
+        this.reviewing = false;
     }
 
     importRecommendations() {

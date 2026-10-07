@@ -464,19 +464,23 @@ test("RecommendationService: finds media by matching omdbId", () => {
         type: "movie",
         year: 1987,
         originalTitle: "RoboCop",
-        omdbId: "tt0093870"
+        omdbId: "tt0093870",
+        matchKey: "robocop|movie|1987"
     };
 
     const recommendation = new Recommendation({
         mediaId: "media-foreign-001"
     });
 
-    const recommendationExchange = [
-        {
-            media: exchangeMedia,
-            recommendation
-        }
-    ];
+    const recommendationExchange =  new RecommendationExchange({
+        sender: "Otra lista",
+        items: [
+            {
+                media: exchangeMedia,
+                recommendation
+            }
+        ]
+    });
 
     const watchList = new WatchList({
         id: "list-001",
@@ -486,8 +490,7 @@ test("RecommendationService: finds media by matching omdbId", () => {
 
     const service = new RecommendationService();
 
-    const result =
-        service.compareRecommendations(
+    const result = service.compareRecommendations(
             recommendationExchange,
             watchList
         );
@@ -499,7 +502,7 @@ test("RecommendationService: finds media by matching omdbId", () => {
         result[0].matches[0].media,
         existingMedia
     );
-    assert.deepEqual(result[0].matches[0].matches, ["omdbId"]);
+    assert.deepEqual(result[0].matches[0].matches, ["omdbId", "matchKey"]);
 });
 
 test("RecommendationService: ignores empty omdbId", () => {
@@ -597,12 +600,15 @@ test("RecommendationService: finds media by matching matchKey", () => {
         mediaId: "media-foreign-001"
     });
 
-    const recommendationExchange = [
-        {
-            media: exchangeMedia,
-            recommendation
-        }
-    ];
+    const recommendationExchange = new RecommendationExchange({
+        sender: "Otra lista",
+        items: [
+            {
+                media: exchangeMedia,
+                recommendation
+            }
+        ]
+    });
 
     const watchList = new WatchList({
         id: "list-001",
@@ -689,12 +695,15 @@ test("RecommendationService: finds candidate by matchKey despite media differenc
         mediaId: "media-foreign-001"
     });
 
-    const recommendationExchange = [
-        {
-            media: exchangeMedia,
-            recommendation
-        }
-    ];
+    const recommendationExchange = new RecommendationExchange({
+        sender: "Otra lista",
+        items: [
+            {
+                media: exchangeMedia,
+                recommendation
+            }
+        ]
+    });
 
     const watchList = new WatchList({
         id: "list-001",
@@ -737,12 +746,15 @@ test("RecommendationService: returns new when no media matches", () => {
         mediaId: "media-foreign-001"
     });
 
-    const recommendationExchange = [
-        {
-            media: exchangeMedia,
-            recommendation
-        }
-    ];
+    const recommendationExchange = new RecommendationExchange({
+        sender: "Otra lista",
+        items: [
+            {
+                media: exchangeMedia,
+                recommendation
+            }
+        ]
+    });
 
     const watchList = new WatchList({
         id: "list-001",
@@ -782,12 +794,15 @@ test("RecommendationService: finds candidate by partial title match", () => {
         mediaId: "media-foreign-001"
     });
 
-    const recommendationExchange = [
-        {
-            media: exchangeMedia,
-            recommendation
-        }
-    ];
+    const recommendationExchange = new RecommendationExchange({
+        sender: "Otra lista",
+        items: [
+            {
+                media: exchangeMedia,
+                recommendation
+            }
+        ]
+    });
 
     const watchList = new WatchList({
         id: "list-001",
@@ -1018,7 +1033,7 @@ test("RecommendationService: discarding a recommendation does not create a Watch
     );
 });
 
-test("identifies a candidate when matchKey matches but media data differs", () => {
+test("RecommendationService: identifies a candidate when matchKey matches but media data differs", () => {
 
     const localMedia = new Media({
         id: "local-1",
@@ -1055,10 +1070,15 @@ test("identifies a candidate when matchKey matches but media data differs", () =
         })
     };
 
+    const recommedationExchange =  new RecommendationExchange({
+        sender: "Otra lista",
+        items: [exchangeItem]
+    });
+
     const service = new RecommendationService();
 
     const result = service.compareRecommendations(
-        [exchangeItem],
+        recommedationExchange,
         watchList
     );
 
@@ -1112,10 +1132,15 @@ test("RecommendationService: detects differences in a candidate media", () => {
         })
     };
 
+    const recommedationExchange =  new RecommendationExchange({
+        sender: "Otra lista",
+        items: [exchangeItem]
+    });
+
     const service = new RecommendationService();
     
     const result = service.compareRecommendations(
-        [exchangeItem],
+        recommedationExchange,
         watchList
     );
 

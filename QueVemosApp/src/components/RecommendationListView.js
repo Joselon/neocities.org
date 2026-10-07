@@ -2,6 +2,9 @@ import { LitElement, html, css } from "lit";
 
 import { RecommendationService } from "../services/RecommendationService.js";
 import { WatchListStorage } from "../storage/WatchListStorage.js";
+import { RecommendationExchange } from "../domain/RecommendationExchange.js";
+
+import "./RecommendationItemView.js";
 
 export class RecommendationListView extends LitElement {
 
@@ -204,7 +207,7 @@ export class RecommendationListView extends LitElement {
     updateComparisons() {
         this.comparisons =
             this.service.compareRecommendations(
-                this.recommendationList,
+                new RecommendationExchange({sender: "OtraLista", items: this.recommendationList.recommendations}),
                 this.watchList
             );
     }
@@ -312,10 +315,9 @@ export class RecommendationListView extends LitElement {
 
                             ${this.comparisons.map(
                                 comparison => html`
-                                    <div>
-                                        ${comparison.exchangeItem
-                                            .media.title}
-                                    </div>
+                                    <recommendation-item-view
+                                        .comparison=${comparison}
+                                    ></recommendation-item-view>
                                 `
                             )}
 
