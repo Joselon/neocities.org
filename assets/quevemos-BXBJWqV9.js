@@ -1577,6 +1577,8 @@
 
         .add-item {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
             margin-top: 1.5rem;
             padding: 1rem;
@@ -1609,6 +1611,7 @@
             background: rgba(255, 107, 44, 0.25);
             transform: scale(1.05);
         }
+        
         /* Móvil */
 
         @media (max-width: 768px) {
@@ -1668,20 +1671,28 @@
                         La lista está vacía.
                     </p>
                     <div class= "add-item">
-                                ${this.addingItem?F`
-                                        <add-item-form
-                                            @add-item=${this.addItem}
-                                        ></add-item-form>
-                                    `:F`
-                                        <button
-                                            type="button"
-                                            class="add-item-button"
-                                            title="Añadir elemento"
-                                            @click=${this.showAddItemForm}
-                                        >
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    `}
+                    ${this.addingItem?F`
+                            <add-item-form
+                                @add-item=${this.addItem}
+                            ></add-item-form>
+                            <button
+                                type="button"
+                                class="add-item-button"
+                                title="Ocultar Añadir elemento"
+                                @click=${this.hideAddItemForm}
+                            >
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        `:F`
+                            <button
+                                type="button"
+                                class="add-item-button"
+                                title="Añadir elemento"
+                                @click=${this.showAddItemForm}
+                            >
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        `}
 
                     </div> 
                 `:F` 
@@ -1737,6 +1748,14 @@
                                         <add-item-form
                                             @add-item=${this.addItem}
                                         ></add-item-form>
+                                        <button
+                                            type="button"
+                                            class="add-item-button"
+                                            title="Ocultar Añadir elemento"
+                                            @click=${this.hideAddItemForm}
+                                        >
+                                            <i class="fa fa-minus"></i>
+                                        </button>
                                     `:F`
                                         <button
                                             type="button"
@@ -1754,7 +1773,7 @@
                     </div>
                     
                 `}
-        `}showAddItemForm(){this.addingItem=!0}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),e.target.resetForm(),this.addingItem=!1}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=[...this.service.getItems()]}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new Q(n),this.storage.save(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new Z({name:`Mi nueva lista`});this.service=new Q(e),this.storage.save(e),this.listName=this.service.watchList.name,this.items=this.service.getItems()}};customElements.define(`watch-list-view`,De);var Oe=class extends G{static styles=o`
+        `}showAddItemForm(){this.addingItem=!0}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),e.target.resetForm(),this.hideAddItemForm()}hideAddItemForm(){this.addingItem=!1}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=[...this.service.getItems()]}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new Q(n),this.storage.save(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new Z({name:`Mi nueva lista`});this.service=new Q(e),this.storage.save(e),this.listName=this.service.watchList.name,this.items=this.service.getItems()}};customElements.define(`watch-list-view`,De);var Oe=class extends G{static styles=o`
         :host {
             display: block;
             min-height: 100vh;

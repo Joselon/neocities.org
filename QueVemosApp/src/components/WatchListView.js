@@ -130,6 +130,8 @@ export class WatchListView extends LitElement {
 
         .add-item {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
             margin-top: 1.5rem;
             padding: 1rem;
@@ -162,6 +164,7 @@ export class WatchListView extends LitElement {
             background: rgba(255, 107, 44, 0.25);
             transform: scale(1.05);
         }
+        
         /* Móvil */
 
         @media (max-width: 768px) {
@@ -252,23 +255,31 @@ export class WatchListView extends LitElement {
                         La lista está vacía.
                     </p>
                     <div class= "add-item">
-                                ${this.addingItem
-                                    ? html`
-                                        <add-item-form
-                                            @add-item=${this.addItem}
-                                        ></add-item-form>
-                                    `
-                                    : html`
-                                        <button
-                                            type="button"
-                                            class="add-item-button"
-                                            title="Añadir elemento"
-                                            @click=${this.showAddItemForm}
-                                        >
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    `
-                                }
+                    ${this.addingItem
+                        ? html`
+                            <add-item-form
+                                @add-item=${this.addItem}
+                            ></add-item-form>
+                            <button
+                                type="button"
+                                class="add-item-button"
+                                title="Ocultar Añadir elemento"
+                                @click=${this.hideAddItemForm}
+                            >
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        `
+                        : html`
+                            <button
+                                type="button"
+                                class="add-item-button"
+                                title="Añadir elemento"
+                                @click=${this.showAddItemForm}
+                            >
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        `
+                    }
 
                     </div> 
                 `
@@ -336,6 +347,14 @@ export class WatchListView extends LitElement {
                                         <add-item-form
                                             @add-item=${this.addItem}
                                         ></add-item-form>
+                                        <button
+                                            type="button"
+                                            class="add-item-button"
+                                            title="Ocultar Añadir elemento"
+                                            @click=${this.hideAddItemForm}
+                                        >
+                                            <i class="fa fa-minus"></i>
+                                        </button>
                                     `
                                     : html`
                                         <button
@@ -382,6 +401,10 @@ export class WatchListView extends LitElement {
         this.items = this.service.getItems();
 
         event.target.resetForm();
+        this.hideAddItemForm();
+    }
+
+    hideAddItemForm() {
         this.addingItem = false;
     }
 
