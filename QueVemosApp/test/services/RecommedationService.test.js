@@ -5,6 +5,7 @@ import { RecommendationService } from "../../src/services/RecommendationService.
 import { Recommendation } from "../../src/domain/Recommendation.js";
 import { RecommendationStatus } from "../../src/domain/RecommendationStatus.js";
 import { RecommendationList } from "../../src/domain/RecommendationList.js";
+import { RecommendationExchange } from "../../src/domain/RecommendationExchange.js";
 import { WatchList } from "../../src/domain/WatchList.js";
 import { Media } from "../../src/domain/Media.js";
 import { WatchItem } from "../../src/domain/WatchItem.js";
@@ -355,11 +356,11 @@ test("RecommendationService: creates a recommendation exchange item", () => {
             watchList
         );
 
-    assert.equal(exchange.length, 1);
-    assert.notEqual(exchange[0].media, media);
-    assert.equal(exchange[0].media.matchKey, media.matchKey);
+    assert.equal(exchange.items.length, 1);
+    assert.notEqual(exchange.items[0].media, media);
+    assert.equal(exchange.items[0].media.matchKey, media.matchKey);
     assert.equal(
-        exchange[0].recommendation,
+        exchange.items[0].recommendation,
         recommendation
     );
 });
@@ -430,18 +431,18 @@ test("RecommendationService: creates an exchange item with a complete media snap
             watchList
         );
 
-    assert.equal(exchange.length, 1);
+    assert.equal(exchange.items.length, 1);
 
-    assert.equal(exchange[0].media.id, media.id);
-    assert.equal(exchange[0].media.title, media.title);
-    assert.equal(exchange[0].media.originalTitle, media.originalTitle);
-    assert.equal(exchange[0].media.type, media.type);
-    assert.equal(exchange[0].media.year, media.year);
-    assert.equal(exchange[0].media.omdbId, media.omdbId);
-    assert.equal(exchange[0].media.matchKey, media.matchKey);
+    assert.equal(exchange.items[0].media.id, media.id);
+    assert.equal(exchange.items[0].media.title, media.title);
+    assert.equal(exchange.items[0].media.originalTitle, media.originalTitle);
+    assert.equal(exchange.items[0].media.type, media.type);
+    assert.equal(exchange.items[0].media.year, media.year);
+    assert.equal(exchange.items[0].media.omdbId, media.omdbId);
+    assert.equal(exchange.items[0].media.matchKey, media.matchKey);
 
     assert.equal(
-        exchange[0].recommendation,
+        exchange.items[0].recommendation,
         recommendationList.recommendations[0]
     );
 });

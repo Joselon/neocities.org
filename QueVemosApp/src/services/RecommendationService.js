@@ -3,6 +3,7 @@ import { WatchItem } from "../domain/WatchItem.js";
 import { Recommendation } from "../domain/Recommendation.js";
 import { RecommendationList } from "../domain/RecommendationList.js";
 import { RecommendationStatus } from "../domain/RecommendationStatus.js";
+import { RecommendationExchange } from "../domain/RecommendationExchange.js";
 
 export class RecommendationService {
 
@@ -36,38 +37,42 @@ export class RecommendationService {
 
     createRecommendationExchange(recommendationList, watchList) {
 
-        return recommendationList.recommendations.map(
+        const items = recommendationList.recommendations.map(
             recommendation => {
 
                 const media = watchList.media.find(
-                    item => item.id === recommendation.mediaId
+                    media => media.id === recommendation.mediaId
                 );
 
                 if (!media) {
-                    throw new Error("Media not found in WatchList");
+                    throw new Error(
+                        `Media not found in WatchList: ${recommendation.mediaId}`
+                    );
                 }
 
-                const mediaSnapshot = {
-                    id: media.id,
-                    title: media.title,
-                    originalTitle: media.originalTitle,
-                    type: media.type,
-                    year: media.year,
-                    runtimeMinutes: media.runtimeMinutes,
-                    genres: [...media.genres],
-                    omdbId: media.omdbId,
-                    poster: media.poster,
-                    ratings: media.ratings,
-                    matchKey: media.matchKey
-                };
-
                 return {
-                    media: mediaSnapshot,
+                    media: {
+                        id: media.id,
+                        title: media.title,
+                        originalTitle: media.originalTitle,
+                        type: media.type,
+                        year: media.year,
+                        runtimeMinutes: media.runtimeMinutes,
+                        genres: [...media.genres],
+                        omdbId: media.omdbId,
+                        poster: media.poster,
+                        ratings: media.ratings,
+                        matchKey: media.matchKey
+                    },
                     recommendation
                 };
-
             }
         );
+
+        return new RecommendationExchange({
+            sender: watchList.name,
+            items
+        });
     }
 
     prepareComparison(recommendationExchange, watchList) {

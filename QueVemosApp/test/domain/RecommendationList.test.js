@@ -35,7 +35,7 @@ test("RecommendationList: accepts recommendations", () => {
     });
 
     const recommendationList = new RecommendationList({
-        name: "Recomendaciones de Juan",
+        name: "Recomendaciones desde Juan",
         recommendations: [recommendation]
     });
 
