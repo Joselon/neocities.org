@@ -1667,7 +1667,23 @@
                     <p class="empty">
                         La lista está vacía.
                     </p>
-                    
+                    <div class= "add-item">
+                                ${this.addingItem?F`
+                                        <add-item-form
+                                            @add-item=${this.addItem}
+                                        ></add-item-form>
+                                    `:F`
+                                        <button
+                                            type="button"
+                                            class="add-item-button"
+                                            title="Añadir elemento"
+                                            @click=${this.showAddItemForm}
+                                        >
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    `}
+
+                    </div> 
                 `:F` 
                     <div class="media-list">
                         <div class="list-header">
