@@ -3,6 +3,7 @@ import { WatchList } from "../domain/WatchList.js";
 import { WatchListService } from "../services/WatchListService.js";
 import { WatchListStorage } from "../storage/WatchListStorage.js";
 import { WatchListFileStorage } from "../storage/WatchListFileStorage.js";
+import { RecommendationService } from "../services/RecommendationService.js";
 
 import "./WatchItemView.js";
 import "./AddItemForm.js";
@@ -164,6 +165,46 @@ export class WatchListView extends LitElement {
             background: rgba(255, 107, 44, 0.25);
             transform: scale(1.05);
         }
+
+        .recommend-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 12px;
+
+            border: none;
+            border-radius: 18px;
+
+            background: #444;
+            color: white;
+
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .recommend-button:hover {
+            background: #333;
+        }
+
+        .recommend-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 20px;
+            height: 20px;
+
+            padding: 0 6px;
+
+            border-radius: 10px;
+
+            background: white;
+            color: #333;
+
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
         
         /* Móvil */
 
@@ -183,7 +224,8 @@ export class WatchListView extends LitElement {
         items: { state: true },
         editingItem: { state: true },
         listName: { state: true },
-        addingItem: { type: Boolean }
+        addingItem: { type: Boolean },
+        selectedItems: { state: true }
     };
 
     constructor() {
@@ -195,6 +237,7 @@ export class WatchListView extends LitElement {
         const watchListFileStorage = new WatchListFileStorage();
 
         this.service = new WatchListService(watchList);
+        this.recommendService = new RecommendationService();
         this.listName = this.service.watchList.name;
         this.items = this.service.getItems();
         this.storage = watchListStorage;
@@ -202,6 +245,7 @@ export class WatchListView extends LitElement {
 
         this.editingItem = undefined;
         this.addingItem = false;
+        this.selectedItems = [];
     }
     
     render() {
@@ -302,6 +346,22 @@ export class WatchListView extends LitElement {
                                 >
                                     <i class="fa fa-filter"></i>
                                 </button>
+                                ${this.selectedItems.length > 0
+                                    ? html`
+                                        <button
+                                            class="recommend-button"
+                                            title="Recomendar seleccionados"
+                                            @click=${this.createRecommendationExchange}
+                                        >
+                                            <i class="fa fa-share-alt"></i>
+                                            <span>Recomendar</span>
+                                            <span class="recommend-badge">
+                                                ${this.selectedItems.length}
+                                            </span>
+                                        </button>
+                                    `
+                                    : ""
+                                }
                             </div>
                         </div>
                         ${items.map(item => {
@@ -328,8 +388,10 @@ export class WatchListView extends LitElement {
                                                 <watch-item-view
                                                     .media=${item.media}
                                                     .watchItem=${item.watchItem}
+                                                    .selected=${this.isSelected(item)}
                                                     @edit-item=${this.editItem}
                                                     @change-status=${this.changeStatus}
+                                                    @toggle-recommendation=${this.toggleRecommendation}
                                                 ></watch-item-view>
                                             </div>
                                         `
@@ -445,6 +507,88 @@ export class WatchListView extends LitElement {
         this.storage.save(this.service.watchList);
 
         this.items = [...this.service.getItems()];
+    }
+
+    toggleRecommendation(event) {
+
+        const item = event.detail;
+
+        const alreadySelected = this.selectedItems.some(
+            selected => selected.media.id === item.media.id
+        );
+
+        if (alreadySelected) {
+
+            this.selectedItems =
+                this.selectedItems.filter(
+                    selected => selected.media.id !== item.media.id
+                );
+
+            return;
+        }
+
+        this.selectedItems = [
+            ...this.selectedItems,
+            item
+        ];
+    }
+
+    isSelected(item) {
+        return this.selectedItems.some(
+            selected => selected.media.id === item.media.id
+        );
+    }
+
+    createRecommendationExchange() {
+
+        if (this.selectedItems.length === 0) {
+            return;
+        }
+
+        const watchItems = this.selectedItems.map(
+            item => item.watchItem
+        );
+
+        const recommendationList =
+            this.recommendService.createRecommendationList(
+                this.service.watchList,
+                watchItems
+            );
+
+        const exchange =
+            this.recommendService.createRecommendationExchange(
+                recommendationList,
+                this.service.watchList
+            );
+
+        this.downloadRecommendationExchange(exchange);
+
+        //this.selectedItems = [];
+    }
+
+    downloadRecommendationExchange(exchange) {
+
+        const json = JSON.stringify(
+            exchange,
+            null,
+            2
+        );
+
+        const blob = new Blob(
+            [json],
+            { type: "application/json" }
+        );
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "recommendation-exchange.json";
+
+        link.click();
+
+        URL.revokeObjectURL(url);
     }
 
     editListName() {

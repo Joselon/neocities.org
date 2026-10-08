@@ -16,4 +16,4 @@ Página web personal en neocities.org
 
 ```
 
-[QueVemosApp README.md](QueVemosApp\README.md)
+[QueVemosApp README.md](.\QueVemosApp\README.md)

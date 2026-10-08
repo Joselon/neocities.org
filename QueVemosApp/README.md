@@ -1,4 +1,66 @@
-# quevemos.html - WatchList Estructuras de Datos
+# QueVemosApp
+
+WebApp contenedor de listas de peliculas y series para gestionar recomendaciones.
+
+Vite/Lit con TDD en JavaScript
+
+```sh
+# Instala dependecias
+> npm i
+# Ejecuta las pruebas
+> npm test
+# Ejecuta el proyecto
+> npm run dev
+```
+
+## Planteamieneto
+
+```txt
+MI LISTA
+   │
+   │ marcar "recomendar"
+   ▼
+WatchItemView
+   │
+   ▼
+RecommendationService
+   │
+   ▼
+RecommendationExchange
+   │
+   ├── recomendaciones
+   ├── información necesaria para importar
+   └── ...
+   │
+   ▼
+enlace autocontenido
+   │
+   ▼
+WhatsApp
+   │
+   ▼
+otra persona abre el enlace
+   │
+   ▼
+QueVemos
+   │
+   ▼
+Inbox
+   │
+   ▼
+abre el sobre
+   │
+   ▼
+compara cada recomendación
+   │
+   ├── ya la tengo
+   ├── no la tengo
+   ├── conflicto
+   └── aceptar / descartar
+
+```
+
+## Estructuras y Datos
 
 ```txt
 joselon.neocities.org
@@ -48,19 +110,6 @@ joselon.neocities.org
                     ├── quevemos.html
                     └── assets/
                     
-WatchList/
-│
-├── settings.json
-├── media.json
-├── my-watchList.json
-│
-├── recommendations/
-│   ├── recommendation-001.json
-│   └── recommendation-002.json
-│
-└── imports/
-    ├── import-001.json
-    └── import-002.json
 
 Media
 WatchProgress
@@ -75,7 +124,6 @@ ImportItem
 ImportConflict
 Settings
 ```
-
 
 | Campo           | Tipo       | Obligatorio | Valores                          |
 | --------------- | ---------- | ----------: | -------------------------------- |

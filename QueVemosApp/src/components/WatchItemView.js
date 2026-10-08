@@ -260,6 +260,11 @@ export class WatchItemView extends LitElement {
             transform: scale(1.05);
         }
 
+        .share-button.selected {
+            background: #4caf50;
+            color: white;
+        }
+
         .media-actions {
             display: flex;
             align-items: center;
@@ -385,7 +390,8 @@ export class WatchItemView extends LitElement {
     static properties = {
         media: { type: Object },
         watchItem: { type: Object },
-        overlayOpened: { type: Boolean }
+        overlayOpened: { type: Boolean },
+        selected: { type: Boolean }
     };
 
     static getCatalogName(catalog, id) {
@@ -456,13 +462,18 @@ export class WatchItemView extends LitElement {
                         `
                     }
                 </div>
-                <!-- ToDo: Seleccionar para compartir -->
+
                 <button
-                    class="share-button"
-                    title="Recomendar"
-                    disabled
+                    class=${this.selected
+                        ? "share-button selected"
+                        : "share-button"
+                    }
+                    title="Seleccionara para Recomendar"
+                    @click=${this.toggleRecommendation}
                 >
-                    <i class="fa fa-share-alt"></i>
+                    <i class=${this.selected
+                    ? "fa fa-share"
+                    : "fa fa-share-alt"}></i>
                 </button>
 
                 <div class="media-content">
@@ -687,6 +698,21 @@ export class WatchItemView extends LitElement {
     formatDate(date) {
         return new Date(date).toLocaleDateString("es-ES");
     }
+
+    toggleRecommendation() {
+
+        this.dispatchEvent(
+            new CustomEvent("toggle-recommendation", {
+                detail: {
+                    media: this.media,
+                    watchItem: this.watchItem
+                },
+                bubbles: true,
+                composed: true
+            })
+        );
+    }
+
     renderProgress() {
         const progress = this.watchItem.progress;
 
