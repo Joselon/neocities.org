@@ -75,6 +75,18 @@ export class RecommendationService {
         });
     }
 
+    createRecommendationListFromExchange(recommendationExchange){
+
+        const recommendations = recommendationExchange.items.map(
+            item => recommendations.push(new Recommendation(item.recommendation))
+        );
+
+        return new RecommendationList({
+            name: recommendationExchange.sender,
+            recommendations
+        });
+    }
+
     prepareComparison(recommendationExchange, watchList) {
 
         if (!watchList) {

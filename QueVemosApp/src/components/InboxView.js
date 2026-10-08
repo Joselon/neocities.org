@@ -1,6 +1,4 @@
 import { LitElement, html, css } from "lit";
-import { RecommendationList } from "../domain/RecommendationList.js";
-import { Recommendation } from "../domain/Recommendation.js";
 import { InboxStorage } from "../storage/InboxStorage.js";
 import { InboxFileStorage } from "../storage/InboxFileStorage.js";
 import "./RecommendationListView.js";
@@ -182,159 +180,57 @@ export class InboxView extends LitElement {
         this.lists = this.storage.load();
         this.selectedList = undefined;
 
-        // TEMPORAL: datos para probar la interfaz
-        if (this.lists.length === 0) {
-            this.lists = this.createTestLists();
-        }
+    }
+    selectList(list) {
+        this.selectedList = list;
     }
 
-    createTestLists() {
+    closeList() {
+        this.selectedList = undefined;
+    }
 
-        const robocopRecommendation = new Recommendation({
-            id: "test-recommendation-robocop",
-            mediaId: "media-from-other-list-robocop",
-            platforms: [
-                "prime-video-es"
-            ],
-            spanishAudio: true,
-            spanishSubtitles: false,
-            reason: "Creo que os va a gustar mucho.",
-            recommenderRating: 9
+    importRecommendations() {
+
+        const input = document.createElement("input");
+
+        input.type = "file";
+        input.accept = "application/json,.json";
+
+        input.addEventListener("change", async () => {
+
+            const file = input.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            try {
+
+                const json = await file.text();
+
+                const importedLists =
+                    this.fileStorage.import(json);
+
+                this.lists = [
+                    ...this.lists,
+                    ...importedLists
+                ];
+
+                this.storage.save(this.lists);
+
+                this.selectedList = undefined;
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    `No se pudo importar al buzón de entrada:\n${error.message}`
+                );
+            }
         });
 
-        robocopRecommendation.media = {
-            id: "media-from-other-list-robocop",
-            title: "Robocop",
-            originalTitle: "Robocop",
-            type: "movie",
-            year: 1987,
-            genres: [
-                "action",
-                "science-fiction",
-                "thriller"
-            ],
-            omdbId: "tt0093870",
-            poster: "https://m.media-amazon.com/images/M/MV5BZWM1YzRhODktZDE1MC00NzBlLTk0NGMtOGNhZDQyMmJiZGFiXkEyXkFqcGc@._V1_SX300.jpg",
-            matchKey: "robocop|movie|1987"
-        };
-
-        const newRecommendation = new Recommendation({
-            id: "test-recommendation-new",
-            mediaId: "media-from-other-list-new",
-            platforms: [
-                "filmin-es"
-            ],
-            spanishAudio: true,
-            spanishSubtitles: true,
-            reason: "🔞 Una gamberrada.",
-            recommenderRating: 7
-        });
-
-        newRecommendation.media = {
-            id: "media-from-other-list-new",
-            title: "Movie 43",
-            type: "movie",
-            year: 2013,
-            genres: [
-                "comedy"
-            ],
-            omdbId: "tt1333125",
-            poster: "https://m.media-amazon.com/images/M/MV5BMTg4NzQ3NDM1Nl5BMl5BanBnXkFtZTcwNjEzMjM3OA@@._V1_QL75_UX380_CR0,1,380,562_.jpg",
-            runtimeMinutes: "94",
-            matchKey: "movie43|movie|2013"
-        };
-
-        const otherRecommendation = new Recommendation({
-            id: "test-recommendation-other",
-            mediaId: "other-media-from-other-list-new",
-            platforms: [
-                "rtve-play-es"
-            ],
-            spanishAudio: true,
-            spanishSubtitles: true,
-            reason: "Genios del humor",
-            recommenderRating: 7.2
-        });
-
-        otherRecommendation.media = {
-            id: "media-from-other-list-new",
-            title: "Muchachada nui",
-            type: "series",
-            year: 2007,
-            genres: [
-                "comedy"
-            ],
-            omdbId: "tt1111854",
-            poster: "https://m.media-amazon.com/images/M/MV5BMjA4ODIyOTY1OF5BMl5BanBnXkFtZTgwNjc3NjcxMjE@._V1_SX300.jpg",
-            runtimeMinutes: "30",
-            matchKey: "muchachadanui|series|2013"
-        };
-
-        const halfDefinedRecommendation = new Recommendation({
-            id: "test-recommendation-half-defined",
-            mediaId: "half-defined-media-from-other-list-new",
-            platforms: [
-                "youtube-es"
-            ],
-            spanishAudio: true,
-            spanishSubtitles: true,
-            reason: "La primera, la auténtica. No siento las piernas XD",
-            recommenderRating: 6.5
-        });
-
-        halfDefinedRecommendation.media = {
-            id: "half-defined-media-from-other-list-new",
-            title: "Rambo 1",
-            poster: "https://th.bing.com/th?q=Rambo+First+Movie&w=120&h=120&c=1&rs=1&qlt=70&r=0&o=7&cb=1&dpr=1.4&pid=InlineBlock&rm=3&mkt=es-ES&cc=ES&setlang=es&adlt=moderate&t=1&mw=247",
-            type: "movie",
-            genres: [
-                "action"
-            ],
-            matchKey: "rambo|movie"
-        };
-
-        const badRecommendation = new Recommendation({
-            id: "test-recommendation-bad",
-            mediaId: "bad-media-from-other-list-new",
-            platforms: [
-                "youtube-es"
-            ],
-            spanishAudio: true,
-            spanishSubtitles: true,
-            reason: "Pastelazo, lo mismo os gusta...",
-            recommenderRating: 3
-        });
-
-        badRecommendation.media = {
-            id: "bad-media-from-other-list-new",
-            title: "El diario de Noa",
-            type: "movie",
-            year: 2004,
-            genres: [
-                "drama"
-            ],
-            matchKey: "eldiariodenoa|movie"
-        };
-
-        return [
-            new RecommendationList({
-                id: "test-list-001",
-                name: "Recomendaciones desde : Lista Ajena",
-                recommendations: [
-                    robocopRecommendation,
-                    newRecommendation,
-                ]
-            }),
-            new RecommendationList({
-                id: "test-list-002",
-                name: "Recomendaciones desde : Otra Lista Ajena",
-                recommendations: [
-                    otherRecommendation,
-                    halfDefinedRecommendation,
-                    badRecommendation
-                ]
-            })
-        ];
+        input.click();
     }
 
     render() {
@@ -404,7 +300,7 @@ export class InboxView extends LitElement {
                 ${this.selectedList
                     ? html`
                         <recommendation-list-view
-                            .recommendationList=${this.selectedList}
+                            .incomingRecommendationList=${this.selectedList}
                         ></recommendation-list-view>
                     `
                     : ""
@@ -412,58 +308,6 @@ export class InboxView extends LitElement {
 
             </section>
         `;
-    }
-
-    selectList(list) {
-        this.selectedList = list;
-    }
-
-    closeList() {
-        this.selectedList = undefined;
-    }
-
-    importRecommendations() {
-
-        const input = document.createElement("input");
-
-        input.type = "file";
-        input.accept = "application/json,.json";
-
-        input.addEventListener("change", async () => {
-
-            const file = input.files[0];
-
-            if (!file) {
-                return;
-            }
-
-            try {
-
-                const json = await file.text();
-
-                const importedLists =
-                    this.fileStorage.import(json);
-
-                this.lists = [
-                    ...this.lists,
-                    ...importedLists
-                ];
-
-                this.storage.save(this.lists);
-
-                this.selectedList = undefined;
-
-            } catch (error) {
-
-                console.error(error);
-
-                alert(
-                    `No se pudo importar al buzón de entrada:\n${error.message}`
-                );
-            }
-        });
-
-        input.click();
     }
 }
 

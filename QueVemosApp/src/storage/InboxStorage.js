@@ -1,4 +1,4 @@
-import { RecommendationList } from "../domain/RecommendationList.js";
+import { IncomingRecommendationList } from "../domain/IncomingRecommendationList.js";
 import { Recommendation } from "../domain/Recommendation.js";
 
 export class InboxStorage {
@@ -33,7 +33,7 @@ export class InboxStorage {
         const data = JSON.parse(json);
 
         return data.map(
-            item => new RecommendationList({
+            item => new IncomingRecommendationList({
                 version: item.version,
                 id: item.id,
                 name: item.name,
@@ -42,6 +42,7 @@ export class InboxStorage {
                         recommendation =>
                             new Recommendation(recommendation)
                     ),
+                media: item.media,
                 createdAt: item.createdAt
             })
         );

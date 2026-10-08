@@ -2,7 +2,7 @@ import { LitElement, html, css } from "lit";
 
 import { RecommendationService } from "../services/RecommendationService.js";
 import { WatchListStorage } from "../storage/WatchListStorage.js";
-import { RecommendationExchange } from "../domain/RecommendationExchange.js";
+
 
 import "./RecommendationItemView.js";
 
@@ -174,7 +174,7 @@ export class RecommendationListView extends LitElement {
     `;
 
     static properties = {
-        recommendationList: { attribute: false },
+        incomingList: { attribute: false },
         comparisons: { state: true },
         expanded: { state: true }
     };
@@ -197,8 +197,8 @@ export class RecommendationListView extends LitElement {
 
     updated(changedProperties) {
         if (
-            changedProperties.has("recommendationList") &&
-            this.recommendationList
+            changedProperties.has("incomingList") &&
+            this.incomingList
         ) {
             this.updateComparisons();
         }
@@ -207,13 +207,13 @@ export class RecommendationListView extends LitElement {
     updateComparisons() {
         this.comparisons =
             this.service.compareRecommendations(
-                new RecommendationExchange({sender: "OtraLista", items: this.recommendationList.recommendations}),
+                this.incomingList, //ToDo: Debe recibirlo de Inbox
                 this.watchList
             );
     }
 
     getStatusCount(status) {
-        return this.recommendationList.recommendations
+        return this.incomingList.recommendations
             .filter(
                 recommendation =>
                     recommendation.status === status
@@ -226,7 +226,7 @@ export class RecommendationListView extends LitElement {
     }
 
     render() {
-        if (!this.recommendationList) {
+        if (!this.incomingList) {
             return html``;
         }
 
@@ -251,11 +251,11 @@ export class RecommendationListView extends LitElement {
                     <div class="list-info">
 
                         <h3>
-                            ${this.recommendationList.name}
+                            ${this.incomingList.name}
                         </h3>
 
                         <div class="list-count">
-                            ${this.recommendationList.recommendations.length}
+                            ${this.incomingList.recommendations.length}
                             recomendaciones
                         </div>
 

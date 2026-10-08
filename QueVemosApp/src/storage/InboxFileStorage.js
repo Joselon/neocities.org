@@ -1,11 +1,11 @@
-import { RecommendationList } from "../domain/RecommendationList.js";
+import { IncomingRecommendationList } from "../domain/IncomingRecommendationList.js";
 import { Recommendation } from "../domain/Recommendation.js";
 import { DATA_VERSION } from "../data/version.js";
 
 export class InboxFileStorage {
 
-    export(recommendationList) {
-        return JSON.stringify(recommendationList, null, 2);
+    export(incomingList) {
+        return JSON.stringify(incomingList, null, 2);
     }
 
     import(json) {
@@ -15,7 +15,7 @@ export class InboxFileStorage {
         this.validate(data);
 
         return data.map(
-            item => new RecommendationList({
+            item => new IncomingRecommendationList({
                 version: item.version,
                 id: item.id,
                 name: item.name,
@@ -54,7 +54,7 @@ export class InboxFileStorage {
                 item.version > DATA_VERSION
             ) {
                 throw new Error(
-                    "Unsupported RecommendationList version"
+                    "Unsupported IncomingRecommendationList version"
                 );
             }
 
@@ -62,7 +62,7 @@ export class InboxFileStorage {
                 !Array.isArray(item.recommendations)
             ) {
                 throw new Error(
-                    "RecommendationList recommendations is not an array"
+                    "IncomingRecommendationList recommendations is not an array"
                 );
             }
         });

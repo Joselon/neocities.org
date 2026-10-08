@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { InboxStorage } from "../../src/storage/InboxStorage.js";
 import { RecommendationList } from "../../src/domain/RecommendationList.js";
 import { Recommendation } from "../../src/domain/Recommendation.js";
+import { IncomingRecommendationList } from "../../src/domain/IncomingRecommendationList.js";
 
 test("InboxStorage: returns an empty array when there is no data", () => {
     
@@ -60,7 +61,7 @@ test("InboxStorage: saves and loads multiple recommendation lists in an inbox", 
     assert.equal(inbox[1].name, list2.name);
 });
 
-test("InboxStorage: reconstructs RecommendationList and Recommendation instances", () => {
+test("InboxStorage: reconstructs IncomingRecommendationList and Recommendation instances", () => {
 
     const recommendation = new Recommendation({
         mediaId: "media-001",
@@ -68,7 +69,7 @@ test("InboxStorage: reconstructs RecommendationList and Recommendation instances
         recommenderRating: 9
     });
 
-    const list = new RecommendationList({
+    const list = new IncomingRecommendationList({
         id: "recommendation-list-001",
         name: "Recomendaciones de : Mis padres",
         recommendations: [recommendation]
@@ -94,7 +95,7 @@ test("InboxStorage: reconstructs RecommendationList and Recommendation instances
     const inbox = storage.load();
 
     assert.ok(
-        inbox[0] instanceof RecommendationList
+        inbox[0] instanceof IncomingRecommendationList
     );
 
     assert.ok(
