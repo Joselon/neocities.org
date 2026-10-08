@@ -391,7 +391,7 @@ export class WatchItemView extends LitElement {
         media: { type: Object },
         watchItem: { type: Object },
         overlayOpened: { type: Boolean },
-        selected: { type: Boolean }
+        selectedToShare: { type: Boolean }
     };
 
     static getCatalogName(catalog, id) {
@@ -464,14 +464,14 @@ export class WatchItemView extends LitElement {
                 </div>
 
                 <button
-                    class=${this.selected
+                    class=${this.selectedToShare
                         ? "share-button selected"
                         : "share-button"
                     }
                     title="Seleccionara para Recomendar"
                     @click=${this.toggleRecommendation}
                 >
-                    <i class=${this.selected
+                    <i class=${this.selectedToShare
                     ? "fa fa-share"
                     : "fa fa-share-alt"}></i>
                 </button>

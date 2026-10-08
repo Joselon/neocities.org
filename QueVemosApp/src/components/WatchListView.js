@@ -225,7 +225,7 @@ export class WatchListView extends LitElement {
         editingItem: { state: true },
         listName: { state: true },
         addingItem: { type: Boolean },
-        selectedItems: { state: true }
+        selectedItemsToShare: { state: true }
     };
 
     constructor() {
@@ -245,7 +245,7 @@ export class WatchListView extends LitElement {
 
         this.editingItem = undefined;
         this.addingItem = false;
-        this.selectedItems = [];
+        this.selectedItemsToShare = [];
     }
     
     render() {
@@ -346,7 +346,7 @@ export class WatchListView extends LitElement {
                                 >
                                     <i class="fa fa-filter"></i>
                                 </button>
-                                ${this.selectedItems.length > 0
+                                ${this.selectedItemsToShare.length > 0
                                     ? html`
                                         <button
                                             class="recommend-button"
@@ -356,7 +356,7 @@ export class WatchListView extends LitElement {
                                             <i class="fa fa-share-alt"></i>
                                             <span>Recomendar</span>
                                             <span class="recommend-badge">
-                                                ${this.selectedItems.length}
+                                                ${this.selectedItemsToShare.length}
                                             </span>
                                         </button>
                                     `
@@ -388,7 +388,7 @@ export class WatchListView extends LitElement {
                                                 <watch-item-view
                                                     .media=${item.media}
                                                     .watchItem=${item.watchItem}
-                                                    .selected=${this.isSelected(item)}
+                                                    .selectedToShare=${this.isSelectedToShare(item)}
                                                     @edit-item=${this.editItem}
                                                     @change-status=${this.changeStatus}
                                                     @toggle-recommendation=${this.toggleRecommendation}
@@ -513,39 +513,39 @@ export class WatchListView extends LitElement {
 
         const item = event.detail;
 
-        const alreadySelected = this.selectedItems.some(
+        const alreadySelected = this.selectedItemsToShare.some(
             selected => selected.media.id === item.media.id
         );
 
         if (alreadySelected) {
 
-            this.selectedItems =
-                this.selectedItems.filter(
+            this.selectedItemsToShare =
+                this.selectedItemsToShare.filter(
                     selected => selected.media.id !== item.media.id
                 );
 
             return;
         }
 
-        this.selectedItems = [
-            ...this.selectedItems,
+        this.selectedItemsToShare = [
+            ...this.selectedItemsToShare,
             item
         ];
     }
 
-    isSelected(item) {
-        return this.selectedItems.some(
+    isSelectedToShare(item) {
+        return this.selectedItemsToShare.some(
             selected => selected.media.id === item.media.id
         );
     }
 
     createRecommendationExchange() {
 
-        if (this.selectedItems.length === 0) {
+        if (this.selectedItemsToShare.length === 0) {
             return;
         }
 
-        const watchItems = this.selectedItems.map(
+        const watchItems = this.selectedItemsToShare.map(
             item => item.watchItem
         );
 
@@ -563,7 +563,7 @@ export class WatchListView extends LitElement {
 
         this.downloadRecommendationExchange(exchange);
 
-        //this.selectedItems = [];
+        //this.selectedItemsToShare = [];
     }
 
     downloadRecommendationExchange(exchange) {
