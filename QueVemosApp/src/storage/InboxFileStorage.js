@@ -2,7 +2,7 @@ import { RecommendationList } from "../domain/RecommendationList.js";
 import { Recommendation } from "../domain/Recommendation.js";
 import { DATA_VERSION } from "../data/version.js";
 
-export class RecommendationListsFileStorage {
+export class InboxFileStorage {
 
     export(recommendationList) {
         return JSON.stringify(recommendationList, null, 2);
@@ -42,7 +42,7 @@ export class RecommendationListsFileStorage {
 
         if (!Array.isArray(data)) {
             throw new Error(
-                "Invalid RecommendationLists file"
+                "Invalid Inbox's file"
             );
         }
 

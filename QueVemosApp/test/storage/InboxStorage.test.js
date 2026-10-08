@@ -1,11 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { RecommendationListsStorage } from "../../src/storage/RecommendationListsStorage.js";
+import { InboxStorage } from "../../src/storage/InboxStorage.js";
 import { RecommendationList } from "../../src/domain/RecommendationList.js";
 import { Recommendation } from "../../src/domain/Recommendation.js";
 
-test("RecommendationListsStorage: returns an empty array when there is no data", () => {
+test("InboxStorage: returns an empty array when there is no data", () => {
     
     const localStorage = {
         getItem() {
@@ -13,14 +13,14 @@ test("RecommendationListsStorage: returns an empty array when there is no data",
         }
     };
 
-    const storage = new RecommendationListsStorage(localStorage);
+    const storage = new InboxStorage(localStorage);
 
-    const lists = storage.load();
+    const inbox = storage.load();
 
-    assert.deepEqual(lists, []);
+    assert.deepEqual(inbox, []);
 });
 
-test("RecommendationListsStorage: saves and loads multiple recommendation lists", () => {
+test("InboxStorage: saves and loads multiple recommendation lists in an inbox", () => {
 
     const list1 = new RecommendationList({
         id: "recommendation-list-001",
@@ -45,22 +45,22 @@ test("RecommendationListsStorage: saves and loads multiple recommendation lists"
     };
 
     const storage =
-        new RecommendationListsStorage(localStorage);
+        new InboxStorage(localStorage);
 
     storage.save([list1, list2]);
 
-    const lists = storage.load();
+    const inbox = storage.load();
 
-    assert.equal(lists.length, 2);
+    assert.equal(inbox.length, 2);
 
-    assert.equal(lists[0].id, list1.id);
-    assert.equal(lists[0].name, list1.name);
+    assert.equal(inbox[0].id, list1.id);
+    assert.equal(inbox[0].name, list1.name);
 
-    assert.equal(lists[1].id, list2.id);
-    assert.equal(lists[1].name, list2.name);
+    assert.equal(inbox[1].id, list2.id);
+    assert.equal(inbox[1].name, list2.name);
 });
 
-test("RecommendationListsStorage: reconstructs RecommendationList and Recommendation instances", () => {
+test("InboxStorage: reconstructs RecommendationList and Recommendation instances", () => {
 
     const recommendation = new Recommendation({
         mediaId: "media-001",
@@ -87,32 +87,32 @@ test("RecommendationListsStorage: reconstructs RecommendationList and Recommenda
     };
 
     const storage =
-        new RecommendationListsStorage(localStorage);
+        new InboxStorage(localStorage);
 
     storage.save([list]);
 
-    const lists = storage.load();
+    const inbox = storage.load();
 
     assert.ok(
-        lists[0] instanceof RecommendationList
+        inbox[0] instanceof RecommendationList
     );
 
     assert.ok(
-        lists[0].recommendations[0] instanceof Recommendation
+        inbox[0].recommendations[0] instanceof Recommendation
     );
 
     assert.equal(
-        lists[0].recommendations[0].mediaId,
+        inbox[0].recommendations[0].mediaId,
         "media-001"
     );
 
     assert.equal(
-        lists[0].recommendations[0].reason,
+        inbox[0].recommendations[0].reason,
         "Porque os gustará"
     );
 
     assert.equal(
-        lists[0].recommendations[0].recommenderRating,
+        inbox[0].recommendations[0].recommenderRating,
         9
     );
 });

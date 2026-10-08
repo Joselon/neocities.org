@@ -240,6 +240,10 @@ export class RecommendationListView extends LitElement {
             this.getStatusCount("discarded");
 
         return html`
+            <link
+                rel="stylesheet"
+                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
+            >
             <article class="recommendation-list">
 
                 <header class="list-header">

@@ -1,4 +1,5 @@
 import { LitElement, html, css } from "lit";
+import settings from "../data/setting.json";
 
 export class RecommendationItemView extends LitElement {
 
@@ -130,6 +131,11 @@ export class RecommendationItemView extends LitElement {
         }
     };
 
+    static getCatalogName(catalog, id) {
+        const item = catalog.find(item => item.id === id);
+        return item?.name ?? id;
+    }
+
     constructor() {
         super();
 
@@ -141,7 +147,7 @@ export class RecommendationItemView extends LitElement {
     }
 
     get recommendation() {
-        return this.comparison?.exchangeItem?.recommendation;
+        return this.comparison?.exchangeItem;
     }
 
     get matches() {
@@ -266,7 +272,7 @@ export class RecommendationItemView extends LitElement {
                         ${media?.type
                             ? html`
                                 <span class="badge">
-                                    ${media.type}
+                                    ${RecommendationItemView.getCatalogName(settings.mediaTypes, media.type)}
                                 </span>
                             `
                             : ""

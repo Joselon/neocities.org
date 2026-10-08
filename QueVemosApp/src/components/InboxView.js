@@ -1,14 +1,14 @@
 import { LitElement, html, css } from "lit";
 import { RecommendationList } from "../domain/RecommendationList.js";
 import { Recommendation } from "../domain/Recommendation.js";
-import { RecommendationListsStorage } from "../storage/RecommendationListsStorage.js";
-import { RecommendationListsFileStorage } from "../storage/RecommendationListsFileStorage.js";
+import { InboxStorage } from "../storage/InboxStorage.js";
+import { InboxFileStorage } from "../storage/InboxFileStorage.js";
 import "./RecommendationListView.js";
 
-export class RecommendationListsView extends LitElement {
+export class InboxView extends LitElement {
 
     static styles = css`
-        .recommendation-lists {
+        .inbox {
             margin-top: 2rem;
         }
 
@@ -170,15 +170,14 @@ export class RecommendationListsView extends LitElement {
     static properties = {
         lists: { state: true },
         selectedList: { state: true },
-        reviewing: {state: true }
     };
 
     constructor() {
         super();
 
-        this.storage = new RecommendationListsStorage(localStorage);
+        this.storage = new InboxStorage(localStorage);
 
-        this.fileStorage = new RecommendationListsFileStorage();
+        this.fileStorage = new InboxFileStorage();
 
         this.lists = this.storage.load();
         this.selectedList = undefined;
@@ -187,7 +186,6 @@ export class RecommendationListsView extends LitElement {
         if (this.lists.length === 0) {
             this.lists = this.createTestLists();
         }
-        this.reviewing = false;
     }
 
     createTestLists() {
@@ -228,19 +226,94 @@ export class RecommendationListsView extends LitElement {
             ],
             spanishAudio: true,
             spanishSubtitles: true,
-            reason: "Esta creo que os puede gustar.",
-            recommenderRating: 8
+            reason: "🔞 Una gamberrada.",
+            recommenderRating: 7
         });
 
         newRecommendation.media = {
             id: "media-from-other-list-new",
-            title: "Movie43",
+            title: "Movie 43",
             type: "movie",
-            year: 2024,
+            year: 2013,
             genres: [
-                "mistery"
+                "comedy"
             ],
-            matchKey: "movie43|movie|2024"
+            omdbId: "tt1333125",
+            poster: "https://m.media-amazon.com/images/M/MV5BMTg4NzQ3NDM1Nl5BMl5BanBnXkFtZTcwNjEzMjM3OA@@._V1_QL75_UX380_CR0,1,380,562_.jpg",
+            runtimeMinutes: "94",
+            matchKey: "movie43|movie|2013"
+        };
+
+        const otherRecommendation = new Recommendation({
+            id: "test-recommendation-other",
+            mediaId: "other-media-from-other-list-new",
+            platforms: [
+                "rtve-play-es"
+            ],
+            spanishAudio: true,
+            spanishSubtitles: true,
+            reason: "Genios del humor",
+            recommenderRating: 7.2
+        });
+
+        otherRecommendation.media = {
+            id: "media-from-other-list-new",
+            title: "Muchachada nui",
+            type: "series",
+            year: 2007,
+            genres: [
+                "comedy"
+            ],
+            omdbId: "tt1111854",
+            poster: "https://m.media-amazon.com/images/M/MV5BMjA4ODIyOTY1OF5BMl5BanBnXkFtZTgwNjc3NjcxMjE@._V1_SX300.jpg",
+            runtimeMinutes: "30",
+            matchKey: "muchachadanui|series|2013"
+        };
+
+        const halfDefinedRecommendation = new Recommendation({
+            id: "test-recommendation-half-defined",
+            mediaId: "half-defined-media-from-other-list-new",
+            platforms: [
+                "youtube-es"
+            ],
+            spanishAudio: true,
+            spanishSubtitles: true,
+            reason: "La primera, la auténtica. No siento las piernas XD",
+            recommenderRating: 6.5
+        });
+
+        halfDefinedRecommendation.media = {
+            id: "half-defined-media-from-other-list-new",
+            title: "Rambo 1",
+            poster: "https://th.bing.com/th?q=Rambo+First+Movie&w=120&h=120&c=1&rs=1&qlt=70&r=0&o=7&cb=1&dpr=1.4&pid=InlineBlock&rm=3&mkt=es-ES&cc=ES&setlang=es&adlt=moderate&t=1&mw=247",
+            type: "movie",
+            genres: [
+                "action"
+            ],
+            matchKey: "rambo|movie"
+        };
+
+        const badRecommendation = new Recommendation({
+            id: "test-recommendation-bad",
+            mediaId: "bad-media-from-other-list-new",
+            platforms: [
+                "youtube-es"
+            ],
+            spanishAudio: true,
+            spanishSubtitles: true,
+            reason: "Pastelazo, lo mismo os gusta...",
+            recommenderRating: 3
+        });
+
+        badRecommendation.media = {
+            id: "bad-media-from-other-list-new",
+            title: "El diario de Noa",
+            type: "movie",
+            year: 2004,
+            genres: [
+                "drama"
+            ],
+            matchKey: "eldiariodenoa|movie"
         };
 
         return [
@@ -249,14 +322,19 @@ export class RecommendationListsView extends LitElement {
                 name: "Recomendaciones desde : Lista Ajena",
                 recommendations: [
                     robocopRecommendation,
-                    newRecommendation
+                    newRecommendation,
+                ]
+            }),
+            new RecommendationList({
+                id: "test-list-002",
+                name: "Recomendaciones desde : Otra Lista Ajena",
+                recommendations: [
+                    otherRecommendation,
+                    halfDefinedRecommendation,
+                    badRecommendation
                 ]
             })
         ];
-    }
-
-    selectList(list) {
-        this.selectedList = list;
     }
 
     render() {
@@ -266,10 +344,11 @@ export class RecommendationListsView extends LitElement {
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
             >
 
-            <section class="recommendation-lists">
+            <section class="inbox">
 
                 <header class="section-header">
-                    <h2>Recomendaciones</h2>
+                    <i class="fa fa-inbox"></i>
+                    <h2>Buzón de entrada</h2>
 
                     <button
                         type="button"
@@ -288,23 +367,37 @@ export class RecommendationListsView extends LitElement {
                         </p>
                     `
                     : html`
-                        <div class="lists">
+                        ${this.selectedList? html `
+                            <button
+                                class="list"
+                                @click=${() => this.closeList()}
+                            >
+                                <strong>
+                                 <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
+                                 Comparando con tu Lista local...
+                                </strong>
+                                <span>
+                                    Cerrar
+                                </span>
+                            </button>
+                            `: html`
+                            <div class="lists">
                             ${this.lists.map(list => html`
-                                ${this.reviewing? html ``: html`
-                                <button
-                                    class="list"
-                                    @click=${() => this.selectList(list)}
-                                >
-                                    <strong>${list.name}</strong>
+                                    <button
+                                        class="list"
+                                        @click=${() => this.selectList(list)}
+                                    >
+                                        <strong>
+                                        <i class="fa fa-envelope-o" aria-hidden="true"></i></big> ${list.name}</strong>
 
-                                    <span>
-                                        ${list.recommendations.length}
-                                        recomendaciones
-                                    </span>
-                                </button>
-                                `}
+                                        <span>
+                                            ${list.recommendations.length}
+                                            recomendaciones
+                                        </span>
+                                    </button>
                             `)}
                         </div>
+                        `}
                     `
                 }
 
@@ -323,12 +416,10 @@ export class RecommendationListsView extends LitElement {
 
     selectList(list) {
         this.selectedList = list;
-        this.reviewing = true;
     }
 
     closeList() {
         this.selectedList = undefined;
-        this.reviewing = false;
     }
 
     importRecommendations() {
@@ -367,7 +458,7 @@ export class RecommendationListsView extends LitElement {
                 console.error(error);
 
                 alert(
-                    `No se pudieron importar las recomendaciones:\n${error.message}`
+                    `No se pudo importar al buzón de entrada:\n${error.message}`
                 );
             }
         });
@@ -377,6 +468,6 @@ export class RecommendationListsView extends LitElement {
 }
 
 customElements.define(
-    "recommendation-lists-view",
-    RecommendationListsView
+    "inbox-view",
+    InboxView
 );

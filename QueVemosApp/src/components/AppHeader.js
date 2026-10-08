@@ -141,7 +141,11 @@ export class AppHeader extends LitElement {
                 <h1>¿Qué Vemos?</h1>
 
                 <p class="hero-subtitle">
-                    Listado de recomendaciones de pelis y series personales
+                    Tu listado de pelis y series local con gestión de recomendaciones
+                </p>
+
+                <p class="hero-subtitle">
+                    <small> No olvides exportarlo para evitar perderlo al cambiar de navegador o limpiar</small>
                 </p>
 
                 <div class="hero-actions">

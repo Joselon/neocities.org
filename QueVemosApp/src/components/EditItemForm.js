@@ -431,7 +431,7 @@ export class EditItemForm extends LitElement {
                         type="number"
                         min="1888"
                         max="2100"
-                        placeholder="(aaaa)"
+                        placeholder="aaaa"
                         value=${this.media.year ?? ""}
                     >
                 </div>

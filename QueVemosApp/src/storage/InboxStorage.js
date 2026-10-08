@@ -1,17 +1,17 @@
 import { RecommendationList } from "../domain/RecommendationList.js";
 import { Recommendation } from "../domain/Recommendation.js";
 
-export class RecommendationListsStorage {
+export class InboxStorage {
     
-    constructor(storage, key = "quevemos-recommendation-lists") {
+    constructor(storage, key = "quevemos-inbox") {
         this.storage = storage;
         this.key = key;
     }
 
-    save(recommendationLists) {
+    save(inbox) {
 
         const json = JSON.stringify(
-            recommendationLists
+            inbox
         );
 
         this.storage.setItem(

@@ -1,12 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { RecommendationListsFileStorage } from "../../src/storage/RecommendationListsFileStorage.js";
+import { InboxFileStorage } from "../../src/storage/InboxFileStorage.js";
 import { RecommendationList } from "../../src/domain/RecommendationList.js";
 import { Recommendation } from "../../src/domain/Recommendation.js";
 import { DATA_VERSION } from "../../src/data/version.js";
 
-test("RecommendationListsFileStorage: exports recommendation lists as JSON", () => {
+test("InboxFileStorage: exports inbox (recommendation lists) as JSON", () => {
 
     const list = new RecommendationList({
         id: "recommendation-list-001",
@@ -14,7 +14,7 @@ test("RecommendationListsFileStorage: exports recommendation lists as JSON", () 
     });
 
     const storage =
-        new RecommendationListsFileStorage();
+        new InboxFileStorage();
 
     const json = storage.export([list]);
 
@@ -28,7 +28,7 @@ test("RecommendationListsFileStorage: exports recommendation lists as JSON", () 
     );
 });
 
-test("RecommendationListsFileStorage: imports recommendation lists", () => {
+test("InboxFileStorage: imports inbox of recommendation lists", () => {
 
     const list = new RecommendationList({
         id: "recommendation-list-001",
@@ -36,28 +36,28 @@ test("RecommendationListsFileStorage: imports recommendation lists", () => {
     });
 
     const storage =
-        new RecommendationListsFileStorage();
+        new InboxFileStorage();
 
     const json = storage.export([list]);
 
-    const lists = storage.import(json);
+    const inbox = storage.import(json);
 
-    assert.equal(lists.length, 1);
+    assert.equal(inbox.length, 1);
 
     assert.ok(
-        lists[0] instanceof RecommendationList
+        inbox[0] instanceof RecommendationList
     );
 
     assert.equal(
-        lists[0].name,
+        inbox[0].name,
         "Recomendaciones desde : Mis padres"
     );
 });
 
-test("RecommendationListsFileStorage: rejects invalid JSON", () => {
+test("InboxFileStorage: rejects invalid JSON", () => {
 
     const storage =
-        new RecommendationListsFileStorage();
+        new InboxFileStorage();
 
     assert.throws(
         () => storage.import("esto no es JSON"),
@@ -65,21 +65,21 @@ test("RecommendationListsFileStorage: rejects invalid JSON", () => {
     );
 });
 
-test("RecommendationListsFileStorage: rejects a non-array root", () => {
+test("InboxFileStorage: rejects a non-array root", () => {
 
     const storage =
-        new RecommendationListsFileStorage();
+        new InboxFileStorage();
 
     assert.throws(
         () => storage.import("{}"),
-        /Invalid RecommendationLists file/
+        /Invalid Inbox's file/
     );
 });
 
-test("RecommendationListsFileStorage: rejects unsupported version", () => {
+test("InboxFileStorage: rejects unsupported version", () => {
 
     const storage =
-        new RecommendationListsFileStorage();
+        new InboxFileStorage();
 
     const json = JSON.stringify([
         {
