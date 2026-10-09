@@ -222,49 +222,47 @@ export class RecommendationService {
         return differences;
     }
 
-    acceptRecommendation(exchangeItem, recommendationList, watchList) {
+    acceptRecommendation(incomingRecommendation, recommendationList, watchList) {
 
-        const { recommendation } = exchangeItem;
-
-        const media = watchList.media.find(
-            item => item.id === recommendation.mediaId
+        const media = recommendationList.media.find(
+            item => item.id === incomingRecommendation.mediaId
         );
 
         if (!media) {
-            throw new Error("Media not found in WatchList");
+            throw new Error("Media not found in recommendationList");
         }
 
         const reasonParts = [
             recommendationList.name
         ];
 
-        if (recommendation.recommenderRating !== undefined) {
-            reasonParts[0] += ` | (Nota: ${recommendation.recommenderRating})`;
+        if (incomingRecommendation.recommenderRating !== undefined) {
+            reasonParts[0] += ` | (Nota: ${incomingRecommendation.recommenderRating})`;
         }
 
-        if (recommendation.reason) {
-            reasonParts.push(recommendation.reason);
+        if (incomingRecommendation.reason) {
+            reasonParts.push(incomingRecommendation.reason);
         }
 
         const watchItem = new WatchItem({
             mediaId: media.id,
-            platforms: recommendation.platforms,
-            spanishAudio: recommendation.spanishAudio,
-            spanishSubtitles: recommendation.spanishSubtitles,
+            platforms: incomingRecommendation.platforms,
+            spanishAudio: incomingRecommendation.spanishAudio,
+            spanishSubtitles: incomingRecommendation.spanishSubtitles,
             reason: reasonParts.join(" | ")
         });
 
         watchList.watchItems.push(watchItem);
 
-        recommendation.status = RecommendationStatus.ACCEPTED;
+        incomingRecommendation.status = RecommendationStatus.ACCEPTED;
 
         return watchItem;
     }
 
-    discardRecommendation(recommendation) {
+    discardRecommendation(incomingRecommendation) {
 
-        recommendation.status = RecommendationStatus.DISCARDED;
+        incomingRecommendation.status = RecommendationStatus.DISCARDED;
 
-        return recommendation;
+        return incomingRecommendation;
     }
 }

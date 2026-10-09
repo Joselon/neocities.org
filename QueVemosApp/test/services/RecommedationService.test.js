@@ -819,10 +819,6 @@ test("RecommendationService: accepts a recommendation and creates a WatchItem", 
         watchItems: []
     });
 
-    const recommendationList = new RecommendationList({
-        name: "Recomendaciones desde : Mis padres"
-    });
-
     const recommendation = new Recommendation({
         mediaId: media.id,
         platforms: ["Netflix"],
@@ -832,19 +828,17 @@ test("RecommendationService: accepts a recommendation and creates a WatchItem", 
         recommenderRating: 9
     });
 
-    const exchangeItem = {
-        media: {
-            ...media,
-            matchKey: media.matchKey
-        },
-        recommendation
-    };
+    const incomingList = new IncomingRecommendationList({
+        name: "Recomendaciones desde : Mis padres",
+        recommendations: [recommendation],
+        media: [media]
+    });
 
     const service = new RecommendationService();
 
     service.acceptRecommendation(
-        exchangeItem,
-        recommendationList,
+        recommendation,
+        incomingList,
         watchList
     );
 
@@ -885,28 +879,22 @@ test("RecommendationService: accepts a recommendation without recommenderRating"
         watchItems: []
     });
 
-    const recommendationList = new RecommendationList({
-        name: "Recomendaciones desde : Mis padres"
-    });
-
     const recommendation = new Recommendation({
         mediaId: media.id,
         reason: "Porque os gustará"
     });
 
-    const exchangeItem = {
-        media: {
-            ...media,
-            matchKey: media.matchKey
-        },
-        recommendation
-    };
+    const incomingList = new IncomingRecommendationList({
+        name: "Recomendaciones desde : Mis padres",
+        recommendations: [recommendation],
+        media: [media]
+    });
 
     const service = new RecommendationService();
 
     service.acceptRecommendation(
-        exchangeItem,
-        recommendationList,
+        recommendation,
+        incomingList,
         watchList
     );
 
@@ -931,28 +919,22 @@ test("RecommendationService: accepts a recommendation without reason", () => {
         watchItems: []
     });
 
-    const recommendationList = new RecommendationList({
-        name: "Recomendaciones desde : Mis padres"
-    });
-
     const recommendation = new Recommendation({
         mediaId: media.id,
         recommenderRating: 9
     });
 
-    const exchangeItem = {
-        media: {
-            ...media,
-            matchKey: media.matchKey
-        },
-        recommendation
-    };
+    const incomingList = new IncomingRecommendationList({
+        name: "Recomendaciones desde : Mis padres",
+        recommendations: [recommendation],
+        media: [media]
+    });
 
     const service = new RecommendationService();
 
     service.acceptRecommendation(
-        exchangeItem,
-        recommendationList,
+        recommendation,
+        incomingList,
         watchList
     );
 
