@@ -4,6 +4,7 @@ import { WatchListService } from "../services/WatchListService.js";
 import { WatchListStorage } from "../storage/WatchListStorage.js";
 import { WatchListFileStorage } from "../storage/WatchListFileStorage.js";
 import { RecommendationService } from "../services/RecommendationService.js";
+import { RecommendationLinkCodec } from "../services/RecommendationLinkCodec.js";
 
 import "./WatchItemView.js";
 import "./AddItemForm.js";
@@ -225,7 +226,8 @@ export class WatchListView extends LitElement {
         editingItem: { state: true },
         listName: { state: true },
         addingItem: { type: Boolean },
-        selectedItemsToShare: { state: true }
+        selectedItemsToShare: { state: true },
+        linkCopied: { state: true },
     };
 
     constructor() {
@@ -246,6 +248,7 @@ export class WatchListView extends LitElement {
         this.editingItem = undefined;
         this.addingItem = false;
         this.selectedItemsToShare = [];
+        this.linkCopied = false;
     }
     
     render() {
@@ -291,6 +294,17 @@ export class WatchListView extends LitElement {
                         <i class="fa fa-pencil"></i>
                     </button>
                 </h2>
+                ${this.linkCopied
+                    ? html`
+                        <div class="toast-overlay">
+                            <div class="toast">
+                                <span>✓</span>
+                                Enlace copiado
+                            </div>
+                        </div>
+                    `
+                    : ""
+                }
             </div>
             
             ${items.length === 0
@@ -331,6 +345,7 @@ export class WatchListView extends LitElement {
                     <div class="media-list">
                         <div class="list-header">
                             <div class="hero-badge"> Mostrando todos los elementos </div>
+        
                             <div class="list-actions">
                                 <button
                                     class="action-button"
@@ -363,6 +378,7 @@ export class WatchListView extends LitElement {
                                     : ""
                                 }
                             </div>
+
                         </div>
                         ${items.map(item => {
 
@@ -561,34 +577,34 @@ export class WatchListView extends LitElement {
                 this.service.watchList
             );
 
-        this.downloadRecommendationExchange(exchange);
+        this.shareRecommendationExchange(exchange);
 
         //this.selectedItemsToShare = [];
     }
 
-    downloadRecommendationExchange(exchange) {
+    async shareRecommendationExchange(exchange) {
 
-        const json = JSON.stringify(
-            exchange,
-            null,
-            2
+        const codec = new RecommendationLinkCodec();
+
+        const encodedData =  await codec.encode(exchange);
+
+        const url = new URL(
+            "http://localhost:5173/quevemos" //"https://joselon79.neocities.org/quevemos"
         );
 
-        const blob = new Blob(
-            [json],
-            { type: "application/json" }
-        );
+        url.searchParams.set("recommendation",encodedData);
 
-        const url = URL.createObjectURL(blob);
+        try {   
+            await navigator.clipboard.writeText(url.toString());
 
-        const link = document.createElement("a");
+            this.linkCopied = true;
 
-        link.href = url;
-        link.download = "recommendation-exchange.json";
-
-        link.click();
-
-        URL.revokeObjectURL(url);
+            setTimeout(() => {
+                this.linkCopied = false;
+            }, 2000);
+        } catch (error) {
+            console.error("No se pudo copiar el enlace:", error);
+        }
     }
 
     editListName() {

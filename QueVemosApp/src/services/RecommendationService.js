@@ -4,6 +4,8 @@ import { Recommendation } from "../domain/Recommendation.js";
 import { RecommendationList } from "../domain/RecommendationList.js";
 import { RecommendationStatus } from "../domain/RecommendationStatus.js";
 import { RecommendationExchange } from "../domain/RecommendationExchange.js";
+import { IncomingRecommendationList } from "../domain/IncomingRecommendationList.js";
+import { DATA_VERSION } from "../data/version.js";
 
 export class RecommendationService {
 
@@ -75,41 +77,49 @@ export class RecommendationService {
         });
     }
 
-    createRecommendationListFromExchange(recommendationExchange){
+    createIncomingRecommendationList(exchange) {
+        if (!(exchange instanceof RecommendationExchange)) {
+            throw new Error("exchange must be a RecommendationExchange");
+        }
 
-        const recommendations = recommendationExchange.items.map(
-            item => recommendations.push(new Recommendation(item.recommendation))
-        );
-
-        return new RecommendationList({
-            name: recommendationExchange.sender,
-            recommendations
+        return new IncomingRecommendationList({
+            name: exchange.sender,
+            media: exchange.items.map(item => item.media),
+            recommendations: exchange.items.map(
+                item => new Recommendation(item.recommendation)
+            ),
+            version: DATA_VERSION,
+            createdAt: exchange.createdAt
         });
     }
 
-    prepareComparison(recommendationExchange, watchList) {
+    prepareComparison(incomingRecommendationList, watchList) {
 
         if (!watchList) {
             throw new Error("No WatchList loaded");
         }
 
         return {
-            recommendationExchange,
+            incomingRecommendationList,
             watchList
         };
     }
 
-    compareRecommendations(recommendationExchange, watchList) {
+    compareRecommendations(incomingRecommendationList, watchList) {
 
-        return recommendationExchange.items.map(
-            exchangeItem => {
+        return incomingRecommendationList.recommendations.map(
+            recommendation => {
+
+                const media =
+                    incomingRecommendationList.media.find(
+                        media => media.id === recommendation.mediaId
+                    );
 
                 const candidates =
                     this.findMediaCandidates(
-                        exchangeItem.media,
+                        media,
                         watchList
                     );
-
 
                 let status = "new";
 
@@ -123,7 +133,8 @@ export class RecommendationService {
                 }
 
                 return {
-                    exchangeItem,
+                    recommendation,
+                    media,
                     matches: candidates,
                     status
                 };
@@ -131,7 +142,7 @@ export class RecommendationService {
         );
     }
 
-    findMediaCandidates(exchangeMedia, watchList){
+    findMediaCandidates(incomingMedia, watchList){
 
        const candidates = [];
 
@@ -139,15 +150,15 @@ export class RecommendationService {
 
             const matches = [];
 
-            if (exchangeMedia.omdbId && media.omdbId && exchangeMedia.omdbId === media.omdbId) {
+            if (incomingMedia.omdbId && media.omdbId && incomingMedia.omdbId === media.omdbId) {
                     matches.push("omdbId");
             }
 
-            if (exchangeMedia.matchKey === media.matchKey) {
+            if (incomingMedia.matchKey === media.matchKey) {
                 matches.push("matchKey");
             }
 
-            const exchangeTitle = exchangeMedia.title.trim().toLowerCase();
+            const exchangeTitle = incomingMedia.title.trim().toLowerCase();
             const mediaTitle = media.title.trim().toLowerCase();
 
             const titleMatches =
@@ -166,7 +177,7 @@ export class RecommendationService {
                     media,
                     matches,
                     differences: this.compareMedia(
-                        exchangeMedia,
+                        incomingMedia,
                         media
                     )
                 });
@@ -176,7 +187,7 @@ export class RecommendationService {
         return candidates;
     }
 
-    compareMedia(exchangeMedia, media) {
+    compareMedia(incomingMedia, media) {
 
         const differences = [];
 
@@ -193,7 +204,7 @@ export class RecommendationService {
         for (const field of fieldsToCompare) {
 
             if (
-                JSON.stringify(exchangeMedia[field]) !==
+                JSON.stringify(incomingMedia[field]) !==
                 JSON.stringify(media[field])
             ) {
                 differences.push(field);
@@ -202,7 +213,7 @@ export class RecommendationService {
 
         if (
             !media.omdbId &&
-            exchangeMedia.omdbId
+            incomingMedia.omdbId
         ) {
             differences.push("omdbId");
         }

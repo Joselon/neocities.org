@@ -1,6 +1,9 @@
 import { LitElement, html, css } from "lit";
 import { InboxStorage } from "../storage/InboxStorage.js";
 import { InboxFileStorage } from "../storage/InboxFileStorage.js";
+import { RecommendationService} from "../services/RecommendationService.js"
+import { RecommendationLinkReader} from "../services/RecommendationLinkReader.js"
+
 import "./RecommendationListView.js";
 
 export class InboxView extends LitElement {
@@ -174,13 +177,34 @@ export class InboxView extends LitElement {
         super();
 
         this.storage = new InboxStorage(localStorage);
-
         this.fileStorage = new InboxFileStorage();
+        this.linkReader = new RecommendationLinkReader();
+
+        this.service = new RecommendationService();
 
         this.lists = this.storage.load();
         this.selectedList = undefined;
-
     }
+
+    async connectedCallback() {
+        super.connectedCallback();
+
+        await this.importRecommendationFromUrl();
+    }
+
+    async importRecommendationFromUrl() {
+
+        const exchange = await this.linkReader.read(window.location.href);
+
+        if (!exchange) {
+            return;
+        }
+
+        const incomingList  = this.service.createIncomingRecommendationList(exchange);
+        this.lists = [...this.lists, incomingList];
+        this.storage.save(this.lists);
+    }
+
     selectList(list) {
         this.selectedList = list;
     }
@@ -300,7 +324,7 @@ export class InboxView extends LitElement {
                 ${this.selectedList
                     ? html`
                         <recommendation-list-view
-                            .incomingRecommendationList=${this.selectedList}
+                            .incomingList=${this.selectedList}
                         ></recommendation-list-view>
                     `
                     : ""

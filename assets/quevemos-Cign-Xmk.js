@@ -1,5 +1,5 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),t.credentials=e.crossOrigin===`use-credentials`?`include`:e.crossOrigin===`anonymous`?`omit`:`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=globalThis,t=e.ShadowRoot&&(e.ShadyCSS===void 0||e.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,n=Symbol(),r=new WeakMap,i=class{constructor(e,t,r){if(this._$cssResult$=!0,r!==n)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,n=this.t;if(t&&e===void 0){let t=n!==void 0&&n.length===1;t&&(e=r.get(n)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),t&&r.set(n,e))}return e}toString(){return this.cssText}},a=e=>new i(typeof e==`string`?e:e+``,void 0,n),o=(e,...t)=>new i(e.length===1?e[0]:t.reduce((t,n,r)=>t+(e=>{if(!0===e._$cssResult$)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: `+e+`. Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.`)})(n)+e[r+1],e[0]),e,n),s=(n,r)=>{if(t)n.adoptedStyleSheets=r.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let t of r){let r=document.createElement(`style`),i=e.litNonce;i!==void 0&&r.setAttribute(`nonce`,i),r.textContent=t.cssText,n.appendChild(r)}},c=t?e=>e:e=>e instanceof CSSStyleSheet?(e=>{let t=``;for(let n of e.cssRules)t+=n.cssText;return a(t)})(e):e,{is:l,defineProperty:u,getOwnPropertyDescriptor:d,getOwnPropertyNames:ee,getOwnPropertySymbols:te,getPrototypeOf:ne}=Object,f=globalThis,p=f.trustedTypes,re=p?p.emptyScript:``,ie=f.reactiveElementPolyfillSupport,m=(e,t)=>e,h={toAttribute(e,t){switch(t){case Boolean:e=e?re:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},ae=(e,t)=>!l(e,t),oe={attribute:!0,type:String,converter:h,reflect:!1,useDefault:!1,hasChanged:ae};Symbol.metadata??=Symbol(`metadata`),f.litPropertyMetadata??=new WeakMap;var g=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=oe){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(e,n,t);r!==void 0&&u(this.prototype,e,r)}}static getPropertyDescriptor(e,t,n){let{get:r,set:i}=d(this.prototype,e)??{get(){return this[t]},set(e){this[t]=e}};return{get:r,set(t){let a=r?.call(this);i?.call(this,t),this.requestUpdate(e,a,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??oe}static _$Ei(){if(this.hasOwnProperty(m(`elementProperties`)))return;let e=ne(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(m(`finalized`)))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(m(`properties`))){let e=this.properties,t=[...ee(e),...te(e)];for(let n of t)this.createProperty(n,e[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[e,n]of t)this.elementProperties.set(e,n)}this._$Eh=new Map;for(let[e,t]of this.elementProperties){let n=this._$Eu(e,t);n!==void 0&&this._$Eh.set(n,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let n=new Set(e.flat(1/0).reverse());for(let e of n)t.unshift(c(e))}else e!==void 0&&t.push(c(e));return t}static _$Eu(e,t){let n=t.attribute;return!1===n?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let n of t.keys())this.hasOwnProperty(n)&&(e.set(n,this[n]),delete this[n]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return s(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,n){this._$AK(e,n)}_$ET(e,t){let n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(r!==void 0&&!0===n.reflect){let i=(n.converter?.toAttribute===void 0?h:n.converter).toAttribute(t,n.type);this._$Em=e,i==null?this.removeAttribute(r):this.setAttribute(r,i),this._$Em=null}}_$AK(e,t){let n=this.constructor,r=n._$Eh.get(e);if(r!==void 0&&this._$Em!==r){let e=n.getPropertyOptions(r),i=typeof e.converter==`function`?{fromAttribute:e.converter}:e.converter?.fromAttribute===void 0?h:e.converter;this._$Em=r;let a=i.fromAttribute(t,e.type);this[r]=a??this._$Ej?.get(r)??a,this._$Em=null}}requestUpdate(e,t,n,r=!1,i){if(e!==void 0){let a=this.constructor;if(!1===r&&(i=this[e]),n??=a.getPropertyOptions(e),!((n.hasChanged??ae)(i,t)||n.useDefault&&n.reflect&&i===this._$Ej?.get(e)&&!this.hasAttribute(a._$Eu(e,n))))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(e,t,{useDefault:n,reflect:r,wrapped:i},a){n&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,a??t??this[e]),!0!==i||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||n||(t=void 0),this._$AL.set(e,t)),!0===r&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[e,t]of this._$Ep)this[e]=t;this._$Ep=void 0}let e=this.constructor.elementProperties;if(e.size>0)for(let[t,n]of e){let{wrapped:e}=n,r=this[t];!0!==e||this._$AL.has(t)||r===void 0||this.C(t,void 0,n,r)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(e=>e.hostUpdate?.()),this.update(t)):this._$EM()}catch(t){throw e=!1,this._$EM(),t}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(e){}firstUpdated(e){}};g.elementStyles=[],g.shadowRootOptions={mode:`open`},g[m(`elementProperties`)]=new Map,g[m(`finalized`)]=new Map,ie?.({ReactiveElement:g}),(f.reactiveElementVersions??=[]).push(`2.1.2`);var _=globalThis,se=e=>e,v=_.trustedTypes,ce=v?v.createPolicy(`lit-html`,{createHTML:e=>e}):void 0,le=`$lit$`,y=`lit$${Math.random().toFixed(9).slice(2)}$`,ue=`?`+y,de=`<${ue}>`,b=document,x=()=>b.createComment(``),S=e=>e===null||typeof e!=`object`&&typeof e!=`function`,C=Array.isArray,fe=e=>C(e)||typeof e?.[Symbol.iterator]==`function`,w=`[ 	
-\f\r]`,T=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,E=/-->/g,D=/>/g,O=RegExp(`>|${w}(?:([^\\s"'>=/]+)(${w}*=${w}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),k=/'/g,A=/"/g,j=/^(?:script|style|textarea|title)$/i,M=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),N=Symbol.for(`lit-noChange`),P=Symbol.for(`lit-nothing`),pe=new WeakMap,F=b.createTreeWalker(b,129);function me(e,t){if(!C(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return ce===void 0?t:ce.createHTML(t)}var he=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=T;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===T?c[1]===`!--`?o=E:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=O):(j.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=O):o=D:o===O?c[0]===`>`?(o=i??T,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?O:c[3]===`"`?A:k):o===A||o===k?o=O:o===E||o===D?o=T:(o=O,i=void 0);let d=o===O&&e[t+1].startsWith(`/>`)?` `:``;a+=o===T?n+de:l>=0?(r.push(s),n.slice(0,l)+le+n.slice(l)+y+d):n+y+(l===-2?t:d)}return[me(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},I=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=he(t,n);if(this.el=e.createElement(l,r),F.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=F.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(le)){let t=u[o++],n=i.getAttribute(e).split(y),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?_e:r[1]===`?`?ve:r[1]===`@`?ye:z}),i.removeAttribute(e)}else e.startsWith(y)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(j.test(i.tagName)){let e=i.textContent.split(y),t=e.length-1;if(t>0){i.textContent=v?v.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],x()),F.nextNode(),c.push({type:2,index:++a});i.append(e[t],x())}}}else if(i.nodeType===8){if(i.data===ue)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(y,e+1))!==-1;)c.push({type:7,index:a}),e+=y.length-1}}a++}}static createElement(e,t){let n=b.createElement(`template`);return n.innerHTML=e,n}};function L(e,t,n=e,r){if(t===N)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=S(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=L(e,i._$AS(e,t.values),i,r)),t}var ge=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??b).importNode(t,!0);F.currentNode=r;let i=F.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new R(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new be(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=F.nextNode(),a++)}return F.currentNode=b,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},R=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=P,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=L(this,e,t),S(e)?e===P||e==null||e===``?(this._$AH!==P&&this._$AR(),this._$AH=P):e!==this._$AH&&e!==N&&this._(e):e._$litType$===void 0?e.nodeType===void 0?fe(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==P&&S(this._$AH)?this._$AA.nextSibling.data=e:this.T(b.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=I.createElement(me(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new ge(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=pe.get(e.strings);return t===void 0&&pe.set(e.strings,t=new I(e)),t}k(t){C(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(x()),this.O(x()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=se(e).nextSibling;se(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},z=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=P,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=P}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=L(this,e,t,0),a=!S(e)||e!==this._$AH&&e!==N,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=L(this,r[n+o],t,o),s===N&&(s=this._$AH[o]),a||=!S(s)||s!==this._$AH[o],s===P?e=P:e!==P&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===P?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},_e=class extends z{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===P?void 0:e}},ve=class extends z{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==P)}},ye=class extends z{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=L(this,e,t,0)??P)===N)return;let n=this._$AH,r=e===P&&n!==P||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==P&&(n===P||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},be=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){L(this,e)}},xe=_.litHtmlPolyfillSupport;xe?.(I,R),(_.litHtmlVersions??=[]).push(`3.3.3`);var Se=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new R(t.insertBefore(x(),e),e,void 0,n??{})}return i._$AI(e),i},B=globalThis,V=class extends g{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=Se(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return N}};V._$litElement$=!0,V.finalized=!0,B.litElementHydrateSupport?.({LitElement:V});var Ce=B.litElementPolyfillSupport;Ce?.({LitElement:V}),(B.litElementVersions??=[]).push(`4.2.2`);var we=class extends V{static styles=o`
+(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),t.credentials=e.crossOrigin===`use-credentials`?`include`:e.crossOrigin===`anonymous`?`omit`:`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=globalThis,t=e.ShadowRoot&&(e.ShadyCSS===void 0||e.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,n=Symbol(),r=new WeakMap,i=class{constructor(e,t,r){if(this._$cssResult$=!0,r!==n)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,n=this.t;if(t&&e===void 0){let t=n!==void 0&&n.length===1;t&&(e=r.get(n)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),t&&r.set(n,e))}return e}toString(){return this.cssText}},a=e=>new i(typeof e==`string`?e:e+``,void 0,n),o=(e,...t)=>new i(e.length===1?e[0]:t.reduce((t,n,r)=>t+(e=>{if(!0===e._$cssResult$)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: `+e+`. Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.`)})(n)+e[r+1],e[0]),e,n),s=(n,r)=>{if(t)n.adoptedStyleSheets=r.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let t of r){let r=document.createElement(`style`),i=e.litNonce;i!==void 0&&r.setAttribute(`nonce`,i),r.textContent=t.cssText,n.appendChild(r)}},c=t?e=>e:e=>e instanceof CSSStyleSheet?(e=>{let t=``;for(let n of e.cssRules)t+=n.cssText;return a(t)})(e):e,{is:l,defineProperty:u,getOwnPropertyDescriptor:d,getOwnPropertyNames:ee,getOwnPropertySymbols:te,getPrototypeOf:ne}=Object,f=globalThis,re=f.trustedTypes,ie=re?re.emptyScript:``,ae=f.reactiveElementPolyfillSupport,p=(e,t)=>e,m={toAttribute(e,t){switch(t){case Boolean:e=e?ie:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},oe=(e,t)=>!l(e,t),se={attribute:!0,type:String,converter:m,reflect:!1,useDefault:!1,hasChanged:oe};Symbol.metadata??=Symbol(`metadata`),f.litPropertyMetadata??=new WeakMap;var h=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=se){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(e,n,t);r!==void 0&&u(this.prototype,e,r)}}static getPropertyDescriptor(e,t,n){let{get:r,set:i}=d(this.prototype,e)??{get(){return this[t]},set(e){this[t]=e}};return{get:r,set(t){let a=r?.call(this);i?.call(this,t),this.requestUpdate(e,a,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??se}static _$Ei(){if(this.hasOwnProperty(p(`elementProperties`)))return;let e=ne(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(p(`finalized`)))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(p(`properties`))){let e=this.properties,t=[...ee(e),...te(e)];for(let n of t)this.createProperty(n,e[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[e,n]of t)this.elementProperties.set(e,n)}this._$Eh=new Map;for(let[e,t]of this.elementProperties){let n=this._$Eu(e,t);n!==void 0&&this._$Eh.set(n,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let n=new Set(e.flat(1/0).reverse());for(let e of n)t.unshift(c(e))}else e!==void 0&&t.push(c(e));return t}static _$Eu(e,t){let n=t.attribute;return!1===n?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let n of t.keys())this.hasOwnProperty(n)&&(e.set(n,this[n]),delete this[n]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return s(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,n){this._$AK(e,n)}_$ET(e,t){let n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(r!==void 0&&!0===n.reflect){let i=(n.converter?.toAttribute===void 0?m:n.converter).toAttribute(t,n.type);this._$Em=e,i==null?this.removeAttribute(r):this.setAttribute(r,i),this._$Em=null}}_$AK(e,t){let n=this.constructor,r=n._$Eh.get(e);if(r!==void 0&&this._$Em!==r){let e=n.getPropertyOptions(r),i=typeof e.converter==`function`?{fromAttribute:e.converter}:e.converter?.fromAttribute===void 0?m:e.converter;this._$Em=r;let a=i.fromAttribute(t,e.type);this[r]=a??this._$Ej?.get(r)??a,this._$Em=null}}requestUpdate(e,t,n,r=!1,i){if(e!==void 0){let a=this.constructor;if(!1===r&&(i=this[e]),n??=a.getPropertyOptions(e),!((n.hasChanged??oe)(i,t)||n.useDefault&&n.reflect&&i===this._$Ej?.get(e)&&!this.hasAttribute(a._$Eu(e,n))))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(e,t,{useDefault:n,reflect:r,wrapped:i},a){n&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,a??t??this[e]),!0!==i||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||n||(t=void 0),this._$AL.set(e,t)),!0===r&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[e,t]of this._$Ep)this[e]=t;this._$Ep=void 0}let e=this.constructor.elementProperties;if(e.size>0)for(let[t,n]of e){let{wrapped:e}=n,r=this[t];!0!==e||this._$AL.has(t)||r===void 0||this.C(t,void 0,n,r)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(e=>e.hostUpdate?.()),this.update(t)):this._$EM()}catch(t){throw e=!1,this._$EM(),t}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(e){}firstUpdated(e){}};h.elementStyles=[],h.shadowRootOptions={mode:`open`},h[p(`elementProperties`)]=new Map,h[p(`finalized`)]=new Map,ae?.({ReactiveElement:h}),(f.reactiveElementVersions??=[]).push(`2.1.2`);var g=globalThis,ce=e=>e,_=g.trustedTypes,le=_?_.createPolicy(`lit-html`,{createHTML:e=>e}):void 0,ue=`$lit$`,v=`lit$${Math.random().toFixed(9).slice(2)}$`,de=`?`+v,fe=`<${de}>`,y=document,b=()=>y.createComment(``),x=e=>e===null||typeof e!=`object`&&typeof e!=`function`,S=Array.isArray,pe=e=>S(e)||typeof e?.[Symbol.iterator]==`function`,C=`[ 	
+\f\r]`,w=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,T=/-->/g,E=/>/g,D=RegExp(`>|${C}(?:([^\\s"'>=/]+)(${C}*=${C}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),O=/'/g,k=/"/g,A=/^(?:script|style|textarea|title)$/i,j=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),M=Symbol.for(`lit-noChange`),N=Symbol.for(`lit-nothing`),me=new WeakMap,P=y.createTreeWalker(y,129);function he(e,t){if(!S(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return le===void 0?t:le.createHTML(t)}var ge=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=w;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===w?c[1]===`!--`?o=T:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=D):(A.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=D):o=E:o===D?c[0]===`>`?(o=i??w,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?D:c[3]===`"`?k:O):o===k||o===O?o=D:o===T||o===E?o=w:(o=D,i=void 0);let d=o===D&&e[t+1].startsWith(`/>`)?` `:``;a+=o===w?n+fe:l>=0?(r.push(s),n.slice(0,l)+ue+n.slice(l)+v+d):n+v+(l===-2?t:d)}return[he(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},F=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=ge(t,n);if(this.el=e.createElement(l,r),P.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=P.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(ue)){let t=u[o++],n=i.getAttribute(e).split(v),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?ve:r[1]===`?`?ye:r[1]===`@`?be:R}),i.removeAttribute(e)}else e.startsWith(v)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(A.test(i.tagName)){let e=i.textContent.split(v),t=e.length-1;if(t>0){i.textContent=_?_.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],b()),P.nextNode(),c.push({type:2,index:++a});i.append(e[t],b())}}}else if(i.nodeType===8){if(i.data===de)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(v,e+1))!==-1;)c.push({type:7,index:a}),e+=v.length-1}}a++}}static createElement(e,t){let n=y.createElement(`template`);return n.innerHTML=e,n}};function I(e,t,n=e,r){if(t===M)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=x(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=I(e,i._$AS(e,t.values),i,r)),t}var _e=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??y).importNode(t,!0);P.currentNode=r;let i=P.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new L(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new xe(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=P.nextNode(),a++)}return P.currentNode=y,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},L=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=N,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=I(this,e,t),x(e)?e===N||e==null||e===``?(this._$AH!==N&&this._$AR(),this._$AH=N):e!==this._$AH&&e!==M&&this._(e):e._$litType$===void 0?e.nodeType===void 0?pe(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==N&&x(this._$AH)?this._$AA.nextSibling.data=e:this.T(y.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=F.createElement(he(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new _e(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=me.get(e.strings);return t===void 0&&me.set(e.strings,t=new F(e)),t}k(t){S(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(b()),this.O(b()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=ce(e).nextSibling;ce(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},R=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=N,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=N}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=I(this,e,t,0),a=!x(e)||e!==this._$AH&&e!==M,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=I(this,r[n+o],t,o),s===M&&(s=this._$AH[o]),a||=!x(s)||s!==this._$AH[o],s===N?e=N:e!==N&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===N?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},ve=class extends R{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===N?void 0:e}},ye=class extends R{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==N)}},be=class extends R{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=I(this,e,t,0)??N)===M)return;let n=this._$AH,r=e===N&&n!==N||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==N&&(n===N||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},xe=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){I(this,e)}},Se=g.litHtmlPolyfillSupport;Se?.(F,L),(g.litHtmlVersions??=[]).push(`3.3.3`);var Ce=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new L(t.insertBefore(b(),e),e,void 0,n??{})}return i._$AI(e),i},z=globalThis,B=class extends h{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=Ce(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return M}};B._$litElement$=!0,B.finalized=!0,z.litElementHydrateSupport?.({LitElement:B});var we=z.litElementPolyfillSupport;we?.({LitElement:B}),(z.litElementVersions??=[]).push(`4.2.2`);var Te=class extends B{static styles=o`
         :host {
             display: block;
         }
@@ -126,7 +126,7 @@
 
 
         }
-    `;render(){return M`
+    `;render(){return j`
             <header>
                 <div class="hero-badge">
                     LAB EXPERIMENTAL
@@ -135,7 +135,11 @@
                 <h1>¿Qué Vemos?</h1>
 
                 <p class="hero-subtitle">
-                    Listado de recomendaciones de pelis y series personales
+                    Tu listado de pelis y series local con gestión de recomendaciones
+                </p>
+
+                <p class="hero-subtitle">
+                    <small> No olvides exportarlo para evitar perderlo al cambiar de navegador o limpiar</small>
                 </p>
 
                 <div class="hero-actions">
@@ -144,7 +148,7 @@
                     </a>
                 </div>
             </header>
-        `}};customElements.define(`app-header`,we);var Te=class extends V{static styles=o`
+        `}};customElements.define(`app-header`,Te);var Ee=class extends B{static styles=o`
         :host {
             display: block;
         }
@@ -207,7 +211,7 @@
             color: #ffffff;
         }
         
-    `;render(){return M`
+    `;render(){return j`
             <footer>
                 <p>
                     Contacto por Correo
@@ -232,7 +236,7 @@
                     Copyleft © Joselon79
                 </p>
             </footer>
-        `}};customElements.define(`app-footer`,Te);var H=Object.freeze({MOVIE:`movie`,SERIES:`series`}),U=class e{constructor({title:t,type:n,id:r=e.generateId(),originalTitle:i=void 0,year:a=void 0,runtimeMinutes:o=void 0,genres:s=[],omdbId:c=void 0,poster:l=void 0,ratings:u=void 0}){this.id=r,this.title=e.validateTitle(e.normalizeTitle(t)),this.originalTitle=i,this.type=e.validateType(n),this.year=a,this.runtimeMinutes=o,this.genres=s,this.omdbId=c,this.poster=l,this.ratings=u}get matchKey(){return e.createMatchKey(this.title,this.type,this.year)}static generateId(){return crypto.randomUUID()}static createMatchKey(e,t,n=void 0){let r=`${e.trim().toLowerCase().replace(/\s+/g,` `)}|${t}`;return n?`${r}|${n}`:r}static normalizeTitle(e){if(typeof e!=`string`)throw Error(`Media title is required`);return e.trim().replace(/\s+/g,` `)}static validateTitle(e){if(!e)throw Error(`Media title cannot be empty`);if(e.length>250)throw Error(`Media title cannot exceed 250 characters`);return e}static validateType(e){if(!Object.values(H).includes(e))throw Error(`Invalid media type`);return e}},W=Object.freeze({PENDING:`pending`,WATCHING:`watching`,PAUSED:`paused`,WATCHED:`watched`,DISCARDED:`discarded`}),G=class{constructor({season:e=void 0,episode:t=void 0,minute:n=void 0}){this.season=e,this.episode=t,this.minute=n}},K=class e{constructor({mediaId:t,platforms:n=[],reason:r=void 0,spanishAudio:i=!1,spanishSubtitles:a=!1,status:o=W.PENDING,userRating:s=void 0,progress:c=void 0,addedAt:l=new Date().toISOString(),watchedAt:u=void 0}){this.mediaId=e.validateMediaId(t),this.platforms=n,this.reason=r,this.spanishAudio=i,this.spanishSubtitles=a,this.status=e.validateStatus(o),this.userRating=s,this.progress=c,this.addedAt=l,this.watchedAt=u}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(W).includes(e))throw Error(`Invalid status type`);return e}start(){this.status=W.WATCHING}pause(){this.status=W.PAUSED}resume(){this.status=W.WATCHING}markAsWatched(){this.status=W.WATCHED}setProgress(e){if(!(e instanceof G))throw Error(`Invalid progress`);this.progress=e}},q=class e{constructor({version:t=1,id:n=e.generateId(),name:r=`Mi primera lista`,watchItems:i=void 0,media:a=void 0}={}){this.version=e.validateVersion(t),this.id=n,this.name=r,this.watchItems=e.validatesItems(i),this.media=e.validatesMedia(a)}static generateId(){return crypto.randomUUID()}static validatesItems(e){if(e||=[],!Array.isArray(e))throw Error(`watchItems is not an array`);return e.forEach(e=>{if(!(e instanceof K))throw Error(`watchItems must contain only WatchItem`)}),e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e.forEach(e=>{if(!(e instanceof U))throw Error(`media must contain only Media`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported watch list version`);return e}addMedia(e){if(this.media.some(t=>t.id===e.id)||this.media.some(t=>t.matchKey===e.matchKey))throw Error(`Media already exists`);this.media.push(e)}removeMedia(e){if(this.watchItems.some(t=>t.mediaId===e))return!1;let t=this.media.findIndex(t=>t.id===e);return t!==-1&&(this.media.splice(t,1),!0)}addWatchItem(e){if(!this.media.some(t=>t.id===e.mediaId))throw Error(`Media not found`);this.watchItems.push(e)}},J=class{constructor(e){this.watchList=e}addItem({title:e,type:t,year:n,originalTitle:r,genres:i,platforms:a}){let o=null,s=!1;try{o=new U({title:e,type:t,year:n,originalTitle:r,genres:i});let c=new K({mediaId:o.id,platforms:a});return this.watchList.addMedia(o),s=!0,this.watchList.addWatchItem(c),{success:!0}}catch(e){return s&&this.watchList.removeMedia(o.id),{success:!1,error:e.message}}}updateItem({mediaId:e,media:t,watchItem:n}){let r=this.watchList.media.find(t=>t.id===e),i=this.watchList.watchItems.find(t=>t.mediaId===e);if(!r||!i)return{success:!1,error:`Item not found`};try{let a=new U({id:e,title:t.title,type:t.type,year:t.year,originalTitle:t.originalTitle,genres:t.genres,runtimeMinutes:r.runtimeMinutes,omdbId:r.omdbId,poster:r.poster,ratings:r.ratings});if(this.watchList.media.some(t=>t.id!==e&&t.matchKey===a.matchKey))throw Error(`Media already exists`);return r.title=a.title,r.type=a.type,r.year=a.year,r.originalTitle=a.originalTitle,r.genres=a.genres,i.platforms=n.platforms,i.reason=n.reason,i.spanishAudio=n.spanishAudio,i.spanishSubtitles=n.spanishSubtitles,i.userRating=n.userRating,i.progress=n.progress,{success:!0}}catch(e){return{success:!1,error:e.message}}}changeStatus(e,t){let n=this.watchList.watchItems.find(t=>t.mediaId===e);if(!n)return{success:!1,error:`WatchItem not found`};try{switch(t){case W.WATCHING:if(n.status===W.PENDING)n.start();else if(n.status===W.PAUSED)n.resume();else throw Error(`Invalid status transition`);break;case W.PAUSED:if(n.status!==W.WATCHING)throw Error(`Invalid status transition`);n.pause();break;case W.WATCHED:if(n.status!==W.WATCHING)throw Error(`Invalid status transition`);n.markAsWatched();break;default:throw Error(`Invalid status transition`)}let e=new K({mediaId:n.mediaId,platforms:n.platforms,reason:n.reason,spanishAudio:n.spanishAudio,spanishSubtitles:n.spanishSubtitles,status:n.status,userRating:n.userRating,progress:n.progress,addedAt:n.addedAt,watchedAt:n.watchedAt}),r=this.watchList.watchItems.indexOf(n);return this.watchList.watchItems[r]=e,{success:!0}}catch(e){return{success:!1,error:e.message}}}renameWatchList(e){return!e||!e.trim()?{success:!1,error:`El nombre no puede estar vacío`}:(this.watchList.name=e.trim(),{success:!0})}getItems(){return this.watchList.watchItems.map(e=>({media:this.watchList.media.find(t=>t.id===e.mediaId),watchItem:e}))}},Ee=class{constructor(e,t=`quevemos-watchlist`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);if(!e)return new q;let t=JSON.parse(e),n=t.media.map(e=>new U(e)),r=t.watchItems.map(e=>new K(e));return new q({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}},De=class{export(e){return JSON.stringify(e,null,2)}import(e){let t=this.parse(e);this.validate(t);let n=t.media.map(e=>new U(e)),r=t.watchItems.map(e=>new K(e));return new q({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}parse(e){try{return JSON.parse(e)}catch{throw Error(`Invalid JSON`)}}validate(e){if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Invalid WatchList file`);if(!Number.isInteger(e.version)||e.version<1||e.version>1)throw Error(`Unsupported WatchList version`);if(!Array.isArray(e.media))throw Error(`WatchList media is not an array`);if(!Array.isArray(e.watchItems))throw Error(`WatchList watchItems is not an array`)}},Y={version:1,mediaTypes:[{id:`movie`,name:`Película`},{id:`series`,name:`Serie`}],genres:[{id:`action`,name:`Acción`},{id:`adventure`,name:`Aventuras`},{id:`animation`,name:`Animación`},{id:`comedy`,name:`Comedia`},{id:`crime`,name:`Crimen`},{id:`documentary`,name:`Documental`},{id:`drama`,name:`Drama`},{id:`family`,name:`Familiar`},{id:`fantasy`,name:`Fantasía`},{id:`history`,name:`Historia`},{id:`horror`,name:`Terror`},{id:`music`,name:`Musical`},{id:`mystery`,name:`Misterio`},{id:`romance`,name:`Romance`},{id:`science-fiction`,name:`Ciencia ficción`},{id:`sport`,name:`Deporte`},{id:`thriller`,name:`Thriller`},{id:`war`,name:`Bélica`},{id:`western`,name:`Western`}],watchStatuses:[{id:`pending`,name:`Pendiente`},{id:`watching`,name:`Viendo`},{id:`paused`,name:`En pausa`},{id:`watched`,name:`Vista`},{id:`discarded`,name:`Descartada`}],platforms:[{id:`netflix-es`,name:`Netflix`,country:`ES`,active:!0,logo:`netflix`},{id:`max-es`,name:`HBO Max`,country:`ES`,active:!0,logo:`max`},{id:`prime-video-es`,name:`Prime`,country:`ES`,active:!0,logo:`prime-video`},{id:`disney-plus-es`,name:`Disney+`,country:`ES`,active:!0,logo:`disney-plus`},{id:`movistar-plus-es`,name:`Movistar Plus+`,country:`ES`,active:!0,logo:`movistar-plus`},{id:`apple-tv-plus-es`,name:`Apple TV+`,country:`ES`,active:!0,logo:`apple-tv-plus`},{id:`filmin-es`,name:`Filmin`,country:`ES`,active:!0,logo:`filmin`},{id:`skyshowtime-es`,name:`SkyShowtime`,country:`ES`,active:!0,logo:`skyshowtime`},{id:`atresplayer-es`,name:`Atresplayer`,country:`ES`,active:!0,logo:`atresplayer`},{id:`rtve-play-es`,name:`RTVE Play`,country:`ES`,active:!0,logo:`rtve-play`},{id:`youtube-es`,name:`YouTube`,country:`ES`,active:!0,logo:`youtube`}]},Oe=class e extends V{static styles=o`
+        `}};customElements.define(`app-footer`,Ee);var V=Object.freeze({MOVIE:`movie`,SERIES:`series`}),H=class e{constructor({title:t,type:n,id:r=e.generateId(),originalTitle:i=void 0,year:a=void 0,runtimeMinutes:o=void 0,genres:s=[],omdbId:c=void 0,poster:l=void 0,ratings:u=void 0}){this.id=r,this.title=e.validateTitle(e.normalizeTitle(t)),this.originalTitle=i,this.type=e.validateType(n),this.year=a,this.runtimeMinutes=o,this.genres=s,this.omdbId=c,this.poster=l,this.ratings=u}get matchKey(){return e.createMatchKey(this.title,this.type,this.year)}static generateId(){return crypto.randomUUID()}static createMatchKey(e,t,n=void 0){let r=`${e.trim().toLowerCase().replace(/\s+/g,` `)}|${t}`;return n?`${r}|${n}`:r}static normalizeTitle(e){if(typeof e!=`string`)throw Error(`Media title is required`);return e.trim().replace(/\s+/g,` `)}static validateTitle(e){if(!e)throw Error(`Media title cannot be empty`);if(e.length>250)throw Error(`Media title cannot exceed 250 characters`);return e}static validateType(e){if(!Object.values(V).includes(e))throw Error(`Invalid media type`);return e}},U=Object.freeze({PENDING:`pending`,WATCHING:`watching`,PAUSED:`paused`,WATCHED:`watched`,DISCARDED:`discarded`}),W=class{constructor({season:e=void 0,episode:t=void 0,minute:n=void 0}){this.season=e,this.episode=t,this.minute=n}},G=class e{constructor({mediaId:t,platforms:n=[],reason:r=void 0,spanishAudio:i=!1,spanishSubtitles:a=!1,status:o=U.PENDING,userRating:s=void 0,progress:c=void 0,addedAt:l=new Date().toISOString(),watchedAt:u=void 0}){this.mediaId=e.validateMediaId(t),this.platforms=n,this.reason=r,this.spanishAudio=i,this.spanishSubtitles=a,this.status=e.validateStatus(o),this.userRating=s,this.progress=c,this.addedAt=l,this.watchedAt=u}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(U).includes(e))throw Error(`Invalid status type`);return e}start(){this.status=U.WATCHING}pause(){this.status=U.PAUSED}resume(){this.status=U.WATCHING}markAsWatched(){this.status=U.WATCHED}setProgress(e){if(!(e instanceof W))throw Error(`Invalid progress`);this.progress=e}},K=class e{constructor({version:t=1,id:n=e.generateId(),name:r=`Mi primera lista`,watchItems:i=void 0,media:a=void 0}={}){this.version=e.validateVersion(t),this.id=n,this.name=r,this.watchItems=e.validatesItems(i),this.media=e.validatesMedia(a)}static generateId(){return crypto.randomUUID()}static validatesItems(e){if(e||=[],!Array.isArray(e))throw Error(`watchItems is not an array`);return e.forEach(e=>{if(!(e instanceof G))throw Error(`watchItems must contain only WatchItem`)}),e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e.forEach(e=>{if(!(e instanceof H))throw Error(`media must contain only Media`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported watch list version`);return e}addMedia(e){if(this.media.some(t=>t.id===e.id)||this.media.some(t=>t.matchKey===e.matchKey))throw Error(`Media already exists`);this.media.push(e)}removeMedia(e){if(this.watchItems.some(t=>t.mediaId===e))return!1;let t=this.media.findIndex(t=>t.id===e);return t!==-1&&(this.media.splice(t,1),!0)}addWatchItem(e){if(!this.media.some(t=>t.id===e.mediaId))throw Error(`Media not found`);this.watchItems.push(e)}},q=class{constructor(e){this.watchList=e}addItem({title:e,type:t,year:n,originalTitle:r,genres:i,platforms:a}){let o=null,s=!1;try{o=new H({title:e,type:t,year:n,originalTitle:r,genres:i});let c=new G({mediaId:o.id,platforms:a});return this.watchList.addMedia(o),s=!0,this.watchList.addWatchItem(c),{success:!0}}catch(e){return s&&this.watchList.removeMedia(o.id),{success:!1,error:e.message}}}updateItem({mediaId:e,media:t,watchItem:n}){let r=this.watchList.media.find(t=>t.id===e),i=this.watchList.watchItems.find(t=>t.mediaId===e);if(!r||!i)return{success:!1,error:`Item not found`};try{let a=new H({id:e,title:t.title,type:t.type,year:t.year,originalTitle:t.originalTitle,genres:t.genres,runtimeMinutes:r.runtimeMinutes,omdbId:r.omdbId,poster:r.poster,ratings:r.ratings});if(this.watchList.media.some(t=>t.id!==e&&t.matchKey===a.matchKey))throw Error(`Media already exists`);return r.title=a.title,r.type=a.type,r.year=a.year,r.originalTitle=a.originalTitle,r.genres=a.genres,i.platforms=n.platforms,i.reason=n.reason,i.spanishAudio=n.spanishAudio,i.spanishSubtitles=n.spanishSubtitles,i.userRating=n.userRating,i.progress=n.progress,{success:!0}}catch(e){return{success:!1,error:e.message}}}changeStatus(e,t){let n=this.watchList.watchItems.find(t=>t.mediaId===e);if(!n)return{success:!1,error:`WatchItem not found`};try{switch(t){case U.WATCHING:if(n.status===U.PENDING)n.start();else if(n.status===U.PAUSED)n.resume();else throw Error(`Invalid status transition`);break;case U.PAUSED:if(n.status!==U.WATCHING)throw Error(`Invalid status transition`);n.pause();break;case U.WATCHED:if(n.status!==U.WATCHING)throw Error(`Invalid status transition`);n.markAsWatched();break;default:throw Error(`Invalid status transition`)}let e=new G({mediaId:n.mediaId,platforms:n.platforms,reason:n.reason,spanishAudio:n.spanishAudio,spanishSubtitles:n.spanishSubtitles,status:n.status,userRating:n.userRating,progress:n.progress,addedAt:n.addedAt,watchedAt:n.watchedAt}),r=this.watchList.watchItems.indexOf(n);return this.watchList.watchItems[r]=e,{success:!0}}catch(e){return{success:!1,error:e.message}}}renameWatchList(e){return!e||!e.trim()?{success:!1,error:`El nombre no puede estar vacío`}:(this.watchList.name=e.trim(),{success:!0})}getItems(){return this.watchList.watchItems.map(e=>({media:this.watchList.media.find(t=>t.id===e.mediaId),watchItem:e}))}},De=class{constructor(e,t=`quevemos-watchlist`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);if(!e)return new K;let t=JSON.parse(e),n=t.media.map(e=>new H(e)),r=t.watchItems.map(e=>new G(e));return new K({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}},Oe=class{export(e){return JSON.stringify(e,null,2)}import(e){let t=this.parse(e);this.validate(t);let n=t.media.map(e=>new H(e)),r=t.watchItems.map(e=>new G(e));return new K({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}parse(e){try{return JSON.parse(e)}catch{throw Error(`Invalid JSON`)}}validate(e){if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Invalid WatchList file`);if(!Number.isInteger(e.version)||e.version<1||e.version>1)throw Error(`Unsupported WatchList version`);if(!Array.isArray(e.media))throw Error(`WatchList media is not an array`);if(!Array.isArray(e.watchItems))throw Error(`WatchList watchItems is not an array`)}},J=Object.freeze({PENDING:`pending`,ACCEPTED:`accepted`,DISCARDED:`discarded`}),Y=class e{constructor({id:t=e.generateId(),mediaId:n,platforms:r=[],spanishAudio:i=!1,spanishSubtitles:a=!1,reason:o=void 0,recommenderRating:s=void 0,status:c=J.PENDING}){this.id=t,this.mediaId=e.validateMediaId(n),this.platforms=r,this.spanishAudio=i,this.spanishSubtitles=a,this.reason=o,this.status=e.validateStatus(c),this.recommenderRating=s}static generateId(){return crypto.randomUUID()}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(J).includes(e))throw Error(`Invalid recommendation status`);return e}},ke=class e{constructor({id:t=e.generateId(),name:n=void 0,recommendations:r=void 0,version:i=1,createdAt:a=new Date().toISOString()}={}){this.id=t,this.name=e.validateName(n),this.recommendations=e.validatesRecommendations(r),this.version=e.validateVersion(i),this.createdAt=a}static generateId(){return crypto.randomUUID()}static validateName(e){if(!e||typeof e!=`string`)throw Error(`name is required`);return e}static validatesRecommendations(e){if(e||=[],!Array.isArray(e))throw Error(`recommendations is not an array`);return e.forEach(e=>{if(!(e instanceof Y))throw Error(`recommendations must contain only Recommendation`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported recommendation list version`);return e}},X=class e{constructor({version:t=1,createdAt:n=new Date().toISOString(),sender:r,items:i=[]}={}){this.version=e.validateVersion(t),this.createdAt=n,this.sender=e.validateSender(r),this.items=e.validateItems(i)}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported RecommendationExchange version`);return e}static validateSender(e){if(!e||typeof e!=`string`)throw Error(`sender is required`);return e}static validateItems(e){if(!Array.isArray(e))throw Error(`items is not an array`);return e}},Z=class e{constructor({id:t=e.generateId(),name:n=void 0,recommendations:r=void 0,media:i=void 0,version:a=1,createdAt:o=new Date().toISOString()}={}){this.id=t,this.name=e.validateName(n),this.recommendations=e.validatesRecommendations(r),this.media=e.validatesMedia(i),this.version=e.validateVersion(a),this.createdAt=o}static generateId(){return crypto.randomUUID()}static validateName(e){if(!e||typeof e!=`string`)throw Error(`name is required`);return e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e}static validatesRecommendations(e){if(e||=[],!Array.isArray(e))throw Error(`recommendations is not an array`);return e.forEach(e=>{if(!(e instanceof Y))throw Error(`recommendations must contain only Recommendation`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported recommendation list version`);return e}},Q=class{createRecommendation(e,t){if(!e.watchItems.some(e=>e===t))throw Error(`WatchItem is not in WatchList`);return new Y({mediaId:t.mediaId,platforms:[...t.platforms],spanishAudio:t.spanishAudio,spanishSubtitles:t.spanishSubtitles,reason:t.reason,recommenderRating:t.userRating})}createRecommendationList(e,t){let n=t.map(t=>this.createRecommendation(e,t));return new ke({name:`Recomendaciones desde : `+e.name,recommendations:n})}createRecommendationExchange(e,t){let n=e.recommendations.map(e=>{let n=t.media.find(t=>t.id===e.mediaId);if(!n)throw Error(`Media not found in WatchList: ${e.mediaId}`);return{media:{id:n.id,title:n.title,originalTitle:n.originalTitle,type:n.type,year:n.year,runtimeMinutes:n.runtimeMinutes,genres:[...n.genres],omdbId:n.omdbId,poster:n.poster,ratings:n.ratings,matchKey:n.matchKey},recommendation:e}});return new X({sender:t.name,items:n})}createIncomingRecommendationList(e){if(!(e instanceof X))throw Error(`exchange must be a RecommendationExchange`);return new Z({name:e.sender,media:e.items.map(e=>e.media),recommendations:e.items.map(e=>new Y(e.recommendation)),version:1,createdAt:e.createdAt})}prepareComparison(e,t){if(!t)throw Error(`No WatchList loaded`);return{incomingRecommendationList:e,watchList:t}}compareRecommendations(e,t){return e.recommendations.map(n=>{let r=e.media.find(e=>e.id===n.mediaId),i=this.findMediaCandidates(r,t),a=`new`;return i.some(e=>e.matches.includes(`omdbId`))?a=`matched`:i.length>0&&(a=`candidate`),{recommendation:n,media:r,matches:i,status:a}})}findMediaCandidates(e,t){let n=[];for(let r of t.media){let t=[];e.omdbId&&r.omdbId&&e.omdbId===r.omdbId&&t.push(`omdbId`),e.matchKey===r.matchKey&&t.push(`matchKey`);let i=e.title.trim().toLowerCase(),a=r.title.trim().toLowerCase();i!==a&&(i.includes(a)||a.includes(i))&&t.push(`partialTitle`),t.length>0&&n.push({media:r,matches:t,differences:this.compareMedia(e,r)})}return n}compareMedia(e,t){let n=[];for(let r of[`title`,`originalTitle`,`type`,`year`,`runtimeMinutes`,`genres`,`poster`])JSON.stringify(e[r])!==JSON.stringify(t[r])&&n.push(r);return!t.omdbId&&e.omdbId&&n.push(`omdbId`),n}acceptRecommendation(e,t,n){let{recommendation:r}=e,i=n.media.find(e=>e.id===r.mediaId);if(!i)throw Error(`Media not found in WatchList`);let a=[t.name];r.recommenderRating!==void 0&&(a[0]+=` | (Nota: ${r.recommenderRating})`),r.reason&&a.push(r.reason);let o=new G({mediaId:i.id,platforms:r.platforms,spanishAudio:r.spanishAudio,spanishSubtitles:r.spanishSubtitles,reason:a.join(` | `)});return n.watchItems.push(o),r.status=J.ACCEPTED,o}discardRecommendation(e){return e.status=J.DISCARDED,e}},Ae=class{async encode(e){if(!e||typeof e!=`object`||Array.isArray(e))throw TypeError(`recommendationExchange debe ser un objeto`);let t=JSON.stringify(e),n=new TextEncoder().encode(t),r=await this.compress(n);return this.encodeBase64Url(r)}async decode(e){if(typeof e!=`string`||e.length===0)throw TypeError(`encodedData debe ser una cadena no vacía`);let t=this.decodeBase64Url(e),n=await this.decompress(t),r=new TextDecoder(`utf-8`,{fatal:!0}).decode(n);return JSON.parse(r)}async compress(e){if(typeof CompressionStream>`u`)throw Error(`Este navegador no soporta CompressionStream`);let t=new Blob([e]).stream().pipeThrough(new CompressionStream(`deflate`));return new Uint8Array(await new Response(t).arrayBuffer())}async decompress(e){if(typeof DecompressionStream>`u`)throw Error(`Este navegador no soporta DecompressionStream`);let t=new Blob([e]).stream().pipeThrough(new DecompressionStream(`deflate`));return new Uint8Array(await new Response(t).arrayBuffer())}encodeBase64Url(e){let t=``;for(let n=0;n<e.length;n+=32768)t+=String.fromCharCode(...e.subarray(n,n+32768));return btoa(t).replace(/\+/g,`-`).replace(/\//g,`_`).replace(/=+$/,``)}decodeBase64Url(e){let t=e.replace(/-/g,`+`).replace(/_/g,`/`),n=t+`=`.repeat((4-t.length%4)%4),r=atob(n);return Uint8Array.from(r,e=>e.charCodeAt(0))}},$={version:1,mediaTypes:[{id:`movie`,name:`Película`},{id:`series`,name:`Serie`}],genres:[{id:`action`,name:`Acción`},{id:`adventure`,name:`Aventuras`},{id:`animation`,name:`Animación`},{id:`comedy`,name:`Comedia`},{id:`crime`,name:`Crimen`},{id:`documentary`,name:`Documental`},{id:`drama`,name:`Drama`},{id:`family`,name:`Familiar`},{id:`fantasy`,name:`Fantasía`},{id:`history`,name:`Historia`},{id:`horror`,name:`Terror`},{id:`music`,name:`Musical`},{id:`mystery`,name:`Misterio`},{id:`romance`,name:`Romance`},{id:`science-fiction`,name:`Ciencia ficción`},{id:`sport`,name:`Deporte`},{id:`thriller`,name:`Thriller`},{id:`war`,name:`Bélica`},{id:`western`,name:`Western`}],watchStatuses:[{id:`pending`,name:`Pendiente`},{id:`watching`,name:`Viendo`},{id:`paused`,name:`En pausa`},{id:`watched`,name:`Vista`},{id:`discarded`,name:`Descartada`}],platforms:[{id:`netflix-es`,name:`Netflix`,country:`ES`,active:!0,logo:`netflix`},{id:`max-es`,name:`HBO Max`,country:`ES`,active:!0,logo:`max`},{id:`prime-video-es`,name:`Prime`,country:`ES`,active:!0,logo:`prime-video`},{id:`disney-plus-es`,name:`Disney+`,country:`ES`,active:!0,logo:`disney-plus`},{id:`movistar-plus-es`,name:`Movistar Plus+`,country:`ES`,active:!0,logo:`movistar-plus`},{id:`apple-tv-plus-es`,name:`Apple TV+`,country:`ES`,active:!0,logo:`apple-tv-plus`},{id:`filmin-es`,name:`Filmin`,country:`ES`,active:!0,logo:`filmin`},{id:`skyshowtime-es`,name:`SkyShowtime`,country:`ES`,active:!0,logo:`skyshowtime`},{id:`atresplayer-es`,name:`Atresplayer`,country:`ES`,active:!0,logo:`atresplayer`},{id:`rtve-play-es`,name:`RTVE Play`,country:`ES`,active:!0,logo:`rtve-play`},{id:`youtube-es`,name:`YouTube`,country:`ES`,active:!0,logo:`youtube`}]},je=class e extends B{static styles=o`
         :host {
             display: block;
         }
@@ -487,6 +491,11 @@
             transform: scale(1.05);
         }
 
+        .share-button.selected {
+            background: #4caf50;
+            color: white;
+        }
+
         .media-actions {
             display: flex;
             align-items: center;
@@ -607,7 +616,7 @@
                 height: 32px;
             }
         }
-    `;static properties={media:{type:Object},watchItem:{type:Object},overlayOpened:{type:Boolean}};static getCatalogName(e,t){return e.find(e=>e.id===t)?.name??t}constructor(){super(),this.overlayOpened=!1}editItem(){this.dispatchEvent(new CustomEvent(`edit-item`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}changeStatus(e){this.dispatchEvent(new CustomEvent(`change-status`,{detail:{mediaId:this.media.id,status:e},bubbles:!0,composed:!0}))}render(){if(!this.media||!this.watchItem)return M``;let t=e.getCatalogName(Y.watchStatuses,this.watchItem.status),n=`status-${this.watchItem.status}`;return M`
+    `;static properties={media:{type:Object},watchItem:{type:Object},overlayOpened:{type:Boolean},selectedToShare:{type:Boolean}};static getCatalogName(e,t){return e.find(e=>e.id===t)?.name??t}constructor(){super(),this.overlayOpened=!1}editItem(){this.dispatchEvent(new CustomEvent(`edit-item`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}changeStatus(e){this.dispatchEvent(new CustomEvent(`change-status`,{detail:{mediaId:this.media.id,status:e},bubbles:!0,composed:!0}))}render(){if(!this.media||!this.watchItem)return j``;let t=e.getCatalogName($.watchStatuses,this.watchItem.status),n=`status-${this.watchItem.status}`;return j`
             <link
                 rel="stylesheet"
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
@@ -616,24 +625,24 @@
             <article class="media-card">
 
                 <div class="poster">
-                    ${this.media.poster?M`
+                    ${this.media.poster?j`
                             <img
                                 src=${this.media.poster}
                                 alt="Cartel de ${this.media.title}"
                             >
-                        `:M`
+                        `:j`
                             <div class="poster-placeholder">
                                 <i class="fa fa-film"></i>
                             </div>
                         `}
                 </div>
-                <!-- ToDo: Seleccionar para compartir -->
+
                 <button
-                    class="share-button"
-                    title="Recomendar"
-                    disabled
+                    class=${this.selectedToShare?`share-button selected`:`share-button`}
+                    title="Seleccionara para Recomendar"
+                    @click=${this.toggleRecommendation}
                 >
-                    <i class="fa fa-share-alt"></i>
+                    <i class=${this.selectedToShare?`fa fa-share`:`fa fa-share-alt`}></i>
                 </button>
 
                 <div class="media-content">
@@ -643,7 +652,7 @@
                     </div>
 
                     <div class="media-actions">
-                    ${t?M`
+                    ${t?j`
                             <div class="status ${n}">
                                 ${t}
                             </div>
@@ -655,7 +664,7 @@
                 </div>
                 
             </article>
-        `}renderInformation(){let t=e.getCatalogName(Y.mediaTypes,this.media.type),n=this.media.genres.map(t=>e.getCatalogName(Y.genres,t)),r=this.watchItem.platforms.map(t=>e.getCatalogName(Y.platforms,t));return M`
+        `}renderInformation(){let t=e.getCatalogName($.mediaTypes,this.media.type),n=this.media.genres.map(t=>e.getCatalogName($.genres,t)),r=this.watchItem.platforms.map(t=>e.getCatalogName($.platforms,t));return j`
                     <div class="information-header">
                         <h3>
                             ${this.media.title}
@@ -685,7 +694,7 @@
 
                     <div id="overlay" class="${this.overlayOpened?`opened`:``}">
                             
-                        ${this.watchItem.reason?M`
+                        ${this.watchItem.reason?j`
                                 <div class="overlay-section">
                                     <strong>Motivo</strong>
                                     <p>${this.watchItem.reason}</p>
@@ -706,14 +715,14 @@
                             </span>
                         </div>
 
-                        ${this.watchItem.userRating===void 0?``:M`
+                        ${this.watchItem.userRating===void 0?``:j`
                                 <div class="overlay-section">
                                     <strong>Mi valoración</strong>
                                     <span>${this.watchItem.userRating} / 10</span>
                                 </div>
                             `}
 
-                        ${this.media.ratings?M`
+                        ${this.media.ratings?j`
                                 <div class="overlay-section">
                                     <strong>Valoraciones</strong>
                                     <span>
@@ -723,21 +732,21 @@
                                 </div>
                             `:``}
 
-                        ${this.watchItem.addedAt?M`
+                        ${this.watchItem.addedAt?j`
                                 <div class="overlay-section">
                                     <strong>Añadida</strong>
                                     <span>${this.formatDate(this.watchItem.addedAt)}</span>
                                 </div>
                             `:``}
 
-                        ${this.watchItem.watchedAt?M`
+                        ${this.watchItem.watchedAt?j`
                                 <div class="overlay-section">
                                     <strong>Vista</strong>
                                     <span>${this.formatDate(this.watchItem.watchedAt)}</span>
                                 </div>
                             `:``}
 
-                        ${this.watchItem.progress?M`
+                        ${this.watchItem.progress?j`
                                 <div class="overlay-section">
                                     <strong>Progreso</strong>
                                     <span>${this.renderProgress()}</span>
@@ -751,8 +760,8 @@
 
 
                         <span class="media-type">${t}</span>
-                        ${this.media.year?M`<span>${this.media.year}</span>`:``}
-                        ${this.media.runtimeMinutes?M`
+                        ${this.media.year?j`<span>${this.media.year}</span>`:``}
+                        ${this.media.runtimeMinutes?j`
                                 <span>
                                     ${this.media.runtimeMinutes} min
                                 </span>
@@ -760,35 +769,35 @@
                     </div>
                     
 
-                    ${n.length?M`
+                    ${n.length?j`
                             <div class="genres">
-                                ${n.map(e=>M`
+                                ${n.map(e=>j`
                                         <span class="genre">${e}</span>
                                     `)}
                             </div>
                         `:``}
 
-                    ${r.length?M`
+                    ${r.length?j`
                             <div class="platforms">
                                 <i class="fa fa-tv"></i> ${r.join(` · `)}
                             </div>
                         `:``}
                 </div>
-        `}showInformation(){this.overlayOpened=!this.overlayOpened,this.classList.toggle(`overlay-open`,this.overlayOpened)}formatDate(e){return new Date(e).toLocaleDateString(`es-ES`)}renderProgress(){let e=this.watchItem.progress;return e?e.minute===void 0?e.season!==void 0&&e.episode!==void 0?`Temporada ${e.season}, episodio ${e.episode}`:``:`${e.minute} min`:``}renderStatusActions(){switch(this.watchItem.status){case W.PENDING:return M`
+        `}showInformation(){this.overlayOpened=!this.overlayOpened,this.classList.toggle(`overlay-open`,this.overlayOpened)}formatDate(e){return new Date(e).toLocaleDateString(`es-ES`)}toggleRecommendation(){this.dispatchEvent(new CustomEvent(`toggle-recommendation`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}renderProgress(){let e=this.watchItem.progress;return e?e.minute===void 0?e.season!==void 0&&e.episode!==void 0?`Temporada ${e.season}, episodio ${e.episode}`:``:`${e.minute} min`:``}renderStatusActions(){switch(this.watchItem.status){case U.PENDING:return j`
                     <button
                         type="button"
                         class="action-button"
                         title="Empezar"
-                        @click=${()=>this.changeStatus(W.WATCHING)}
+                        @click=${()=>this.changeStatus(U.WATCHING)}
                     >
                         <i class="fa fa-play"></i>
                     </button>
-                `;case W.WATCHING:return M`
+                `;case U.WATCHING:return j`
                     <button
                         type="button"
                         class="action-button"
                         title="Pausar"
-                        @click=${()=>this.changeStatus(W.PAUSED)}
+                        @click=${()=>this.changeStatus(U.PAUSED)}
                     >
                         <i class="fa fa-pause"></i>
                     </button>
@@ -797,20 +806,20 @@
                         type="button"
                         class="action-button"
                         title="Marcar como vista"
-                        @click=${()=>this.changeStatus(W.WATCHED)}
+                        @click=${()=>this.changeStatus(U.WATCHED)}
                     >
                         <i class="fa fa-check"></i>
                     </button>
-                `;case W.PAUSED:return M`
+                `;case U.PAUSED:return j`
                     <button
                         type="button"
                         class="action-button"
                         title="Continuar"
-                        @click=${()=>this.changeStatus(W.WATCHING)}
+                        @click=${()=>this.changeStatus(U.WATCHING)}
                     >
                         <i class="fa fa-play"></i>
                     </button>
-                `;default:return``}}};customElements.define(`watch-item-view`,Oe);var ke=class extends V{static styles=o`
+                `;default:return``}}};customElements.define(`watch-item-view`,je);var Me=class extends B{static styles=o`
         :host {
             display: block;
         }
@@ -896,7 +905,7 @@
             background: rgba(255, 255, 255, 0.04);
         }
 
-    `;static properties={showDetails:{state:!0}};constructor(){super(),this.showDetails=!1}addItem(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value);this.dispatchEvent(new CustomEvent(`add-item`,{detail:{title:t.title.value.trim(),type:t.type.value,year:t.year?.value?Number(t.year.value):void 0,originalTitle:t.originalTitle?.value.trim()||void 0,genres:n,platforms:r},bubbles:!0,composed:!0}))}resetForm(){this.renderRoot.querySelector(`form`).reset(),this.showDetails=!1}toggleDetails(){this.showDetails=!this.showDetails}render(){return M`
+    `;static properties={showDetails:{state:!0}};constructor(){super(),this.showDetails=!1}addItem(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value);this.dispatchEvent(new CustomEvent(`add-item`,{detail:{title:t.title.value.trim(),type:t.type.value,year:t.year?.value?Number(t.year.value):void 0,originalTitle:t.originalTitle?.value.trim()||void 0,genres:n,platforms:r},bubbles:!0,composed:!0}))}resetForm(){this.renderRoot.querySelector(`form`).reset(),this.showDetails=!1}toggleDetails(){this.showDetails=!this.showDetails}render(){return j`
             <hr class="divider"></hr>
             <div class="header">
                 <div class="header-icon">
@@ -928,7 +937,7 @@
                     </label>
 
                     <select id="type" name="type">
-                        ${Y.mediaTypes.map(e=>M`
+                        ${$.mediaTypes.map(e=>j`
                             <option value=${e.id}>
                                 ${e.name}
                             </option>
@@ -944,7 +953,7 @@
                     ${this.showDetails?`− Ocultar detalles`:`+ Más detalles`}
                 </button>
 
-                ${this.showDetails?M`
+                ${this.showDetails?j`
                         <div class="details">
 
                             <div class="field fit-content">
@@ -967,7 +976,7 @@
                                 </label>
 
                                 <div class="checkbox-list">
-                                    ${Y.platforms.filter(e=>e.active).map(e=>M`
+                                    ${$.platforms.filter(e=>e.active).map(e=>j`
                                             <label class="checkbox">
                                                 <input
                                                     type="checkbox"
@@ -999,7 +1008,7 @@
                                 </label>
 
                                 <div class="checkbox-list">
-                                    ${Y.genres.map(e=>M`
+                                    ${$.genres.map(e=>j`
                                         <label class="checkbox">
                                             <input
                                                 type="checkbox"
@@ -1021,7 +1030,7 @@
 
             </form>
            <hr class="divider"></hr>
-        `}};customElements.define(`add-item-form`,ke);var Ae=class extends V{static styles=o`
+        `}};customElements.define(`add-item-form`,Me);var Ne=class extends B{static styles=o`
         :host {
             display: block;
         }
@@ -1203,7 +1212,7 @@
                 width: 100%;
             }
         }
-    `;static properties={media:{attribute:!1},watchItem:{attribute:!1}};constructor(){super(),this.media=void 0,this.watchItem=void 0}save(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value),i=this.createProgress(t);this.dispatchEvent(new CustomEvent(`save-item`,{detail:{mediaId:this.media.id,media:{title:t.title.value.trim(),type:t.type.value,year:t.year.value?Number(t.year.value):void 0,originalTitle:t.originalTitle.value.trim()||void 0,genres:n},watchItem:{platforms:r,reason:t.reason.value.trim()||void 0,spanishAudio:t.spanishAudio.checked,spanishSubtitles:t.spanishSubtitles.checked,userRating:t.userRating.value?Number(t.userRating.value):void 0,progress:i}},bubbles:!0,composed:!0}))}createProgress(e){if(this.media.type===H.MOVIE){let t=e.minute.value;return t?new G({minute:Number(t)}):void 0}let t=e.season.value,n=e.episode.value,r=e.minute.value;if(t||n)return new G({season:t?Number(t):void 0,episode:n?Number(n):void 0,minute:r?Number(r):void 0})}getProgressValue(e){return this.watchItem?.progress?.[e]??``}isGenreSelected(e){return this.media?.genres?.includes(e)}isPlatformSelected(e){return this.watchItem?.platforms?.includes(e)}renderProgress(){return this.media?.type===H.MOVIE?M`
+    `;static properties={media:{attribute:!1},watchItem:{attribute:!1}};constructor(){super(),this.media=void 0,this.watchItem=void 0}save(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value),i=this.createProgress(t);this.dispatchEvent(new CustomEvent(`save-item`,{detail:{mediaId:this.media.id,media:{title:t.title.value.trim(),type:t.type.value,year:t.year.value?Number(t.year.value):void 0,originalTitle:t.originalTitle.value.trim()||void 0,genres:n},watchItem:{platforms:r,reason:t.reason.value.trim()||void 0,spanishAudio:t.spanishAudio.checked,spanishSubtitles:t.spanishSubtitles.checked,userRating:t.userRating.value?Number(t.userRating.value):void 0,progress:i}},bubbles:!0,composed:!0}))}createProgress(e){if(this.media.type===V.MOVIE){let t=e.minute.value;return t?new W({minute:Number(t)}):void 0}let t=e.season.value,n=e.episode.value,r=e.minute.value;if(t||n)return new W({season:t?Number(t):void 0,episode:n?Number(n):void 0,minute:r?Number(r):void 0})}getProgressValue(e){return this.watchItem?.progress?.[e]??``}isGenreSelected(e){return this.media?.genres?.includes(e)}isPlatformSelected(e){return this.watchItem?.platforms?.includes(e)}renderProgress(){return this.media?.type===V.MOVIE?j`
                 <div class="field fit-content">
                     <label for="minute">
                         Progreso (minutos)
@@ -1217,7 +1226,7 @@
                         value=${this.getProgressValue(`minute`)}
                     >
                 </div>
-            `:M`
+            `:j`
             <div class="progress">
 
                 <div class="field fit-content">
@@ -1263,7 +1272,7 @@
                 </div>
 
             </div>
-        `}render(){return!this.media||!this.watchItem?``:M`
+        `}render(){return!this.media||!this.watchItem?``:j`
             <div class="header">
                 <div class="header-icon">
                     <i class="fa fa-pencil"></i>
@@ -1299,7 +1308,7 @@
                         id="type"
                         name="type"
                     >
-                        ${Y.mediaTypes.map(e=>M`
+                        ${$.mediaTypes.map(e=>j`
                             <option
                                 value=${e.id}
                                 ?selected=${e.id===this.media.type}
@@ -1321,7 +1330,7 @@
                         type="number"
                         min="1888"
                         max="2100"
-                        placeholder="(aaaa)"
+                        placeholder="aaaa"
                         value=${this.media.year??``}
                     >
                 </div>
@@ -1332,7 +1341,7 @@
                     </label>
 
                     <div class="checkbox-list">
-                        ${Y.platforms.filter(e=>e.active).map(e=>M`
+                        ${$.platforms.filter(e=>e.active).map(e=>j`
                                 <label class="checkbox">
                                     <input
                                         type="checkbox"
@@ -1429,7 +1438,7 @@
                     </label>
 
                     <div class="checkbox-list">
-                        ${Y.genres.map(e=>M`
+                        ${$.genres.map(e=>j`
                             <label class="checkbox">
                                 <input
                                     type="checkbox"
@@ -1457,7 +1466,7 @@
                 </div>
 
             </form>
-        `}};customElements.define(`edit-item-form`,Ae);var je=class extends V{static styles=o`
+        `}};customElements.define(`edit-item-form`,Ne);var Pe=class extends B{static styles=o`
         :host {
             display: block;
         }
@@ -1611,6 +1620,46 @@
             background: rgba(255, 107, 44, 0.25);
             transform: scale(1.05);
         }
+
+        .recommend-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 12px;
+
+            border: none;
+            border-radius: 18px;
+
+            background: #444;
+            color: white;
+
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .recommend-button:hover {
+            background: #333;
+        }
+
+        .recommend-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 20px;
+            height: 20px;
+
+            padding: 0 6px;
+
+            border-radius: 10px;
+
+            background: white;
+            color: #333;
+
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
         
         /* Móvil */
 
@@ -1624,7 +1673,7 @@
                 height: 32px;
             }
         }
-    `;static properties={items:{state:!0},editingItem:{state:!0},listName:{state:!0},addingItem:{type:Boolean}};constructor(){super(),this.items=[];let e=new Ee(localStorage),t=e.load(),n=new De;this.service=new J(t),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.storage=e,this.fileStorage=n,this.editingItem=void 0,this.addingItem=!1}render(){let e=this.items;return M`
+    `;static properties={items:{state:!0},editingItem:{state:!0},listName:{state:!0},addingItem:{type:Boolean},selectedItemsToShare:{state:!0},linkCopied:{state:!0}};constructor(){super(),this.items=[];let e=new De(localStorage),t=e.load(),n=new Oe;this.service=new q(t),this.recommendService=new Q,this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.storage=e,this.fileStorage=n,this.editingItem=void 0,this.addingItem=!1,this.selectedItemsToShare=[],this.linkCopied=!1}render(){let e=this.items;return j`
             <link
                 rel="stylesheet"
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
@@ -1664,14 +1713,22 @@
                         <i class="fa fa-pencil"></i>
                     </button>
                 </h2>
+                ${this.linkCopied?j`
+                        <div class="toast-overlay">
+                            <div class="toast">
+                                <span>✓</span>
+                                Enlace copiado
+                            </div>
+                        </div>
+                    `:``}
             </div>
             
-            ${e.length===0?M`
+            ${e.length===0?j`
                     <p class="empty">
                         La lista está vacía.
                     </p>
                     <div class= "add-item">
-                    ${this.addingItem?M`
+                    ${this.addingItem?j`
                             <add-item-form
                                 @add-item=${this.addItem}
                             ></add-item-form>
@@ -1683,7 +1740,7 @@
                             >
                                 <i class="fa fa-minus"></i>
                             </button>
-                        `:M`
+                        `:j`
                             <button
                                 type="button"
                                 class="add-item-button"
@@ -1695,10 +1752,11 @@
                         `}
 
                     </div> 
-                `:M` 
+                `:j` 
                     <div class="media-list">
                         <div class="list-header">
                             <div class="hero-badge"> Mostrando todos los elementos </div>
+        
                             <div class="list-actions">
                                 <button
                                     class="action-button"
@@ -1714,12 +1772,26 @@
                                 >
                                     <i class="fa fa-filter"></i>
                                 </button>
+                                ${this.selectedItemsToShare.length>0?j`
+                                        <button
+                                            class="recommend-button"
+                                            title="Recomendar seleccionados"
+                                            @click=${this.createRecommendationExchange}
+                                        >
+                                            <i class="fa fa-share-alt"></i>
+                                            <span>Recomendar</span>
+                                            <span class="recommend-badge">
+                                                ${this.selectedItemsToShare.length}
+                                            </span>
+                                        </button>
+                                    `:``}
                             </div>
+
                         </div>
-                        ${e.map(e=>M`
+                        ${e.map(e=>j`
                                 <div class="item-container">
 
-                                    ${this.editingItem?.media.id===e.media.id?M`
+                                    ${this.editingItem?.media.id===e.media.id?j`
                                             <div class="edit-transition">
                                                 <edit-item-form
                                                     .media=${e.media}
@@ -1728,13 +1800,15 @@
                                                     @cancel-edit=${this.cancelEdit}
                                                 ></edit-item-form>
                                             </div>
-                                        `:M`
+                                        `:j`
                                             <div class="edit-transition">
                                                 <watch-item-view
                                                     .media=${e.media}
                                                     .watchItem=${e.watchItem}
+                                                    .selectedToShare=${this.isSelectedToShare(e)}
                                                     @edit-item=${this.editItem}
                                                     @change-status=${this.changeStatus}
+                                                    @toggle-recommendation=${this.toggleRecommendation}
                                                 ></watch-item-view>
                                             </div>
                                         `}
@@ -1742,9 +1816,9 @@
                                 </div>
                             `)}
 
-                        ${this.editingItem?``:M`
+                        ${this.editingItem?``:j`
                             <div class= "add-item">
-                                ${this.addingItem?M`
+                                ${this.addingItem?j`
                                         <add-item-form
                                             @add-item=${this.addItem}
                                         ></add-item-form>
@@ -1756,7 +1830,7 @@
                                         >
                                             <i class="fa fa-minus"></i>
                                         </button>
-                                    `:M`
+                                    `:j`
                                         <button
                                             type="button"
                                             class="add-item-button"
@@ -1773,7 +1847,7 @@
                     </div>
                     
                 `}
-        `}showAddItemForm(){this.addingItem=!0}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),e.target.resetForm(),this.hideAddItemForm()}hideAddItemForm(){this.addingItem=!1}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=[...this.service.getItems()]}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new J(n),this.storage.save(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new q({name:`Mi nueva lista`});this.service=new J(e),this.storage.save(e),this.listName=this.service.watchList.name,this.items=this.service.getItems()}};customElements.define(`watch-list-view`,je);var X=Object.freeze({PENDING:`pending`,ACCEPTED:`accepted`,DISCARDED:`discarded`}),Z=class e{constructor({id:t=e.generateId(),mediaId:n,platforms:r=[],spanishAudio:i=!1,spanishSubtitles:a=!1,reason:o=void 0,recommenderRating:s=void 0,status:c=X.PENDING}){this.id=t,this.mediaId=e.validateMediaId(n),this.platforms=r,this.spanishAudio=i,this.spanishSubtitles=a,this.reason=o,this.status=e.validateStatus(c),this.recommenderRating=s}static generateId(){return crypto.randomUUID()}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(X).includes(e))throw Error(`Invalid recommendation status`);return e}},Q=class e{constructor({id:t=e.generateId(),name:n=void 0,recommendations:r=void 0,version:i=1,createdAt:a=new Date().toISOString()}={}){this.id=t,this.name=e.validateName(n),this.recommendations=e.validatesRecommendations(r),this.version=e.validateVersion(i),this.createdAt=a}static generateId(){return crypto.randomUUID()}static validateName(e){if(!e||typeof e!=`string`)throw Error(`name is required`);return e}static validatesRecommendations(e){if(e||=[],!Array.isArray(e))throw Error(`recommendations is not an array`);return e.forEach(e=>{if(!(e instanceof Z))throw Error(`recommendations must contain only Recommendation`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported recommendation list version`);return e}},Me=class{constructor(e,t=`quevemos-recommendation-lists`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);return e?JSON.parse(e).map(e=>new Q({version:e.version,id:e.id,name:e.name,recommendations:e.recommendations.map(e=>new Z(e)),createdAt:e.createdAt})):[]}},Ne=class{export(e){return JSON.stringify(e,null,2)}import(e){let t=this.parse(e);return this.validate(t),t.map(e=>new Q({version:e.version,id:e.id,name:e.name,recommendations:e.recommendations.map(e=>new Z(e)),createdAt:e.createdAt}))}parse(e){try{return JSON.parse(e)}catch{throw Error(`Invalid JSON`)}}validate(e){if(!Array.isArray(e))throw Error(`Invalid RecommendationLists file`);e.forEach(e=>{if(!Number.isInteger(e.version)||e.version<1||e.version>1)throw Error(`Unsupported RecommendationList version`);if(!Array.isArray(e.recommendations))throw Error(`RecommendationList recommendations is not an array`)})}},$=class e{constructor({version:t=1,createdAt:n=new Date().toISOString(),sender:r,items:i=[]}={}){this.version=e.validateVersion(t),this.createdAt=n,this.sender=e.validateSender(r),this.items=e.validateItems(i)}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported RecommendationExchange version`);return e}static validateSender(e){if(!e||typeof e!=`string`)throw Error(`sender is required`);return e}static validateItems(e){if(!Array.isArray(e))throw Error(`items is not an array`);return e}},Pe=class{createRecommendation(e,t){if(!e.watchItems.some(e=>e===t))throw Error(`WatchItem is not in WatchList`);return new Z({mediaId:t.mediaId,platforms:[...t.platforms],spanishAudio:t.spanishAudio,spanishSubtitles:t.spanishSubtitles,reason:t.reason,recommenderRating:t.userRating})}createRecommendationList(e,t){let n=t.map(t=>this.createRecommendation(e,t));return new Q({name:`Recomendaciones desde : `+e.name,recommendations:n})}createRecommendationExchange(e,t){let n=e.recommendations.map(e=>{let n=t.media.find(t=>t.id===e.mediaId);if(!n)throw Error(`Media not found in WatchList: ${e.mediaId}`);return{media:{id:n.id,title:n.title,originalTitle:n.originalTitle,type:n.type,year:n.year,runtimeMinutes:n.runtimeMinutes,genres:[...n.genres],omdbId:n.omdbId,poster:n.poster,ratings:n.ratings,matchKey:n.matchKey},recommendation:e}});return new $({sender:t.name,items:n})}prepareComparison(e,t){if(!t)throw Error(`No WatchList loaded`);return{recommendationExchange:e,watchList:t}}compareRecommendations(e,t){return e.items.map(e=>{let n=this.findMediaCandidates(e.media,t),r=`new`;return n.some(e=>e.matches.includes(`omdbId`))?r=`matched`:n.length>0&&(r=`candidate`),{exchangeItem:e,matches:n,status:r}})}findMediaCandidates(e,t){let n=[];for(let r of t.media){let t=[];e.omdbId&&r.omdbId&&e.omdbId===r.omdbId&&t.push(`omdbId`),e.matchKey===r.matchKey&&t.push(`matchKey`);let i=e.title.trim().toLowerCase(),a=r.title.trim().toLowerCase();i!==a&&(i.includes(a)||a.includes(i))&&t.push(`partialTitle`),t.length>0&&n.push({media:r,matches:t,differences:this.compareMedia(e,r)})}return n}compareMedia(e,t){let n=[];for(let r of[`title`,`originalTitle`,`type`,`year`,`runtimeMinutes`,`genres`,`poster`])JSON.stringify(e[r])!==JSON.stringify(t[r])&&n.push(r);return!t.omdbId&&e.omdbId&&n.push(`omdbId`),n}acceptRecommendation(e,t,n){let{recommendation:r}=e,i=n.media.find(e=>e.id===r.mediaId);if(!i)throw Error(`Media not found in WatchList`);let a=[t.name];r.recommenderRating!==void 0&&(a[0]+=` | (Nota: ${r.recommenderRating})`),r.reason&&a.push(r.reason);let o=new K({mediaId:i.id,platforms:r.platforms,spanishAudio:r.spanishAudio,spanishSubtitles:r.spanishSubtitles,reason:a.join(` | `)});return n.watchItems.push(o),r.status=X.ACCEPTED,o}discardRecommendation(e){return e.status=X.DISCARDED,e}},Fe=class extends V{static styles=o`
+        `}showAddItemForm(){this.addingItem=!0}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),e.target.resetForm(),this.hideAddItemForm()}hideAddItemForm(){this.addingItem=!1}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.items=[...this.service.getItems()]}toggleRecommendation(e){let t=e.detail;if(this.selectedItemsToShare.some(e=>e.media.id===t.media.id)){this.selectedItemsToShare=this.selectedItemsToShare.filter(e=>e.media.id!==t.media.id);return}this.selectedItemsToShare=[...this.selectedItemsToShare,t]}isSelectedToShare(e){return this.selectedItemsToShare.some(t=>t.media.id===e.media.id)}createRecommendationExchange(){if(this.selectedItemsToShare.length===0)return;let e=this.selectedItemsToShare.map(e=>e.watchItem),t=this.recommendService.createRecommendationList(this.service.watchList,e),n=this.recommendService.createRecommendationExchange(t,this.service.watchList);this.shareRecommendationExchange(n)}async shareRecommendationExchange(e){let t=await new Ae().encode(e),n=new URL(`http://localhost:5173/quevemos`);n.searchParams.set(`recommendation`,t);try{await navigator.clipboard.writeText(n.toString()),this.linkCopied=!0,setTimeout(()=>{this.linkCopied=!1},2e3)}catch(e){console.error(`No se pudo copiar el enlace:`,e)}}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.storage.save(this.service.watchList),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new q(n),this.storage.save(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new K({name:`Mi nueva lista`});this.service=new q(e),this.storage.save(e),this.listName=this.service.watchList.name,this.items=this.service.getItems()}};customElements.define(`watch-list-view`,Pe);var Fe=class{constructor(e,t=`quevemos-inbox`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);return e?JSON.parse(e).map(e=>new Z({version:e.version,id:e.id,name:e.name,recommendations:e.recommendations.map(e=>new Y(e)),media:e.media,createdAt:e.createdAt})):[]}},Ie=class{export(e){return JSON.stringify(e,null,2)}import(e){let t=this.parse(e);return this.validate(t),t.map(e=>new Z({version:e.version,id:e.id,name:e.name,recommendations:e.recommendations.map(e=>new Y(e)),createdAt:e.createdAt}))}parse(e){try{return JSON.parse(e)}catch{throw Error(`Invalid JSON`)}}validate(e){if(!Array.isArray(e))throw Error(`Invalid Inbox's file`);e.forEach(e=>{if(!Number.isInteger(e.version)||e.version<1||e.version>1)throw Error(`Unsupported IncomingRecommendationList version`);if(!Array.isArray(e.recommendations))throw Error(`IncomingRecommendationList recommendations is not an array`)})}},Le=class{constructor(e=new Ae,t=`recommendation`){this.codec=e,this.parameterName=t}async read(e){let t=new URL(e).searchParams.get(this.parameterName);if(!t)return null;try{return new X(await this.codec.decode(t))}catch{throw Error(`Invalid recommendation link`)}}},Re=class e extends B{static styles=o`
         :host {
             display: block;
         }
@@ -1893,42 +1967,42 @@
                 width: 70px;
             }
         }
-    `;static properties={comparison:{attribute:!1}};constructor(){super(),this.comparison=void 0}get media(){return this.comparison?.exchangeItem?.media}get recommendation(){return this.comparison?.exchangeItem?.recommendation}get matches(){return this.comparison?.matches??[]}get differences(){return this.matches.length===0?[]:this.matches[0].differences??[]}isNew(){return this.comparison?.status===`new`}isMatched(){return this.comparison?.status===`matched`}renderStatus(){return this.isNew()?M`
+    `;static properties={comparison:{attribute:!1}};static getCatalogName(e,t){return e.find(e=>e.id===t)?.name??t}constructor(){super(),this.comparison=void 0}get media(){return this.comparison?.media}get recommendation(){return this.comparison?.recommendation}get matches(){return this.comparison?.matches??[]}get differences(){return this.matches.length===0?[]:this.matches[0].differences??[]}isNew(){return this.comparison?.status===`new`}isMatched(){return this.comparison?.status===`matched`}renderStatus(){return this.isNew()?j`
                 <div class="status new">
                     <i class="fa fa-plus-circle"></i>
                     No está en tu lista
                 </div>
-            `:this.isMatched()?M`
+            `:this.isMatched()?j`
                 <div class="status matched">
                     <i class="fa fa-check-circle"></i>
                     Ya está en tu lista
                 </div>
-            `:M`
+            `:j`
             <div class="status">
                 Posible coincidencia
             </div>
-        `}renderDifferences(){return!this.isMatched()||this.differences.length===0?``:M`
+        `}renderDifferences(){return!this.isMatched()||this.differences.length===0?``:j`
             <div>
                 <div class="differences-title">
                     Diferencias
                 </div>
 
                 <ul class="differences">
-                    ${this.differences.map(e=>M`
+                    ${this.differences.map(e=>j`
                         <li>${e}</li>
                     `)}
                 </ul>
             </div>
-        `}render(){if(!this.comparison)return``;let e=this.media,t=this.recommendation;return M`
+        `}render(){if(!this.comparison)return``;let t=this.media,n=this.recommendation;return j`
             <article class="recommendation">
 
                 <div class="poster">
-                    ${e?.poster?M`
+                    ${t?.poster?j`
                             <img
-                                src=${e.poster}
-                                alt="Cartel de ${e.title}"
+                                src=${t.poster}
+                                alt="Cartel de ${t.title}"
                             >
-                        `:M`
+                        `:j`
                             <div class="poster-placeholder">
                                 <i class="fa fa-film"></i>
                             </div>
@@ -1938,26 +2012,26 @@
                 <div class="information">
 
                     <h3>
-                        ${e?.title}
+                        ${t?.title}
                     </h3>
 
-                    ${e?.originalTitle?M`
+                    ${t?.originalTitle?j`
                             <p class="original-title">
-                                ${e.originalTitle}
+                                ${t.originalTitle}
                             </p>
                         `:``}
 
                     <div class="meta">
 
-                        ${e?.year?M`
+                        ${t?.year?j`
                                 <span class="badge">
-                                    ${e.year}
+                                    ${t.year}
                                 </span>
                             `:``}
 
-                        ${e?.type?M`
+                        ${t?.type?j`
                                 <span class="badge">
-                                    ${e.type}
+                                    ${e.getCatalogName($.mediaTypes,t.type)}
                                 </span>
                             `:``}
 
@@ -1965,16 +2039,16 @@
 
                     ${this.renderStatus()}
 
-                    ${t?.recommenderRating===void 0?``:M`
+                    ${n?.recommenderRating===void 0?``:j`
                             <div class="rating">
                                 <i class="fa fa-star"></i>
-                                ${t.recommenderRating}/10
+                                ${n.recommenderRating}/10
                             </div>
                         `}
 
-                    ${t?.reason?M`
+                    ${n?.reason?j`
                             <p class="reason">
-                                ${t.reason}
+                                ${n.reason}
                             </p>
                         `:``}
 
@@ -2003,7 +2077,7 @@
                 </div>
 
             </article>
-        `}accept(){this.dispatchEvent(new CustomEvent(`accept-recommendation`,{detail:{comparison:this.comparison},bubbles:!0,composed:!0}))}discard(){this.dispatchEvent(new CustomEvent(`discard-recommendation`,{detail:{comparison:this.comparison},bubbles:!0,composed:!0}))}};customElements.define(`recommendation-item-view`,Fe);var Ie=class extends V{static styles=o`
+        `}accept(){this.dispatchEvent(new CustomEvent(`accept-recommendation`,{detail:{comparison:this.comparison},bubbles:!0,composed:!0}))}discard(){this.dispatchEvent(new CustomEvent(`discard-recommendation`,{detail:{comparison:this.comparison},bubbles:!0,composed:!0}))}};customElements.define(`recommendation-item-view`,Re);var ze=class extends B{static styles=o`
         :host {
             display: block;
         }
@@ -2166,7 +2240,11 @@
                 padding: 0.8rem;
             }
         }
-    `;static properties={recommendationList:{attribute:!1},comparisons:{state:!0},expanded:{state:!0}};constructor(){super();let e=new Ee(localStorage);this.watchList=e.load(),this.service=new Pe,this.comparisons=[],this.expanded=!1}updated(e){e.has(`recommendationList`)&&this.recommendationList&&this.updateComparisons()}updateComparisons(){this.comparisons=this.service.compareRecommendations(new $({sender:`OtraLista`,items:this.recommendationList.recommendations}),this.watchList)}getStatusCount(e){return this.recommendationList.recommendations.filter(t=>t.status===e).length}toggleExpanded(){this.expanded=!this.expanded}render(){if(!this.recommendationList)return M``;let e=this.getStatusCount(`pending`),t=this.getStatusCount(`accepted`),n=this.getStatusCount(`discarded`);return M`
+    `;static properties={incomingList:{attribute:!1},comparisons:{state:!0},expanded:{state:!0}};constructor(){super();let e=new De(localStorage);this.watchList=e.load(),this.service=new Q,this.comparisons=[],this.expanded=!1}updated(e){e.has(`incomingList`)&&this.incomingList&&this.updateComparisons()}updateComparisons(){this.comparisons=this.service.compareRecommendations(this.incomingList,this.watchList)}getStatusCount(e){return this.incomingList.recommendations.filter(t=>t.status===e).length}toggleExpanded(){this.expanded=!this.expanded}render(){if(!this.incomingList)return j``;let e=this.getStatusCount(`pending`),t=this.getStatusCount(`accepted`),n=this.getStatusCount(`discarded`);return j`
+            <link
+                rel="stylesheet"
+                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
+            >
             <article class="recommendation-list">
 
                 <header class="list-header">
@@ -2174,29 +2252,29 @@
                     <div class="list-info">
 
                         <h3>
-                            ${this.recommendationList.name}
+                            ${this.incomingList.name}
                         </h3>
 
                         <div class="list-count">
-                            ${this.recommendationList.recommendations.length}
+                            ${this.incomingList.recommendations.length}
                             recomendaciones
                         </div>
 
                         <div class="status-counts">
 
-                            ${e>0?M`
+                            ${e>0?j`
                                     <span class="status pending">
                                         ● ${e} pendientes
                                     </span>
                                 `:``}
 
-                            ${t>0?M`
+                            ${t>0?j`
                                     <span class="status accepted">
                                         ✓ ${t} aceptadas
                                     </span>
                                 `:``}
 
-                            ${n>0?M`
+                            ${n>0?j`
                                     <span class="status discarded">
                                         × ${n} descartadas
                                     </span>
@@ -2223,10 +2301,10 @@
 
                 </header>
 
-                ${this.expanded?M`
+                ${this.expanded?j`
                         <div class="list-content">
 
-                            ${this.comparisons.map(e=>M`
+                            ${this.comparisons.map(e=>j`
                                     <recommendation-item-view
                                         .comparison=${e}
                                     ></recommendation-item-view>
@@ -2236,8 +2314,8 @@
                     `:``}
 
             </article>
-        `}};customElements.define(`recommendation-list-view`,Ie);var Le=class extends V{static styles=o`
-        .recommendation-lists {
+        `}};customElements.define(`recommendation-list-view`,ze);var Be=class extends B{static styles=o`
+        .inbox {
             margin-top: 2rem;
         }
 
@@ -2394,16 +2472,17 @@
                 padding: 0.4rem 0.7rem;
             }
         }
-    `;static properties={lists:{state:!0},selectedList:{state:!0},reviewing:{state:!0}};constructor(){super(),this.storage=new Me(localStorage),this.fileStorage=new Ne,this.lists=this.storage.load(),this.selectedList=void 0,this.lists.length===0&&(this.lists=this.createTestLists()),this.reviewing=!1}createTestLists(){let e=new Z({id:`test-recommendation-robocop`,mediaId:`media-from-other-list-robocop`,platforms:[`prime-video-es`],spanishAudio:!0,spanishSubtitles:!1,reason:`Creo que os va a gustar mucho.`,recommenderRating:9});e.media={id:`media-from-other-list-robocop`,title:`Robocop`,originalTitle:`Robocop`,type:`movie`,year:1987,genres:[`action`,`science-fiction`,`thriller`],omdbId:`tt0093870`,poster:`https://m.media-amazon.com/images/M/MV5BZWM1YzRhODktZDE1MC00NzBlLTk0NGMtOGNhZDQyMmJiZGFiXkEyXkFqcGc@._V1_SX300.jpg`,matchKey:`robocop|movie|1987`};let t=new Z({id:`test-recommendation-new`,mediaId:`media-from-other-list-new`,platforms:[`filmin-es`],spanishAudio:!0,spanishSubtitles:!0,reason:`Esta creo que os puede gustar.`,recommenderRating:8});return t.media={id:`media-from-other-list-new`,title:`Movie43`,type:`movie`,year:2024,genres:[`mistery`],matchKey:`movie43|movie|2024`},[new Q({id:`test-list-001`,name:`Recomendaciones desde : Lista Ajena`,recommendations:[e,t]})]}selectList(e){this.selectedList=e}render(){return M`
+    `;static properties={lists:{state:!0},selectedList:{state:!0}};constructor(){super(),this.storage=new Fe(localStorage),this.fileStorage=new Ie,this.linkReader=new Le,this.service=new Q,this.lists=this.storage.load(),this.selectedList=void 0}async connectedCallback(){super.connectedCallback(),await this.importRecommendationFromUrl()}async importRecommendationFromUrl(){let e=await this.linkReader.read(window.location.href);if(!e)return;let t=this.service.createIncomingRecommendationList(e);this.lists=[...this.lists,t],this.storage.save(this.lists)}selectList(e){this.selectedList=e}closeList(){this.selectedList=void 0}importRecommendations(){let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.lists=[...this.lists,...n],this.storage.save(this.lists),this.selectedList=void 0}catch(e){console.error(e),alert(`No se pudo importar al buzón de entrada:\n${e.message}`)}}),e.click()}render(){return j`
             <link
                 rel="stylesheet"
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
             >
 
-            <section class="recommendation-lists">
+            <section class="inbox">
 
                 <header class="section-header">
-                    <h2>Recomendaciones</h2>
+                    <i class="fa fa-inbox"></i>
+                    <h2>Buzón de entrada</h2>
 
                     <button
                         type="button"
@@ -2415,38 +2494,52 @@
                     </button>
                 </header>
 
-                ${this.lists.length===0?M`
+                ${this.lists.length===0?j`
                         <p class="empty">
                             No tienes recomendaciones recibidas.
                         </p>
-                    `:M`
-                        <div class="lists">
-                            ${this.lists.map(e=>M`
-                                ${this.reviewing?M``:M`
-                                <button
-                                    class="list"
-                                    @click=${()=>this.selectList(e)}
-                                >
-                                    <strong>${e.name}</strong>
+                    `:j`
+                        ${this.selectedList?j`
+                            <button
+                                class="list"
+                                @click=${()=>this.closeList()}
+                            >
+                                <strong>
+                                 <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
+                                 Comparando con tu Lista local...
+                                </strong>
+                                <span>
+                                    Cerrar
+                                </span>
+                            </button>
+                            `:j`
+                            <div class="lists">
+                            ${this.lists.map(e=>j`
+                                    <button
+                                        class="list"
+                                        @click=${()=>this.selectList(e)}
+                                    >
+                                        <strong>
+                                        <i class="fa fa-envelope-o" aria-hidden="true"></i></big> ${e.name}</strong>
 
-                                    <span>
-                                        ${e.recommendations.length}
-                                        recomendaciones
-                                    </span>
-                                </button>
-                                `}
+                                        <span>
+                                            ${e.recommendations.length}
+                                            recomendaciones
+                                        </span>
+                                    </button>
                             `)}
                         </div>
+                        `}
                     `}
 
-                ${this.selectedList?M`
+                ${this.selectedList?j`
                         <recommendation-list-view
-                            .recommendationList=${this.selectedList}
+                            .incomingList=${this.selectedList}
                         ></recommendation-list-view>
                     `:``}
 
             </section>
-        `}selectList(e){this.selectedList=e,this.reviewing=!0}closeList(){this.selectedList=void 0,this.reviewing=!1}importRecommendations(){let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.lists=[...this.lists,...n],this.storage.save(this.lists),this.selectedList=void 0}catch(e){console.error(e),alert(`No se pudieron importar las recomendaciones:\n${e.message}`)}}),e.click()}};customElements.define(`recommendation-lists-view`,Le);var Re=class extends V{static styles=o`
+        `}};customElements.define(`inbox-view`,Be);var Ve=class extends B{static styles=o`
         :host {
             display: block;
             min-height: 100vh;
@@ -2534,16 +2627,18 @@
             }
 
         }
-    `;render(){return M`
+    `;render(){return j`
             <app-header></app-header>
 
             <main>
                 <section class="content">
-
                     <watch-list-view></watch-list-view>
-                    <recommendation-lists-view></recommendation-lists-view>
+                </section>
+                <hr/>
+                <section class="content">
+                    <inbox-view></inbox-view>
                 </section>
             </main>
 
             <app-footer></app-footer>
-        `}};customElements.define(`quevemos-app`,Re);
+        `}};customElements.define(`quevemos-app`,Ve);

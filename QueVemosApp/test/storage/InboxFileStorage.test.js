@@ -2,13 +2,13 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { InboxFileStorage } from "../../src/storage/InboxFileStorage.js";
-import { RecommendationList } from "../../src/domain/RecommendationList.js";
+import { IncomingRecommendationList } from "../../src/domain/IncomingRecommendationList.js";
 import { Recommendation } from "../../src/domain/Recommendation.js";
 import { DATA_VERSION } from "../../src/data/version.js";
 
 test("InboxFileStorage: exports inbox (recommendation lists) as JSON", () => {
 
-    const list = new RecommendationList({
+    const list = new IncomingRecommendationList({
         id: "recommendation-list-001",
         name: "Recomendaciones desde : Mis padres"
     });
@@ -30,7 +30,7 @@ test("InboxFileStorage: exports inbox (recommendation lists) as JSON", () => {
 
 test("InboxFileStorage: imports inbox of recommendation lists", () => {
 
-    const list = new RecommendationList({
+    const list = new IncomingRecommendationList({
         id: "recommendation-list-001",
         name: "Recomendaciones desde : Mis padres"
     });
@@ -45,7 +45,7 @@ test("InboxFileStorage: imports inbox of recommendation lists", () => {
     assert.equal(inbox.length, 1);
 
     assert.ok(
-        inbox[0] instanceof RecommendationList
+        inbox[0] instanceof IncomingRecommendationList
     );
 
     assert.equal(
@@ -92,6 +92,6 @@ test("InboxFileStorage: rejects unsupported version", () => {
 
     assert.throws(
         () => storage.import(json),
-        /Unsupported RecommendationList version/
+        /Unsupported IncomingRecommendationList version/
     );
 });

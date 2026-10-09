@@ -143,11 +143,11 @@ export class RecommendationItemView extends LitElement {
     }
 
     get media() {
-        return this.comparison?.exchangeItem?.media;
+        return this.comparison?.media;
     }
 
     get recommendation() {
-        return this.comparison?.exchangeItem;
+        return this.comparison?.recommendation;
     }
 
     get matches() {

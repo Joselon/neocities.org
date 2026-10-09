@@ -3,7 +3,6 @@ import { LitElement, html, css } from "lit";
 import { RecommendationService } from "../services/RecommendationService.js";
 import { WatchListStorage } from "../storage/WatchListStorage.js";
 
-
 import "./RecommendationItemView.js";
 
 export class RecommendationListView extends LitElement {
@@ -207,7 +206,7 @@ export class RecommendationListView extends LitElement {
     updateComparisons() {
         this.comparisons =
             this.service.compareRecommendations(
-                this.incomingList, //ToDo: Debe recibirlo de Inbox
+                this.incomingList,
                 this.watchList
             );
     }
