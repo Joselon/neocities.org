@@ -250,213 +250,6 @@ export class WatchListView extends LitElement {
         this.selectedItemsToShare = [];
         this.linkCopied = false;
     }
-    
-    render() {
-        const items = this.items;
-
-        return html`
-            <link
-                rel="stylesheet"
-                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
-            >
-            <div class="list-header">
-                <div class="storage-actions">
-                    <button
-                        type="button"
-                        @click=${this.exportWatchList}
-                    >
-                        <i class="fa fa-download"></i>
-                        Exportar lista
-                    </button>
-
-                    <button
-                        type="button"
-                        @click=${this.importWatchList}
-                    >
-                        <i class="fa fa-upload"></i>
-                        Importar lista
-                    </button>
-
-                    <button
-                        type="button"
-                        @click=${this.resetWatchList}
-                    >
-                        <i class="fa fa-refresh"></i>
-                        Reset
-                    </button>
-                </div>
-                <h2>${this.listName} <button
-                        type="button"
-                        class="action-button"
-                        title="Editar Nombre de la lista"
-                        @click=${this.editListName}
-                    >
-                        <i class="fa fa-pencil"></i>
-                    </button>
-                </h2>
-                ${this.linkCopied
-                    ? html`
-                        <div class="toast-overlay">
-                            <div class="toast">
-                                <span>✓</span>
-                                Enlace copiado
-                            </div>
-                        </div>
-                    `
-                    : ""
-                }
-            </div>
-            
-            ${items.length === 0
-                ? html`
-                    <p class="empty">
-                        La lista está vacía.
-                    </p>
-                    <div class= "add-item">
-                    ${this.addingItem
-                        ? html`
-                            <add-item-form
-                                @add-item=${this.addItem}
-                            ></add-item-form>
-                            <button
-                                type="button"
-                                class="add-item-button"
-                                title="Ocultar Añadir elemento"
-                                @click=${this.hideAddItemForm}
-                            >
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        `
-                        : html`
-                            <button
-                                type="button"
-                                class="add-item-button"
-                                title="Añadir elemento"
-                                @click=${this.showAddItemForm}
-                            >
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        `
-                    }
-
-                    </div> 
-                `
-                : html` 
-                    <div class="media-list">
-                        <div class="list-header">
-                            <div class="hero-badge"> Mostrando todos los elementos </div>
-        
-                            <div class="list-actions">
-                                <button
-                                    class="action-button"
-                                    title="Ordenar"
-                                    disabled
-                                >
-                                    <i class="fa fa-sort-alpha-desc"></i>
-                                </button>
-                                <button
-                                    class="action-button"
-                                    title="Filtrar"
-                                    disabled
-                                >
-                                    <i class="fa fa-filter"></i>
-                                </button>
-                                ${this.selectedItemsToShare.length > 0
-                                    ? html`
-                                        <button
-                                            class="recommend-button"
-                                            title="Recomendar seleccionados"
-                                            @click=${this.createRecommendationExchange}
-                                        >
-                                            <i class="fa fa-share-alt"></i>
-                                            <span>Recomendar</span>
-                                            <span class="recommend-badge">
-                                                ${this.selectedItemsToShare.length}
-                                            </span>
-                                        </button>
-                                    `
-                                    : ""
-                                }
-                            </div>
-
-                        </div>
-                        ${items.map(item => {
-
-                            const isEditing =
-                                this.editingItem?.media.id === item.media.id;
-
-                            return html`
-                                <div class="item-container">
-
-                                    ${isEditing
-                                        ? html`
-                                            <div class="edit-transition">
-                                                <edit-item-form
-                                                    .media=${item.media}
-                                                    .watchItem=${item.watchItem}
-                                                    @save-item=${this.saveItem}
-                                                    @cancel-edit=${this.cancelEdit}
-                                                ></edit-item-form>
-                                            </div>
-                                        `
-                                        : html`
-                                            <div class="edit-transition">
-                                                <watch-item-view
-                                                    .media=${item.media}
-                                                    .watchItem=${item.watchItem}
-                                                    .selectedToShare=${this.isSelectedToShare(item)}
-                                                    @edit-item=${this.editItem}
-                                                    @change-status=${this.changeStatus}
-                                                    @toggle-recommendation=${this.toggleRecommendation}
-                                                ></watch-item-view>
-                                            </div>
-                                        `
-                                    }
-
-                                </div>
-                            `;
-                        })}
-
-                        ${!this.editingItem
-                            ? html`
-                            <div class= "add-item">
-                                ${this.addingItem
-                                    ? html`
-                                        <add-item-form
-                                            @add-item=${this.addItem}
-                                        ></add-item-form>
-                                        <button
-                                            type="button"
-                                            class="add-item-button"
-                                            title="Ocultar Añadir elemento"
-                                            @click=${this.hideAddItemForm}
-                                        >
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    `
-                                    : html`
-                                        <button
-                                            type="button"
-                                            class="add-item-button"
-                                            title="Añadir elemento"
-                                            @click=${this.showAddItemForm}
-                                        >
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    `
-                                }
-
-                            </div>
-                            `
-                            : ""
-                        }
-
-                    </div>
-                    
-                `
-            }
-        `;
-    }
 
     showAddItemForm() {
         this.addingItem = true;
@@ -722,6 +515,213 @@ export class WatchListView extends LitElement {
         this.storage.save(watchList);
         this.listName = this.service.watchList.name;
         this.items = this.service.getItems();
+    }
+    
+    render() {
+        const items = this.items;
+
+        return html`
+            <link
+                rel="stylesheet"
+                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
+            >
+            <div class="list-header">
+                <div class="storage-actions">
+                    <button
+                        type="button"
+                        @click=${this.exportWatchList}
+                    >
+                        <i class="fa fa-download"></i>
+                        Exportar lista
+                    </button>
+
+                    <button
+                        type="button"
+                        @click=${this.importWatchList}
+                    >
+                        <i class="fa fa-upload"></i>
+                        Importar lista
+                    </button>
+
+                    <button
+                        type="button"
+                        @click=${this.resetWatchList}
+                    >
+                        <i class="fa fa-refresh"></i>
+                        Reset
+                    </button>
+                </div>
+                <h2>${this.listName} <button
+                        type="button"
+                        class="action-button"
+                        title="Editar Nombre de la lista"
+                        @click=${this.editListName}
+                    >
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                </h2>
+                ${this.linkCopied
+                    ? html`
+                        <div class="toast-overlay">
+                            <div class="toast">
+                                <span>✓</span>
+                                Enlace copiado
+                            </div>
+                        </div>
+                    `
+                    : ""
+                }
+            </div>
+            
+            ${items.length === 0
+                ? html`
+                    <p class="empty">
+                        La lista está vacía.
+                    </p>
+                    <div class= "add-item">
+                    ${this.addingItem
+                        ? html`
+                            <add-item-form
+                                @add-item=${this.addItem}
+                            ></add-item-form>
+                            <button
+                                type="button"
+                                class="add-item-button"
+                                title="Ocultar Añadir elemento"
+                                @click=${this.hideAddItemForm}
+                            >
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        `
+                        : html`
+                            <button
+                                type="button"
+                                class="add-item-button"
+                                title="Añadir elemento"
+                                @click=${this.showAddItemForm}
+                            >
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        `
+                    }
+
+                    </div> 
+                `
+                : html` 
+                    <div class="media-list">
+                        <div class="list-header">
+                            <div class="hero-badge"> Mostrando todos los elementos </div>
+        
+                            <div class="list-actions">
+                                <button
+                                    class="action-button"
+                                    title="Ordenar"
+                                    disabled
+                                >
+                                    <i class="fa fa-sort-alpha-desc"></i>
+                                </button>
+                                <button
+                                    class="action-button"
+                                    title="Filtrar"
+                                    disabled
+                                >
+                                    <i class="fa fa-filter"></i>
+                                </button>
+                                ${this.selectedItemsToShare.length > 0
+                                    ? html`
+                                        <button
+                                            class="recommend-button"
+                                            title="Recomendar seleccionados"
+                                            @click=${this.createRecommendationExchange}
+                                        >
+                                            <i class="fa fa-share-alt"></i>
+                                            <span>Recomendar</span>
+                                            <span class="recommend-badge">
+                                                ${this.selectedItemsToShare.length}
+                                            </span>
+                                        </button>
+                                    `
+                                    : ""
+                                }
+                            </div>
+
+                        </div>
+                        ${items.map(item => {
+
+                            const isEditing =
+                                this.editingItem?.media.id === item.media.id;
+
+                            return html`
+                                <div class="item-container">
+
+                                    ${isEditing
+                                        ? html`
+                                            <div class="edit-transition">
+                                                <edit-item-form
+                                                    .media=${item.media}
+                                                    .watchItem=${item.watchItem}
+                                                    @save-item=${this.saveItem}
+                                                    @cancel-edit=${this.cancelEdit}
+                                                ></edit-item-form>
+                                            </div>
+                                        `
+                                        : html`
+                                            <div class="edit-transition">
+                                                <watch-item-view
+                                                    .media=${item.media}
+                                                    .watchItem=${item.watchItem}
+                                                    .selectedToShare=${this.isSelectedToShare(item)}
+                                                    @edit-item=${this.editItem}
+                                                    @change-status=${this.changeStatus}
+                                                    @toggle-recommendation=${this.toggleRecommendation}
+                                                ></watch-item-view>
+                                            </div>
+                                        `
+                                    }
+
+                                </div>
+                            `;
+                        })}
+
+                        ${!this.editingItem
+                            ? html`
+                            <div class= "add-item">
+                                ${this.addingItem
+                                    ? html`
+                                        <add-item-form
+                                            @add-item=${this.addItem}
+                                        ></add-item-form>
+                                        <button
+                                            type="button"
+                                            class="add-item-button"
+                                            title="Ocultar Añadir elemento"
+                                            @click=${this.hideAddItemForm}
+                                        >
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    `
+                                    : html`
+                                        <button
+                                            type="button"
+                                            class="add-item-button"
+                                            title="Añadir elemento"
+                                            @click=${this.showAddItemForm}
+                                        >
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    `
+                                }
+
+                            </div>
+                            `
+                            : ""
+                        }
+
+                    </div>
+                    
+                `
+            }
+        `;
     }
 }
 

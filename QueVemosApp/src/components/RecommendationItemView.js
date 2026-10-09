@@ -170,6 +170,32 @@ export class RecommendationItemView extends LitElement {
         return this.comparison?.status === "matched";
     }
 
+    accept() {
+        this.dispatchEvent(new CustomEvent(
+            "accept-recommendation",
+            {
+                detail: {
+                    comparison: this.comparison
+                },
+                bubbles: true,
+                composed: true
+            }
+        ));
+    }
+
+    discard() {
+        this.dispatchEvent(new CustomEvent(
+            "discard-recommendation",
+            {
+                detail: {
+                    comparison: this.comparison
+                },
+                bubbles: true,
+                composed: true
+            }
+        ));
+    }
+    
     renderStatus() {
         if (this.isNew()) {
             return html`
@@ -327,32 +353,6 @@ export class RecommendationItemView extends LitElement {
 
             </article>
         `;
-    }
-
-    accept() {
-        this.dispatchEvent(new CustomEvent(
-            "accept-recommendation",
-            {
-                detail: {
-                    comparison: this.comparison
-                },
-                bubbles: true,
-                composed: true
-            }
-        ));
-    }
-
-    discard() {
-        this.dispatchEvent(new CustomEvent(
-            "discard-recommendation",
-            {
-                detail: {
-                    comparison: this.comparison
-                },
-                bubbles: true,
-                composed: true
-            }
-        ));
     }
 }
 

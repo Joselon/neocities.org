@@ -427,78 +427,109 @@ export class WatchItemView extends LitElement {
         }));
     }
 
-    render() {
-        if (!this.media || !this.watchItem) {
-            return html``;
-        }
-        
-        const statusName = WatchItemView.getCatalogName(
-            settings.watchStatuses,
-            this.watchItem.status
+    showInformation() {
+        this.overlayOpened = !this.overlayOpened;
+
+        this.classList.toggle(
+            "overlay-open",
+            this.overlayOpened
         );
+    }
 
-        const statusClass = `status-${this.watchItem.status}`;
+    formatDate(date) {
+        return new Date(date).toLocaleDateString("es-ES");
+    }
 
-        return html`
-            <link
-                rel="stylesheet"
-                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
-            >
-           
-            <article class="media-card">
+    toggleRecommendation() {
 
-                <div class="poster">
-                    ${this.media.poster
-                        ? html`
-                            <img
-                                src=${this.media.poster}
-                                alt="Cartel de ${this.media.title}"
-                            >
-                        `
-                        : html`
-                            <div class="poster-placeholder">
-                                <i class="fa fa-film"></i>
-                            </div>
-                        `
-                    }
-                </div>
+        this.dispatchEvent(
+            new CustomEvent("toggle-recommendation", {
+                detail: {
+                    media: this.media,
+                    watchItem: this.watchItem
+                },
+                bubbles: true,
+                composed: true
+            })
+        );
+    }
 
-                <button
-                    class=${this.selectedToShare
-                        ? "share-button selected"
-                        : "share-button"
-                    }
-                    title="Seleccionara para Recomendar"
-                    @click=${this.toggleRecommendation}
-                >
-                    <i class=${this.selectedToShare
-                    ? "fa fa-share"
-                    : "fa fa-share-alt"}></i>
-                </button>
+    renderProgress() {
+        const progress = this.watchItem.progress;
 
-                <div class="media-content">
-                    
-                    <div class="information">
-                        ${this.renderInformation()}
-                    </div>
+        if (!progress) {
+            return "";
+        }
 
-                    <div class="media-actions">
-                    ${statusName
-                        ? html`
-                            <div class="status ${statusClass}">
-                                ${statusName}
-                            </div>
-                        `
-                        : ""
-                    }
-                        <div class="status-actions">
-                            ${this.renderStatusActions()}
-                        </div>
-                    </div>
-                </div>
-                
-            </article>
-        `;
+        if (progress.minute !== undefined) {
+            return `${progress.minute} min`;
+        }
+
+        if (
+            progress.season !== undefined &&
+            progress.episode !== undefined
+        ) {
+            return `Temporada ${progress.season}, episodio ${progress.episode}`;
+        }
+
+        return "";
+    }
+    renderStatusActions() {
+
+        switch (this.watchItem.status) {
+
+            case WatchStatus.PENDING:
+                return html`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Empezar"
+                        @click=${() =>
+                            this.changeStatus(WatchStatus.WATCHING)}
+                    >
+                        <i class="fa fa-play"></i>
+                    </button>
+                `;
+
+            case WatchStatus.WATCHING:
+                return html`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Pausar"
+                        @click=${() =>
+                            this.changeStatus(WatchStatus.PAUSED)}
+                    >
+                        <i class="fa fa-pause"></i>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Marcar como vista"
+                        @click=${() =>
+                            this.changeStatus(WatchStatus.WATCHED)}
+                    >
+                        <i class="fa fa-check"></i>
+                    </button>
+                `;
+
+            case WatchStatus.PAUSED:
+                return html`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Continuar"
+                        @click=${() =>
+                            this.changeStatus(WatchStatus.WATCHING)}
+                    >
+                        <i class="fa fa-play"></i>
+                    </button>
+                `;
+
+            default:
+                return "";
+        }
     }
 
     renderInformation() {
@@ -686,109 +717,78 @@ export class WatchItemView extends LitElement {
         `;
     }
 
-    showInformation() {
-        this.overlayOpened = !this.overlayOpened;
-
-        this.classList.toggle(
-            "overlay-open",
-            this.overlayOpened
+    render() {
+        if (!this.media || !this.watchItem) {
+            return html``;
+        }
+        
+        const statusName = WatchItemView.getCatalogName(
+            settings.watchStatuses,
+            this.watchItem.status
         );
-    }
 
-    formatDate(date) {
-        return new Date(date).toLocaleDateString("es-ES");
-    }
+        const statusClass = `status-${this.watchItem.status}`;
 
-    toggleRecommendation() {
+        return html`
+            <link
+                rel="stylesheet"
+                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
+            >
+           
+            <article class="media-card">
 
-        this.dispatchEvent(
-            new CustomEvent("toggle-recommendation", {
-                detail: {
-                    media: this.media,
-                    watchItem: this.watchItem
-                },
-                bubbles: true,
-                composed: true
-            })
-        );
-    }
+                <div class="poster">
+                    ${this.media.poster
+                        ? html`
+                            <img
+                                src=${this.media.poster}
+                                alt="Cartel de ${this.media.title}"
+                            >
+                        `
+                        : html`
+                            <div class="poster-placeholder">
+                                <i class="fa fa-film"></i>
+                            </div>
+                        `
+                    }
+                </div>
 
-    renderProgress() {
-        const progress = this.watchItem.progress;
+                <button
+                    class=${this.selectedToShare
+                        ? "share-button selected"
+                        : "share-button"
+                    }
+                    title="Seleccionara para Recomendar"
+                    @click=${this.toggleRecommendation}
+                >
+                    <i class=${this.selectedToShare
+                    ? "fa fa-share"
+                    : "fa fa-share-alt"}></i>
+                </button>
 
-        if (!progress) {
-            return "";
-        }
+                <div class="media-content">
+                    
+                    <div class="information">
+                        ${this.renderInformation()}
+                    </div>
 
-        if (progress.minute !== undefined) {
-            return `${progress.minute} min`;
-        }
-
-        if (
-            progress.season !== undefined &&
-            progress.episode !== undefined
-        ) {
-            return `Temporada ${progress.season}, episodio ${progress.episode}`;
-        }
-
-        return "";
-    }
-    renderStatusActions() {
-
-        switch (this.watchItem.status) {
-
-            case WatchStatus.PENDING:
-                return html`
-                    <button
-                        type="button"
-                        class="action-button"
-                        title="Empezar"
-                        @click=${() =>
-                            this.changeStatus(WatchStatus.WATCHING)}
-                    >
-                        <i class="fa fa-play"></i>
-                    </button>
-                `;
-
-            case WatchStatus.WATCHING:
-                return html`
-                    <button
-                        type="button"
-                        class="action-button"
-                        title="Pausar"
-                        @click=${() =>
-                            this.changeStatus(WatchStatus.PAUSED)}
-                    >
-                        <i class="fa fa-pause"></i>
-                    </button>
-
-                    <button
-                        type="button"
-                        class="action-button"
-                        title="Marcar como vista"
-                        @click=${() =>
-                            this.changeStatus(WatchStatus.WATCHED)}
-                    >
-                        <i class="fa fa-check"></i>
-                    </button>
-                `;
-
-            case WatchStatus.PAUSED:
-                return html`
-                    <button
-                        type="button"
-                        class="action-button"
-                        title="Continuar"
-                        @click=${() =>
-                            this.changeStatus(WatchStatus.WATCHING)}
-                    >
-                        <i class="fa fa-play"></i>
-                    </button>
-                `;
-
-            default:
-                return "";
-        }
+                    <div class="media-actions">
+                    ${statusName
+                        ? html`
+                            <div class="status ${statusClass}">
+                                ${statusName}
+                            </div>
+                        `
+                        : ""
+                    }
+                        <div class="status-actions">
+                            ${this.renderStatusActions()}
+                        </div>
+                    </div>
+                </div>
+                
+            </article>
+        `;
     }
 }
 
