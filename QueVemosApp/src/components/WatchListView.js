@@ -590,6 +590,7 @@ export class WatchListView extends LitElement {
 
         const url = new URL(
             "https://joselon79.neocities.org/quevemos"
+            //"http://localhost:5173/quevemos"
         );
 
         url.searchParams.set("recommendation",encodedData);

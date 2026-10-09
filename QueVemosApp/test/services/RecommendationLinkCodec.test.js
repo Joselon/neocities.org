@@ -5,7 +5,7 @@ import {
     RecommendationLinkCodec
 } from "../../src/services/RecommendationLinkCodec.js";
 
-test("encode y decode conservan el intercambio completo", async () => {
+test("RecommendationLinkCodec: encode y decode conservan el intercambio completo", async () => {
     const codec = new RecommendationLinkCodec();
 
     const exchange = {
@@ -33,7 +33,7 @@ test("encode y decode conservan el intercambio completo", async () => {
     assert.deepStrictEqual(decoded, exchange);
 });
 
-test("encode genera una cadena Base64 URL-safe", async () => {
+test("RecommendationLinkCodec: encode genera una cadena Base64 URL-safe", async () => {
     const codec = new RecommendationLinkCodec();
 
     const encoded = await codec.encode({
@@ -44,7 +44,7 @@ test("encode genera una cadena Base64 URL-safe", async () => {
     assert.match(encoded, /^[A-Za-z0-9_-]+$/);
 });
 
-test("decode rechaza una entrada vacía", async () => {
+test("RecommendationLinkCodec: decode rechaza una entrada vacía", async () => {
     const codec = new RecommendationLinkCodec();
 
     await assert.rejects(
@@ -55,7 +55,7 @@ test("decode rechaza una entrada vacía", async () => {
     );
 });
 
-test("decode rechaza datos que no son JSON válido", async () => {
+test("RecommendationLinkCodec: decode rechaza datos que no son JSON válido", async () => {
     const codec = new RecommendationLinkCodec();
 
     const invalidJson = new TextEncoder().encode("{");
@@ -68,7 +68,7 @@ test("decode rechaza datos que no son JSON válido", async () => {
     );
 });
 
-test("encode rechaza valores que no son objetos", async () => {
+test("RecommendationLinkCodec: encode rechaza valores que no son objetos", async () => {
     const codec = new RecommendationLinkCodec();
 
     await assert.rejects(

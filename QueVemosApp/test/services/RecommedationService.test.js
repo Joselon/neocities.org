@@ -5,10 +5,10 @@ import { RecommendationService } from "../../src/services/RecommendationService.
 import { Recommendation } from "../../src/domain/Recommendation.js";
 import { RecommendationStatus } from "../../src/domain/RecommendationStatus.js";
 import { RecommendationList } from "../../src/domain/RecommendationList.js";
-import { RecommendationExchange } from "../../src/domain/RecommendationExchange.js";
 import { WatchList } from "../../src/domain/WatchList.js";
 import { Media } from "../../src/domain/Media.js";
 import { WatchItem } from "../../src/domain/WatchItem.js";
+import { IncomingRecommendationList } from "../../src/domain/IncomingRecommendationList.js";
 
 
 test("RecommendationService: creates a recommendation from a WatchItem", () => {
@@ -455,7 +455,7 @@ test("RecommendationService: finds media by matching omdbId", () => {
         type: "movie",
         year: 1987,
         originalTitle: "RoboCop",
-        omdbId: "tt0093870"
+        omdbId: "tt0093870",
     });
 
     const exchangeMedia = {
@@ -472,14 +472,10 @@ test("RecommendationService: finds media by matching omdbId", () => {
         mediaId: "media-foreign-001"
     });
 
-    const recommendationExchange =  new RecommendationExchange({
-        sender: "Otra lista",
-        items: [
-            {
-                media: exchangeMedia,
-                recommendation
-            }
-        ]
+    const incomingList =  new IncomingRecommendationList({
+        name: "Otra lista",
+        media: [exchangeMedia],
+        recommendations: [recommendation]
     });
 
     const watchList = new WatchList({
@@ -491,7 +487,7 @@ test("RecommendationService: finds media by matching omdbId", () => {
     const service = new RecommendationService();
 
     const result = service.compareRecommendations(
-            recommendationExchange,
+            incomingList,
             watchList
         );
 
@@ -499,8 +495,8 @@ test("RecommendationService: finds media by matching omdbId", () => {
     assert.equal(result[0].status, "matched");
     assert.equal(result[0].matches.length, 1);
     assert.equal(
-        result[0].matches[0].media,
-        existingMedia
+        result[0].media.omdbId,
+        existingMedia.omdbId
     );
     assert.deepEqual(result[0].matches[0].matches, ["omdbId", "matchKey"]);
 });
@@ -512,6 +508,7 @@ test("RecommendationService: ignores empty omdbId", () => {
         title: "RoboCop",
         type: "movie",
         year: 1987
+
     });
 
     const exchangeMedia = {
@@ -546,7 +543,7 @@ test("RecommendationService: finds candidate by exact matchKey", () => {
         title: "RoboCop",
         type: "movie",
         year: 1987,
-        //matchKey: "robocop-movie-1987"
+
     });
 
     const exchangeMedia = {
@@ -600,14 +597,10 @@ test("RecommendationService: finds media by matching matchKey", () => {
         mediaId: "media-foreign-001"
     });
 
-    const recommendationExchange = new RecommendationExchange({
-        sender: "Otra lista",
-        items: [
-            {
-                media: exchangeMedia,
-                recommendation
-            }
-        ]
+    const incomingList =  new IncomingRecommendationList({
+        name: "Otra lista",
+        media: [exchangeMedia],
+        recommendations: [recommendation]
     });
 
     const watchList = new WatchList({
@@ -620,7 +613,7 @@ test("RecommendationService: finds media by matching matchKey", () => {
 
     const result =
         service.compareRecommendations(
-            recommendationExchange,
+            incomingList,
             watchList
         );
 
@@ -628,8 +621,8 @@ test("RecommendationService: finds media by matching matchKey", () => {
     assert.equal(result[0].status, "candidate");
     assert.equal(result[0].matches.length, 1);
     assert.equal(
-        result[0].matches[0].media,
-        existingMedia
+        result[0].media.matchKey,
+        existingMedia.matchKey
     );
     assert.deepEqual(result[0].matches[0].matches, ["matchKey"]);
 });
@@ -695,14 +688,10 @@ test("RecommendationService: finds candidate by matchKey despite media differenc
         mediaId: "media-foreign-001"
     });
 
-    const recommendationExchange = new RecommendationExchange({
-        sender: "Otra lista",
-        items: [
-            {
-                media: exchangeMedia,
-                recommendation
-            }
-        ]
+    const incomingList =  new IncomingRecommendationList({
+        name: "Otra lista",
+        media: [exchangeMedia],
+        recommendations: [recommendation]
     });
 
     const watchList = new WatchList({
@@ -715,7 +704,7 @@ test("RecommendationService: finds candidate by matchKey despite media differenc
 
     const result =
         service.compareRecommendations(
-            recommendationExchange,
+            incomingList,
             watchList
         );
 
@@ -746,14 +735,10 @@ test("RecommendationService: returns new when no media matches", () => {
         mediaId: "media-foreign-001"
     });
 
-    const recommendationExchange = new RecommendationExchange({
-        sender: "Otra lista",
-        items: [
-            {
-                media: exchangeMedia,
-                recommendation
-            }
-        ]
+    const incomingList =  new IncomingRecommendationList({
+        name: "Otra lista",
+        media: [exchangeMedia],
+        recommendations: [recommendation]
     });
 
     const watchList = new WatchList({
@@ -766,7 +751,7 @@ test("RecommendationService: returns new when no media matches", () => {
 
     const result =
         service.compareRecommendations(
-            recommendationExchange,
+            incomingList,
             watchList
         );
 
@@ -794,14 +779,10 @@ test("RecommendationService: finds candidate by partial title match", () => {
         mediaId: "media-foreign-001"
     });
 
-    const recommendationExchange = new RecommendationExchange({
-        sender: "Otra lista",
-        items: [
-            {
-                media: exchangeMedia,
-                recommendation
-            }
-        ]
+    const incomingList =  new IncomingRecommendationList({
+        name: "Otra lista",
+        media: [exchangeMedia],
+        recommendations: [recommendation]
     });
 
     const watchList = new WatchList({
@@ -814,16 +795,13 @@ test("RecommendationService: finds candidate by partial title match", () => {
 
     const result =
         service.compareRecommendations(
-            recommendationExchange,
+            incomingList,
             watchList
         );
 
     assert.equal(result[0].status, "candidate");
     assert.equal(result[0].matches.length, 1);
-    assert.equal(
-        result[0].matches[0].media,
-        existingMedia
-    );
+    assert.deepEqual(result[0].matches[0].matches, ["partialTitle"]);
 });
 
 test("RecommendationService: accepts a recommendation and creates a WatchItem", () => {
@@ -1070,27 +1048,28 @@ test("RecommendationService: identifies a candidate when matchKey matches but me
         })
     };
 
-    const recommedationExchange =  new RecommendationExchange({
-        sender: "Otra lista",
-        items: [exchangeItem]
+    const incomingList =  new IncomingRecommendationList({
+        name: "Otra lista",
+        media: [exchangeMedia],
+        recommendations: [exchangeItem.recommendation]
     });
 
     const service = new RecommendationService();
 
     const result = service.compareRecommendations(
-        recommedationExchange,
+        incomingList,
         watchList
     );
 
     assert.equal(result[0].status, "candidate");
     assert.equal(result[0].matches.length, 1);
     assert.equal(
-        result[0].matches[0].media,
-        localMedia
+        result[0].media.matchKey,
+        localMedia.matchKey
     );
     assert.deepEqual(
         result[0].matches[0].matches,
-        ["matchKey"]
+        ["matchKey"]        
     );
 });
 
@@ -1132,15 +1111,16 @@ test("RecommendationService: detects differences in a candidate media", () => {
         })
     };
 
-    const recommedationExchange =  new RecommendationExchange({
-        sender: "Otra lista",
-        items: [exchangeItem]
+        const incomingList =  new IncomingRecommendationList({
+        name: "Otra lista",
+        media: [exchangeMedia],
+        recommendations: [exchangeItem.recommendation]
     });
 
     const service = new RecommendationService();
     
     const result = service.compareRecommendations(
-        recommedationExchange,
+        incomingList,
         watchList
     );
 

@@ -1,55 +1,62 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { RecommendationLinkCodec } from "../../src/services/RecommendationLinkCodec.js";
 import { RecommendationLinkReader } from "../../src/services/RecommendationLinkReader.js";
 import { RecommendationExchange } from "../../src/domain/RecommendationExchange.js";
 
-test("read returns null when recommendation parameter is missing", () => {
+test("RecommendationLinkReader: read returns null when recommendation parameter is missing", async () => {
 
     const reader = new RecommendationLinkReader();
 
-    const result = reader.read(
+    const result = await reader.read(
         "https://example.com/quevemos.html"
     );
 
     assert.equal(result, null);
 });
 
-test("read creates RecommendationExchange from recommendation parameter", () => {
+test("RecommendationLinkReader: read creates RecommendationExchange from recommendation parameter", async () => {
 
-    const exchange = {
+    const codec = new RecommendationLinkCodec();
+    const reader = new RecommendationLinkReader(codec);
+
+    const data = {
+        id: "un-id-para-no-duplicar",
         sender: "Pepe",
         items: []
     };
 
-    const url =
-        "https://example.com/quevemos.html?" +
-        new URLSearchParams({
-            recommendation: JSON.stringify(exchange)
-        });
+    const encoded = await codec.encode(data);
 
-    const reader = new RecommendationLinkReader();
+    const url = new URL(
+        "https://example.com/quevemos.html"
+    );
 
-    const result = reader.read(url);
+    url.searchParams.set("recommendation", encoded);
+
+    const result = await reader.read(url.toString());
 
     assert.ok(result instanceof RecommendationExchange);
     assert.equal(result.sender, "Pepe");
     assert.deepEqual(result.items, []);
 });
 
-test("read rejects invalid recommendation data", () => {
-
-    const url =
-        "https://example.com/quevemos.html?" +
-        new URLSearchParams({
-            recommendation: "esto-no-es-json"
-        });
+test("RecommendationLinkReader: read rejects invalid recommendation data", async () => {
 
     const reader = new RecommendationLinkReader();
 
-    assert.throws(
-        () => reader.read(url),
-        /Invalid recommendation link/
+    const url = new URL(
+        "https://example.com/quevemos.html"
+    );
+
+    url.searchParams.set("recommendation", "!!!");
+
+    await assert.rejects(
+        reader.read(url.toString()),
+        {
+            message: "Invalid recommendation link"
+        }
     );
 });
 
