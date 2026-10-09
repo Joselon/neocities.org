@@ -589,7 +589,7 @@ export class WatchListView extends LitElement {
         const encodedData =  await codec.encode(exchange);
 
         const url = new URL(
-            "http://localhost:5173/quevemos" //"https://joselon79.neocities.org/quevemos"
+            "https://joselon79.neocities.org/quevemos"
         );
 
         url.searchParams.set("recommendation",encodedData);
