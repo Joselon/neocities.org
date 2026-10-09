@@ -118,6 +118,10 @@ export class InboxView extends LitElement {
             display: block;
             font-size: 1rem;
         }
+        
+        .list small {
+            align-self: end;
+        }
 
         .list span {
             margin-top: 0.25rem;
@@ -200,6 +204,13 @@ export class InboxView extends LitElement {
             return;
         }
 
+        if (this.lists.some(list => list.id == exchange.id)) {
+            alert(
+                    `Ya se ha agregado al buzón de entrada`
+                );
+            return;
+        }
+
         const incomingList  = this.service.createIncomingRecommendationList(exchange);
         this.lists = [...this.lists, incomingList];
         this.storage.save(this.lists);
@@ -257,6 +268,10 @@ export class InboxView extends LitElement {
         input.click();
     }
 
+    formatDate(date) {
+        return new Date(date).toLocaleString("es-ES");
+    }    
+
     render() {
         return html`
             <link
@@ -309,7 +324,7 @@ export class InboxView extends LitElement {
                                     >
                                         <strong>
                                         <i class="fa fa-envelope-o" aria-hidden="true"></i></big> ${list.name}</strong>
-
+                                        <small> ${this.formatDate(list.createdAt)} </small>
                                         <span>
                                             ${list.recommendations.length}
                                             recomendaciones

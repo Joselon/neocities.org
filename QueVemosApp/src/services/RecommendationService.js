@@ -83,6 +83,7 @@ export class RecommendationService {
         }
 
         return new IncomingRecommendationList({
+            id: exchange.id,
             name: exchange.sender,
             media: exchange.items.map(item => item.media),
             recommendations: exchange.items.map(

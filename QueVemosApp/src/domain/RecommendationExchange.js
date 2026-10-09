@@ -3,16 +3,21 @@ import { DATA_VERSION } from "../data/version.js";
 export class RecommendationExchange {
 
     constructor({
+        id =  RecommendationExchange.generateId(),
         version = DATA_VERSION,
         createdAt = new Date().toISOString(),
         sender,
         items = []
     } = {}) {
-
+        this.id = id;
         this.version = RecommendationExchange.validateVersion(version);
         this.createdAt = createdAt;
         this.sender = RecommendationExchange.validateSender(sender);
         this.items = RecommendationExchange.validateItems(items);
+    }
+
+    static generateId() {
+        return crypto.randomUUID();
     }
 
     static validateVersion(version) {
