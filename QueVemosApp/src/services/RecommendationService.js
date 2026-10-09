@@ -265,4 +265,18 @@ export class RecommendationService {
 
         return incomingRecommendation;
     }
+
+    resolveRecommendation({incomingRecommendationList,
+        incomingRecommendation,
+        decision,
+        watchList}){
+            switch (decision) {
+                case 'create':
+                    this.acceptRecommendation(incomingRecommendation, incomingRecommendationList, watchList);
+                    break;
+
+                default:
+                    throw new Error("Invalid decision");
+            }
+    }
 }

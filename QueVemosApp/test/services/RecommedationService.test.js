@@ -10,6 +10,64 @@ import { Media } from "../../src/domain/Media.js";
 import { WatchItem } from "../../src/domain/WatchItem.js";
 import { IncomingRecommendationList } from "../../src/domain/IncomingRecommendationList.js";
 
+// HELPERS
+function createLocalMedia(overrides = {}) {
+    return new Media({
+        id: "local-media-1",
+        title: "Blade Runner",
+        type: "movie",
+        year: 1982,
+        originalTitle: "Blade Runner",
+        genres: ["Sci-Fi"],
+        ...overrides
+    });
+}
+
+function createIncomingMedia(overrides = {}) {
+    return new Media({
+        id: "sender-media-1",
+        title: "Blade Runner",
+        type: "movie",
+        year: 1982,
+        originalTitle: "Blade Runner",
+        runtimeMinutes: 117,
+        genres: ["Sci-Fi", "Thriller"],
+        omdbId: "tt0083658",
+        poster: "poster-url",
+        ...overrides
+    });
+}
+
+function createRecommendation(overrides = {}) {
+    return new Recommendation({
+        mediaId: "sender-media-1",
+        platforms: ["Netflix ES"],
+        spanishAudio: true,
+        spanishSubtitles: true,
+        reason: "Me la han recomendado",
+        ...overrides
+    });
+}
+
+function createIncomingRecommendationList({
+    media = [createIncomingMedia()],
+    recommendations = undefined,
+    name = "Recomendaciones de mis padres"
+} = {}) {
+    return new IncomingRecommendationList({
+        name,
+        media,
+        recommendations: recommendations ?? [
+            createRecommendation({ mediaId: media[0]?.id ?? "sender-media-1" })
+        ]
+    });
+}
+
+function createService() {
+    return new RecommendationService();
+}
+
+//TESTS
 
 test("RecommendationService: creates a recommendation from a WatchItem", () => {
     const media = new Media({
@@ -1122,4 +1180,270 @@ test("RecommendationService: detects differences in a candidate media", () => {
             "genres"
         ]
     );
+});
+
+test("RecommedationService.resolveRecommendation: create adds a local Media and WatchItem", () => {
+    const incomingRecommendationList = createIncomingRecommendationList();
+    const incomingRecommendation =
+        incomingRecommendationList.recommendations[0];
+
+    const watchList = new WatchList({
+        name: "Mi lista",
+        media: [],
+        watchItems: []
+    });
+
+    const service = createService();
+
+    service.resolveRecommendation({
+        incomingRecommendationList,
+        incomingRecommendation,
+        decision: "create",
+        watchList
+    });
+
+    assert.equal(watchList.media.length, 1);
+    assert.equal(watchList.watchItems.length, 1);
+
+    const localMedia = watchList.media[0];
+    const watchItem = watchList.watchItems[0];
+
+    assert.notEqual(localMedia.id, incomingRecommendation.mediaId);
+    assert.equal(localMedia.title, "Blade Runner");
+    assert.equal(localMedia.omdbId, "tt0083658");
+
+    assert.equal(watchItem.mediaId, localMedia.id);
+    assert.deepEqual(watchItem.platforms, ["Netflix ES"]);
+    assert.equal(watchItem.spanishAudio, true);
+    assert.equal(watchItem.spanishSubtitles, true);
+
+    assert.equal(
+        incomingRecommendation.status,
+        RecommendationStatus.ACCEPTED
+    );
+});
+
+test("RecommedationService.resolveRecommendation: resolveRecommendation: merge uses the selected local Media ID", () => {
+    const incomingRecommendationList = createIncomingRecommendationList();
+    const incomingRecommendation =
+        incomingRecommendationList.recommendations[0];
+
+    const localMedia = createLocalMedia({
+        runtimeMinutes: undefined,
+        omdbId: undefined,
+        poster: undefined
+    });
+
+    const watchList = new WatchList({
+        media: [localMedia],
+        watchItems: []
+    });
+
+    const service = createService();
+
+    service.resolveRecommendation({
+        incomingRecommendationList,
+        incomingRecommendation,
+        decision: "merge",
+        watchList,
+        targetMediaId: localMedia.id,
+        mediaFields: ["runtimeMinutes", "omdbId", "poster"]
+    });
+
+    assert.equal(watchList.media.length, 1);
+    assert.equal(watchList.watchItems.length, 1);
+
+    assert.equal(localMedia.runtimeMinutes, 117);
+    assert.equal(localMedia.omdbId, "tt0083658");
+    assert.equal(localMedia.poster, "poster-url");
+
+    assert.equal(watchList.watchItems[0].mediaId, localMedia.id);
+    assert.equal(
+        incomingRecommendation.status,
+        RecommendationStatus.ACCEPTED
+    );
+});
+
+test("resolveRecommendation: merge preserves unselected fields", () => {
+    const incomingRecommendationList = createIncomingRecommendationList({
+        media: [
+            createIncomingMedia({
+                title: "Blade Runner: The Final Cut",
+                poster: "incoming-poster"
+            })
+        ]
+    });
+
+    const incomingRecommendation =
+        incomingRecommendationList.recommendations[0];
+
+    const localMedia = createLocalMedia({
+        poster: "local-poster"
+    });
+
+    const watchList = new WatchList({
+        media: [localMedia],
+        watchItems: []
+    });
+
+    createService().resolveRecommendation({
+        incomingRecommendationList,
+        incomingRecommendation,
+        decision: "merge",
+        watchList,
+        targetMediaId: localMedia.id,
+        mediaFields: ["poster"]
+    });
+
+    assert.equal(localMedia.title, "Blade Runner");
+    assert.equal(localMedia.poster, "incoming-poster");
+});
+
+test("resolveRecommendation: merge ignores unselected empty fields", () => {
+    const incomingRecommendationList = createIncomingRecommendationList();
+    const incomingRecommendation =
+        incomingRecommendationList.recommendations[0];
+
+    const localMedia = createLocalMedia({
+        runtimeMinutes: undefined,
+        poster: undefined
+    });
+
+    const watchList = new WatchList({
+        media: [localMedia],
+        watchItems: []
+    });
+
+    createService().resolveRecommendation({
+        incomingRecommendationList,
+        incomingRecommendation,
+        decision: "merge",
+        watchList,
+        targetMediaId: localMedia.id,
+        mediaFields: ["poster"]
+    });
+
+    assert.equal(localMedia.poster, "poster-url");
+    assert.equal(localMedia.runtimeMinutes, undefined);
+});
+
+test("resolveRecommendation: merge rejects duplicate matchKey without changes", () => {
+    const incomingRecommendationList = createIncomingRecommendationList({
+        media: [
+            createIncomingMedia({
+                title: "Blade Runner: The Final Cut",
+                year: 2007
+            })
+        ]
+    });
+
+    const incomingRecommendation =
+        incomingRecommendationList.recommendations[0];
+
+    const localMedia = createLocalMedia();
+
+    const otherMedia = new Media({
+        id: "local-media-2",
+        title: "Blade Runner: The Final Cut",
+        type: "movie",
+        year: 2007
+    });
+
+    const watchList = new WatchList({
+        media: [localMedia, otherMedia],
+        watchItems: []
+    });
+
+    assert.throws(() => {
+        createService().resolveRecommendation({
+            incomingRecommendationList,
+            incomingRecommendation,
+            decision: "merge",
+            watchList,
+            targetMediaId: localMedia.id,
+            mediaFields: ["title", "year"]
+        });
+    });
+
+    assert.equal(watchList.media.length, 2);
+    assert.equal(watchList.watchItems.length, 0);
+    assert.equal(localMedia.title, "Blade Runner");
+    assert.equal(localMedia.year, 1982);
+});
+
+test("resolveRecommendation: discard does not modify WatchList", () => {
+    const incomingRecommendationList = createIncomingRecommendationList();
+    const incomingRecommendation =
+        incomingRecommendationList.recommendations[0];
+
+    const localMedia = createLocalMedia();
+
+    const watchList = new WatchList({
+        media: [localMedia],
+        watchItems: [new WatchItem({ mediaId: localMedia.id })]
+    });
+
+    createService().resolveRecommendation({
+        incomingRecommendationList,
+        incomingRecommendation,
+        decision: "discard",
+        watchList
+    });
+
+    assert.equal(watchList.media.length, 1);
+    assert.equal(watchList.watchItems.length, 1);
+    assert.equal(
+        incomingRecommendation.status,
+        RecommendationStatus.DISCARDED
+    );
+});
+
+test("resolveRecommendation: rejects an already accepted recommendation", () => {
+    const incomingRecommendationList = createIncomingRecommendationList();
+    const incomingRecommendation =
+        incomingRecommendationList.recommendations[0];
+
+    incomingRecommendation.status = RecommendationStatus.ACCEPTED;
+
+    const watchList = new WatchList({
+        media: [],
+        watchItems: []
+    });
+
+    assert.throws(() => {
+        createService().resolveRecommendation({
+            incomingRecommendationList,
+            incomingRecommendation,
+            decision: "create",
+            watchList
+        });
+    });
+
+    assert.equal(watchList.media.length, 0);
+    assert.equal(watchList.watchItems.length, 0);
+});
+
+test("resolveRecommendation: rejects missing incoming Media", () => {
+    const incomingRecommendationList = createIncomingRecommendationList();
+    const incomingRecommendation =
+        incomingRecommendationList.recommendations[0];
+
+    incomingRecommendationList.media = [];
+
+    const watchList = new WatchList({
+        media: [],
+        watchItems: []
+    });
+
+    assert.throws(() => {
+        createService().resolveRecommendation({
+            incomingRecommendationList,
+            incomingRecommendation,
+            decision: "create",
+            watchList
+        });
+    }, /Media not found/);
+
+    assert.equal(watchList.media.length, 0);
+    assert.equal(watchList.watchItems.length, 0);
 });
