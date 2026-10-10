@@ -2,6 +2,7 @@ import { LitElement, html, css } from "lit";
 
 import { RecommendationService } from "../services/RecommendationService.js";
 import { WatchListStorage } from "../storage/WatchListStorage.js";
+import { InboxStorage } from "../storage/InboxStorage.js";
 
 import "./RecommendationItemView.js";
 
@@ -181,11 +182,17 @@ export class RecommendationListView extends LitElement {
     constructor() {
         super();
 
-        const watchListStorage =
+        this.watchListStorage =
             new WatchListStorage(localStorage);
 
         this.watchList =
-            watchListStorage.load();
+            this.watchListStorage.load();
+
+        this.inboxStorage =
+            new InboxStorage(localStorage);
+
+        this.inbox =
+            this.inboxStorage.load();
 
         this.service =
             new RecommendationService();
@@ -199,6 +206,17 @@ export class RecommendationListView extends LitElement {
             changedProperties.has("incomingList") &&
             this.incomingList
         ) {
+            const storedList = this.inbox.find(
+                list => list.id === this.incomingList.id
+            );
+
+            if (!storedList) {
+                throw new Error(
+                    "IncomingRecommendationList not found in Inbox"
+                );
+            }
+            this.incomingList = storedList;
+
             this.updateComparisons();
         }
     }
@@ -222,6 +240,65 @@ export class RecommendationListView extends LitElement {
 
     toggleExpanded() {
         this.expanded = !this.expanded;
+    }
+
+    handleAccept(event) {
+        const {
+            comparison,
+            decision,
+            targetMediaId,
+            mediaFields
+        } = event.detail;
+
+        this.resolveRecommendation(comparison, decision, {
+            targetMediaId,
+            mediaFields
+        });
+    }
+
+    handleDiscard(event) {
+        this.resolveRecommendation(
+            event.detail.comparison,
+            "discard"
+        );
+    }
+
+    resolveRecommendation(comparison, decision, options = {}) {
+        try {
+            this.service.resolveRecommendation({
+                incomingRecommendationList: this.incomingList,
+                incomingRecommendation: comparison.recommendation,
+                decision,
+                watchList: this.watchList,
+                targetMediaId: options.targetMediaId,
+                mediaFields: options.mediaFields ?? []
+            });
+
+            this.saveChanges();
+
+            this.updateComparisons();
+            this.requestUpdate();
+
+        } catch (error) {
+            console.error(
+                "No se pudo resolver la recomendación:",
+                error
+            );
+
+            this.dispatchEvent(new CustomEvent(
+                "recommendation-error",
+                {
+                    detail: { error, comparison },
+                    bubbles: true,
+                    composed: true
+                }
+            ));
+        }
+    }
+
+    saveChanges() {
+        this.watchListStorage.save(this.watchList);
+        this.inboxStorage.save(this.inbox);
     }
 
     render() {
@@ -320,6 +397,8 @@ export class RecommendationListView extends LitElement {
                                 comparison => html`
                                     <recommendation-item-view
                                         .comparison=${comparison}
+                                        @accept-recommendation=${this.handleAccept}
+                                        @discard-recommendation=${this.handleDiscard}
                                     ></recommendation-item-view>
                                 `
                             )}

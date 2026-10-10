@@ -204,16 +204,31 @@ export class InboxView extends LitElement {
             return;
         }
 
-        if (this.lists.some(list => list.id == exchange.id)) {
+        if (this.lists.some(list => list.id === exchange.id)) {
             alert(
                     `Ya se ha agregado al buzón de entrada`
                 );
+            
             return;
         }
 
         const incomingList  = this.service.createIncomingRecommendationList(exchange);
         this.lists = [...this.lists, incomingList];
         this.storage.save(this.lists);
+
+        this.clearRecommendationUrlParameter();
+    }
+
+    clearRecommendationUrlParameter() {
+        const url = new URL(window.location.href);
+
+        url.searchParams.delete("recommendation");
+
+        window.history.replaceState(
+            window.history.state,
+            "",
+            url.pathname + url.search + url.hash
+        );
     }
 
     selectList(list) {

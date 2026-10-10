@@ -113,8 +113,65 @@ export class RecommendationItemView extends LitElement {
             border-radius: 8px;
             cursor: pointer;
         }
+        .candidates {
+            margin-top: 1rem;
+        }
 
-        @media (max-width: 600px) {
+        .candidate-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.5rem;
+        }
+
+        .candidate {
+            min-width: 0;
+            padding: 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface-strong);
+            color: var(--text);
+            text-align: left;
+            overflow-wrap: anywhere;
+        }
+
+        .candidate.selected {
+            border-color: var(--accent);
+            box-shadow: inset 0 0 0 1px var(--accent);
+        }
+
+        .candidate-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-top: 0.6rem;
+        }
+
+        .merge-fields {
+            display: grid;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+        }
+
+        .merge-fields label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .actions {
+            flex-wrap: wrap;
+        }
+
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .candidate-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
             .recommendation {
                 grid-template-columns: 70px 1fr;
             }
@@ -126,9 +183,10 @@ export class RecommendationItemView extends LitElement {
     `;
 
     static properties = {
-        comparison: {
-            attribute: false
-        }
+        comparison: { attribute: false },
+        selectedCandidateId: { state: true },
+        candidatePage: { state: true },
+        selectedMediaFields: { state: true }
     };
 
     static getCatalogName(catalog, id) {
@@ -140,6 +198,59 @@ export class RecommendationItemView extends LitElement {
         super();
 
         this.comparison = undefined;
+        this.selectedCandidateId = null;
+        this.candidatePage = 0;
+        this.selectedMediaFields = [];
+    }
+
+    get candidatePageCount() {
+        return Math.ceil(this.matches.length / 5);
+    }
+
+    get visibleCandidates() {
+        return this.matches.slice(
+            this.candidatePage * 5,
+            this.candidatePage * 5 + 5
+        );
+    }
+
+    get selectedCandidate() {
+        return this.matches.find(
+            candidate =>
+                candidate.media.id === this.selectedCandidateId
+        );
+    }
+
+    updated(changedProperties) {
+        if (changedProperties.has("comparison")) {
+            this.selectedCandidateId = null;
+            this.candidatePage = 0;
+            this.selectedMediaFields = [];
+        }
+    }
+
+    selectCandidate(candidate) {
+        this.selectedCandidateId = candidate.media.id;
+        this.selectedMediaFields = [];
+    }
+
+    toggleMediaField(field, checked) {
+        this.selectedMediaFields = checked
+            ? [...new Set([...this.selectedMediaFields, field])]
+            : this.selectedMediaFields.filter(
+                selected => selected !== field
+            );
+    }
+
+    previousCandidatePage() {
+        this.candidatePage = Math.max(0, this.candidatePage - 1);
+    }
+
+    nextCandidatePage() {
+        this.candidatePage = Math.min(
+            this.candidatePageCount - 1,
+            this.candidatePage + 1
+        );
     }
 
     get media() {
@@ -170,12 +281,31 @@ export class RecommendationItemView extends LitElement {
         return this.comparison?.status === "matched";
     }
 
-    accept() {
+    accept(decision) {
+        if (
+            decision === "merge" &&
+            (
+                !this.selectedCandidate ||
+                this.selectedMediaFields.length === 0
+            )
+        ) {
+            return;
+        }
+
         this.dispatchEvent(new CustomEvent(
             "accept-recommendation",
             {
                 detail: {
-                    comparison: this.comparison
+                    comparison: this.comparison,
+                    decision,
+                    targetMediaId:
+                        decision === "merge"
+                            ? this.selectedCandidate.media.id
+                            : undefined,
+                    mediaFields:
+                        decision === "merge"
+                            ? [...this.selectedMediaFields]
+                            : []
                 },
                 bubbles: true,
                 composed: true
@@ -329,14 +459,109 @@ export class RecommendationItemView extends LitElement {
 
                     ${this.renderDifferences()}
 
+                    ${this.matches.length > 0 ? html`
+                        <section class="candidates">
+                            <div class="differences-title">
+                                Candidatos para fusionar
+                            </div>
+
+                            <div class="candidate-grid">
+                                ${this.visibleCandidates.map(candidate => html`
+                                    <button
+                                        type="button"
+                                        class="candidate ${
+                                            candidate.media.id === this.selectedCandidateId
+                                                ? "selected"
+                                                : ""
+                                        }"
+                                        aria-pressed=${
+                                            candidate.media.id === this.selectedCandidateId
+                                        }
+                                        @click=${() => this.selectCandidate(candidate)}
+                                    >
+                                        <strong>${candidate.media.title}</strong>
+                                        <div>${candidate.media.year ?? "Año desconocido"}</div>
+                                        <small>${candidate.matches.join(", ")}</small>
+                                    </button>
+                                `)}
+                            </div>
+
+                            ${this.candidatePageCount > 1 ? html`
+                                <div class="candidate-navigation">
+                                    <button
+                                        type="button"
+                                        ?disabled=${this.candidatePage === 0}
+                                        @click=${this.previousCandidatePage}
+                                    >
+                                        Anteriores
+                                    </button>
+
+                                    <span>
+                                        ${this.candidatePage + 1}
+                                        / ${this.candidatePageCount}
+                                    </span>
+
+                                    <button
+                                        type="button"
+                                        ?disabled=${
+                                            this.candidatePage >= this.candidatePageCount - 1
+                                        }
+                                        @click=${this.nextCandidatePage}
+                                    >
+                                        Siguientes
+                                    </button>
+                                </div>
+                            ` : ""}
+
+                            ${this.selectedCandidate ? html`
+                                <div class="merge-fields">
+                                    <strong>
+                                        Campos que se actualizarán en
+                                        ${this.selectedCandidate.media.title}
+                                    </strong>
+
+                                    ${this.selectedCandidate.differences.map(field => html`
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                .checked=${
+                                                    this.selectedMediaFields.includes(field)
+                                                }
+                                                @change=${event =>
+                                                    this.toggleMediaField(
+                                                        field,
+                                                        event.target.checked
+                                                    )
+                                                }
+                                            >
+                                            ${field}
+                                        </label>
+                                    `)}
+                                </div>
+                            ` : ""}
+                        </section>
+                        ` 
+                        : ""
+                    }
                     <div class="actions">
+                        <button
+                            type="button"
+                            @click=${() => this.accept("create")}
+                        >
+                            <i class="fa fa-plus"></i>
+                            Añadir como nuevo
+                        </button>
 
                         <button
                             type="button"
-                            @click=${this.accept}
+                            ?disabled=${
+                                !this.selectedCandidate ||
+                                this.selectedMediaFields.length === 0
+                            }
+                            @click=${() => this.accept("merge")}
                         >
-                            <i class="fa fa-check"></i>
-                            Aceptar
+                            <i class="fa fa-code-fork"></i>
+                            Fusionar
                         </button>
 
                         <button
@@ -346,7 +571,6 @@ export class RecommendationItemView extends LitElement {
                             <i class="fa fa-times"></i>
                             Descartar
                         </button>
-
                     </div>
 
                 </div>

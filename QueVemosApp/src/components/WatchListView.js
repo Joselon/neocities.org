@@ -167,6 +167,16 @@ export class WatchListView extends LitElement {
             transform: scale(1.05);
         }
 
+        .recommendation-bar {
+            position: fixed;
+            bottom: calc(160px + env(safe-area-inset-bottom, 0px));
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(560px, calc(100% - 24px));
+            z-index: 100;
+            text-align: center;
+        }
+
         .recommend-button {
             display: inline-flex;
             align-items: center;
@@ -206,6 +216,7 @@ export class WatchListView extends LitElement {
             font-size: 0.75rem;
             font-weight: bold;
         }
+
         
         /* Móvil */
 
@@ -560,17 +571,6 @@ export class WatchListView extends LitElement {
                         <i class="fa fa-pencil"></i>
                     </button>
                 </h2>
-                ${this.linkCopied
-                    ? html`
-                        <div class="toast-overlay">
-                            <div class="toast">
-                                <span>✓</span>
-                                Enlace copiado
-                            </div>
-                        </div>
-                    `
-                    : ""
-                }
             </div>
             
             ${items.length === 0
@@ -627,22 +627,6 @@ export class WatchListView extends LitElement {
                                 >
                                     <i class="fa fa-filter"></i>
                                 </button>
-                                ${this.selectedItemsToShare.length > 0
-                                    ? html`
-                                        <button
-                                            class="recommend-button"
-                                            title="Recomendar seleccionados"
-                                            @click=${this.createRecommendationExchange}
-                                        >
-                                            <i class="fa fa-share-alt"></i>
-                                            <span>Recomendar</span>
-                                            <span class="recommend-badge">
-                                                ${this.selectedItemsToShare.length}
-                                            </span>
-                                        </button>
-                                    `
-                                    : ""
-                                }
                             </div>
 
                         </div>
@@ -680,6 +664,36 @@ export class WatchListView extends LitElement {
                                     }
 
                                 </div>
+                                ${this.selectedItemsToShare.length > 0
+                                    ? html`
+                                        <div class="recommendation-bar">
+                                        <button
+                                            class="recommend-button"
+                                            title="Recomendar seleccionados"
+                                            @click=${this.createRecommendationExchange}
+                                        >
+                                            <i class="fa fa-share-alt"></i>
+                                            <span>Recomendar</span>
+                                            <span class="recommend-badge">
+                                                ${this.selectedItemsToShare.length}
+                                            </span>
+                                        </button>
+                                        ${this.linkCopied
+                                            ? html`
+                                                <div class="toast-overlay">
+                                                    <div class="toast">
+                                                        <span>✓</span>
+                                                        Enlace copiado
+                                                    </div>
+                                                </div>
+                                            `
+                                            : ""
+                                        }
+                                        </div>
+                                    `
+                                    : ""
+                                }
+                                
                             `;
                         })}
 
