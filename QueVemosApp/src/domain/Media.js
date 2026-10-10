@@ -75,7 +75,7 @@ export class Media {
     }
     static validateType(type) {
         if (!Object.values(MediaType).includes(type)) {
-            throw new Error("Invalid media type");
+            throw new Error(type + "Invalid media type");
         }
         return type;
     }

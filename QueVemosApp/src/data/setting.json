@@ -9,6 +9,10 @@
     {
       "id": "series",
       "name": "Serie"
+    },
+    {
+      "id": "videogame",
+      "name": "Videojuego"
     }
   ],
 
@@ -191,6 +195,34 @@
       "country": "ES",
       "active": true,
       "logo": "youtube"
+    },
+    {
+      "id": "steam-pc",
+      "name": "SteamPC",
+      "country": "ES",
+      "active": true,
+      "logo": "steam"
+    },
+    {
+      "id": "xbox-eu",
+      "name": "XboxGamePass",
+      "country": "ES",
+      "active": true,
+      "logo": "xbox"
+    },
+    {
+      "id": "playstation-eu",
+      "name": "PlayStationStore",
+      "country": "ES",
+      "active": true,
+      "logo": "playstation"
+    },
+    {
+      "id": "switch-eu",
+      "name": "NintendoSwitch",
+      "country": "ES",
+      "active": true,
+      "logo": "switch"
     }
   ]
 }

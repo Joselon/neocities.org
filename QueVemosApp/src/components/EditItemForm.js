@@ -255,36 +255,36 @@ export class EditItemForm extends LitElement {
     }
 
     createProgress(form) {
-        if (this.media.type === MediaType.MOVIE) {
+        if (this.media.type === MediaType.SERIES) {
+            const season = form.season.value;
+            const episode = form.episode.value;
             const minute = form.minute.value;
 
-            if (!minute) {
+            if (!season && !episode) {
                 return undefined;
             }
 
             return new WatchProgress({
-                minute: Number(minute)
+                season: season
+                    ? Number(season)
+                    : undefined,
+                episode: episode
+                    ? Number(episode)
+                    : undefined,
+                minute: minute
+                    ? Number(minute)
+                    : undefined
             });
         }
 
-        const season = form.season.value;
-        const episode = form.episode.value;
         const minute = form.minute.value;
 
-        if (!season && !episode) {
+        if (!minute) {
             return undefined;
         }
 
         return new WatchProgress({
-            season: season
-                ? Number(season)
-                : undefined,
-            episode: episode
-                ? Number(episode)
-                : undefined,
-            minute: minute
-                ? Number(minute)
-                : undefined
+            minute: Number(minute)
         });
     }
 
@@ -301,71 +301,72 @@ export class EditItemForm extends LitElement {
     }
 
     renderProgress() {
-        if (this.media?.type === MediaType.MOVIE) {
+        if (this.media?.type === MediaType.SERIES) {
             return html`
-                <div class="field fit-content">
-                    <label for="minute">
-                        Progreso (minutos)
-                    </label>
+                <div class="progress">
 
-                    <input
-                        id="minute"
-                        name="minute"
-                        type="number"
-                        min="0"
-                        value=${this.getProgressValue("minute")}
-                    >
+                    <div class="field fit-content">
+                        <label for="season">
+                            Temporada
+                        </label>
+
+                        <input
+                            id="season"
+                            name="season"
+                            type="number"
+                            min="1"
+                            value=${this.getProgressValue("season")}
+                        >
+                    </div>
+
+                    <div class="field fit-content">
+                        <label for="episode">
+                            Episodio
+                        </label>
+
+                        <input
+                            id="episode"
+                            name="episode"
+                            type="number"
+                            min="1"
+                            value=${this.getProgressValue("episode")}
+                        >
+                    </div>
+
+                    <div class="field fit-content">
+                        <label for="minute">
+                        (minutos)
+                        </label>
+
+                        <input
+                            id="minute"
+                            name="minute"
+                            type="number"
+                            min="0"
+                            value=${this.getProgressValue("minute")}
+                        >
+                    </div>
+
                 </div>
             `;
+            
         }
-
         return html`
-            <div class="progress">
+            <div class="field fit-content">
+                <label for="minute">
+                    Progreso (minutos)
+                </label>
 
-                <div class="field fit-content">
-                    <label for="season">
-                        Temporada
-                    </label>
-
-                    <input
-                        id="season"
-                        name="season"
-                        type="number"
-                        min="1"
-                        value=${this.getProgressValue("season")}
-                    >
-                </div>
-
-                <div class="field fit-content">
-                    <label for="episode">
-                        Episodio
-                    </label>
-
-                    <input
-                        id="episode"
-                        name="episode"
-                        type="number"
-                        min="1"
-                        value=${this.getProgressValue("episode")}
-                    >
-                </div>
-
-                <div class="field fit-content">
-                    <label for="minute">
-                       (minutos)
-                    </label>
-
-                    <input
-                        id="minute"
-                        name="minute"
-                        type="number"
-                        min="0"
-                        value=${this.getProgressValue("minute")}
-                    >
-                </div>
-
+                <input
+                    id="minute"
+                    name="minute"
+                    type="number"
+                    min="0"
+                    value=${this.getProgressValue("minute")}
+                >
             </div>
         `;
+        
     }
 
     render() {

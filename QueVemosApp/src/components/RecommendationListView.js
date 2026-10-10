@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit";
 
 import { RecommendationService } from "../services/RecommendationService.js";
+import { RecommendationStatus } from "../domain/RecommendationStatus.js";
 
 import "./RecommendationItemView.js";
 
@@ -176,7 +177,8 @@ export class RecommendationListView extends LitElement {
         watchList: { attribute: false },
         dataVersion: { type: Number },
         comparisons: { state: true },
-        expanded: { state: true }
+        expanded: { state: true },
+        showProcessed: { state: true }
     };
 
     constructor() {
@@ -189,9 +191,14 @@ export class RecommendationListView extends LitElement {
 
         this.comparisons = [];
         this.expanded = false;
+        this.showProcessed = false;
     }
 
     updated(changedProperties) {
+        if (changedProperties.has("incomingList")) {
+            this.showProcessed = false;
+            this.expanded = false;
+        }
         if (
             changedProperties.has("incomingList") ||
             changedProperties.has("watchList")||
@@ -220,8 +227,20 @@ export class RecommendationListView extends LitElement {
             .length;
     }
 
+    getVisibleComparisons() {
+        if (this.showProcessed) {
+            return this.comparisons;
+        }
+
+        return this.comparisons.filter(
+            comparison =>
+                comparison.recommendation.status === RecommendationStatus.PENDING
+        );
+    }
+
     toggleExpanded() {
         this.expanded = !this.expanded;
+        this.showProcessed = true;
     }
 
     handleAccept(event) {
@@ -301,6 +320,19 @@ export class RecommendationListView extends LitElement {
         const discarded =
             this.getStatusCount("discarded");
 
+        const visibleComparisons = this.showProcessed
+            ? this.comparisons.filter(
+                comparison =>
+                    comparison.recommendation.status !== RecommendationStatus.PENDING
+            )
+            : this.comparisons.filter(
+                comparison =>
+                    comparison.recommendation.status === RecommendationStatus.PENDING
+            );
+
+        const hasProcessed = accepted + discarded > 0;
+        const showExpandButton = pending === 0 && hasProcessed;
+
         return html`
             <link
                 rel="stylesheet"
@@ -356,30 +388,28 @@ export class RecommendationListView extends LitElement {
 
                     <div class="actions">
 
-                        <button
-                            type="button"
-                            class="action-button"
-                            title=${this.expanded
-                                ? "Cerrar"
-                                : "Abrir"}
-                            @click=${this.toggleExpanded}
-                        >
-                            <i
-                                class="fa ${this.expanded
-                                    ? "fa-chevron-up"
-                                    : "fa-chevron-down"}"
-                            ></i>
-                        </button>
+                    ${showExpandButton
+                        ? html`
+                            <button
+                                type="button"
+                                class="action-button"
+                                title="Ver recomendaciones procesadas"
+                                @click=${this.toggleExpanded}
+                            >
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                        `
+                        : ""
+                    }
 
                     </div>
 
                 </header>
 
-                ${this.expanded
+                ${this.expanded && this.showProcessed
                     ? html`
                         <div class="list-content">
-
-                            ${this.comparisons.map(
+                            ${visibleComparisons.map(
                                 comparison => html`
                                     <recommendation-item-view
                                         .comparison=${comparison}
@@ -388,10 +418,29 @@ export class RecommendationListView extends LitElement {
                                     ></recommendation-item-view>
                                 `
                             )}
-
                         </div>
                     `
-                    : ""
+                    : pending === 0
+                        ? html`
+                            <div class="list-content">
+                                <p class="empty-message">
+                                    No quedan recomendaciones pendientes.
+                                </p>
+                            </div>
+                        `
+                        : html`
+                            <div class="list-content">
+                                ${visibleComparisons.map(
+                                    comparison => html`
+                                        <recommendation-item-view
+                                            .comparison=${comparison}
+                                            @accept-recommendation=${this.handleAccept}
+                                            @discard-recommendation=${this.handleDiscard}
+                                        ></recommendation-item-view>
+                                    `
+                                )}
+                            </div>
+                        `
                 }
 
             </article>

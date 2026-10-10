@@ -481,7 +481,7 @@ export class RecommendationItemView extends LitElement {
                                     >
                                         <strong>${candidate.media.title}</strong>
                                         <div>${candidate.media.year ?? "Año desconocido"}</div>
-                                        <small>${candidate.matches.join(", ")}</small>
+                                        <small>Motivo: ${candidate.matches.join(", ")}</small>
                                     </button>
                                 `)}
                             </div>
