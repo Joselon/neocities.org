@@ -1,4 +1,4 @@
-import { WatchList } from "../domain/WatchList.js";
+import { Media } from "../domain/Media.js";
 import { WatchItem } from "../domain/WatchItem.js";
 import { Recommendation } from "../domain/Recommendation.js";
 import { RecommendationList } from "../domain/RecommendationList.js";
@@ -72,7 +72,7 @@ export class RecommendationService {
         );
 
         return new RecommendationExchange({
-            sender: watchList.name,
+            sender: recommendationList.name,
             items
         });
     }
@@ -224,13 +224,18 @@ export class RecommendationService {
 
     acceptRecommendation(incomingRecommendation, recommendationList, watchList) {
 
-        const media = recommendationList.media.find(
+        const incomingMedia = recommendationList.media.find(
             item => item.id === incomingRecommendation.mediaId
         );
 
-        if (!media) {
+        if (!incomingMedia) {
             throw new Error("Media not found in recommendationList");
         }
+
+        const { id: incomingMediaId, ...mediaData } = incomingMedia;
+        const media = new Media(mediaData);
+
+        watchList.addMedia(media);
 
         const reasonParts = [
             recommendationList.name
@@ -252,13 +257,135 @@ export class RecommendationService {
             reason: reasonParts.join(" | ")
         });
 
-        watchList.watchItems.push(watchItem);
+        watchList.addWatchItem(watchItem);
 
         incomingRecommendation.status = RecommendationStatus.ACCEPTED;
 
         return watchItem;
     }
 
+    mergeRecommendation({
+        incomingRecommendationList,
+        incomingRecommendation,
+        watchList,
+        targetMediaId,
+        mediaFields = []
+    }) {
+        if (targetMediaId === undefined) {
+            throw new Error("targetMediaId is required for merge");
+        }
+        const incomingMedia = incomingRecommendationList.media.find(
+            item => item.id === incomingRecommendation.mediaId
+        );
+
+        if (!incomingMedia) {
+            throw new Error("Media not found in recommendationList");
+        }
+
+        const localMedia = watchList.media.find(
+            item => item.id === targetMediaId
+        );
+
+        if (!localMedia) {
+            throw new Error("Target media not found in watchList");
+        }
+
+        const watchItem = watchList.watchItems.find(
+            item => item.mediaId === localMedia.id
+        );
+
+        if (!watchItem) {
+            throw new Error("WatchItem not found for target media");
+        }
+
+        if (!Array.isArray(mediaFields)) {
+            throw new Error("mediaFields must be an array");
+        }
+
+        const allowedFields = [
+            "title",
+            "originalTitle",
+            "type",
+            "year",
+            "runtimeMinutes",
+            "genres",
+            "omdbId",
+            "poster",
+            "ratings"
+        ];
+
+        for (const field of mediaFields) {
+            if (!allowedFields.includes(field)) {
+                throw new Error(`Invalid media field: ${field}`);
+            }
+        }
+
+        const updates = {};
+
+        for (const field of mediaFields) {
+            const value = incomingMedia[field];
+
+            if (value !== undefined) {
+                updates[field] = Array.isArray(value)
+                    ? [...value]
+                    : value;
+            }
+        }
+
+        const mergedMedia = new Media({
+            ...localMedia,
+            ...updates,
+            id: localMedia.id
+        });
+
+        const hasDuplicate = watchList.media.some(
+            media =>
+                media.id !== localMedia.id &&
+                media.matchKey === mergedMedia.matchKey
+        );
+
+        if (hasDuplicate) {
+            throw new Error("Media already exists");
+        }
+
+        const reasonParts = [incomingRecommendationList.name];
+
+        if (incomingRecommendation.recommenderRating !== undefined) {
+            reasonParts.push(
+                `(Nota: ${incomingRecommendation.recommenderRating})`
+            );
+        }
+
+        if (incomingRecommendation.reason) {
+            reasonParts.push(incomingRecommendation.reason);
+        }
+
+        const recommendationReason = reasonParts.join(" | ");
+
+        const existingReason = watchItem.reason?.trim();
+
+        // No añadir de nuevo la misma recomendación.
+        if (
+            existingReason &&
+            existingReason.includes(recommendationReason)
+        ) {
+            throw new Error("Recommendation already added to WatchItem");
+        }
+
+        // Aplicar los cambios una vez validados.
+        for (const [field, value] of Object.entries(updates)) {
+            localMedia[field] = value;
+        }
+
+        watchItem.reason = existingReason
+            ? `${existingReason} | ${recommendationReason}`
+            : recommendationReason;
+
+        incomingRecommendation.status = RecommendationStatus.ACCEPTED;
+
+        return watchItem;
+    }
+    
     discardRecommendation(incomingRecommendation) {
 
         incomingRecommendation.status = RecommendationStatus.DISCARDED;
@@ -269,11 +396,29 @@ export class RecommendationService {
     resolveRecommendation({incomingRecommendationList,
         incomingRecommendation,
         decision,
-        watchList}){
+        watchList, targetMediaId, mediaFields = []}){
+            if(incomingRecommendation.status === RecommendationStatus.ACCEPTED){
+                throw new Error("Recommendation already accepted");
+            }
+                
             switch (decision) {
-                case 'create':
-                    this.acceptRecommendation(incomingRecommendation, incomingRecommendationList, watchList);
-                    break;
+                case "create":
+                    return this.acceptRecommendation(
+                        incomingRecommendation,
+                        incomingRecommendationList,
+                        watchList
+                    );
+                case "merge":
+                    return this.mergeRecommendation({
+                        incomingRecommendationList,
+                        incomingRecommendation,
+                        watchList,
+                        targetMediaId,
+                        mediaFields
+                    });
+
+                case "discard":
+                    return this.discardRecommendation(incomingRecommendation);
 
                 default:
                     throw new Error("Invalid decision");

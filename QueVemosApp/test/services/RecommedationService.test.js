@@ -24,18 +24,20 @@ function createLocalMedia(overrides = {}) {
 }
 
 function createIncomingMedia(overrides = {}) {
-    return new Media({
+    return {
         id: "sender-media-1",
         title: "Blade Runner",
+        originalTitle: "Blade Runner",
         type: "movie",
         year: 1982,
-        originalTitle: "Blade Runner",
         runtimeMinutes: 117,
         genres: ["Sci-Fi", "Thriller"],
         omdbId: "tt0083658",
         poster: "poster-url",
+        ratings: undefined,
+        matchKey: "blade runner|movie|1982",
         ...overrides
-    });
+    };
 }
 
 function createRecommendation(overrides = {}) {
@@ -52,16 +54,18 @@ function createRecommendation(overrides = {}) {
 function createIncomingRecommendationList({
     media = [createIncomingMedia()],
     recommendations = undefined,
-    name = "Recomendaciones de mis padres"
+    name = "Recomendaciones desde : Otra Lista"
 } = {}) {
     return new IncomingRecommendationList({
         name,
         media,
         recommendations: recommendations ?? [
-            createRecommendation({ mediaId: media[0]?.id ?? "sender-media-1" })
+            createRecommendation({
+                mediaId: media[0]?.id ?? "sender-media-1"
+            })
         ]
     });
-}
+}   
 
 function createService() {
     return new RecommendationService();
@@ -864,60 +868,67 @@ test("RecommendationService: finds candidate by partial title match", () => {
 
 test("RecommendationService: accepts a recommendation and creates a WatchItem", () => {
 
-    const media = new Media({
+    const senderMedia = new Media({
         id: "media-1",
         title: "RoboCop",
         type: "movie",
         year: 1987
     });
 
-    const watchList = new WatchList({
-        name: "La nuestra",
-        media: [media],
-        watchItems: []
-    });
-
-    const recommendation = new Recommendation({
-        mediaId: media.id,
+    const senderWatchItem = new WatchItem({ 
+        mediaId: senderMedia.id,
         platforms: ["Netflix"],
         spanishAudio: true,
         spanishSubtitles: false,
         reason: "Muy entretenida",
-        recommenderRating: 9
+        userRating: 9
     });
 
-    const incomingList = new IncomingRecommendationList({
-        name: "Recomendaciones desde : Mis padres",
-        recommendations: [recommendation],
-        media: [media]
+    const watchList = new WatchList({
+        name: "La vuestra",
+        media: [senderMedia],
+        watchItems: [senderWatchItem]
     });
 
     const service = new RecommendationService();
 
+    const recommendationList = service.createRecommendationList(watchList, [senderWatchItem]);
+
+    const exchange = service.createRecommendationExchange(recommendationList, watchList);
+
+    const incomingList = service.createIncomingRecommendationList(exchange);
+
+    const receptorWatchList = new WatchList({
+        name: "La nuestra",
+        media: [],
+        watchItems: []
+    });
+
     service.acceptRecommendation(
-        recommendation,
+        incomingList.recommendations[0],
         incomingList,
-        watchList
+        receptorWatchList
     );
 
-    assert.equal(watchList.watchItems.length, 1);
+    assert.equal(receptorWatchList.watchItems.length, 1);
 
-    const watchItem = watchList.watchItems[0];
+    const watchItem = receptorWatchList.watchItems[0];
 
-    assert.equal(watchItem.mediaId, media.id);
+    assert.notEqual(watchItem.mediaId, senderMedia.id);
+    assert.equal(watchItem.mediaId, receptorWatchList.media[0].id);
     assert.deepEqual(watchItem.platforms, ["Netflix"]);
     assert.equal(watchItem.spanishAudio, true);
     assert.equal(watchItem.spanishSubtitles, false);
 
     assert.equal(
         watchItem.reason,
-        "Recomendaciones desde : Mis padres | (Nota: 9) | Muy entretenida"
+        "Recomendaciones desde : La vuestra | (Nota: 9) | Muy entretenida"
     );
 
     assert.equal(watchItem.userRating, undefined);
 
     assert.equal(
-        recommendation.status,
+        incomingList.recommendations[0].status,
         RecommendationStatus.ACCEPTED
     );
 });
@@ -933,7 +944,7 @@ test("RecommendationService: accepts a recommendation without recommenderRating"
 
     const watchList = new WatchList({
         name: "La nuestra",
-        media: [media],
+        media: [],
         watchItems: []
     });
 
@@ -973,7 +984,7 @@ test("RecommendationService: accepts a recommendation without reason", () => {
 
     const watchList = new WatchList({
         name: "La nuestra",
-        media: [media],
+        media: [],
         watchItems: []
     });
 
@@ -1032,7 +1043,7 @@ test("RecommendationService: discarding a recommendation does not create a Watch
 
     const watchList = new WatchList({
         name: "La nuestra",
-        media: [media],
+        media: [],
         watchItems: []
     });
 
@@ -1234,10 +1245,12 @@ test("RecommedationService.resolveRecommendation: resolveRecommendation: merge u
         poster: undefined
     });
 
-    const watchList = new WatchList({
-        media: [localMedia],
-        watchItems: []
+    const watchItem = new WatchItem({
+        mediaId: localMedia.id
     });
+    const watchList = new WatchList();
+    watchList.addMedia(localMedia);
+    watchList.addWatchItem(watchItem);
 
     const service = createService();
 
@@ -1257,7 +1270,7 @@ test("RecommedationService.resolveRecommendation: resolveRecommendation: merge u
     assert.equal(localMedia.omdbId, "tt0083658");
     assert.equal(localMedia.poster, "poster-url");
 
-    assert.equal(watchList.watchItems[0].mediaId, localMedia.id);
+    assert.equal(watchItem.mediaId, localMedia.id);
     assert.equal(
         incomingRecommendation.status,
         RecommendationStatus.ACCEPTED
@@ -1281,10 +1294,12 @@ test("resolveRecommendation: merge preserves unselected fields", () => {
         poster: "local-poster"
     });
 
-    const watchList = new WatchList({
-        media: [localMedia],
-        watchItems: []
+    const watchItem = new WatchItem({
+        mediaId: localMedia.id
     });
+    const watchList = new WatchList();
+    watchList.addMedia(localMedia);
+    watchList.addWatchItem(watchItem);
 
     createService().resolveRecommendation({
         incomingRecommendationList,
@@ -1309,10 +1324,12 @@ test("resolveRecommendation: merge ignores unselected empty fields", () => {
         poster: undefined
     });
 
-    const watchList = new WatchList({
-        media: [localMedia],
-        watchItems: []
+    const watchItem = new WatchItem({
+        mediaId: localMedia.id
     });
+    const watchList = new WatchList();
+    watchList.addMedia(localMedia);
+    watchList.addWatchItem(watchItem);
 
     createService().resolveRecommendation({
         incomingRecommendationList,
@@ -1349,10 +1366,24 @@ test("resolveRecommendation: merge rejects duplicate matchKey without changes", 
         year: 2007
     });
 
-    const watchList = new WatchList({
-        media: [localMedia, otherMedia],
-        watchItems: []
+    const watchItem = new WatchItem({
+        mediaId: localMedia.id
     });
+
+    const otherWatchItem = new WatchItem({
+        mediaId: otherMedia.id
+    });
+
+    const watchList = new WatchList();
+    watchList.addMedia(localMedia);
+    watchList.addWatchItem(watchItem);
+    watchList.addMedia(otherMedia);
+    watchList.addWatchItem(otherWatchItem);
+
+    const originalLocalTitle = localMedia.title;
+    const originalLocalYear = localMedia.year;
+    const originalOtherTitle = otherMedia.title;
+    const originalOtherYear = otherMedia.year;
 
     assert.throws(() => {
         createService().resolveRecommendation({
@@ -1366,9 +1397,15 @@ test("resolveRecommendation: merge rejects duplicate matchKey without changes", 
     });
 
     assert.equal(watchList.media.length, 2);
-    assert.equal(watchList.watchItems.length, 0);
-    assert.equal(localMedia.title, "Blade Runner");
-    assert.equal(localMedia.year, 1982);
+    assert.equal(watchList.watchItems.length, 2);
+
+    assert.equal(localMedia.title, originalLocalTitle);
+    assert.equal(localMedia.year, originalLocalYear);
+    assert.equal(otherMedia.title, originalOtherTitle);
+    assert.equal(otherMedia.year, originalOtherYear);
+
+    assert.equal(watchList.watchItems[0], watchItem);
+    assert.equal(watchList.watchItems[1], otherWatchItem);
 });
 
 test("resolveRecommendation: discard does not modify WatchList", () => {
@@ -1405,10 +1442,7 @@ test("resolveRecommendation: rejects an already accepted recommendation", () => 
 
     incomingRecommendation.status = RecommendationStatus.ACCEPTED;
 
-    const watchList = new WatchList({
-        media: [],
-        watchItems: []
-    });
+    const watchList = new WatchList();
 
     assert.throws(() => {
         createService().resolveRecommendation({
@@ -1419,6 +1453,7 @@ test("resolveRecommendation: rejects an already accepted recommendation", () => 
         });
     });
 
+    assert.equal(incomingRecommendation.status, RecommendationStatus.ACCEPTED);
     assert.equal(watchList.media.length, 0);
     assert.equal(watchList.watchItems.length, 0);
 });
