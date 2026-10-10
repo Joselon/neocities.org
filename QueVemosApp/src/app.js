@@ -1,5 +1,8 @@
 import { LitElement, html, css } from "lit";
 
+import { WatchListStorage } from "./storage/WatchListStorage.js";
+import { InboxStorage } from "./storage/InboxStorage.js";
+
 import "./components/AppHeader.js";
 import "./components/AppFooter.js";
 import "./components/WatchListView.js";
@@ -97,17 +100,67 @@ export class App extends LitElement {
         }
     `;
     
+    static properties = {
+        watchList: { state: true },
+        inbox: { state: true },
+        dataVersion: { state: true }
+    };
+
+    constructor() {
+        super();
+
+        this.watchListStorage = new WatchListStorage(localStorage);
+        this.inboxStorage = new InboxStorage(localStorage);
+
+        this.watchList = this.watchListStorage.load();
+        this.inbox = this.inboxStorage.load();
+        this.dataVersion = 0;
+    }
+
+    saveChanges() {
+        this.watchListStorage.save(this.watchList);
+        this.inboxStorage.save(this.inbox);
+    }
+
+    handleInboxChanged(event) {
+        this.inbox = event.detail.inbox;
+        this.saveChanges();
+        this.dataVersion++;
+    }
+
+    handleRecommendationResolved(event) {
+        this.watchList = event.detail.watchList;
+        this.saveChanges();
+        this.dataVersion++;
+    }
+
+    handleWatchListChanged(event) {
+        this.watchList = event.detail.watchList;
+        this.saveChanges();;
+        this.dataVersion++;
+    }
+
     render() {
         return html`
             <app-header></app-header>
 
             <main>
                 <section class="content">
-                    <watch-list-view></watch-list-view>
+                    <watch-list-view
+                        .watchList=${this.watchList}
+                        .dataVersion=${this.dataVersion}
+                        @watch-list-changed=${this.handleWatchListChanged}
+                    ></watch-list-view>
                 </section>
                 <hr/>
                 <section class="content">
-                    <inbox-view></inbox-view>
+                    <inbox-view
+                        .lists=${this.inbox}
+                        .watchList=${this.watchList}
+                        .dataVersion=${this.dataVersion}
+                        @inbox-changed=${this.handleInboxChanged}
+                        @recommendation-resolved=${this.handleRecommendationResolved}
+                    ></inbox-view>
                 </section>
             </main>
 

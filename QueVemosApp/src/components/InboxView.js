@@ -1,5 +1,4 @@
 import { LitElement, html, css } from "lit";
-import { InboxStorage } from "../storage/InboxStorage.js";
 import { InboxFileStorage } from "../storage/InboxFileStorage.js";
 import { RecommendationService} from "../services/RecommendationService.js"
 import { RecommendationLinkReader} from "../services/RecommendationLinkReader.js"
@@ -174,19 +173,18 @@ export class InboxView extends LitElement {
 
     static properties = {
         lists: { state: true },
+        watchList: { attribute: false },
+        dataVersion: { type: Number },
         selectedList: { state: true },
     };
 
     constructor() {
         super();
 
-        this.storage = new InboxStorage(localStorage);
         this.fileStorage = new InboxFileStorage();
         this.linkReader = new RecommendationLinkReader();
-
         this.service = new RecommendationService();
 
-        this.lists = this.storage.load();
         this.selectedList = undefined;
     }
 
@@ -213,8 +211,11 @@ export class InboxView extends LitElement {
         }
 
         const incomingList  = this.service.createIncomingRecommendationList(exchange);
-        this.lists = [...this.lists, incomingList];
-        this.storage.save(this.lists);
+
+        this.notifyInboxChanged([
+            ...this.lists,
+            incomingList,
+        ]);
 
         this.clearRecommendationUrlParameter();
     }
@@ -261,12 +262,10 @@ export class InboxView extends LitElement {
                 const importedLists =
                     this.fileStorage.import(json);
 
-                this.lists = [
+                this.notifyInboxChanged([
                     ...this.lists,
-                    ...importedLists
-                ];
-
-                this.storage.save(this.lists);
+                    ...importedLists,
+                ]);
 
                 this.selectedList = undefined;
 
@@ -281,6 +280,14 @@ export class InboxView extends LitElement {
         });
 
         input.click();
+    }
+
+    notifyInboxChanged(inbox) {
+        this.dispatchEvent(new CustomEvent("inbox-changed", {
+            detail: { inbox },
+            bubbles: true,
+            composed: true,
+        }));
     }
 
     formatDate(date) {
@@ -355,6 +362,8 @@ export class InboxView extends LitElement {
                     ? html`
                         <recommendation-list-view
                             .incomingList=${this.selectedList}
+                            .watchList=${this.watchList}
+                            .dataVersion=${this.dataVersion}
                         ></recommendation-list-view>
                     `
                     : ""

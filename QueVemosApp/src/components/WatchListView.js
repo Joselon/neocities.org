@@ -1,7 +1,6 @@
 import { LitElement, html, css } from "lit";
 import { WatchList } from "../domain/WatchList.js";
 import { WatchListService } from "../services/WatchListService.js";
-import { WatchListStorage } from "../storage/WatchListStorage.js";
 import { WatchListFileStorage } from "../storage/WatchListFileStorage.js";
 import { RecommendationService } from "../services/RecommendationService.js";
 import { RecommendationLinkCodec } from "../services/RecommendationLinkCodec.js";
@@ -233,6 +232,8 @@ export class WatchListView extends LitElement {
     `;
 
     static properties = {
+        watchList: { attribute: false },
+        dataVersion: { type: Number },
         items: { state: true },
         editingItem: { state: true },
         listName: { state: true },
@@ -243,23 +244,49 @@ export class WatchListView extends LitElement {
 
     constructor() {
         super();
-                
-        this.items = [];
-        const watchListStorage = new WatchListStorage(localStorage);
-        const watchList = watchListStorage.load();
-        const watchListFileStorage = new WatchListFileStorage();
 
-        this.service = new WatchListService(watchList);
+        this.watchList = undefined;
+        this.service = undefined;
+        this.items = [];
+        this.listName = "";
+    
+        this.fileStorage = new WatchListFileStorage();
         this.recommendService = new RecommendationService();
-        this.listName = this.service.watchList.name;
-        this.items = this.service.getItems();
-        this.storage = watchListStorage;
-        this.fileStorage = watchListFileStorage;
 
         this.editingItem = undefined;
         this.addingItem = false;
         this.selectedItemsToShare = [];
         this.linkCopied = false;
+    }
+
+    willUpdate(changedProperties) {
+        if (changedProperties.has("watchList") && this.watchList) {
+            this.service = new WatchListService(this.watchList);
+        }
+        if (
+            this.service &&
+            (
+                changedProperties.has("watchList") ||
+                changedProperties.has("dataVersion")
+            )
+        ) {
+            this.listName = this.service.watchList.name;
+            this.items = this.service.getItems();
+        }
+        
+    }
+
+    notifyWatchListChanged() {
+        this.dispatchEvent(new CustomEvent("watch-list-changed", {
+            detail: { watchList: this.service.watchList },
+            bubbles: true,
+            composed: true,
+        }));
+    }
+
+    refreshItems() {
+        this.items = [...this.service.getItems()];
+        this.listName = this.service.watchList.name;
     }
 
     showAddItemForm() {
@@ -279,8 +306,9 @@ export class WatchListView extends LitElement {
             console.error(result.error);
             return;
         }
-        this.storage.save(this.service.watchList);
+        
         this.items = this.service.getItems();
+        this.notifyWatchListChanged();
 
         event.target.resetForm();
         this.hideAddItemForm();
@@ -306,8 +334,7 @@ export class WatchListView extends LitElement {
             return;
         }
 
-        this.storage.save(this.service.watchList);
-
+        this.notifyWatchListChanged();
         this.items = this.service.getItems();
 
         this.editingItem = undefined;
@@ -324,8 +351,7 @@ export class WatchListView extends LitElement {
             return;
         }
 
-        this.storage.save(this.service.watchList);
-
+        this.notifyWatchListChanged();
         this.items = [...this.service.getItems()];
     }
 
@@ -429,7 +455,7 @@ export class WatchListView extends LitElement {
             return;
         }
 
-        this.storage.save(this.service.watchList);
+        this.notifyWatchListChanged();
         this.listName = this.service.watchList.name;
     }
 
@@ -489,12 +515,11 @@ export class WatchListView extends LitElement {
                 this.service =
                     new WatchListService(watchList);
 
-                this.storage.save(watchList);
-
                 this.listName = this.service.watchList.name;
                 this.items = this.service.getItems();
 
                 this.editingItem = undefined;
+                this.notifyWatchListChanged();
 
             } catch (error) {
 
@@ -523,9 +548,9 @@ export class WatchListView extends LitElement {
         });
 
         this.service = new WatchListService(watchList);
-        this.storage.save(watchList);
         this.listName = this.service.watchList.name;
         this.items = this.service.getItems();
+        this.notifyWatchListChanged();
     }
     
     render() {

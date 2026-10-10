@@ -1,8 +1,6 @@
 import { LitElement, html, css } from "lit";
 
 import { RecommendationService } from "../services/RecommendationService.js";
-import { WatchListStorage } from "../storage/WatchListStorage.js";
-import { InboxStorage } from "../storage/InboxStorage.js";
 
 import "./RecommendationItemView.js";
 
@@ -175,6 +173,8 @@ export class RecommendationListView extends LitElement {
 
     static properties = {
         incomingList: { attribute: false },
+        watchList: { attribute: false },
+        dataVersion: { type: Number },
         comparisons: { state: true },
         expanded: { state: true }
     };
@@ -182,20 +182,10 @@ export class RecommendationListView extends LitElement {
     constructor() {
         super();
 
-        this.watchListStorage =
-            new WatchListStorage(localStorage);
-
-        this.watchList =
-            this.watchListStorage.load();
-
-        this.inboxStorage =
-            new InboxStorage(localStorage);
-
-        this.inbox =
-            this.inboxStorage.load();
-
-        this.service =
-            new RecommendationService();
+        this.watchListStorage = undefined;
+        this.watchList = undefined;
+        
+        this.service = new RecommendationService();
 
         this.comparisons = [];
         this.expanded = false;
@@ -203,21 +193,13 @@ export class RecommendationListView extends LitElement {
 
     updated(changedProperties) {
         if (
-            changedProperties.has("incomingList") &&
-            this.incomingList
+            changedProperties.has("incomingList") ||
+            changedProperties.has("watchList")||
+            changedProperties.has("dataVersion")
         ) {
-            const storedList = this.inbox.find(
-                list => list.id === this.incomingList.id
-            );
-
-            if (!storedList) {
-                throw new Error(
-                    "IncomingRecommendationList not found in Inbox"
-                );
+            if (this.incomingList && this.watchList) {
+                this.updateComparisons();
             }
-            this.incomingList = storedList;
-
-            this.updateComparisons();
         }
     }
 
@@ -274,10 +256,19 @@ export class RecommendationListView extends LitElement {
                 mediaFields: options.mediaFields ?? []
             });
 
-            this.saveChanges();
-
             this.updateComparisons();
-            this.requestUpdate();
+
+            this.dispatchEvent(new CustomEvent(
+                "recommendation-resolved",
+                {
+                    detail: {
+                        watchList: this.watchList,
+                        incomingList: this.incomingList,
+                    },
+                    bubbles: true,
+                    composed: true,
+                }
+            ));
 
         } catch (error) {
             console.error(
@@ -294,11 +285,6 @@ export class RecommendationListView extends LitElement {
                 }
             ));
         }
-    }
-
-    saveChanges() {
-        this.watchListStorage.save(this.watchList);
-        this.inboxStorage.save(this.inbox);
     }
 
     render() {
