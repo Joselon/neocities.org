@@ -83,6 +83,16 @@ export class InboxView extends LitElement {
             gap: 0.75rem;
         }
 
+        .list-opened {
+            border: 2px solid var(--accent);
+            border-radius: 27%;
+            background: rgba(255, 107, 44, 0.15);
+            color: var(--accent);
+            width: fit-content;
+            justify-self: center;
+
+        }
+
         .list {
             display: flex;
             flex-direction: column;
@@ -325,20 +335,18 @@ export class InboxView extends LitElement {
                     `
                     : html`
                         ${this.selectedList? html `
+                        <div class="lists list-opened">
                             <button
                                 class="list"
                                 @click=${() => this.closeList()}
                             >
                                 <strong>
                                  <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
-                                 Comparando con tu Lista local...
-                                </strong>
-                                <span>
                                     Cerrar
-                                </span>
+                                </strong>
                             </button>
                             `: html`
-                            <div class="lists">
+                        <div class="lists" >
                             ${this.lists.map(list => html`
                                     <button
                                         class="list"
@@ -365,10 +373,14 @@ export class InboxView extends LitElement {
                             .watchList=${this.watchList}
                             .dataVersion=${this.dataVersion}
                         ></recommendation-list-view>
+                   
                     `
-                    : ""
+                    : html`
+                   
+                    `
                 }
-
+                
+                
             </section>
         `;
     }

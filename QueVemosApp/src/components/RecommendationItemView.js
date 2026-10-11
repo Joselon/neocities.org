@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "lit";
 import settings from "../data/setting.json";
+import { RecommendationStatus } from "../domain/RecommendationStatus";
 
 export class RecommendationItemView extends LitElement {
 
@@ -546,6 +547,9 @@ export class RecommendationItemView extends LitElement {
                     <div class="actions">
                         <button
                             type="button"
+                            ?disabled=${
+                                recommendation.status === RecommendationStatus.ACCEPTED
+                            }
                             @click=${() => this.accept("create")}
                         >
                             <i class="fa fa-plus"></i>
@@ -555,8 +559,9 @@ export class RecommendationItemView extends LitElement {
                         <button
                             type="button"
                             ?disabled=${
-                                !this.selectedCandidate ||
-                                this.selectedMediaFields.length === 0
+                                recommendation.status === RecommendationStatus.ACCEPTED ||
+                                (!this.selectedCandidate ||
+                                this.selectedMediaFields.length === 0)
                             }
                             @click=${() => this.accept("merge")}
                         >
@@ -566,6 +571,9 @@ export class RecommendationItemView extends LitElement {
 
                         <button
                             type="button"
+                            ?disabled=${
+                                recommendation.status === RecommendationStatus.ACCEPTED
+                            }
                             @click=${this.discard}
                         >
                             <i class="fa fa-times"></i>
