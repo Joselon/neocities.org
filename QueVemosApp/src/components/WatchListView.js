@@ -328,6 +328,25 @@ export class WatchListView extends LitElement {
         this.editingItem = undefined;
     }
 
+    deleteItem(event) {
+        const {mediaId} = event.detail;
+        
+        if (!confirm("¿Quieres eliminar este elemento de tu lista?")) {
+            return;
+        }
+        const result = this.service.deleteItem(mediaId);
+
+        if (!result.success) {
+            console.error(result.error);
+            return;
+        }
+
+        this.notifyWatchListChanged();
+        this.items = this.service.getItems();
+
+        this.editingItem = undefined;
+    }
+
     saveItem(event) {
         const result = this.service.updateItem(event.detail);
 
@@ -673,6 +692,7 @@ export class WatchListView extends LitElement {
                                                     .watchItem=${item.watchItem}
                                                     @save-item=${this.saveItem}
                                                     @cancel-edit=${this.cancelEdit}
+                                                    @delete-item=${this.deleteItem}
                                                 ></edit-item-form>
                                             </div>
                                         `

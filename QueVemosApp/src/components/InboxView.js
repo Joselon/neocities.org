@@ -4,6 +4,7 @@ import { RecommendationService} from "../services/RecommendationService.js"
 import { RecommendationLinkReader} from "../services/RecommendationLinkReader.js"
 
 import "./RecommendationListView.js";
+import { RecommendationStatus } from "../domain/RecommendationStatus.js";
 
 export class InboxView extends LitElement {
 
@@ -62,6 +63,12 @@ export class InboxView extends LitElement {
             transition:
                 background 0.2s ease,
                 transform 0.2s ease;
+        }
+
+        .delete-button {
+            justify-self: end;
+            align-self: end;
+            color: red;
         }
 
         .action-button:hover {
@@ -186,6 +193,8 @@ export class InboxView extends LitElement {
         watchList: { attribute: false },
         dataVersion: { type: Number },
         selectedList: { state: true },
+        showImportLink: { type: Boolean },
+        importLink: { type: String },
     };
 
     constructor() {
@@ -196,6 +205,8 @@ export class InboxView extends LitElement {
         this.service = new RecommendationService();
 
         this.selectedList = undefined;
+        this.showImportLink = false;
+        this.importLink = "";
     }
 
     async connectedCallback() {
@@ -242,54 +253,45 @@ export class InboxView extends LitElement {
         );
     }
 
+    importRecommendations() {
+        this.showImportLink = true;
+    }
+
+    cancelImportLink() {
+        this.showImportLink = false;
+        this.importLink = "";
+    }
+
+    openRecommendationsLink(event) {
+        event.preventDefault();
+
+        const link = this.importLink.trim();
+
+        if (!link) {
+            return;
+        }
+
+        let url;
+
+        try {
+            url = new URL(link);
+        } catch {
+            return;
+        }
+
+        if (url.protocol !== "https:" && url.protocol !== "http:") {
+            return;
+        }
+
+        window.location.href = url.href;
+    }
+
     selectList(list) {
         this.selectedList = list;
     }
 
     closeList() {
         this.selectedList = undefined;
-    }
-
-    importRecommendations() {
-
-        const input = document.createElement("input");
-
-        input.type = "file";
-        input.accept = "application/json,.json";
-
-        input.addEventListener("change", async () => {
-
-            const file = input.files[0];
-
-            if (!file) {
-                return;
-            }
-
-            try {
-
-                const json = await file.text();
-
-                const importedLists =
-                    this.fileStorage.import(json);
-
-                this.notifyInboxChanged([
-                    ...this.lists,
-                    ...importedLists,
-                ]);
-
-                this.selectedList = undefined;
-
-            } catch (error) {
-
-                console.error(error);
-
-                alert(
-                    `No se pudo importar al buzón de entrada:\n${error.message}`
-                );
-            }
-        });
-
-        input.click();
     }
 
     notifyInboxChanged(inbox) {
@@ -302,7 +304,31 @@ export class InboxView extends LitElement {
 
     formatDate(date) {
         return new Date(date).toLocaleString("es-ES");
-    }    
+    }
+    
+    canDeleteIncomingList(list) {
+        return list.recommendations.length > 0 &&
+            list.recommendations.every(
+                recommendation => recommendation.status !== RecommendationStatus.PENDING
+            );
+    }
+
+    deleteIncomingList(list) {
+        const updatedLists = this.service.deleteIncomingList(
+            this.lists,
+            list.id
+        );
+
+        if (updatedLists === null) {
+            return;
+        }
+
+        this.lists = updatedLists;
+
+        this.notifyInboxChanged([
+            ...this.lists
+        ]);
+    }
 
     render() {
         return html`
@@ -317,14 +343,45 @@ export class InboxView extends LitElement {
                     <i class="fa fa-inbox"></i>
                     <h2>Buzón de entrada</h2>
 
-                    <button
-                        type="button"
-                        class="action-button"
-                        @click=${this.importRecommendations}
-                    >
-                        <i class="fa fa-upload"></i>
-                        Importar
-                    </button>
+                    ${this.showImportLink
+                        ? html`
+                            <form class="import-link-form"
+                                @submit=${this.openRecommendationsLink}
+                            >
+                                <input
+                                    type="url"
+                                    placeholder="Pega aquí el enlace de recomendaciones"
+                                    .value=${this.importLink}
+                                    @input=${(event) =>
+                                        this.importLink = event.target.value}
+                                    required
+                                >
+
+                                <button type="submit" class="action-button">
+                                    <i class="fa fa-link"></i>
+                                    Abrir enlace
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="action-button"
+                                    @click=${this.cancelImportLink}
+                                >
+                                    Cancelar
+                                </button>
+                            </form>
+                        `
+                        : html`
+                            <button
+                                type="button"
+                                class="action-button"
+                                @click=${this.importRecommendations}
+                            >
+                                <i class="fa fa-link"></i>
+                                Importar enlace
+                            </button>
+                        `
+                    }
                 </header>
 
                 ${this.lists.length === 0
@@ -359,6 +416,23 @@ export class InboxView extends LitElement {
                                             ${list.recommendations.length}
                                             recomendaciones
                                         </span>
+                                       ${this.canDeleteIncomingList(list)
+                                        ? html`
+                                            <button
+                                                type="button"
+                                                class="action-button delete-button"
+                                                title="Borrar lista de recomendaciones"
+                                                aria-label="Borrar lista de recomendaciones"
+                                                @click=${(event) => {
+                                                    event.stopPropagation();
+                                                    this.deleteIncomingList(list);
+                                                }}
+                                            >
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                Borrar
+                                            </button>
+                                        `
+                                        : ""} 
                                     </button>
                             `)}
                         </div>

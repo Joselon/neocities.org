@@ -58,6 +58,10 @@ export class WatchItem {
         this.status = WatchStatus.WATCHED;
     }
 
+    markAsUnwatched() {
+        this.status = WatchStatus.PENDING;
+    }
+
     setProgress(progress) {
         if (!(progress instanceof WatchProgress)) {
             throw new Error("Invalid progress");

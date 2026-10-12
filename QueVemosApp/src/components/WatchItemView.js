@@ -526,6 +526,18 @@ export class WatchItemView extends LitElement {
                         <i class="fa fa-play"></i>
                     </button>
                 `;
+            case WatchStatus.WATCHED:
+                return html`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="VerDeNuevo"
+                        @click=${() =>
+                            this.changeStatus(WatchStatus.PENDING)}
+                    >
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                `;
 
             default:
                 return "";

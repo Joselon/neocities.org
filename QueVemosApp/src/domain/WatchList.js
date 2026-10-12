@@ -109,5 +109,18 @@ export class WatchList {
         }
         this.watchItems.push(watchItem);
     }
+
+    removeWatchItem(mediaId) {
+        const index = this.watchItems.findIndex(
+            item => item.mediaId === mediaId
+        );
+
+        if (index === -1) {
+            return false;
+        }
+
+        this.watchItems.splice(index, 1);
+        return true;
+    }
 }
 

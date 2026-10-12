@@ -169,6 +169,17 @@ export class EditItemForm extends LitElement {
             color: var(--text);
         }
 
+        button.delete-button {
+            border-color: #c0392b;
+            background: rgba(192, 57, 43, 0.2);
+            color: #ff8a80;
+        }
+
+        button.delete-button:hover {
+            border-color: #e74c3c;
+            background: rgba(192, 57, 43, 0.35);
+        }
+
         @media (max-width: 600px) {
             form {
                 padding: 1rem;
@@ -253,6 +264,16 @@ export class EditItemForm extends LitElement {
             composed: true
         }));
     }
+
+    deleteItem() {
+    this.dispatchEvent(new CustomEvent("delete-item", {
+        detail: {
+            mediaId: this.media.id
+        },
+        bubbles: true,
+        composed: true
+    }));
+}
 
     createProgress(form) {
         if (this.media.type === MediaType.SERIES) {
@@ -562,7 +583,14 @@ export class EditItemForm extends LitElement {
                     <button type="submit">
                         Guardar
                     </button>
-
+                    <button
+                        type="button"
+                        class="delete-button"
+                        @click=${this.deleteItem}
+                    >
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        Eliminar
+                    </button>
                     <button
                         type="button"
                         @click=${() => this.dispatchEvent(

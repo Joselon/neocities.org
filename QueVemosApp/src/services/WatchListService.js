@@ -171,6 +171,14 @@ export class WatchListService {
 
                     watchItem.markAsWatched();
                     break;
+            
+                case WatchStatus.PENDING:
+                    if (watchItem.status !== WatchStatus.WATCHED) {
+                        throw new Error("Invalid status transition");
+                    }
+
+                    watchItem.markAsUnwatched();
+                    break;
 
                 default:
                     throw new Error("Invalid status transition");
@@ -218,6 +226,27 @@ export class WatchListService {
         return {
             success: true
         };
+    }
+
+    deleteItem(mediaId) {
+        const removed = this.watchList.removeWatchItem(mediaId);
+
+        if (!removed) {
+            return {
+                success: false,
+                error: "Item not found"
+            };
+        }
+
+        const mediaIsReferenced = this.watchList.watchItems.some(
+            item => item.mediaId === mediaId
+        );
+
+        if (!mediaIsReferenced) {
+            this.watchList.removeMedia(mediaId);
+        }
+
+        return { success: true };
     }
     
     getItems() {

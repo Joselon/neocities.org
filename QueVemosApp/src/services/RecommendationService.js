@@ -94,6 +94,20 @@ export class RecommendationService {
         });
     }
 
+    deleteIncomingList(lists, listId) {
+        const index = lists.findIndex(
+            list => list.id === listId
+        );
+
+        if (index === -1) {
+            return null;
+        }
+
+        return lists.filter(
+            list => list.id !== listId
+        );
+    }
+
     prepareComparison(incomingRecommendationList, watchList) {
 
         if (!watchList) {
