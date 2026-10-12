@@ -563,6 +563,21 @@ export class WatchItemView extends LitElement {
             )
         );
 
+        const ratings = Array.isArray(this.media.ratings)
+            ? this.media.ratings.filter(
+                rating => rating?.Source && rating?.Value
+            )
+            : [
+                {
+                    Source: "IMDb",
+                    Value: this.media.ratings?.imdb
+                },
+                {
+                    Source: "Metascore",
+                    Value: this.media.ratings?.metascore
+                }
+            ].filter(rating => rating.Value);
+
         return html`
                     <div class="information-header">
                         <h3>
@@ -632,21 +647,18 @@ export class WatchItemView extends LitElement {
                             `
                             : ""
                         }
-
-                        ${this.media.ratings
+                        
+                        ${ratings.length
                             ? html`
                                 <div class="overlay-section">
                                     <strong>Valoraciones</strong>
-                                    <span>
-                                        ${this.media.ratings.imdb
-                                            ? `IMDb: ${this.media.ratings.imdb}`
-                                            : ""
-                                        }
-                                        ${this.media.ratings.metascore
-                                            ? ` · Metascore: ${this.media.ratings.metascore}`
-                                            : ""
-                                        }
-                                    </span>
+                                    ${ratings.map(
+                                        rating => html`
+                                            <div>
+                                                <span>${rating.Source}: ${rating.Value}</span>
+                                            </div>
+                                        `
+                                    )}
                                 </div>
                             `
                             : ""
@@ -677,6 +689,36 @@ export class WatchItemView extends LitElement {
                                 <div class="overlay-section">
                                     <strong>Progreso</strong>
                                     <span>${this.renderProgress()}</span>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.media.country
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>País</strong>
+                                    <span>${this.media.country}</span>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.media.plot
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Sinopsis</strong>
+                                    <p>${this.media.plot}</p>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.media.awards
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Premios</strong>
+                                    <span>${this.media.awards}</span>
                                 </div>
                             `
                             : ""
@@ -712,41 +754,11 @@ export class WatchItemView extends LitElement {
                             : ""
                         }
 
-                        ${this.media.country
-                            ? html`
-                                <div class="overlay-section">
-                                    <strong>País</strong>
-                                    <span>${this.media.country}</span>
-                                </div>
-                            `
-                            : ""
-                        }
-
                         ${this.media.actors
                             ? html`
                                 <div class="overlay-section">
                                     <strong>Reparto</strong>
                                     <span>${this.media.actors}</span>
-                                </div>
-                            `
-                            : ""
-                        }
-
-                        ${this.media.plot
-                            ? html`
-                                <div class="overlay-section">
-                                    <strong>Sinopsis</strong>
-                                    <p>${this.media.plot}</p>
-                                </div>
-                            `
-                            : ""
-                        }
-
-                        ${this.media.awards
-                            ? html`
-                                <div class="overlay-section">
-                                    <strong>Premios</strong>
-                                    <span>${this.media.awards}</span>
                                 </div>
                             `
                             : ""

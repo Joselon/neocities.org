@@ -1,14 +1,6 @@
 import { Media } from "../domain/Media.js";
 import { WatchItem } from "../domain/WatchItem.js";
 import { WatchStatus } from "../domain/WatchStatus.js";
-
-/* WatchListService
-├── añadir Item (Media y WatchItem)
-├── buscar coincidencias
-├── resolver coincidencias
-├── importar recomendaciones
-├── exportar datos
-└── ... */
 export class WatchListService {
 
     constructor(watchList) {
@@ -62,10 +54,12 @@ export class WatchListService {
         }
     }
 
+    
     updateItem({
         mediaId,
         media,
-        watchItem
+        watchItem,
+        omdbDetails
     }) {
         const currentMedia = this.watchList.media.find(
             item => item.id === mediaId
@@ -82,25 +76,39 @@ export class WatchListService {
             };
         }
 
+        const hasNewOmdbSelection =
+            omdbDetails &&
+            omdbDetails.imdbID !== currentMedia.omdbId;
+
+        const poster = media.poster?.trim()
+            ? media.poster.trim()
+            : hasNewOmdbSelection
+                ? undefined
+                : currentMedia.poster;
+
         try {
             const updatedMedia = new Media({
                 id: mediaId,
+
+                // Campos editables por el usuario.
                 title: media.title,
                 type: media.type,
                 year: media.year,
                 originalTitle: media.originalTitle,
                 genres: media.genres,
 
+                // Metadatos actuales: se conservan si no se selecciona
+                // una ficha OMDb diferente.
                 runtimeMinutes: currentMedia.runtimeMinutes,
-                omdbId: currentMedia.omdbId,
-                poster: currentMedia.poster,
                 ratings: currentMedia.ratings,
-                director: currentMedia. director,
+                director: currentMedia.director,
                 country: currentMedia.country,
-                actors: currentMedia. actors,
-                plot: currentMedia. plot,
-                awards: currentMedia. awards,
-
+                actors: currentMedia.actors,
+                plot: currentMedia.plot,
+                awards: currentMedia.awards,
+                omdbId: currentMedia.omdbId,
+                //Permite editado por usuario
+                poster: poster
             });
 
             const duplicate = this.watchList.media.some(item =>
@@ -112,23 +120,48 @@ export class WatchListService {
                 throw new Error("Media already exists");
             }
 
+            const hasNewOmdbSelection =
+                omdbDetails &&
+                omdbDetails.imdbID !== currentMedia.omdbId;
+
+            if (hasNewOmdbSelection) {
+                const result = this.updateOmdbDetails({
+                    media: updatedMedia,
+                    details: omdbDetails
+                });
+
+                if (!result.success) {
+                    throw new Error(result.error);
+                }
+            }
+
+            // A partir de aquí, todas las validaciones han terminado.
             currentMedia.title = updatedMedia.title;
             currentMedia.type = updatedMedia.type;
             currentMedia.year = updatedMedia.year;
             currentMedia.originalTitle = updatedMedia.originalTitle;
             currentMedia.genres = updatedMedia.genres;
+            currentMedia.runtimeMinutes = updatedMedia.runtimeMinutes;
+            currentMedia.ratings = updatedMedia.ratings;
+            currentMedia.director = updatedMedia.director;
+            currentMedia.country = updatedMedia.country;
+            currentMedia.actors = updatedMedia.actors;
+            currentMedia.plot = updatedMedia.plot;
+            currentMedia.awards = updatedMedia.awards;
+            currentMedia.omdbId = updatedMedia.omdbId;
+            currentMedia.poster = updatedMedia.poster;
 
             currentWatchItem.platforms = watchItem.platforms;
             currentWatchItem.reason = watchItem.reason;
             currentWatchItem.spanishAudio = watchItem.spanishAudio;
-            currentWatchItem.spanishSubtitles = watchItem.spanishSubtitles;
+            currentWatchItem.spanishSubtitles =
+                watchItem.spanishSubtitles;
             currentWatchItem.userRating = watchItem.userRating;
             currentWatchItem.progress = watchItem.progress;
 
             return {
                 success: true
             };
-
         } catch (error) {
             return {
                 success: false,
@@ -136,6 +169,7 @@ export class WatchListService {
             };
         }
     }
+
 
     changeStatus(mediaId, status) {
         const watchItem = this.watchList.watchItems.find(
@@ -268,23 +302,19 @@ export class WatchListService {
     }
 
 
-    updateOmdbDetails({ mediaId, details }) {
-        const media = this.watchList.media.find(
-            item => item.id === mediaId
-        );
-
-        if (!media) {
+    
+    updateOmdbDetails({ media, details }) {
+        if (!media || !details) {
             return {
                 success: false,
-                error: "Media not found"
+                error: "Media and OMDb details are required"
             };
         }
 
         if (
-            !details ||
+            details.Response === "False" ||
             typeof details.imdbID !== "string" ||
-            !details.imdbID.trim() ||
-            details.Response === "False"
+            !details.imdbID.trim()
         ) {
             return {
                 success: false,
@@ -292,59 +322,49 @@ export class WatchListService {
             };
         }
 
+        if (!media.poster) {
+            media.poster =
+                details.Poster && details.Poster !== "N/A"
+                    ? details.Poster
+                    : undefined;
+        }
+
         const runtimeMatch =
-            /^(\d+)\s+min$/i.exec(details.Runtime ?? "");
+            typeof details.Runtime === "string"
+                ? details.Runtime.match(/^(\d+)\s+min$/i)
+                : null;
 
-        const ratings = {};
+        const ratings = Array.isArray(details.Ratings)
+            ? details.Ratings.filter(
+                rating => rating?.Source && rating?.Value
+            )
+            : [];
 
-        if (details.imdbRating && details.imdbRating !== "N/A") {
-            ratings.imdb = details.imdbRating;
-        }
-
-        if (details.Metascore && details.Metascore !== "N/A") {
-            ratings.metascore = details.Metascore;
-        }
-
-        media.omdbId = details.imdbID;
-        media.poster =
-            details.Poster && details.Poster !== "N/A"
-                ? details.Poster
+        const getOmdbValue = value =>
+            typeof value === "string" &&
+            value.trim() &&
+            value !== "N/A"
+                ? value.trim()
                 : undefined;
+
+        media.omdbId = details.imdbID.trim();
 
         media.runtimeMinutes = runtimeMatch
             ? Number(runtimeMatch[1])
             : undefined;
 
-        media.genres = details.Genre && details.Genre !== "N/A"
-            ? details.Genre.split(",").map(value => value.trim())
-            : [];
+        media.ratings = ratings;
+        media.director = getOmdbValue(details.Director);
+        media.country = getOmdbValue(details.Country);
+        media.actors = getOmdbValue(details.Actors);
+        media.plot = getOmdbValue(details.Plot);
+        media.awards = getOmdbValue(details.Awards);
 
-        media.ratings = Object.keys(ratings).length
-            ? ratings
-            : undefined;
-
-        media.director = details.Director !== "N/A"
-            ? details.Director
-            : undefined;
-
-        media.country = details.Country !== "N/A"
-            ? details.Country
-            : undefined;
-
-        media.actors = details.Actors !== "N/A"
-            ? details.Actors
-            : undefined;
-
-        media.plot = details.Plot !== "N/A"
-            ? details.Plot
-            : undefined;
-
-        media.awards = details.Awards !== "N/A"
-            ? details.Awards
-            : undefined;
-
-        return { success: true };
+        return {
+            success: true
+        };
     }
+
 
     clearOmdbDetails({ mediaId }) {
         const media = this.watchList.media.find(
@@ -359,9 +379,7 @@ export class WatchListService {
         }
 
         media.omdbId = undefined;
-        media.poster = undefined;
         media.runtimeMinutes = undefined;
-        media.genres = [];
         media.ratings = undefined;
         media.director = undefined;
         media.country = undefined;

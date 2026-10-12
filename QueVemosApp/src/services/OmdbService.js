@@ -3,7 +3,7 @@ export class OmdbService {
 
     constructor({
         baseUrl = "https://omdb-proxy.joselon79.workers.dev",
-        fetchFunction = globalThis.fetch
+        fetchFunction = globalThis.fetch.bind(globalThis)
     } = {}) {
         this.baseUrl = baseUrl.replace(/\/+$/, "");
         this.fetchFunction = fetchFunction;

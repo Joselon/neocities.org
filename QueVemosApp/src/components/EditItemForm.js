@@ -182,6 +182,46 @@ export class EditItemForm extends LitElement {
             background: rgba(192, 57, 43, 0.35);
         }
 
+        .omdb-results,
+        .omdb-preview {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.18);
+        }
+
+        .omdb-result {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1rem;
+            width: 100%;
+            margin-top: 0.5rem;
+            text-align: left;
+        }
+
+        .omdb-result img {
+            width: 56px;
+            max-height: 84px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .omdb-result span {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .omdb-result small {
+            color: var(--muted);
+        }
+
+        .omdb-preview p {
+            line-height: 1.5;
+        }
+
         @media (max-width: 600px) {
             form {
                 padding: 1rem;
@@ -204,7 +244,13 @@ export class EditItemForm extends LitElement {
 
     static properties = {
         media: { attribute: false },
-        watchItem: { attribute: false }
+        watchItem: { attribute: false },
+
+        omdbResults: { state: true },
+        omdbPreview: { state: true },
+        omdbSearching: { state: true },
+        omdbLoadingDetails: { state: true },
+        omdbError: { state: true }
     };
 
     constructor() {
@@ -214,6 +260,12 @@ export class EditItemForm extends LitElement {
 
         this.media = undefined;
         this.watchItem = undefined;
+
+        this.omdbResults = [];
+        this.omdbPreview = undefined;
+        this.omdbSearching = false;
+        this.omdbLoadingDetails = false;
+        this.omdbError = undefined;
     }
 
     save(event) {
@@ -246,9 +298,10 @@ export class EditItemForm extends LitElement {
                         : undefined,
                     originalTitle:
                         form.originalTitle.value.trim() || undefined,
-                    genres //ToDo: resto de campos de omdb
+                    genres,
+                    poster: form.poster.value.trim() || undefined,
                 },
-
+                omdbDetails: this.omdbPreview,
                 watchItem: {
                     platforms,
                     reason:
@@ -269,27 +322,77 @@ export class EditItemForm extends LitElement {
         }));
     }
 
-    async getInfo(title) {
+    
+    async searchOmdb() {
+        const input = this.renderRoot.querySelector(
+            '[name="originalTitle"]'
+        );
+
+        const title = input.value.trim();
+
+        this.omdbError = undefined;
+        this.omdbResults = [];
+        this.omdbPreview = undefined;
+
         if (!title) {
+            this.omdbError = "Introduce un título para buscar.";
             return;
         }
-        /*
-        const info = await this.mediaInfoService.search(title);
 
-        if (!info)
-            alert("Hay respuesta:" +info.title);
-        */
+        this.omdbSearching = true;
+
+        try {
+            this.omdbResults =
+                await this.mediaInfoService.search(title);
+
+            if (this.omdbResults.length === 0) {
+                this.omdbError =
+                    "OMDb no ha encontrado resultados.";
+            }
+        } catch (error) {
+            this.omdbError =
+                `Error al buscar en OMDb: ${error.message}`;
+        } finally {
+            this.omdbSearching = false;
+        }
     }
 
+    async selectOmdbResult(result) {
+        this.omdbError = undefined;
+        this.omdbPreview = undefined;
+        this.omdbLoadingDetails = true;
+
+        try {
+            this.omdbPreview =
+                await this.mediaInfoService.getDetails(
+                    result.imdbID
+                );
+            await this.updateComplete;
+
+            this.renderRoot
+                .querySelector(".omdb-preview")
+                ?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+        } catch (error) {
+            this.omdbError =
+                `No se pudieron obtener los detalles: ${error.message}`;
+        } finally {
+            this.omdbLoadingDetails = false;
+        }
+    }
+
+
     deleteItem() {
-    this.dispatchEvent(new CustomEvent("delete-item", {
-        detail: {
-            mediaId: this.media.id
-        },
-        bubbles: true,
-        composed: true
-    }));
-}
+        this.dispatchEvent(new CustomEvent("delete-item", {
+            detail: {
+                mediaId: this.media.id
+            },
+            bubbles: true,
+            composed: true
+        }));
+    }
 
     createProgress(form) {
         if (this.media.type === MediaType.SERIES) {
@@ -405,6 +508,150 @@ export class EditItemForm extends LitElement {
         `;
         
     }
+
+
+    renderOmdbSearch() {
+        return html`
+            ${this.omdbSearching
+                ? html`<p>Buscando en OMDb...</p>`
+                : ""
+            }
+
+            ${this.omdbError
+                ? html`
+                    <p role="status">${this.omdbError}</p>
+                `
+                : ""
+            }
+
+            ${this.omdbResults.length
+                ? html`
+                    <div class="omdb-results">
+                        <h3>Resultados de OMDb</h3>
+
+                        ${this.omdbResults.map(result => html`
+                            <button
+                                type="button"
+                                class="omdb-result"
+                                @click=${() =>
+                                    this.selectOmdbResult(result)}
+                            >
+                                ${result.Poster &&
+                                result.Poster !== "N/A"
+                                    ? html`
+                                        <img
+                                            src=${result.Poster}
+                                            alt=""
+                                        >
+                                    `
+                                    : ""
+                                }
+
+                                <span>
+                                    <strong>${result.Title}</strong>
+                                    <span>
+                                        ${result.Year ?? ""}
+                                        · ${result.Type ?? ""}
+                                    </span>
+                                    <!--<small>${result.imdbID}</small>-->
+                                </span>
+                            </button>
+                        `)}
+                    </div>
+                `
+                : ""
+            }
+            ${this.omdbLoadingDetails
+                ? html`<p>Cargando ficha completa...</p>`
+                : ""
+            }
+
+            ${this.omdbPreview
+                ? this.renderOmdbPreview()
+                : ""
+            }
+        `;
+    }
+
+    renderOmdbPreview() {
+        const details = this.omdbPreview;
+        const ratings = Array.isArray(details.Ratings)
+            ? details.Ratings.filter(
+                rating => rating?.Source && rating?.Value
+            )
+            : [];
+
+        return html`
+            <section class="omdb-preview">
+                <h3>Vista previa del resultado seleccionado</h3>
+                <p class="omdb-preview-notice" role="status">
+                    Estos son los datos de OMDb que se guardarán al pulsar
+                    Guardar. Si cancelas, no se aplicarán los cambios.
+                </p>
+                <p>
+                    <strong>${details.Title}</strong>
+                    ${details.Year ? ` (${details.Year})` : ""}
+                </p>
+
+                <p>
+                    <strong>ID OMDb:</strong>
+                    ${details.imdbID}
+                </p>
+
+                ${details.Runtime && details.Runtime !== "N/A"
+                    ? html`<p><strong>Duración:</strong> ${details.Runtime}</p>`
+                    : ""
+                }
+
+                ${details.Genre && details.Genre !== "N/A"
+                    ? html`<p><strong>Géneros OMDb:</strong> ${details.Genre}</p>`
+                    : ""
+                }
+
+                ${details.Director && details.Director !== "N/A"
+                    ? html`<p><strong>Dirección:</strong> ${details.Director}</p>`
+                    : ""
+                }
+
+                ${details.Country && details.Country !== "N/A"
+                    ? html`<p><strong>País:</strong> ${details.Country}</p>`
+                    : ""
+                }
+
+                ${details.Actors && details.Actors !== "N/A"
+                    ? html`<p><strong>Reparto:</strong> ${details.Actors}</p>`
+                    : ""
+                }
+
+                ${details.Plot && details.Plot !== "N/A"
+                    ? html`<p><strong>Sinopsis:</strong> ${details.Plot}</p>`
+                    : ""
+                }
+
+                ${details.Awards && details.Awards !== "N/A"
+                    ? html`<p><strong>Premios:</strong> ${details.Awards}</p>`
+                    : ""
+                }
+
+                ${ratings.length
+                    ? html`
+                        <div>
+                            <strong>Valoraciones externas:</strong>
+                            <ul>
+                                ${ratings.map(rating => html`
+                                    <li>
+                                        ${rating.Source}: ${rating.Value}
+                                    </li>
+                                `)}
+                            </ul>
+                        </div>
+                    `
+                    : ""
+                }
+            </section>
+        `;
+    }
+
 
     render() {
         if (!this.media || !this.watchItem) {
@@ -594,14 +841,32 @@ export class EditItemForm extends LitElement {
                         value=${this.media.originalTitle ?? ""}
                     >
                     <button
-                     type="button"
-                     @click=${this.getInfo(this.mediaOriginalTitle)}
+                        type="button"
+                        @click=${this.searchOmdb}
                     >
-                        <!--<i class="fa fa-search" aria-hidden="true"></i>-->
                         <span role="img" aria-label="Buscar">🔍</span>
                         Buscar en OMDb
                     </button>
                 </div>
+                <div class="field">
+                    <label for="poster">
+                        URL del póster
+                    </label>
+
+                    <input
+                        id="poster"
+                        name="poster"
+                        type="url"
+                        placeholder="https://..."
+                        value=${this.media.poster ?? ""}
+                    >
+
+                    <small>
+                        Déjalo vacío para utilizar el póster de OMDb.
+                    </small>
+                </div>
+                <!--Resultados-->
+                ${this.renderOmdbSearch()}
 
                 <div class="actions">
                     <button type="submit">
