@@ -1,6 +1,8 @@
 import { LitElement, html, css } from "lit";
 import { WatchProgress } from "../domain/WatchProgress.js";
 import { MediaType } from "../domain/MediaType.js";
+import { OmdbService } from "../services/OmdbService.js";
+
 import settings from "../data/setting.json";
 
 export class EditItemForm extends LitElement {
@@ -208,6 +210,8 @@ export class EditItemForm extends LitElement {
     constructor() {
         super();
 
+        this.mediaInfoService = new OmdbService();
+
         this.media = undefined;
         this.watchItem = undefined;
     }
@@ -242,7 +246,7 @@ export class EditItemForm extends LitElement {
                         : undefined,
                     originalTitle:
                         form.originalTitle.value.trim() || undefined,
-                    genres
+                    genres //ToDo: resto de campos de omdb
                 },
 
                 watchItem: {
@@ -263,6 +267,18 @@ export class EditItemForm extends LitElement {
             bubbles: true,
             composed: true
         }));
+    }
+
+    async getInfo(title) {
+        if (!title) {
+            return;
+        }
+        /*
+        const info = await this.mediaInfoService.search(title);
+
+        if (!info)
+            alert("Hay respuesta:" +info.title);
+        */
     }
 
     deleteItem() {
@@ -547,19 +563,6 @@ export class EditItemForm extends LitElement {
                 </div>
 
                 <div class="field">
-                    <label for="originalTitle">
-                        Título original
-                    </label>
-
-                    <input
-                        id="originalTitle"
-                        name="originalTitle"
-                        type="text"
-                        value=${this.media.originalTitle ?? ""}
-                    >
-                </div>
-
-                <div class="field">
                     <label>
                         Géneros
                     </label>
@@ -577,6 +580,27 @@ export class EditItemForm extends LitElement {
                             </label>
                         `)}
                     </div>
+                </div>
+
+                <div class="field">
+                    <label for="originalTitle">
+                        Título Uniforme (V.O.)
+                    </label>
+
+                    <input
+                        id="originalTitle"
+                        name="originalTitle"
+                        type="text"
+                        value=${this.media.originalTitle ?? ""}
+                    >
+                    <button
+                     type="button"
+                     @click=${this.getInfo(this.mediaOriginalTitle)}
+                    >
+                        <!--<i class="fa fa-search" aria-hidden="true"></i>-->
+                        <span role="img" aria-label="Buscar">🔍</span>
+                        Buscar en OMDb
+                    </button>
                 </div>
 
                 <div class="actions">

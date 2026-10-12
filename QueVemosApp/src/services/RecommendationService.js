@@ -325,7 +325,12 @@ export class RecommendationService {
             "genres",
             "omdbId",
             "poster",
-            "ratings"
+            "ratings",
+            "director",
+            "country",
+            "actors",
+            "plot",
+            "awards"
         ];
 
         for (const field of mediaFields) {

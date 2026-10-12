@@ -12,10 +12,17 @@ export class Media {
         genres = [],
         omdbId = undefined,
         poster = undefined,
-        ratings = undefined
+        ratings = undefined,
+        director = undefined,
+        country = undefined,
+        actors = undefined,
+        plot = undefined,
+        awards = undefined
     }) {
         this.id = id;
-        this.title = Media.validateTitle(Media.normalizeTitle(title));
+        this.title = Media.validateTitle(
+            Media.normalizeTitle(title)
+        );
         this.originalTitle = originalTitle;
         this.type = Media.validateType(type);
         this.year = year;
@@ -24,6 +31,12 @@ export class Media {
         this.omdbId = omdbId;
         this.poster = poster;
         this.ratings = ratings;
+
+        this.director = director;
+        this.country = country;
+        this.actors = actors;
+        this.plot = plot;
+        this.awards = awards;
     }
 
     get matchKey() {

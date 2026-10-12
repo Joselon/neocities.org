@@ -51,6 +51,11 @@ test("Media stores its basic data", () => {
 
     assert.equal(media.title, "Game of Thrones");
     assert.equal(media.type, "series");
+    assert.equal(media.director, undefined);
+    assert.equal(media.country, undefined);
+    assert.equal(media.actors, undefined);
+    assert.equal(media.plot, undefined);
+    assert.equal(media.awards, undefined);
 });
 
 test("Media generates a matchKey from title and type", () => {

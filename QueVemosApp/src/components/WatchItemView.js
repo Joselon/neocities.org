@@ -689,6 +689,7 @@ export class WatchItemView extends LitElement {
 
 
                         <span class="media-type">${typeName}</span>
+
                         ${this.media.year
                             ? html`<span>${this.media.year}</span>`
                             : ""
@@ -698,6 +699,55 @@ export class WatchItemView extends LitElement {
                                 <span>
                                     ${this.media.runtimeMinutes} min
                                 </span>
+                            `
+                            : ""
+                        }
+                        ${this.media.director
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Dirección</strong>
+                                    <span>${this.media.director}</span>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.media.country
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>País</strong>
+                                    <span>${this.media.country}</span>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.media.actors
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Reparto</strong>
+                                    <span>${this.media.actors}</span>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.media.plot
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Sinopsis</strong>
+                                    <p>${this.media.plot}</p>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.media.awards
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Premios</strong>
+                                    <span>${this.media.awards}</span>
+                                </div>
                             `
                             : ""
                         }

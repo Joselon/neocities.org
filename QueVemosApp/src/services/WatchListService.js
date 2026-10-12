@@ -94,7 +94,12 @@ export class WatchListService {
                 runtimeMinutes: currentMedia.runtimeMinutes,
                 omdbId: currentMedia.omdbId,
                 poster: currentMedia.poster,
-                ratings: currentMedia.ratings
+                ratings: currentMedia.ratings,
+                director: currentMedia. director,
+                country: currentMedia.country,
+                actors: currentMedia. actors,
+                plot: currentMedia. plot,
+                awards: currentMedia. awards,
 
             });
 
@@ -261,4 +266,110 @@ export class WatchListService {
             };
         });
     }
+
+
+    updateOmdbDetails({ mediaId, details }) {
+        const media = this.watchList.media.find(
+            item => item.id === mediaId
+        );
+
+        if (!media) {
+            return {
+                success: false,
+                error: "Media not found"
+            };
+        }
+
+        if (
+            !details ||
+            typeof details.imdbID !== "string" ||
+            !details.imdbID.trim() ||
+            details.Response === "False"
+        ) {
+            return {
+                success: false,
+                error: "Invalid OMDb details"
+            };
+        }
+
+        const runtimeMatch =
+            /^(\d+)\s+min$/i.exec(details.Runtime ?? "");
+
+        const ratings = {};
+
+        if (details.imdbRating && details.imdbRating !== "N/A") {
+            ratings.imdb = details.imdbRating;
+        }
+
+        if (details.Metascore && details.Metascore !== "N/A") {
+            ratings.metascore = details.Metascore;
+        }
+
+        media.omdbId = details.imdbID;
+        media.poster =
+            details.Poster && details.Poster !== "N/A"
+                ? details.Poster
+                : undefined;
+
+        media.runtimeMinutes = runtimeMatch
+            ? Number(runtimeMatch[1])
+            : undefined;
+
+        media.genres = details.Genre && details.Genre !== "N/A"
+            ? details.Genre.split(",").map(value => value.trim())
+            : [];
+
+        media.ratings = Object.keys(ratings).length
+            ? ratings
+            : undefined;
+
+        media.director = details.Director !== "N/A"
+            ? details.Director
+            : undefined;
+
+        media.country = details.Country !== "N/A"
+            ? details.Country
+            : undefined;
+
+        media.actors = details.Actors !== "N/A"
+            ? details.Actors
+            : undefined;
+
+        media.plot = details.Plot !== "N/A"
+            ? details.Plot
+            : undefined;
+
+        media.awards = details.Awards !== "N/A"
+            ? details.Awards
+            : undefined;
+
+        return { success: true };
+    }
+
+    clearOmdbDetails({ mediaId }) {
+        const media = this.watchList.media.find(
+            item => item.id === mediaId
+        );
+
+        if (!media) {
+            return {
+                success: false,
+                error: "Media not found"
+            };
+        }
+
+        media.omdbId = undefined;
+        media.poster = undefined;
+        media.runtimeMinutes = undefined;
+        media.genres = [];
+        media.ratings = undefined;
+        media.director = undefined;
+        media.country = undefined;
+        media.actors = undefined;
+        media.plot = undefined;
+        media.awards = undefined;
+
+        return { success: true };
+    }
+
 }
