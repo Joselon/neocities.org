@@ -1884,7 +1884,69 @@
             font-size: 0.75rem;
             font-weight: bold;
         }
+        .list-actions {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            position: relative;
+        }
 
+        .action-button.active {
+            background: rgba(255, 107, 44, 0.25);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-container {
+            position: relative;
+            display: inline-flex;
+        }
+
+        .filter-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            z-index: 20;
+
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            min-width: 180px;
+            padding: 0.4rem;
+
+            background: #292929;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .filter-option {
+            padding: 0.65rem 0.8rem;
+
+            border: none;
+            border-radius: 8px;
+
+            background: transparent;
+            color: var(--text);
+
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .filter-option:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .filter-option.selected {
+            background: rgba(255, 107, 44, 0.18);
+            color: var(--accent);
+        }
+
+        .filter-description {
+            display: inline-block;
+            margin-bottom: 0.7rem;
+        }
         
         /* Móvil */
 
@@ -1898,7 +1960,7 @@
                 height: 32px;
             }
         }
-    `;static properties={watchList:{attribute:!1},dataVersion:{type:Number},items:{state:!0},editingItem:{state:!0},listName:{state:!0},addingItem:{type:Boolean},selectedItemsToShare:{state:!0},linkCopied:{state:!0}};constructor(){super(),this.watchList=void 0,this.service=void 0,this.items=[],this.listName=``,this.fileStorage=new ke,this.recommendService=new Q,this.editingItem=void 0,this.addingItem=!1,this.selectedItemsToShare=[],this.linkCopied=!1}willUpdate(e){e.has(`watchList`)&&this.watchList&&(this.service=new X(this.watchList)),this.service&&(e.has(`watchList`)||e.has(`dataVersion`))&&(this.listName=this.service.watchList.name,this.items=this.service.getItems())}notifyWatchListChanged(){this.dispatchEvent(new CustomEvent(`watch-list-changed`,{detail:{watchList:this.service.watchList},bubbles:!0,composed:!0}))}refreshItems(){this.items=[...this.service.getItems()],this.listName=this.service.watchList.name}showAddItemForm(){this.addingItem=!0}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.items=this.service.getItems(),this.notifyWatchListChanged(),e.target.resetForm(),this.hideAddItemForm()}hideAddItemForm(){this.addingItem=!1}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}deleteItem(e){let{mediaId:t}=e.detail;if(!confirm(`¿Quieres eliminar este elemento de tu lista?`))return;let n=this.service.deleteItem(t);if(!n.success){console.error(n.error);return}this.notifyWatchListChanged(),this.items=this.service.getItems(),this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.items=[...this.service.getItems()]}toggleRecommendation(e){let t=e.detail;if(this.selectedItemsToShare.some(e=>e.media.id===t.media.id)){this.selectedItemsToShare=this.selectedItemsToShare.filter(e=>e.media.id!==t.media.id);return}this.selectedItemsToShare=[...this.selectedItemsToShare,t]}isSelectedToShare(e){return this.selectedItemsToShare.some(t=>t.media.id===e.media.id)}createRecommendationExchange(){if(this.selectedItemsToShare.length===0)return;let e=this.selectedItemsToShare.map(e=>e.watchItem),t=this.recommendService.createRecommendationList(this.service.watchList,e),n=this.recommendService.createRecommendationExchange(t,this.service.watchList);this.shareRecommendationExchange(n)}async shareRecommendationExchange(e){let t=await new je().encode(e),n=new URL(`https://joselon79.neocities.org/quevemos`);n.searchParams.set(`recommendation`,t);try{await navigator.clipboard.writeText(n.toString()),this.linkCopied=!0,setTimeout(()=>{this.linkCopied=!1},2e3)}catch(e){console.error(`No se pudo copiar el enlace:`,e)}}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new X(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0,this.notifyWatchListChanged()}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new K({name:`Mi nueva lista`});this.service=new X(e),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.notifyWatchListChanged()}render(){let e=this.items;return j`
+    `;static properties={watchList:{attribute:!1},dataVersion:{type:Number},items:{state:!0},editingItem:{state:!0},listName:{state:!0},addingItem:{type:Boolean},selectedItemsToShare:{state:!0},linkCopied:{state:!0},filters:{state:!0},sortMode:{state:!0},showFilterOptions:{state:!0}};constructor(){super(),this.watchList=void 0,this.service=void 0,this.items=[],this.listName=``,this.fileStorage=new ke,this.recommendService=new Q,this.editingItem=void 0,this.addingItem=!1,this.selectedItemsToShare=[],this.linkCopied=!1,this.filters={status:null},this.sortMode=`DEFAULT`,this.showFilterOptions=!1}willUpdate(e){e.has(`watchList`)&&this.watchList&&(this.service=new X(this.watchList)),this.service&&(e.has(`watchList`)||e.has(`dataVersion`))&&(this.listName=this.service.watchList.name,this.items=this.service.getItems())}notifyWatchListChanged(){this.dispatchEvent(new CustomEvent(`watch-list-changed`,{detail:{watchList:this.service.watchList},bubbles:!0,composed:!0}))}refreshItems(){this.items=[...this.service.getItems()],this.listName=this.service.watchList.name}showAddItemForm(){this.addingItem=!0}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.items=this.service.getItems(),this.notifyWatchListChanged(),e.target.resetForm(),this.hideAddItemForm()}hideAddItemForm(){this.addingItem=!1}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}deleteItem(e){let{mediaId:t}=e.detail;if(!confirm(`¿Quieres eliminar este elemento de tu lista?`))return;let n=this.service.deleteItem(t);if(!n.success){console.error(n.error);return}this.notifyWatchListChanged(),this.items=this.service.getItems(),this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.items=[...this.service.getItems()]}toggleRecommendation(e){let t=e.detail;if(this.selectedItemsToShare.some(e=>e.media.id===t.media.id)){this.selectedItemsToShare=this.selectedItemsToShare.filter(e=>e.media.id!==t.media.id);return}this.selectedItemsToShare=[...this.selectedItemsToShare,t]}isSelectedToShare(e){return this.selectedItemsToShare.some(t=>t.media.id===e.media.id)}createRecommendationExchange(){if(this.selectedItemsToShare.length===0)return;let e=this.selectedItemsToShare.map(e=>e.watchItem),t=this.recommendService.createRecommendationList(this.service.watchList,e),n=this.recommendService.createRecommendationExchange(t,this.service.watchList);this.shareRecommendationExchange(n)}async shareRecommendationExchange(e){let t=await new je().encode(e),n=new URL(`https://joselon79.neocities.org/quevemos`);n.searchParams.set(`recommendation`,t);try{await navigator.clipboard.writeText(n.toString()),this.linkCopied=!0,setTimeout(()=>{this.linkCopied=!1},2e3)}catch(e){console.error(`No se pudo copiar el enlace:`,e)}}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new X(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0,this.notifyWatchListChanged()}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new K({name:`Mi nueva lista`});this.service=new X(e),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.notifyWatchListChanged()}getStatusLabel(e){return{[U.PENDING]:`Pendientes`,[U.WATCHING]:`En curso`,[U.PAUSED]:`Pausadas`,[U.WATCHED]:`Vistas`,[U.DISCARDED]:`Descartadas`}[e]??e}getAvailableStatuses(){return Object.values(U)}getVisibleItems(){let e=this.items.filter(e=>{let t=this.filters.status;return!t||e.watchItem.status===t});return this.sortMode===`AZ`?e.sort((e,t)=>e.media.title.localeCompare(t.media.title,`es`,{sensitivity:`base`})):this.sortMode===`ZA`&&e.sort((e,t)=>t.media.title.localeCompare(e.media.title,`es`,{sensitivity:`base`})),e}getFilterDescription(){return this.filters.status?`Mostrando solo ${this.getStatusLabel(this.filters.status)}`:`Mostrando todos los elementos`}toggleFilterOptions(){this.showFilterOptions=!this.showFilterOptions}setStatusFilter(e){this.filters={...this.filters,status:e},this.showFilterOptions=!1}toggleSort(){let e={DEFAULT:`AZ`,AZ:`ZA`,ZA:`DEFAULT`};this.sortMode=e[this.sortMode]}render(){let e=this.getVisibleItems();return j`
             <link
                 rel="stylesheet"
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
@@ -1940,7 +2002,7 @@
                 </h2>
             </div>
             
-            ${e.length===0?j`
+            ${this.items.length===0?j`
                     <p class="empty">
                         La lista está vacía.
                     </p>
@@ -1971,80 +2033,115 @@
                     </div> 
                 `:j` 
                     <div class="media-list">
+                        
                         <div class="list-header">
-                            <div class="hero-badge"> Mostrando todos los elementos </div>
-        
-                            <div class="list-actions">
-                                <button
-                                    class="action-button"
-                                    title="Ordenar"
-                                    disabled
-                                >
-                                    <i class="fa fa-sort-alpha-desc"></i>
-                                </button>
-                                <button
-                                    class="action-button"
-                                    title="Filtrar"
-                                    disabled
-                                >
-                                    <i class="fa fa-filter"></i>
-                                </button>
+                            <div class="hero-badge filter-description">
+                                ${this.getFilterDescription()}
                             </div>
 
-                        </div>
-                        ${e.map(e=>j`
-                                <div class="item-container">
+                            <div class="list-actions">
+                                <button
+                                    type="button"
+                                    class="action-button ${this.sortMode===`DEFAULT`?``:`active`}"
+                                    title=${this.sortMode===`DEFAULT`?`Ordenar A-Z`:this.sortMode===`AZ`?`Ordenar Z-A`:`Volver al orden original`}
+                                    aria-label=${this.sortMode===`DEFAULT`?`Orden original`:this.sortMode===`AZ`?`Orden alfabético A-Z`:`Orden alfabético Z-A`}
+                                    @click=${this.toggleSort}
+                                >
+                                    <i class=${this.sortMode===`DEFAULT`?`fa fa-sort`:this.sortMode===`AZ`?`fa fa-sort-alpha-asc`:`fa fa-sort-alpha-desc`}></i>
+                                </button>
 
-                                    ${this.editingItem?.media.id===e.media.id?j`
-                                            <div class="edit-transition">
-                                                <edit-item-form
-                                                    .media=${e.media}
-                                                    .watchItem=${e.watchItem}
-                                                    @save-item=${this.saveItem}
-                                                    @cancel-edit=${this.cancelEdit}
-                                                    @delete-item=${this.deleteItem}
-                                                ></edit-item-form>
-                                            </div>
-                                        `:j`
-                                            <div class="edit-transition">
-                                                <watch-item-view
-                                                    .media=${e.media}
-                                                    .watchItem=${e.watchItem}
-                                                    .selectedToShare=${this.isSelectedToShare(e)}
-                                                    @edit-item=${this.editItem}
-                                                    @change-status=${this.changeStatus}
-                                                    @toggle-recommendation=${this.toggleRecommendation}
-                                                ></watch-item-view>
-                                            </div>
-                                        `}
+                                <div class="filter-container">
+                                    <button
+                                        type="button"
+                                        class="action-button ${this.filters.status?`active`:``}"
+                                        title="Filtrar por estado"
+                                        aria-label="Filtrar por estado"
+                                        aria-expanded=${this.showFilterOptions}
+                                        @click=${this.toggleFilterOptions}
+                                    >
+                                        <i class="fa fa-filter"></i>
+                                    </button>
 
+                                    ${this.showFilterOptions?j`
+                                            <div class="filter-menu">
+                                                <button
+                                                    type="button"
+                                                    class="filter-option ${this.filters.status?``:`selected`}"
+                                                    @click=${()=>this.setStatusFilter(null)}
+                                                >
+                                                    Todos
+                                                </button>
+
+                                                ${this.getAvailableStatuses().map(e=>j`
+                                                    <button
+                                                        type="button"
+                                                        class="filter-option ${this.filters.status===e?`selected`:``}"
+                                                        @click=${()=>this.setStatusFilter(e)}
+                                                    >
+                                                        ${this.getStatusLabel(e)}
+                                                    </button>
+                                                `)}
+                                            </div>
+                                        `:``}
                                 </div>
-                                ${this.selectedItemsToShare.length>0?j`
-                                        <div class="recommendation-bar">
-                                        <button
-                                            class="recommend-button"
-                                            title="Recomendar seleccionados"
-                                            @click=${this.createRecommendationExchange}
-                                        >
-                                            <i class="fa fa-share-alt"></i>
-                                            <span>Recomendar</span>
-                                            <span class="recommend-badge">
-                                                ${this.selectedItemsToShare.length}
-                                            </span>
-                                                ${this.linkCopied?j`
-                                                    <div class="toast-overlay">
-                                                        <div class="toast">
-                                                            <span>✓</span>
-                                                            Enlace copiado
-                                                        </div>
-                                                    </div>
-                                                `:``}
-                                        </button>
-                                        
-                                        </div>
-                                    `:``}
-                                
-                            `)}
+                            </div>
+                        </div>
+
+                        ${e.length===0?j`
+                                <p class="empty">
+                                    No hay elementos que coincidan con el filtro.
+                                </p>
+                            `:e.map(e=>j`
+                                    <div class="item-container">
+                                        ${this.editingItem?.media.id===e.media.id?j`
+                                                <div class="edit-transition">
+                                                    <edit-item-form
+                                                        .media=${e.media}
+                                                        .watchItem=${e.watchItem}
+                                                        @save-item=${this.saveItem}
+                                                        @cancel-edit=${this.cancelEdit}
+                                                        @delete-item=${this.deleteItem}
+                                                    ></edit-item-form>
+                                                </div>
+                                            `:j`
+                                                <div class="edit-transition">
+                                                    <watch-item-view
+                                                        .media=${e.media}
+                                                        .watchItem=${e.watchItem}
+                                                        .selectedToShare=${this.isSelectedToShare(e)}
+                                                        @edit-item=${this.editItem}
+                                                        @change-status=${this.changeStatus}
+                                                        @toggle-recommendation=${this.toggleRecommendation}
+                                                    ></watch-item-view>
+                                                </div>
+                                            `}
+                                    </div>
+
+                                    ${this.selectedItemsToShare.length>0?j`
+                                            <div class="recommendation-bar">
+                                                <button
+                                                    class="recommend-button"
+                                                    title="Recomendar seleccionados"
+                                                    @click=${this.createRecommendationExchange}
+                                                >
+                                                    <i class="fa fa-share-alt"></i>
+                                                    <span>Recomendar</span>
+                                                    <span class="recommend-badge">
+                                                        ${this.selectedItemsToShare.length}
+                                                    </span>
+                                                    ${this.linkCopied?j`
+                                                            <div class="toast-overlay">
+                                                                <div class="toast">
+                                                                    <span>✓</span>
+                                                                    Enlace copiado
+                                                                </div>
+                                                            </div>
+                                                        `:``}
+                                                </button>
+                                            </div>
+                                        `:``}
+                                `)}
+
 
                         ${this.editingItem?``:j`
                             <div class= "add-item">

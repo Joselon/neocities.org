@@ -4,6 +4,7 @@ import { WatchListService } from "../services/WatchListService.js";
 import { WatchListFileStorage } from "../storage/WatchListFileStorage.js";
 import { RecommendationService } from "../services/RecommendationService.js";
 import { RecommendationLinkCodec } from "../services/RecommendationLinkCodec.js";
+import { WatchStatus } from "../domain/WatchStatus.js";
 
 import "./WatchItemView.js";
 import "./AddItemForm.js";
@@ -217,7 +218,69 @@ export class WatchListView extends LitElement {
             font-size: 0.75rem;
             font-weight: bold;
         }
+        .list-actions {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            position: relative;
+        }
 
+        .action-button.active {
+            background: rgba(255, 107, 44, 0.25);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-container {
+            position: relative;
+            display: inline-flex;
+        }
+
+        .filter-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            z-index: 20;
+
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            min-width: 180px;
+            padding: 0.4rem;
+
+            background: #292929;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .filter-option {
+            padding: 0.65rem 0.8rem;
+
+            border: none;
+            border-radius: 8px;
+
+            background: transparent;
+            color: var(--text);
+
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .filter-option:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .filter-option.selected {
+            background: rgba(255, 107, 44, 0.18);
+            color: var(--accent);
+        }
+
+        .filter-description {
+            display: inline-block;
+            margin-bottom: 0.7rem;
+        }
         
         /* Móvil */
 
@@ -242,6 +305,9 @@ export class WatchListView extends LitElement {
         addingItem: { type: Boolean },
         selectedItemsToShare: { state: true },
         linkCopied: { state: true },
+        filters: { state: true },
+        sortMode: { state: true },
+        showFilterOptions: { state: true },
     };
 
     constructor() {
@@ -259,6 +325,13 @@ export class WatchListView extends LitElement {
         this.addingItem = false;
         this.selectedItemsToShare = [];
         this.linkCopied = false;
+
+        this.filters = {
+            status: null
+        };
+
+        this.sortMode = "DEFAULT";
+        this.showFilterOptions = false;
     }
 
     willUpdate(changedProperties) {
@@ -573,9 +646,86 @@ export class WatchListView extends LitElement {
         this.items = this.service.getItems();
         this.notifyWatchListChanged();
     }
-    
+
+    getStatusLabel(status) {
+        const labels = {
+            [WatchStatus.PENDING]: "Pendientes",
+            [WatchStatus.WATCHING]: "En curso",
+            [WatchStatus.PAUSED]: "Pausadas",
+            [WatchStatus.WATCHED]: "Vistas",
+            [WatchStatus.DISCARDED]: "Descartadas"
+        };
+
+        return labels[status] ?? status;
+    }
+
+    getAvailableStatuses() {
+        return Object.values(WatchStatus);
+    }
+
+    getVisibleItems() {
+        let items = this.items.filter(item => {
+            const status = this.filters.status;
+
+            return !status || item.watchItem.status === status;
+        });
+
+        if (this.sortMode === "AZ") {
+            items.sort((a, b) =>
+                a.media.title.localeCompare(
+                    b.media.title,
+                    "es",
+                    { sensitivity: "base" }
+                )
+            );
+        } else if (this.sortMode === "ZA") {
+            items.sort((a, b) =>
+                b.media.title.localeCompare(
+                    a.media.title,
+                    "es",
+                    { sensitivity: "base" }
+                )
+            );
+        }
+
+        return items;
+    }
+
+    getFilterDescription() {
+        if (!this.filters.status) {
+            return "Mostrando todos los elementos";
+        }
+
+        return `Mostrando solo ${
+            this.getStatusLabel(this.filters.status)
+        }`;
+    }
+
+    toggleFilterOptions() {
+        this.showFilterOptions = !this.showFilterOptions;
+    }
+
+    setStatusFilter(status) {
+        this.filters = {
+            ...this.filters,
+            status
+        };
+
+        this.showFilterOptions = false;
+    }
+
+    toggleSort() {
+        const nextMode = {
+            DEFAULT: "AZ",
+            AZ: "ZA",
+            ZA: "DEFAULT"
+        };
+
+        this.sortMode = nextMode[this.sortMode];
+    }
+        
     render() {
-        const items = this.items;
+        const items = this.getVisibleItems();
 
         return html`
             <link
@@ -619,7 +769,7 @@ export class WatchListView extends LitElement {
                 </h2>
             </div>
             
-            ${items.length === 0
+            ${this.items.length === 0
                 ? html`
                     <p class="empty">
                         La lista está vacía.
@@ -655,95 +805,159 @@ export class WatchListView extends LitElement {
                 `
                 : html` 
                     <div class="media-list">
+                        
                         <div class="list-header">
-                            <div class="hero-badge"> Mostrando todos los elementos </div>
-        
-                            <div class="list-actions">
-                                <button
-                                    class="action-button"
-                                    title="Ordenar"
-                                    disabled
-                                >
-                                    <i class="fa fa-sort-alpha-desc"></i>
-                                </button>
-                                <button
-                                    class="action-button"
-                                    title="Filtrar"
-                                    disabled
-                                >
-                                    <i class="fa fa-filter"></i>
-                                </button>
+                            <div class="hero-badge filter-description">
+                                ${this.getFilterDescription()}
                             </div>
 
-                        </div>
-                        ${items.map(item => {
-
-                            const isEditing =
-                                this.editingItem?.media.id === item.media.id;
-
-                            return html`
-                                <div class="item-container">
-
-                                    ${isEditing
-                                        ? html`
-                                            <div class="edit-transition">
-                                                <edit-item-form
-                                                    .media=${item.media}
-                                                    .watchItem=${item.watchItem}
-                                                    @save-item=${this.saveItem}
-                                                    @cancel-edit=${this.cancelEdit}
-                                                    @delete-item=${this.deleteItem}
-                                                ></edit-item-form>
-                                            </div>
-                                        `
-                                        : html`
-                                            <div class="edit-transition">
-                                                <watch-item-view
-                                                    .media=${item.media}
-                                                    .watchItem=${item.watchItem}
-                                                    .selectedToShare=${this.isSelectedToShare(item)}
-                                                    @edit-item=${this.editItem}
-                                                    @change-status=${this.changeStatus}
-                                                    @toggle-recommendation=${this.toggleRecommendation}
-                                                ></watch-item-view>
-                                            </div>
-                                        `
+                            <div class="list-actions">
+                                <button
+                                    type="button"
+                                    class="action-button ${this.sortMode !== "DEFAULT" ? "active" : ""}"
+                                    title=${
+                                        this.sortMode === "DEFAULT"
+                                            ? "Ordenar A-Z"
+                                            : this.sortMode === "AZ"
+                                                ? "Ordenar Z-A"
+                                                : "Volver al orden original"
                                     }
+                                    aria-label=${
+                                        this.sortMode === "DEFAULT"
+                                            ? "Orden original"
+                                            : this.sortMode === "AZ"
+                                                ? "Orden alfabético A-Z"
+                                                : "Orden alfabético Z-A"
+                                    }
+                                    @click=${this.toggleSort}
+                                >
+                                    <i class=${
+                                        this.sortMode === "DEFAULT"
+                                            ? "fa fa-sort"
+                                            : this.sortMode === "AZ"
+                                                ? "fa fa-sort-alpha-asc"
+                                                : "fa fa-sort-alpha-desc"
+                                    }></i>
+                                </button>
 
+                                <div class="filter-container">
+                                    <button
+                                        type="button"
+                                        class="action-button ${this.filters.status ? "active" : ""}"
+                                        title="Filtrar por estado"
+                                        aria-label="Filtrar por estado"
+                                        aria-expanded=${this.showFilterOptions}
+                                        @click=${this.toggleFilterOptions}
+                                    >
+                                        <i class="fa fa-filter"></i>
+                                    </button>
+
+                                    ${this.showFilterOptions
+                                        ? html`
+                                            <div class="filter-menu">
+                                                <button
+                                                    type="button"
+                                                    class="filter-option ${
+                                                        !this.filters.status ? "selected" : ""
+                                                    }"
+                                                    @click=${() => this.setStatusFilter(null)}
+                                                >
+                                                    Todos
+                                                </button>
+
+                                                ${this.getAvailableStatuses().map(status => html`
+                                                    <button
+                                                        type="button"
+                                                        class="filter-option ${
+                                                            this.filters.status === status
+                                                                ? "selected"
+                                                                : ""
+                                                        }"
+                                                        @click=${() => this.setStatusFilter(status)}
+                                                    >
+                                                        ${this.getStatusLabel(status)}
+                                                    </button>
+                                                `)}
+                                            </div>
+                                        `
+                                        : ""
+                                    }
                                 </div>
-                                ${this.selectedItemsToShare.length > 0
-                                    ? html`
-                                        <div class="recommendation-bar">
-                                        <button
-                                            class="recommend-button"
-                                            title="Recomendar seleccionados"
-                                            @click=${this.createRecommendationExchange}
-                                        >
-                                            <i class="fa fa-share-alt"></i>
-                                            <span>Recomendar</span>
-                                            <span class="recommend-badge">
-                                                ${this.selectedItemsToShare.length}
-                                            </span>
-                                                ${this.linkCopied
-                                                ? html`
-                                                    <div class="toast-overlay">
-                                                        <div class="toast">
-                                                            <span>✓</span>
-                                                            Enlace copiado
-                                                        </div>
-                                                    </div>
-                                                `
-                                                : ""
-                                            }
-                                        </button>
-                                        
-                                        </div>
-                                    `
-                                    : ""
-                                }
-                                
-                            `;
-                        })}
+                            </div>
+                        </div>
+
+                        ${items.length === 0
+                            ? html`
+                                <p class="empty">
+                                    No hay elementos que coincidan con el filtro.
+                                </p>
+                            `
+                            : items.map(item => {
+                                const isEditing =
+                                    this.editingItem?.media.id === item.media.id;
+
+                                return html`
+                                    <div class="item-container">
+                                        ${isEditing
+                                            ? html`
+                                                <div class="edit-transition">
+                                                    <edit-item-form
+                                                        .media=${item.media}
+                                                        .watchItem=${item.watchItem}
+                                                        @save-item=${this.saveItem}
+                                                        @cancel-edit=${this.cancelEdit}
+                                                        @delete-item=${this.deleteItem}
+                                                    ></edit-item-form>
+                                                </div>
+                                            `
+                                            : html`
+                                                <div class="edit-transition">
+                                                    <watch-item-view
+                                                        .media=${item.media}
+                                                        .watchItem=${item.watchItem}
+                                                        .selectedToShare=${this.isSelectedToShare(item)}
+                                                        @edit-item=${this.editItem}
+                                                        @change-status=${this.changeStatus}
+                                                        @toggle-recommendation=${this.toggleRecommendation}
+                                                    ></watch-item-view>
+                                                </div>
+                                            `
+                                        }
+                                    </div>
+
+                                    ${this.selectedItemsToShare.length > 0
+                                        ? html`
+                                            <div class="recommendation-bar">
+                                                <button
+                                                    class="recommend-button"
+                                                    title="Recomendar seleccionados"
+                                                    @click=${this.createRecommendationExchange}
+                                                >
+                                                    <i class="fa fa-share-alt"></i>
+                                                    <span>Recomendar</span>
+                                                    <span class="recommend-badge">
+                                                        ${this.selectedItemsToShare.length}
+                                                    </span>
+                                                    ${this.linkCopied
+                                                        ? html`
+                                                            <div class="toast-overlay">
+                                                                <div class="toast">
+                                                                    <span>✓</span>
+                                                                    Enlace copiado
+                                                                </div>
+                                                            </div>
+                                                        `
+                                                        : ""
+                                                    }
+                                                </button>
+                                            </div>
+                                        `
+                                        : ""
+                                    }
+                                `;
+                            })
+                        }
+
 
                         ${!this.editingItem
                             ? html`
