@@ -167,38 +167,86 @@ export class WatchListView extends LitElement {
             transform: scale(1.05);
         }
 
+        
         .recommendation-bar {
             position: fixed;
-            bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-            left: 50%;
-            transform: translateX(-50%);
-            width: min(560px, calc(100% - 24px));
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            width: 100%;
+            min-height: 4.5rem;
+            padding: 0.65rem 1rem;
+            padding-bottom: calc(
+                0.65rem + env(safe-area-inset-bottom, 0px)
+            );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             z-index: 100;
-            text-align: center;
-            height: 3rem;
-            background-color: #8080808f;
+
+            background: rgba(46, 125, 50, 0.78);
+            border-top: 1px solid rgba(129, 199, 132, 0.55);
+            box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.22);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .recommend-button {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            gap: 0.65rem;
 
-            padding: 7px 12px;
+            min-height: 42px;
+            padding: 0.65rem 1.25rem;
 
-            border: none;
-            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 999px;
 
-            background: #444;
-            color: white;
+            background: #2e7d32;
+            color: #fff;
+
+            font-size: 0.95rem;
+            font-weight: 600;
 
             cursor: pointer;
-            font-size: 0.9rem;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
         }
 
         .recommend-button:hover {
-            background: #333;
+            background: #388e3c;
+            transform: translateY(-1px);
         }
+
+        .recommend-button:active {
+            transform: translateY(0);
+        }
+
+        .recommend-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 22px;
+            height: 22px;
+            padding: 0 6px;
+
+            border-radius: 999px;
+
+            background: #fff;
+            color: #2e7d32;
+
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
 
         .recommend-badge {
             display: inline-flex;
@@ -924,40 +972,38 @@ export class WatchListView extends LitElement {
                                             `
                                         }
                                     </div>
-
-                                    ${this.selectedItemsToShare.length > 0
-                                        ? html`
-                                            <div class="recommendation-bar">
-                                                <button
-                                                    class="recommend-button"
-                                                    title="Recomendar seleccionados"
-                                                    @click=${this.createRecommendationExchange}
-                                                >
-                                                    <i class="fa fa-share-alt"></i>
-                                                    <span>Recomendar</span>
-                                                    <span class="recommend-badge">
-                                                        ${this.selectedItemsToShare.length}
-                                                    </span>
-                                                    ${this.linkCopied
-                                                        ? html`
-                                                            <div class="toast-overlay">
-                                                                <div class="toast">
-                                                                    <span>✓</span>
-                                                                    Enlace copiado
-                                                                </div>
-                                                            </div>
-                                                        `
-                                                        : ""
-                                                    }
-                                                </button>
-                                            </div>
-                                        `
-                                        : ""
-                                    }
                                 `;
                             })
                         }
-
+                        ${this.selectedItemsToShare.length > 0
+                            ? html`
+                                <div class="recommendation-bar">
+                                    <button
+                                        class="recommend-button"
+                                        title="Recomendar seleccionados"
+                                        @click=${this.createRecommendationExchange}
+                                    >
+                                        <i class="fa fa-share-alt"></i>
+                                        <span>Recomendar</span>
+                                        <span class="recommend-badge">
+                                            ${this.selectedItemsToShare.length}
+                                        </span>
+                                        ${this.linkCopied
+                                            ? html`
+                                                <div class="toast-overlay">
+                                                    <div class="toast">
+                                                        <span>✓</span>
+                                                        Enlace copiado
+                                                    </div>
+                                                </div>
+                                            `
+                                            : ""
+                                        }
+                                    </button>
+                                </div>
+                            `
+                            : ""
+                        }
 
                         ${!this.editingItem
                             ? html`
