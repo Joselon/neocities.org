@@ -5,6 +5,7 @@ import { WatchListFileStorage } from "../storage/WatchListFileStorage.js";
 import { RecommendationService } from "../services/RecommendationService.js";
 import { RecommendationLinkCodec } from "../services/RecommendationLinkCodec.js";
 import { WatchStatus } from "../domain/WatchStatus.js";
+import { MediaType } from "../domain/MediaType.js";
 
 import "./WatchItemView.js";
 import "./AddItemForm.js";
@@ -329,6 +330,12 @@ export class WatchListView extends LitElement {
             display: inline-block;
             margin-bottom: 0.7rem;
         }
+
+        .filter-separator {
+            height: 1px;
+            margin: 0.35rem 0;
+            background: var(--border);
+        }
         
         /* Móvil */
 
@@ -375,7 +382,8 @@ export class WatchListView extends LitElement {
         this.linkCopied = false;
 
         this.filters = {
-            status: null
+            status: null,
+            type: null
         };
 
         this.sortMode = "DEFAULT";
@@ -713,9 +721,15 @@ export class WatchListView extends LitElement {
 
     getVisibleItems() {
         let items = this.items.filter(item => {
-            const status = this.filters.status;
+            const matchesStatus =
+                !this.filters.status ||
+                item.watchItem.status === this.filters.status;
 
-            return !status || item.watchItem.status === status;
+            const matchesType =
+                !this.filters.type ||
+                item.media.type === this.filters.type;
+
+            return matchesStatus && matchesType;
         });
 
         if (this.sortMode === "AZ") {
@@ -740,13 +754,23 @@ export class WatchListView extends LitElement {
     }
 
     getFilterDescription() {
-        if (!this.filters.status) {
+        const descriptions = [];
+
+        if (this.filters.type) {
+            descriptions.push(
+                this.getMediaTypeFilterLabel(this.filters.type)
+            );
+        }
+
+        if (this.filters.status) {
+            descriptions.push(this.getStatusLabel(this.filters.status));
+        }
+
+        if (descriptions.length === 0) {
             return "Mostrando todos los elementos";
         }
 
-        return `Mostrando solo ${
-            this.getStatusLabel(this.filters.status)
-        }`;
+        return `Mostrando solo ${descriptions.join(" · ")}`;
     }
 
     toggleFilterOptions() {
@@ -770,6 +794,29 @@ export class WatchListView extends LitElement {
         };
 
         this.sortMode = nextMode[this.sortMode];
+    }
+
+    getMediaTypeFilterLabel(type) {
+        const labels = {
+            [MediaType.MOVIE]: "Películas",
+            [MediaType.SERIES]: "Series",
+            [MediaType.VIDEOGAMES]: "Videojuegos",
+        };
+
+        return labels[type] ?? type;
+    }
+
+    getAvailableMediaTypes() {
+        return Object.values(MediaType);
+    }
+
+    setMediaTypeFilter(type) {
+        this.filters = {
+            ...this.filters,
+            type
+        };
+
+        this.showFilterOptions = false;
     }
         
     render() {
@@ -891,7 +938,9 @@ export class WatchListView extends LitElement {
                                 <div class="filter-container">
                                     <button
                                         type="button"
-                                        class="action-button ${this.filters.status ? "active" : ""}"
+                                        class="action-button ${
+                                            this.filters.status || this.filters.type ? "active" : ""
+                                        }"
                                         title="Filtrar por estado"
                                         aria-label="Filtrar por estado"
                                         aria-expanded=${this.showFilterOptions}
@@ -910,20 +959,42 @@ export class WatchListView extends LitElement {
                                                     }"
                                                     @click=${() => this.setStatusFilter(null)}
                                                 >
-                                                    Todos
+                                                    Todos los estados
                                                 </button>
 
                                                 ${this.getAvailableStatuses().map(status => html`
                                                     <button
                                                         type="button"
                                                         class="filter-option ${
-                                                            this.filters.status === status
-                                                                ? "selected"
-                                                                : ""
+                                                            this.filters.status === status ? "selected" : ""
                                                         }"
                                                         @click=${() => this.setStatusFilter(status)}
                                                     >
                                                         ${this.getStatusLabel(status)}
+                                                    </button>
+                                                `)}
+
+                                                <div class="filter-separator"></div>
+
+                                                <button
+                                                    type="button"
+                                                    class="filter-option ${
+                                                        !this.filters.type ? "selected" : ""
+                                                    }"
+                                                    @click=${() => this.setMediaTypeFilter(null)}
+                                                >
+                                                    Todos los tipos
+                                                </button>
+
+                                                ${this.getAvailableMediaTypes().map(type => html`
+                                                    <button
+                                                        type="button"
+                                                        class="filter-option ${
+                                                            this.filters.type === type ? "selected" : ""
+                                                        }"
+                                                        @click=${() => this.setMediaTypeFilter(type)}
+                                                    >
+                                                        ${this.getMediaTypeFilterLabel(type)}
                                                     </button>
                                                 `)}
                                             </div>
