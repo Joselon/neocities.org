@@ -75,7 +75,15 @@ export class WatchItemView extends LitElement {
 
         #overlay.opened {
             display: block;
-        }           
+        }    
+            
+        .overlay-section {
+            padding: 0.65rem 0;
+        }
+
+        .overlay-section + .overlay-section {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
 
         /* -------------------------
         Poster
@@ -151,10 +159,9 @@ export class WatchItemView extends LitElement {
         }
 
         .information-header h3 {
+            min-width: 0;
             margin: 0;
-
             color: #ffffff;
-
             font-size: 1.15rem;
         }
 
@@ -163,6 +170,10 @@ export class WatchItemView extends LitElement {
             gap: 0.4rem;
 
             flex-shrink: 0;
+        }
+
+        .watchitem-title {
+            overflow-wrap: anywhere;
         }
 
         /* -------------------------
@@ -580,7 +591,7 @@ export class WatchItemView extends LitElement {
 
         return html`
                     <div class="information-header">
-                        <h3>
+                        <h3 class="watchitem-title">
                             ${this.media.title}
                         </h3>
    
