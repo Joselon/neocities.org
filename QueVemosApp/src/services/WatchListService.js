@@ -96,6 +96,7 @@ export class WatchListService {
                 year: media.year,
                 originalTitle: media.originalTitle,
                 genres: media.genres,
+                trailer: media.trailer?.trim() || undefined,
 
                 // Metadatos actuales: se conservan si no se selecciona
                 // una ficha OMDb diferente.
@@ -150,6 +151,7 @@ export class WatchListService {
             currentMedia.awards = updatedMedia.awards;
             currentMedia.omdbId = updatedMedia.omdbId;
             currentMedia.poster = updatedMedia.poster;
+            currentMedia.trailer = updatedMedia.trailer;
 
             currentWatchItem.platforms = watchItem.platforms;
             currentWatchItem.reason = watchItem.reason;

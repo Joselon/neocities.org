@@ -223,6 +223,13 @@
       "country": "ES",
       "active": true,
       "logo": "switch"
+    },
+    {
+      "id": "others",
+      "name": "Otras Fuentes...",
+      "country": "ES",
+      "active": true,
+      "logo": "unknow"
     }
   ]
 }

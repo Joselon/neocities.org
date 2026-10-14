@@ -63,7 +63,13 @@ export class RecommendationService {
                         genres: [...media.genres],
                         omdbId: media.omdbId,
                         poster: media.poster,
+                        trailer: media.trailer,
                         ratings: media.ratings,
+                        director: media.director,
+                        country: media.country,
+                        actors: media.actors,
+                        plot: media.plot,
+                        awards: media.awards,
                         matchKey: media.matchKey
                     },
                     recommendation
@@ -330,7 +336,8 @@ export class RecommendationService {
             "country",
             "actors",
             "plot",
-            "awards"
+            "awards",
+            "trailer"
         ];
 
         for (const field of mediaFields) {

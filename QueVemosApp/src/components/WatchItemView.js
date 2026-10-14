@@ -85,6 +85,10 @@ export class WatchItemView extends LitElement {
             border-top: 1px solid rgba(255, 255, 255, 0.12);
         }
 
+        .overlay-section a {
+            color: rgba(0, 123, 255, 0.45);
+        }
+
         /* -------------------------
         Poster
         ------------------------- */
@@ -720,6 +724,23 @@ export class WatchItemView extends LitElement {
                                 <div class="overlay-section">
                                     <strong>Sinopsis</strong>
                                     <p>${this.media.plot}</p>
+                                </div>
+                            `
+                            : ""
+                        }
+
+                        ${this.media.trailer
+                            ? html`
+                                <div class="overlay-section">
+                                    <strong>Tráiler</strong>
+                                    <a
+                                        href=${this.media.trailer}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                        Ver tráiler
+                                    </a>
                                 </div>
                             `
                             : ""

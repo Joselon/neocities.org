@@ -17,7 +17,8 @@ export class Media {
         country = undefined,
         actors = undefined,
         plot = undefined,
-        awards = undefined
+        awards = undefined,
+        trailer = undefined
     }) {
         this.id = id;
         this.title = Media.validateTitle(
@@ -37,6 +38,7 @@ export class Media {
         this.actors = actors;
         this.plot = plot;
         this.awards = awards;
+        this.trailer = trailer;
     }
 
     get matchKey() {

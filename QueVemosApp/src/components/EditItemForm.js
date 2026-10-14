@@ -250,7 +250,9 @@ export class EditItemForm extends LitElement {
         omdbPreview: { state: true },
         omdbSearching: { state: true },
         omdbLoadingDetails: { state: true },
-        omdbError: { state: true }
+        omdbError: { state: true },
+        showAllPlatforms: { state: true },
+        showAllGenres: { state: true },
     };
 
     constructor() {
@@ -266,6 +268,9 @@ export class EditItemForm extends LitElement {
         this.omdbSearching = false;
         this.omdbLoadingDetails = false;
         this.omdbError = undefined;
+        
+        this.showAllPlatforms = false;
+        this.showAllGenres = false;
     }
 
     save(event) {
@@ -300,6 +305,7 @@ export class EditItemForm extends LitElement {
                         form.originalTitle.value.trim() || undefined,
                     genres,
                     poster: form.poster.value.trim() || undefined,
+                    trailer: form.trailer.value.trim() || undefined,
                 },
                 omdbDetails: this.omdbPreview,
                 watchItem: {
@@ -722,13 +728,15 @@ export class EditItemForm extends LitElement {
                 </div>
 
                 <div class="field">
-                    <label>
-                        Plataformas
-                    </label>
+                    <label>Plataformas</label>
 
                     <div class="checkbox-list">
                         ${settings.platforms
                             .filter(platform => platform.active)
+                            .filter(platform =>
+                                this.showAllPlatforms ||
+                                this.isPlatformSelected(platform.id)
+                            )
                             .map(platform => html`
                                 <label class="checkbox">
                                     <input
@@ -743,6 +751,25 @@ export class EditItemForm extends LitElement {
                                 </label>
                             `)}
                     </div>
+
+                    ${settings.platforms.filter(platform =>
+                        platform.active &&
+                        !this.isPlatformSelected(platform.id)
+                    ).length
+                        ? html`
+                            <button
+                                type="button"
+                                @click=${() => {
+                                    this.showAllPlatforms =
+                                        !this.showAllPlatforms;
+                                }}
+                            >
+                                ${this.showAllPlatforms
+                                    ? "Ocultar opciones"
+                                    : "Añadir plataformas"}
+                            </button>
+                        `
+                        : ""}
                 </div>
 
                 <div class="field">
@@ -810,23 +837,45 @@ export class EditItemForm extends LitElement {
                 </div>
 
                 <div class="field">
-                    <label>
-                        Géneros
-                    </label>
+                    <label>Géneros</label>
 
                     <div class="checkbox-list">
-                        ${settings.genres.map(genre => html`
-                            <label class="checkbox">
-                                <input
-                                    type="checkbox"
-                                    name="genres"
-                                    value=${genre.id}
-                                    ?checked=${this.isGenreSelected(genre.id)}
-                                >
-                                ${genre.name}
-                            </label>
-                        `)}
+                        ${settings.genres
+                            .filter(genre =>
+                                this.showAllGenres ||
+                                this.isGenreSelected(genre.id)
+                            )
+                            .map(genre => html`
+                                <label class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="genres"
+                                        value=${genre.id}
+                                        ?checked=${this.isGenreSelected(
+                                            genre.id
+                                        )}
+                                    >
+                                    ${genre.name}
+                                </label>
+                            `)}
                     </div>
+
+                    ${settings.genres.some(genre =>
+                        !this.isGenreSelected(genre.id)
+                    )
+                        ? html`
+                            <button
+                                type="button"
+                                @click=${() => {
+                                    this.showAllGenres = !this.showAllGenres;
+                                }}
+                            >
+                                ${this.showAllGenres
+                                    ? "Ocultar opciones"
+                                    : "Añadir géneros"}
+                            </button>
+                        `
+                        : ""}
                 </div>
 
                 <div class="field">
@@ -865,6 +914,23 @@ export class EditItemForm extends LitElement {
                         Déjalo vacío para utilizar el póster de OMDb.
                     </small>
                 </div>
+
+                <div class="field">
+                    <label for="trailer">URL del tráiler</label>
+
+                    <input
+                        id="trailer"
+                        name="trailer"
+                        type="url"
+                        placeholder="https://..."
+                        value=${this.media.trailer ?? ""}
+                    >
+
+                    <small>
+                        Enlace al tráiler en Youtube u otras fuentes.
+                    </small>
+                </div>
+
                 <!--Resultados-->
                 ${this.renderOmdbSearch()}
 

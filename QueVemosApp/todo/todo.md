@@ -2,7 +2,7 @@
 
 Tareas 20261014:
 
-- [=] ocultar elementos no seleccionados en editar y poner botón de “más opciones”. cambiar de plataformas si es videojuego
+- [x] ocultar elementos no seleccionados en editar y poner botón de “más opciones”. cambiar de plataformas si es videojuego
 - [x] no mostrar botones de recomendaciones si están no pendientes.
 - [x] Corregir fondo botón compartir en pantalla ancha
 - [x] botones eliminar y volver a ver (deshacer visto)
@@ -17,8 +17,8 @@ Tareas 20261014:
 - [ ] hacer el titulo boton busca aleatoria en pendientes
 - [x] separar secciones en overlay con hr
 - [x] cambiar nombre puntuacion personal a valoracion personal en editform
-- [ ] corregir la perdida de sinopsis y premios al compartir (si ya tiene omdbId no graba la info)
+- [x] corregir la perdida de sinopsis y premios al compartir (si ya tiene omdbId no graba la info)
 - [ ] convertir minutos a horas (o ver como lo hace omdb en runtime)
 - [ ] boton descartar bajo cartel y  permitir cambio de estado
 - [x] corregir botones editar y mas info que no se salgan de card
-- [=] campo editform visible en overlay para enlace trailer (posible iframe) target _blank. para pinchar y que abra youtube o archive.org
+- [x] campo editform visible en overlay para enlace trailer (posible iframe) target _blank. para pinchar y que abra youtube o archive.org
