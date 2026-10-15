@@ -214,11 +214,18 @@ export class WatchListService {
                     break;
             
                 case WatchStatus.PENDING:
-                    if (watchItem.status !== WatchStatus.WATCHED) {
+                    if(watchItem.status !== WatchStatus.DISCARDED){
+                        if (watchItem.status !== WatchStatus.WATCHED) {
+                            throw new Error("Invalid status transition");
+                        }
+                    }
+                    watchItem.markAsUnwatched();
+                    break;
+                case WatchStatus.DISCARDED:
+                    if (watchItem.status === WatchStatus.DISCARDED) {
                         throw new Error("Invalid status transition");
                     }
-
-                    watchItem.markAsUnwatched();
+                    watchItem.discard();
                     break;
 
                 default:

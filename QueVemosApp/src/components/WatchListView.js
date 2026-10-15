@@ -721,9 +721,11 @@ export class WatchListView extends LitElement {
 
     getVisibleItems() {
         let items = this.items.filter(item => {
-            const matchesStatus =
-                !this.filters.status ||
-                item.watchItem.status === this.filters.status;
+            const status = item.watchItem.status;
+            
+            const matchesStatus = this.filters.status
+                ? status === this.filters.status
+                : status !== WatchStatus.DISCARDED;
 
             const matchesType =
                 !this.filters.type ||
@@ -959,7 +961,7 @@ export class WatchListView extends LitElement {
                                                     }"
                                                     @click=${() => this.setStatusFilter(null)}
                                                 >
-                                                    Todos los estados
+                                                    Todos los estados (excepto Descartadas)
                                                 </button>
 
                                                 ${this.getAvailableStatuses().map(status => html`

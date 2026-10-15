@@ -96,10 +96,10 @@ export class WatchItemView extends LitElement {
         .poster {
             display: flex;
             align-items: center;
+            flex-direction: column;
             justify-content: center;
-
+            gap: 0.65rem;
             padding: 1rem;
-
             background: rgba(0, 0, 0, 0.12);
         }
 
@@ -369,6 +369,17 @@ export class WatchItemView extends LitElement {
             transform: translateY(-1px);
         }
 
+        .discard-button {
+            flex-shrink: 0;
+            color: #ffffff;
+            background: rgba(220, 53, 69, 0.35);
+            border-color: rgba(220, 53, 69, 0.7);
+        }
+
+        .discard-button:hover {
+            background: rgba(220, 53, 69, 0.65);
+        }
+
         /* -------------------------
         Móvil
         ------------------------- */
@@ -489,6 +500,24 @@ export class WatchItemView extends LitElement {
 
         return "";
     }
+    renderDiscardButton() {
+        if (this.watchItem.status === WatchStatus.DISCARDED) {
+            return "";
+        }
+
+        return html`
+            <button
+                type="button"
+                class="action-button discard-button"
+                title="Descartar"
+                aria-label="Descartar ${this.media.title}"
+                @click=${() =>
+                    this.changeStatus(WatchStatus.DISCARDED)}
+            >
+                <i class="fa fa-archive" aria-hidden="true"></i>
+            </button>
+        `;
+    }
     renderStatusActions() {
 
         switch (this.watchItem.status) {
@@ -542,11 +571,13 @@ export class WatchItemView extends LitElement {
                     </button>
                 `;
             case WatchStatus.WATCHED:
+            case WatchStatus.DISCARDED:
                 return html`
                     <button
                         type="button"
                         class="action-button"
-                        title="VerDeNuevo"
+                        title="Reiniciar"
+                        aria-label="Reiniciar ${this.media.title}"
                         @click=${() =>
                             this.changeStatus(WatchStatus.PENDING)}
                     >
@@ -857,6 +888,7 @@ export class WatchItemView extends LitElement {
                             </div>
                         `
                     }
+                    ${this.renderDiscardButton()}
                 </div>
 
                 <button

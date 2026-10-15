@@ -61,6 +61,10 @@ export class WatchItem {
     markAsUnwatched() {
         this.status = WatchStatus.PENDING;
     }
+    
+    discard() {
+        this.status = WatchStatus.DISCARDED;
+    }
 
     setProgress(progress) {
         if (!(progress instanceof WatchProgress)) {

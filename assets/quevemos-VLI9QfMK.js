@@ -1,9 +1,9 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),t.credentials=e.crossOrigin===`use-credentials`?`include`:e.crossOrigin===`anonymous`?`omit`:`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=globalThis,t=e.ShadowRoot&&(e.ShadyCSS===void 0||e.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,n=Symbol(),r=new WeakMap,i=class{constructor(e,t,r){if(this._$cssResult$=!0,r!==n)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,n=this.t;if(t&&e===void 0){let t=n!==void 0&&n.length===1;t&&(e=r.get(n)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),t&&r.set(n,e))}return e}toString(){return this.cssText}},a=e=>new i(typeof e==`string`?e:e+``,void 0,n),o=(e,...t)=>new i(e.length===1?e[0]:t.reduce((t,n,r)=>t+(e=>{if(!0===e._$cssResult$)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: `+e+`. Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.`)})(n)+e[r+1],e[0]),e,n),s=(n,r)=>{if(t)n.adoptedStyleSheets=r.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let t of r){let r=document.createElement(`style`),i=e.litNonce;i!==void 0&&r.setAttribute(`nonce`,i),r.textContent=t.cssText,n.appendChild(r)}},c=t?e=>e:e=>e instanceof CSSStyleSheet?(e=>{let t=``;for(let n of e.cssRules)t+=n.cssText;return a(t)})(e):e,{is:l,defineProperty:u,getOwnPropertyDescriptor:d,getOwnPropertyNames:f,getOwnPropertySymbols:p,getPrototypeOf:ee}=Object,m=globalThis,te=m.trustedTypes,ne=te?te.emptyScript:``,re=m.reactiveElementPolyfillSupport,h=(e,t)=>e,g={toAttribute(e,t){switch(t){case Boolean:e=e?ne:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},ie=(e,t)=>!l(e,t),ae={attribute:!0,type:String,converter:g,reflect:!1,useDefault:!1,hasChanged:ie};Symbol.metadata??=Symbol(`metadata`),m.litPropertyMetadata??=new WeakMap;var _=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=ae){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(e,n,t);r!==void 0&&u(this.prototype,e,r)}}static getPropertyDescriptor(e,t,n){let{get:r,set:i}=d(this.prototype,e)??{get(){return this[t]},set(e){this[t]=e}};return{get:r,set(t){let a=r?.call(this);i?.call(this,t),this.requestUpdate(e,a,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??ae}static _$Ei(){if(this.hasOwnProperty(h(`elementProperties`)))return;let e=ee(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(h(`finalized`)))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(h(`properties`))){let e=this.properties,t=[...f(e),...p(e)];for(let n of t)this.createProperty(n,e[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[e,n]of t)this.elementProperties.set(e,n)}this._$Eh=new Map;for(let[e,t]of this.elementProperties){let n=this._$Eu(e,t);n!==void 0&&this._$Eh.set(n,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let n=new Set(e.flat(1/0).reverse());for(let e of n)t.unshift(c(e))}else e!==void 0&&t.push(c(e));return t}static _$Eu(e,t){let n=t.attribute;return!1===n?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let n of t.keys())this.hasOwnProperty(n)&&(e.set(n,this[n]),delete this[n]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return s(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,n){this._$AK(e,n)}_$ET(e,t){let n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(r!==void 0&&!0===n.reflect){let i=(n.converter?.toAttribute===void 0?g:n.converter).toAttribute(t,n.type);this._$Em=e,i==null?this.removeAttribute(r):this.setAttribute(r,i),this._$Em=null}}_$AK(e,t){let n=this.constructor,r=n._$Eh.get(e);if(r!==void 0&&this._$Em!==r){let e=n.getPropertyOptions(r),i=typeof e.converter==`function`?{fromAttribute:e.converter}:e.converter?.fromAttribute===void 0?g:e.converter;this._$Em=r;let a=i.fromAttribute(t,e.type);this[r]=a??this._$Ej?.get(r)??a,this._$Em=null}}requestUpdate(e,t,n,r=!1,i){if(e!==void 0){let a=this.constructor;if(!1===r&&(i=this[e]),n??=a.getPropertyOptions(e),!((n.hasChanged??ie)(i,t)||n.useDefault&&n.reflect&&i===this._$Ej?.get(e)&&!this.hasAttribute(a._$Eu(e,n))))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(e,t,{useDefault:n,reflect:r,wrapped:i},a){n&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,a??t??this[e]),!0!==i||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||n||(t=void 0),this._$AL.set(e,t)),!0===r&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[e,t]of this._$Ep)this[e]=t;this._$Ep=void 0}let e=this.constructor.elementProperties;if(e.size>0)for(let[t,n]of e){let{wrapped:e}=n,r=this[t];!0!==e||this._$AL.has(t)||r===void 0||this.C(t,void 0,n,r)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(e=>e.hostUpdate?.()),this.update(t)):this._$EM()}catch(t){throw e=!1,this._$EM(),t}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(e){}firstUpdated(e){}};_.elementStyles=[],_.shadowRootOptions={mode:`open`},_[h(`elementProperties`)]=new Map,_[h(`finalized`)]=new Map,re?.({ReactiveElement:_}),(m.reactiveElementVersions??=[]).push(`2.1.2`);var v=globalThis,oe=e=>e,y=v.trustedTypes,se=y?y.createPolicy(`lit-html`,{createHTML:e=>e}):void 0,ce=`$lit$`,b=`lit$${Math.random().toFixed(9).slice(2)}$`,le=`?`+b,ue=`<${le}>`,x=document,S=()=>x.createComment(``),C=e=>e===null||typeof e!=`object`&&typeof e!=`function`,w=Array.isArray,de=e=>w(e)||typeof e?.[Symbol.iterator]==`function`,T=`[ 	
-\f\r]`,E=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,D=/-->/g,O=/>/g,k=RegExp(`>|${T}(?:([^\\s"'>=/]+)(${T}*=${T}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),A=/'/g,fe=/"/g,pe=/^(?:script|style|textarea|title)$/i,j=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),M=Symbol.for(`lit-noChange`),N=Symbol.for(`lit-nothing`),me=new WeakMap,P=x.createTreeWalker(x,129);function he(e,t){if(!w(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return se===void 0?t:se.createHTML(t)}var ge=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=E;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===E?c[1]===`!--`?o=D:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=k):(pe.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=k):o=O:o===k?c[0]===`>`?(o=i??E,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?k:c[3]===`"`?fe:A):o===fe||o===A?o=k:o===D||o===O?o=E:(o=k,i=void 0);let d=o===k&&e[t+1].startsWith(`/>`)?` `:``;a+=o===E?n+ue:l>=0?(r.push(s),n.slice(0,l)+ce+n.slice(l)+b+d):n+b+(l===-2?t:d)}return[he(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},F=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=ge(t,n);if(this.el=e.createElement(l,r),P.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=P.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(ce)){let t=u[o++],n=i.getAttribute(e).split(b),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?ve:r[1]===`?`?ye:r[1]===`@`?be:R}),i.removeAttribute(e)}else e.startsWith(b)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(pe.test(i.tagName)){let e=i.textContent.split(b),t=e.length-1;if(t>0){i.textContent=y?y.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],S()),P.nextNode(),c.push({type:2,index:++a});i.append(e[t],S())}}}else if(i.nodeType===8){if(i.data===le)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(b,e+1))!==-1;)c.push({type:7,index:a}),e+=b.length-1}}a++}}static createElement(e,t){let n=x.createElement(`template`);return n.innerHTML=e,n}};function I(e,t,n=e,r){if(t===M)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=C(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=I(e,i._$AS(e,t.values),i,r)),t}var _e=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??x).importNode(t,!0);P.currentNode=r;let i=P.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new L(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new xe(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=P.nextNode(),a++)}return P.currentNode=x,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},L=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=N,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=I(this,e,t),C(e)?e===N||e==null||e===``?(this._$AH!==N&&this._$AR(),this._$AH=N):e!==this._$AH&&e!==M&&this._(e):e._$litType$===void 0?e.nodeType===void 0?de(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==N&&C(this._$AH)?this._$AA.nextSibling.data=e:this.T(x.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=F.createElement(he(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new _e(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=me.get(e.strings);return t===void 0&&me.set(e.strings,t=new F(e)),t}k(t){w(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(S()),this.O(S()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=oe(e).nextSibling;oe(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},R=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=N,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=N}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=I(this,e,t,0),a=!C(e)||e!==this._$AH&&e!==M,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=I(this,r[n+o],t,o),s===M&&(s=this._$AH[o]),a||=!C(s)||s!==this._$AH[o],s===N?e=N:e!==N&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===N?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},ve=class extends R{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===N?void 0:e}},ye=class extends R{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==N)}},be=class extends R{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=I(this,e,t,0)??N)===M)return;let n=this._$AH,r=e===N&&n!==N||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==N&&(n===N||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},xe=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){I(this,e)}},Se=v.litHtmlPolyfillSupport;Se?.(F,L),(v.litHtmlVersions??=[]).push(`3.3.3`);var Ce=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new L(t.insertBefore(S(),e),e,void 0,n??{})}return i._$AI(e),i},z=globalThis,B=class extends _{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=Ce(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return M}};B._$litElement$=!0,B.finalized=!0,z.litElementHydrateSupport?.({LitElement:B});var we=z.litElementPolyfillSupport;we?.({LitElement:B}),(z.litElementVersions??=[]).push(`4.2.2`);var V=Object.freeze({MOVIE:`movie`,SERIES:`series`,VIDEOGAMES:`videogame`}),H=class e{constructor({title:t,type:n,id:r=e.generateId(),originalTitle:i=void 0,year:a=void 0,runtimeMinutes:o=void 0,genres:s=[],omdbId:c=void 0,poster:l=void 0,ratings:u=void 0,director:d=void 0,country:f=void 0,actors:p=void 0,plot:ee=void 0,awards:m=void 0}){this.id=r,this.title=e.validateTitle(e.normalizeTitle(t)),this.originalTitle=i,this.type=e.validateType(n),this.year=a,this.runtimeMinutes=o,this.genres=s,this.omdbId=c,this.poster=l,this.ratings=u,this.director=d,this.country=f,this.actors=p,this.plot=ee,this.awards=m}get matchKey(){return e.createMatchKey(this.title,this.type,this.year)}static generateId(){return crypto.randomUUID()}static createMatchKey(e,t,n=void 0){let r=`${e.trim().toLowerCase().replace(/\s+/g,` `)}|${t}`;return n?`${r}|${n}`:r}static normalizeTitle(e){if(typeof e!=`string`)throw Error(`Media title is required`);return e.trim().replace(/\s+/g,` `)}static validateTitle(e){if(!e)throw Error(`Media title cannot be empty`);if(e.length>250)throw Error(`Media title cannot exceed 250 characters`);return e}static validateType(e){if(!Object.values(V).includes(e))throw Error(e+`Invalid media type`);return e}},U=Object.freeze({PENDING:`pending`,WATCHING:`watching`,PAUSED:`paused`,WATCHED:`watched`,DISCARDED:`discarded`}),W=class{constructor({season:e=void 0,episode:t=void 0,minute:n=void 0}){this.season=e,this.episode=t,this.minute=n}},G=class e{constructor({mediaId:t,platforms:n=[],reason:r=void 0,spanishAudio:i=!1,spanishSubtitles:a=!1,status:o=U.PENDING,userRating:s=void 0,progress:c=void 0,addedAt:l=new Date().toISOString(),watchedAt:u=void 0}){this.mediaId=e.validateMediaId(t),this.platforms=n,this.reason=r,this.spanishAudio=i,this.spanishSubtitles=a,this.status=e.validateStatus(o),this.userRating=s,this.progress=c,this.addedAt=l,this.watchedAt=u}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(U).includes(e))throw Error(`Invalid status type`);return e}start(){this.status=U.WATCHING}pause(){this.status=U.PAUSED}resume(){this.status=U.WATCHING}markAsWatched(){this.status=U.WATCHED}markAsUnwatched(){this.status=U.PENDING}setProgress(e){if(!(e instanceof W))throw Error(`Invalid progress`);this.progress=e}},K=class e{constructor({version:t=1,id:n=e.generateId(),name:r=`Mi primera lista`,watchItems:i=void 0,media:a=void 0}={}){this.version=e.validateVersion(t),this.id=n,this.name=r,this.watchItems=e.validatesItems(i),this.media=e.validatesMedia(a)}static generateId(){return crypto.randomUUID()}static validatesItems(e){if(e||=[],!Array.isArray(e))throw Error(`watchItems is not an array`);return e.forEach(e=>{if(!(e instanceof G))throw Error(`watchItems must contain only WatchItem`)}),e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e.forEach(e=>{if(!(e instanceof H))throw Error(`media must contain only Media`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported watch list version`);return e}addMedia(e){if(this.media.some(t=>t.id===e.id)||this.media.some(t=>t.matchKey===e.matchKey))throw Error(`Media already exists`);this.media.push(e)}removeMedia(e){if(this.watchItems.some(t=>t.mediaId===e))return!1;let t=this.media.findIndex(t=>t.id===e);return t!==-1&&(this.media.splice(t,1),!0)}addWatchItem(e){if(!this.media.some(t=>t.id===e.mediaId))throw Error(`Media not found`);this.watchItems.push(e)}removeWatchItem(e){let t=this.watchItems.findIndex(t=>t.mediaId===e);return t!==-1&&(this.watchItems.splice(t,1),!0)}},Te=class{constructor(e,t=`quevemos-watchlist`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);if(!e)return new K;let t=JSON.parse(e),n=t.media.map(e=>new H(e)),r=t.watchItems.map(e=>new G(e));return new K({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}},q=Object.freeze({PENDING:`pending`,ACCEPTED:`accepted`,DISCARDED:`discarded`}),J=class e{constructor({id:t=e.generateId(),mediaId:n,platforms:r=[],spanishAudio:i=!1,spanishSubtitles:a=!1,reason:o=void 0,recommenderRating:s=void 0,status:c=q.PENDING}){this.id=t,this.mediaId=e.validateMediaId(n),this.platforms=r,this.spanishAudio=i,this.spanishSubtitles=a,this.reason=o,this.status=e.validateStatus(c),this.recommenderRating=s}static generateId(){return crypto.randomUUID()}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(q).includes(e))throw Error(`Invalid recommendation status`);return e}},Y=class e{constructor({id:t=e.generateId(),name:n=void 0,recommendations:r=void 0,media:i=void 0,version:a=1,createdAt:o=new Date().toISOString()}={}){this.id=t,this.name=e.validateName(n),this.recommendations=e.validatesRecommendations(r),this.media=e.validatesMedia(i),this.version=e.validateVersion(a),this.createdAt=o}static generateId(){return crypto.randomUUID()}static validateName(e){if(!e||typeof e!=`string`)throw Error(`name is required`);return e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e}static validatesRecommendations(e){if(e||=[],!Array.isArray(e))throw Error(`recommendations is not an array`);return e.forEach(e=>{if(!(e instanceof J))throw Error(`recommendations must contain only Recommendation`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported recommendation list version`);return e}},Ee=class{constructor(e,t=`quevemos-inbox`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);return e?JSON.parse(e).map(e=>new Y({version:e.version,id:e.id,name:e.name,recommendations:e.recommendations.map(e=>new J(e)),media:e.media,createdAt:e.createdAt})):[]}},De=class extends B{static styles=o`
+(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),t.credentials=e.crossOrigin===`use-credentials`?`include`:e.crossOrigin===`anonymous`?`omit`:`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=globalThis,t=e.ShadowRoot&&(e.ShadyCSS===void 0||e.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,n=Symbol(),r=new WeakMap,i=class{constructor(e,t,r){if(this._$cssResult$=!0,r!==n)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,n=this.t;if(t&&e===void 0){let t=n!==void 0&&n.length===1;t&&(e=r.get(n)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),t&&r.set(n,e))}return e}toString(){return this.cssText}},a=e=>new i(typeof e==`string`?e:e+``,void 0,n),o=(e,...t)=>new i(e.length===1?e[0]:t.reduce((t,n,r)=>t+(e=>{if(!0===e._$cssResult$)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: `+e+`. Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.`)})(n)+e[r+1],e[0]),e,n),s=(n,r)=>{if(t)n.adoptedStyleSheets=r.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let t of r){let r=document.createElement(`style`),i=e.litNonce;i!==void 0&&r.setAttribute(`nonce`,i),r.textContent=t.cssText,n.appendChild(r)}},c=t?e=>e:e=>e instanceof CSSStyleSheet?(e=>{let t=``;for(let n of e.cssRules)t+=n.cssText;return a(t)})(e):e,{is:l,defineProperty:u,getOwnPropertyDescriptor:d,getOwnPropertyNames:f,getOwnPropertySymbols:p,getPrototypeOf:ee}=Object,m=globalThis,h=m.trustedTypes,te=h?h.emptyScript:``,ne=m.reactiveElementPolyfillSupport,g=(e,t)=>e,_={toAttribute(e,t){switch(t){case Boolean:e=e?te:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},re=(e,t)=>!l(e,t),ie={attribute:!0,type:String,converter:_,reflect:!1,useDefault:!1,hasChanged:re};Symbol.metadata??=Symbol(`metadata`),m.litPropertyMetadata??=new WeakMap;var v=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=ie){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(e,n,t);r!==void 0&&u(this.prototype,e,r)}}static getPropertyDescriptor(e,t,n){let{get:r,set:i}=d(this.prototype,e)??{get(){return this[t]},set(e){this[t]=e}};return{get:r,set(t){let a=r?.call(this);i?.call(this,t),this.requestUpdate(e,a,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??ie}static _$Ei(){if(this.hasOwnProperty(g(`elementProperties`)))return;let e=ee(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(g(`finalized`)))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(g(`properties`))){let e=this.properties,t=[...f(e),...p(e)];for(let n of t)this.createProperty(n,e[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[e,n]of t)this.elementProperties.set(e,n)}this._$Eh=new Map;for(let[e,t]of this.elementProperties){let n=this._$Eu(e,t);n!==void 0&&this._$Eh.set(n,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let n=new Set(e.flat(1/0).reverse());for(let e of n)t.unshift(c(e))}else e!==void 0&&t.push(c(e));return t}static _$Eu(e,t){let n=t.attribute;return!1===n?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let n of t.keys())this.hasOwnProperty(n)&&(e.set(n,this[n]),delete this[n]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return s(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,n){this._$AK(e,n)}_$ET(e,t){let n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(r!==void 0&&!0===n.reflect){let i=(n.converter?.toAttribute===void 0?_:n.converter).toAttribute(t,n.type);this._$Em=e,i==null?this.removeAttribute(r):this.setAttribute(r,i),this._$Em=null}}_$AK(e,t){let n=this.constructor,r=n._$Eh.get(e);if(r!==void 0&&this._$Em!==r){let e=n.getPropertyOptions(r),i=typeof e.converter==`function`?{fromAttribute:e.converter}:e.converter?.fromAttribute===void 0?_:e.converter;this._$Em=r;let a=i.fromAttribute(t,e.type);this[r]=a??this._$Ej?.get(r)??a,this._$Em=null}}requestUpdate(e,t,n,r=!1,i){if(e!==void 0){let a=this.constructor;if(!1===r&&(i=this[e]),n??=a.getPropertyOptions(e),!((n.hasChanged??re)(i,t)||n.useDefault&&n.reflect&&i===this._$Ej?.get(e)&&!this.hasAttribute(a._$Eu(e,n))))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(e,t,{useDefault:n,reflect:r,wrapped:i},a){n&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,a??t??this[e]),!0!==i||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||n||(t=void 0),this._$AL.set(e,t)),!0===r&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[e,t]of this._$Ep)this[e]=t;this._$Ep=void 0}let e=this.constructor.elementProperties;if(e.size>0)for(let[t,n]of e){let{wrapped:e}=n,r=this[t];!0!==e||this._$AL.has(t)||r===void 0||this.C(t,void 0,n,r)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(e=>e.hostUpdate?.()),this.update(t)):this._$EM()}catch(t){throw e=!1,this._$EM(),t}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(e){}firstUpdated(e){}};v.elementStyles=[],v.shadowRootOptions={mode:`open`},v[g(`elementProperties`)]=new Map,v[g(`finalized`)]=new Map,ne?.({ReactiveElement:v}),(m.reactiveElementVersions??=[]).push(`2.1.2`);var y=globalThis,ae=e=>e,b=y.trustedTypes,oe=b?b.createPolicy(`lit-html`,{createHTML:e=>e}):void 0,se=`$lit$`,x=`lit$${Math.random().toFixed(9).slice(2)}$`,ce=`?`+x,le=`<${ce}>`,S=document,C=()=>S.createComment(``),w=e=>e===null||typeof e!=`object`&&typeof e!=`function`,T=Array.isArray,ue=e=>T(e)||typeof e?.[Symbol.iterator]==`function`,E=`[ 	
+\f\r]`,D=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,O=/-->/g,k=/>/g,A=RegExp(`>|${E}(?:([^\\s"'>=/]+)(${E}*=${E}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),de=/'/g,fe=/"/g,pe=/^(?:script|style|textarea|title)$/i,j=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),M=Symbol.for(`lit-noChange`),N=Symbol.for(`lit-nothing`),me=new WeakMap,P=S.createTreeWalker(S,129);function he(e,t){if(!T(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return oe===void 0?t:oe.createHTML(t)}var ge=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=D;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===D?c[1]===`!--`?o=O:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=A):(pe.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=A):o=k:o===A?c[0]===`>`?(o=i??D,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?A:c[3]===`"`?fe:de):o===fe||o===de?o=A:o===O||o===k?o=D:(o=A,i=void 0);let d=o===A&&e[t+1].startsWith(`/>`)?` `:``;a+=o===D?n+le:l>=0?(r.push(s),n.slice(0,l)+se+n.slice(l)+x+d):n+x+(l===-2?t:d)}return[he(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},F=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=ge(t,n);if(this.el=e.createElement(l,r),P.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=P.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(se)){let t=u[o++],n=i.getAttribute(e).split(x),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?ve:r[1]===`?`?ye:r[1]===`@`?be:R}),i.removeAttribute(e)}else e.startsWith(x)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(pe.test(i.tagName)){let e=i.textContent.split(x),t=e.length-1;if(t>0){i.textContent=b?b.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],C()),P.nextNode(),c.push({type:2,index:++a});i.append(e[t],C())}}}else if(i.nodeType===8){if(i.data===ce)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(x,e+1))!==-1;)c.push({type:7,index:a}),e+=x.length-1}}a++}}static createElement(e,t){let n=S.createElement(`template`);return n.innerHTML=e,n}};function I(e,t,n=e,r){if(t===M)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=w(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=I(e,i._$AS(e,t.values),i,r)),t}var _e=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??S).importNode(t,!0);P.currentNode=r;let i=P.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new L(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new xe(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=P.nextNode(),a++)}return P.currentNode=S,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},L=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=N,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=I(this,e,t),w(e)?e===N||e==null||e===``?(this._$AH!==N&&this._$AR(),this._$AH=N):e!==this._$AH&&e!==M&&this._(e):e._$litType$===void 0?e.nodeType===void 0?ue(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==N&&w(this._$AH)?this._$AA.nextSibling.data=e:this.T(S.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=F.createElement(he(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new _e(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=me.get(e.strings);return t===void 0&&me.set(e.strings,t=new F(e)),t}k(t){T(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(C()),this.O(C()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=ae(e).nextSibling;ae(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},R=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=N,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=N}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=I(this,e,t,0),a=!w(e)||e!==this._$AH&&e!==M,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=I(this,r[n+o],t,o),s===M&&(s=this._$AH[o]),a||=!w(s)||s!==this._$AH[o],s===N?e=N:e!==N&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===N?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},ve=class extends R{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===N?void 0:e}},ye=class extends R{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==N)}},be=class extends R{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=I(this,e,t,0)??N)===M)return;let n=this._$AH,r=e===N&&n!==N||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==N&&(n===N||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},xe=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){I(this,e)}},Se=y.litHtmlPolyfillSupport;Se?.(F,L),(y.litHtmlVersions??=[]).push(`3.3.3`);var Ce=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new L(t.insertBefore(C(),e),e,void 0,n??{})}return i._$AI(e),i},z=globalThis,B=class extends v{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=Ce(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return M}};B._$litElement$=!0,B.finalized=!0,z.litElementHydrateSupport?.({LitElement:B});var we=z.litElementPolyfillSupport;we?.({LitElement:B}),(z.litElementVersions??=[]).push(`4.2.2`);var V=Object.freeze({MOVIE:`movie`,SERIES:`series`,VIDEOGAMES:`videogame`}),H=class e{constructor({title:t,type:n,id:r=e.generateId(),originalTitle:i=void 0,year:a=void 0,runtimeMinutes:o=void 0,genres:s=[],omdbId:c=void 0,poster:l=void 0,ratings:u=void 0,director:d=void 0,country:f=void 0,actors:p=void 0,plot:ee=void 0,awards:m=void 0,trailer:h=void 0}){this.id=r,this.title=e.validateTitle(e.normalizeTitle(t)),this.originalTitle=i,this.type=e.validateType(n),this.year=a,this.runtimeMinutes=o,this.genres=s,this.omdbId=c,this.poster=l,this.ratings=u,this.director=d,this.country=f,this.actors=p,this.plot=ee,this.awards=m,this.trailer=h}get matchKey(){return e.createMatchKey(this.title,this.type,this.year)}static generateId(){return crypto.randomUUID()}static createMatchKey(e,t,n=void 0){let r=`${e.trim().toLowerCase().replace(/\s+/g,` `)}|${t}`;return n?`${r}|${n}`:r}static normalizeTitle(e){if(typeof e!=`string`)throw Error(`Media title is required`);return e.trim().replace(/\s+/g,` `)}static validateTitle(e){if(!e)throw Error(`Media title cannot be empty`);if(e.length>250)throw Error(`Media title cannot exceed 250 characters`);return e}static validateType(e){if(!Object.values(V).includes(e))throw Error(e+`Invalid media type`);return e}},U=Object.freeze({PENDING:`pending`,WATCHING:`watching`,PAUSED:`paused`,WATCHED:`watched`,DISCARDED:`discarded`}),W=class{constructor({season:e=void 0,episode:t=void 0,minute:n=void 0}){this.season=e,this.episode=t,this.minute=n}},G=class e{constructor({mediaId:t,platforms:n=[],reason:r=void 0,spanishAudio:i=!1,spanishSubtitles:a=!1,status:o=U.PENDING,userRating:s=void 0,progress:c=void 0,addedAt:l=new Date().toISOString(),watchedAt:u=void 0}){this.mediaId=e.validateMediaId(t),this.platforms=n,this.reason=r,this.spanishAudio=i,this.spanishSubtitles=a,this.status=e.validateStatus(o),this.userRating=s,this.progress=c,this.addedAt=l,this.watchedAt=u}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(U).includes(e))throw Error(`Invalid status type`);return e}start(){this.status=U.WATCHING}pause(){this.status=U.PAUSED}resume(){this.status=U.WATCHING}markAsWatched(){this.status=U.WATCHED}markAsUnwatched(){this.status=U.PENDING}discard(){this.status=U.DISCARDED}setProgress(e){if(!(e instanceof W))throw Error(`Invalid progress`);this.progress=e}},K=class e{constructor({version:t=1,id:n=e.generateId(),name:r=`Mi primera lista`,watchItems:i=void 0,media:a=void 0}={}){this.version=e.validateVersion(t),this.id=n,this.name=r,this.watchItems=e.validatesItems(i),this.media=e.validatesMedia(a)}static generateId(){return crypto.randomUUID()}static validatesItems(e){if(e||=[],!Array.isArray(e))throw Error(`watchItems is not an array`);return e.forEach(e=>{if(!(e instanceof G))throw Error(`watchItems must contain only WatchItem`)}),e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e.forEach(e=>{if(!(e instanceof H))throw Error(`media must contain only Media`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported watch list version`);return e}addMedia(e){if(this.media.some(t=>t.id===e.id)||this.media.some(t=>t.matchKey===e.matchKey))throw Error(`Media already exists`);this.media.push(e)}removeMedia(e){if(this.watchItems.some(t=>t.mediaId===e))return!1;let t=this.media.findIndex(t=>t.id===e);return t!==-1&&(this.media.splice(t,1),!0)}addWatchItem(e){if(!this.media.some(t=>t.id===e.mediaId))throw Error(`Media not found`);this.watchItems.push(e)}removeWatchItem(e){let t=this.watchItems.findIndex(t=>t.mediaId===e);return t!==-1&&(this.watchItems.splice(t,1),!0)}},Te=class{constructor(e,t=`quevemos-watchlist`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);if(!e)return new K;let t=JSON.parse(e),n=t.media.map(e=>new H(e)),r=t.watchItems.map(e=>new G(e));return new K({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}},q=Object.freeze({PENDING:`pending`,ACCEPTED:`accepted`,DISCARDED:`discarded`}),J=class e{constructor({id:t=e.generateId(),mediaId:n,platforms:r=[],spanishAudio:i=!1,spanishSubtitles:a=!1,reason:o=void 0,recommenderRating:s=void 0,status:c=q.PENDING}){this.id=t,this.mediaId=e.validateMediaId(n),this.platforms=r,this.spanishAudio=i,this.spanishSubtitles=a,this.reason=o,this.status=e.validateStatus(c),this.recommenderRating=s}static generateId(){return crypto.randomUUID()}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(q).includes(e))throw Error(`Invalid recommendation status`);return e}},Y=class e{constructor({id:t=e.generateId(),name:n=void 0,recommendations:r=void 0,media:i=void 0,version:a=1,createdAt:o=new Date().toISOString()}={}){this.id=t,this.name=e.validateName(n),this.recommendations=e.validatesRecommendations(r),this.media=e.validatesMedia(i),this.version=e.validateVersion(a),this.createdAt=o}static generateId(){return crypto.randomUUID()}static validateName(e){if(!e||typeof e!=`string`)throw Error(`name is required`);return e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e}static validatesRecommendations(e){if(e||=[],!Array.isArray(e))throw Error(`recommendations is not an array`);return e.forEach(e=>{if(!(e instanceof J))throw Error(`recommendations must contain only Recommendation`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported recommendation list version`);return e}},Ee=class{constructor(e,t=`quevemos-inbox`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);return e?JSON.parse(e).map(e=>new Y({version:e.version,id:e.id,name:e.name,recommendations:e.recommendations.map(e=>new J(e)),media:e.media,createdAt:e.createdAt})):[]}},De=class extends B{static properties={_helpOpen:{state:!0}};constructor(){super(),this._helpOpen=!1}static styles=o`
         :host {
             display: block;
         }
-            
+
         *,
         *::before,
         *::after {
@@ -36,9 +36,7 @@
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 1.1rem 1.3rem 1.3rem;
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.25);
-
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
             text-align: center;
         }
 
@@ -46,12 +44,9 @@
             display: inline-block;
             margin-bottom: 0.5rem;
             padding: 0.35rem 0.8rem;
-
             border-radius: 999px;
-
             background: rgba(255, 107, 44, 0.18);
             color: #ffd7bf;
-
             font-size: 0.82rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -59,23 +54,17 @@
 
         h1 {
             color: white;
-
             background:
                 linear-gradient(
                     135deg,
                     var(--accent),
                     var(--accent-2)
                 );
-
             border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 18px;
-
             padding: 0.7rem 1rem;
             margin: 0.2rem auto 0.75rem;
-
-            box-shadow:
-                0 8px 20px rgba(255, 107, 44, 0.2);
-
+            box-shadow: 0 8px 20px rgba(255, 107, 44, 0.2);
             max-width: 720px;
         }
 
@@ -89,32 +78,244 @@
         .hero-actions {
             display: flex;
             justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.65rem;
         }
 
         .a-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-
+            gap: 0.4rem;
             border: 1px solid rgba(255, 255, 255, 0.16);
             border-radius: 999px;
-
             padding: 0.65rem 1rem;
-
             background: rgba(255, 255, 255, 0.06);
-
-            box-shadow:
-                0 6px 16px rgba(0, 0, 0, 0.16);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+            font: inherit;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
         }
 
         .a-button:hover {
             background: rgba(255, 255, 255, 0.12);
             transform: translateY(-1px);
         }
+
+        .a-button:focus-visible,
+        .close-button:focus-visible {
+            outline: 2px solid var(--accent-2);
+            outline-offset: 3px;
+        }
+
+        .help-button {
+            border-color: rgba(255, 154, 60, 0.4);
+            color: #ffd7bf;
+        }
+
+        .help-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.35rem;
+            height: 1.35rem;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Overlay de ayuda */
+
+        .help-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.78);
+            backdrop-filter: blur(5px);
+        }
+
+        .help-panel {
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+
+            background:
+                radial-gradient(
+                    ellipse at top right,
+                    rgba(255, 107, 44, 0.12),
+                    transparent 55%
+                ),
+                #202020;
+
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 1.4rem;
+            color: var(--text);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .help-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .help-heading h2 {
+            margin: 0;
+            color: white;
+            font-size: 1.55rem;
+        }
+
+        .help-intro {
+            margin: 0 0 1.2rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .close-button {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .help-steps {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+
+        .help-card {
+            min-width: 0;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .step-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .step-icon {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 12px;
+            background: rgba(255, 107, 44, 0.16);
+            font-size: 1.35rem;
+        }
+
+        .step-number {
+            display: block;
+            margin-bottom: 0.1rem;
+            color: var(--accent-2);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .help-card h3 {
+            margin: 0;
+            color: white;
+            font-size: 1rem;
+            line-height: 1.3;
+        }
+
+        .help-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.91rem;
+            line-height: 1.55;
+        }
+
+        .help-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid rgba(255, 154, 60, 0.3);
+            border-radius: 14px;
+            background: rgba(255, 107, 44, 0.09);
+        }
+
+        .help-note-icon {
+            flex-shrink: 0;
+            font-size: 1.3rem;
+        }
+
+        .help-note p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+
+        .help-note strong {
+            color: #ffd7bf;
+        }
+
+        .help-footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.2rem;
+        }
+
+        .close-text-button {
+            background: linear-gradient(
+                135deg,
+                var(--accent),
+                var(--accent-2)
+            );
+            border: 0;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 5px 16px rgba(255, 107, 44, 0.18);
+        }
+
+        .close-text-button:hover {
+            background: linear-gradient(
+                135deg,
+                var(--accent-2),
+                var(--accent)
+            );
+        }
+
         /* Móvil */
 
         @media (max-width: 768px) {
-           
             header {
                 padding: 1rem 0.8rem 1.1rem;
             }
@@ -123,10 +324,50 @@
                 font-size: 1.6rem;
             }
 
+            .hero-actions {
+                gap: 0.55rem;
+            }
 
+            .help-overlay {
+                padding: 0.65rem;
+                align-items: center;
+            }
 
+            .help-panel {
+                max-height: 92vh;
+                padding: 1rem;
+                border-radius: 18px;
+            }
+
+            .help-heading h2 {
+                font-size: 1.35rem;
+            }
+
+            .help-steps {
+                grid-template-columns: 1fr;
+                gap: 0.65rem;
+            }
+
+            .help-card {
+                padding: 0.85rem;
+            }
+
+            .step-heading {
+                margin-bottom: 0.4rem;
+            }
+
+            .help-card p {
+                font-size: 0.9rem;
+            }
         }
-    `;render(){return j`
+
+        @media (prefers-reduced-motion: reduce) {
+            a,
+            .a-button {
+                transition: none;
+            }
+        }
+    `;_openHelp(){this._helpOpen=!0}_closeHelp(){this._helpOpen=!1}_handleHelpKeydown(e){e.key===`Escape`&&(e.preventDefault(),e.stopPropagation(),this._closeHelp())}render(){return j`
             <header>
                 <div class="hero-badge">
                     LAB EXPERIMENTAL
@@ -139,15 +380,183 @@
                 </p>
 
                 <p class="hero-subtitle">
-                    <small> No olvides exportarlo para evitar perderlo al cambiar de navegador o limpiar</small>
+                    <small>
+                        No olvides exportarlo para evitar perderlo al cambiar
+                        de dispositivo/navegador o limpiar los datos de navegación
+                    </small>
                 </p>
 
                 <div class="hero-actions">
                     <a class="a-button" href="/">
                         ← Volver a Joselon79 Lab
                     </a>
+
+                    <button
+                        class="a-button help-button"
+                        type="button"
+                        @click=${this._openHelp}
+                        aria-haspopup="dialog"
+                        aria-expanded=${this._helpOpen}
+                    >
+                        <span class="help-icon" aria-hidden="true">i</span>
+                        ¿Cómo funciona?
+                    </button>
                 </div>
             </header>
+
+            ${this._helpOpen?j`
+                <div
+                    class="help-overlay"
+                    @click=${e=>{e.target===e.currentTarget&&this._closeHelp()}}
+                    @keydown=${this._handleHelpKeydown}
+                >
+                    <section
+                        class="help-panel"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="help-title"
+                        aria-describedby="help-description"
+                    >
+                        <div class="help-heading">
+                            <h2 id="help-title">
+                                ¿Cómo funciona QueVemos?
+                            </h2>
+
+                            <button
+                                class="close-button"
+                                type="button"
+                                @click=${this._closeHelp}
+                                aria-label="Cerrar ayuda"
+                                autofocus
+                            >
+                                ×
+                            </button>
+                        </div>
+
+                        <p class="help-intro" id="help-description">
+                            Organiza lo que quieres ver, lleva el seguimiento de visionado
+                            y comparte tus descubrimientos con los demás.
+                        </p>
+
+                        <div class="help-steps">
+                            <article class="help-card">
+                                <div class="step-heading">
+                                    <span class="step-icon"
+                                        aria-hidden="true">🎬</span>
+                                    <div>
+                                        <span class="step-number">Paso 1</span>
+                                        <h3>Tu lista, a tu manera</h3>
+                                    </div>
+                                </div>
+
+                                <p>
+                                    Añade películas, series y documentales.
+                                    Completa sus datos cuando quieras con el botón Editar(lápiz) y marca
+                                    si están pendientes, en curso, en pausa
+                                    o terminados con los botones del pie de la tarjeta.
+                                </p>
+                                <p>
+                                    <strong>¿Por dónde ibas?</strong>
+                                    Guarda la temporada, el episodio o el
+                                    minuto para retomarlos después. 
+                                    Puedes editar para anotarlo y consultarlo con el botón (i)
+                                </p>
+                            </article>
+
+                            <article class="help-card">
+                                <div class="step-heading">
+                                    <span class="step-icon"
+                                        aria-hidden="true">📝</span>
+                                    <div>
+                                        <span class="step-number">Paso 2</span>
+                                        <h3>Decide qué hacer con cada título</h3>
+                                    </div>
+                                </div>
+
+                                <p>
+                                    Si te interesa, déjalo pendiente o empieza
+                                    a verlo. Si no te convence, puedes
+                                    descartarlo e indicar el motivo.
+                                </p>
+                                <p>
+                                    <strong>¡No lo pierdes!</strong>
+                                    El título descartado se conserva para
+                                    consultar más adelante por qué no te
+                                    interesaba.
+                                </p>
+                            </article>
+
+                            <article class="help-card">
+                                <div class="step-heading">
+                                    <span class="step-icon"
+                                        aria-hidden="true">📨</span>
+                                    <div>
+                                        <span class="step-number">Paso 3</span>
+                                        <h3>Comparte tus recomendaciones</h3>
+                                    </div>
+                                </div>
+
+                                <p>
+                                    Elige títulos de tu lista y crea un enlace
+                                    para compartirlos con familiares o amigos.
+                                    Así podrán recibir tus propuestas en su
+                                    propia aplicación.
+                                </p>
+                                <p>
+                                    El motivo puede servir para contar por qué
+                                    recomiendas una película o qué te llamó
+                                    la atención.
+                                </p>
+                            </article>
+
+                            <article class="help-card">
+                                <div class="step-heading">
+                                    <span class="step-icon"
+                                        aria-hidden="true">📬</span>
+                                    <div>
+                                        <span class="step-number">Paso 4</span>
+                                        <h3>Recibe y decide</h3>
+                                    </div>
+                                </div>
+
+                                <p>
+                                    Revisa las recomendaciones que recibas
+                                    en la bandeja de entrada. Puedes aceptarlas
+                                    para añadirlas a tu lista o descartarlas.
+                                </p>
+                                <p>
+                                    Si el título ya está en tu lista, puedes
+                                    relacionar la recomendación con ese registro
+                                    en lugar de crear otro.
+                                </p>
+                            </article>
+                        </div>
+
+                        <div class="help-note">
+                            <span class="help-note-icon"
+                                aria-hidden="true">💾</span>
+                            <p>
+                                <strong>Importante: tus datos son locales.</strong>
+                                Tu lista se guarda en el navegador y dispositivo
+                                donde utilizas la aplicación. Compartir
+                                recomendaciones no sincroniza las listas.
+                                Exporta una copia de seguridad periódicamente
+                                y guárdala en un lugar seguro.
+                            </p>
+                        </div>
+
+                        <div class="help-footer">
+                            <button
+                                class="a-button close-text-button"
+                                type="button"
+                                @click=${this._closeHelp}
+                            >
+                                ¡Entendido!
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            `:``}
         `}};customElements.define(`app-header`,De);var Oe=class extends B{static styles=o`
         :host {
             display: block;
@@ -236,7 +645,7 @@
                     Copyleft © Joselon79
                 </p>
             </footer>
-        `}};customElements.define(`app-footer`,Oe);var X=class{constructor(e){this.watchList=e}addItem({title:e,type:t,year:n,originalTitle:r,genres:i,platforms:a}){let o=null,s=!1;try{o=new H({title:e,type:t,year:n,originalTitle:r,genres:i});let c=new G({mediaId:o.id,platforms:a});return this.watchList.addMedia(o),s=!0,this.watchList.addWatchItem(c),{success:!0}}catch(e){return s&&this.watchList.removeMedia(o.id),{success:!1,error:e.message}}}updateItem({mediaId:e,media:t,watchItem:n,omdbDetails:r}){let i=this.watchList.media.find(t=>t.id===e),a=this.watchList.watchItems.find(t=>t.mediaId===e);if(!i||!a)return{success:!1,error:`Item not found`};let o=r&&r.imdbID!==i.omdbId,s=t.poster?.trim()?t.poster.trim():o?void 0:i.poster;try{let o=new H({id:e,title:t.title,type:t.type,year:t.year,originalTitle:t.originalTitle,genres:t.genres,runtimeMinutes:i.runtimeMinutes,ratings:i.ratings,director:i.director,country:i.country,actors:i.actors,plot:i.plot,awards:i.awards,omdbId:i.omdbId,poster:s});if(this.watchList.media.some(t=>t.id!==e&&t.matchKey===o.matchKey))throw Error(`Media already exists`);if(r&&r.imdbID!==i.omdbId){let e=this.updateOmdbDetails({media:o,details:r});if(!e.success)throw Error(e.error)}return i.title=o.title,i.type=o.type,i.year=o.year,i.originalTitle=o.originalTitle,i.genres=o.genres,i.runtimeMinutes=o.runtimeMinutes,i.ratings=o.ratings,i.director=o.director,i.country=o.country,i.actors=o.actors,i.plot=o.plot,i.awards=o.awards,i.omdbId=o.omdbId,i.poster=o.poster,a.platforms=n.platforms,a.reason=n.reason,a.spanishAudio=n.spanishAudio,a.spanishSubtitles=n.spanishSubtitles,a.userRating=n.userRating,a.progress=n.progress,{success:!0}}catch(e){return{success:!1,error:e.message}}}changeStatus(e,t){let n=this.watchList.watchItems.find(t=>t.mediaId===e);if(!n)return{success:!1,error:`WatchItem not found`};try{switch(t){case U.WATCHING:if(n.status===U.PENDING)n.start();else if(n.status===U.PAUSED)n.resume();else throw Error(`Invalid status transition`);break;case U.PAUSED:if(n.status!==U.WATCHING)throw Error(`Invalid status transition`);n.pause();break;case U.WATCHED:if(n.status!==U.WATCHING)throw Error(`Invalid status transition`);n.markAsWatched();break;case U.PENDING:if(n.status!==U.WATCHED)throw Error(`Invalid status transition`);n.markAsUnwatched();break;default:throw Error(`Invalid status transition`)}let e=new G({mediaId:n.mediaId,platforms:n.platforms,reason:n.reason,spanishAudio:n.spanishAudio,spanishSubtitles:n.spanishSubtitles,status:n.status,userRating:n.userRating,progress:n.progress,addedAt:n.addedAt,watchedAt:n.watchedAt}),r=this.watchList.watchItems.indexOf(n);return this.watchList.watchItems[r]=e,{success:!0}}catch(e){return{success:!1,error:e.message}}}renameWatchList(e){return!e||!e.trim()?{success:!1,error:`El nombre no puede estar vacío`}:(this.watchList.name=e.trim(),{success:!0})}deleteItem(e){return this.watchList.removeWatchItem(e)?(this.watchList.watchItems.some(t=>t.mediaId===e)||this.watchList.removeMedia(e),{success:!0}):{success:!1,error:`Item not found`}}getItems(){return this.watchList.watchItems.map(e=>({media:this.watchList.media.find(t=>t.id===e.mediaId),watchItem:e}))}updateOmdbDetails({media:e,details:t}){if(!e||!t)return{success:!1,error:`Media and OMDb details are required`};if(t.Response===`False`||typeof t.imdbID!=`string`||!t.imdbID.trim())return{success:!1,error:`Invalid OMDb details`};e.poster||=t.Poster&&t.Poster!==`N/A`?t.Poster:void 0;let n=typeof t.Runtime==`string`?t.Runtime.match(/^(\d+)\s+min$/i):null,r=Array.isArray(t.Ratings)?t.Ratings.filter(e=>e?.Source&&e?.Value):[],i=e=>typeof e==`string`&&e.trim()&&e!==`N/A`?e.trim():void 0;return e.omdbId=t.imdbID.trim(),e.runtimeMinutes=n?Number(n[1]):void 0,e.ratings=r,e.director=i(t.Director),e.country=i(t.Country),e.actors=i(t.Actors),e.plot=i(t.Plot),e.awards=i(t.Awards),{success:!0}}clearOmdbDetails({mediaId:e}){let t=this.watchList.media.find(t=>t.id===e);return t?(t.omdbId=void 0,t.runtimeMinutes=void 0,t.ratings=void 0,t.director=void 0,t.country=void 0,t.actors=void 0,t.plot=void 0,t.awards=void 0,{success:!0}):{success:!1,error:`Media not found`}}},ke=class{export(e){return JSON.stringify(e,null,2)}import(e){let t=this.parse(e);this.validate(t);let n=t.media.map(e=>new H(e)),r=t.watchItems.map(e=>new G(e));return new K({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}parse(e){try{return JSON.parse(e)}catch{throw Error(`Invalid JSON`)}}validate(e){if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Invalid WatchList file`);if(!Number.isInteger(e.version)||e.version<1||e.version>1)throw Error(`Unsupported WatchList version`);if(!Array.isArray(e.media))throw Error(`WatchList media is not an array`);if(!Array.isArray(e.watchItems))throw Error(`WatchList watchItems is not an array`)}},Ae=class e{constructor({id:t=e.generateId(),name:n=void 0,recommendations:r=void 0,version:i=1,createdAt:a=new Date().toISOString()}={}){this.id=t,this.name=e.validateName(n),this.recommendations=e.validatesRecommendations(r),this.version=e.validateVersion(i),this.createdAt=a}static generateId(){return crypto.randomUUID()}static validateName(e){if(!e||typeof e!=`string`)throw Error(`name is required`);return e}static validatesRecommendations(e){if(e||=[],!Array.isArray(e))throw Error(`recommendations is not an array`);return e.forEach(e=>{if(!(e instanceof J))throw Error(`recommendations must contain only Recommendation`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported recommendation list version`);return e}},Z=class e{constructor({id:t=e.generateId(),version:n=1,createdAt:r=new Date().toISOString(),sender:i,items:a=[]}={}){this.id=t,this.version=e.validateVersion(n),this.createdAt=r,this.sender=e.validateSender(i),this.items=e.validateItems(a)}static generateId(){return crypto.randomUUID()}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported RecommendationExchange version`);return e}static validateSender(e){if(!e||typeof e!=`string`)throw Error(`sender is required`);return e}static validateItems(e){if(!Array.isArray(e))throw Error(`items is not an array`);return e}},Q=class{createRecommendation(e,t){if(!e.watchItems.some(e=>e===t))throw Error(`WatchItem is not in WatchList`);return new J({mediaId:t.mediaId,platforms:[...t.platforms],spanishAudio:t.spanishAudio,spanishSubtitles:t.spanishSubtitles,reason:t.reason,recommenderRating:t.userRating})}createRecommendationList(e,t){let n=t.map(t=>this.createRecommendation(e,t));return new Ae({name:`Recomendaciones desde : `+e.name,recommendations:n})}createRecommendationExchange(e,t){let n=e.recommendations.map(e=>{let n=t.media.find(t=>t.id===e.mediaId);if(!n)throw Error(`Media not found in WatchList: ${e.mediaId}`);return{media:{id:n.id,title:n.title,originalTitle:n.originalTitle,type:n.type,year:n.year,runtimeMinutes:n.runtimeMinutes,genres:[...n.genres],omdbId:n.omdbId,poster:n.poster,ratings:n.ratings,matchKey:n.matchKey},recommendation:e}});return new Z({sender:e.name,items:n})}createIncomingRecommendationList(e){if(!(e instanceof Z))throw Error(`exchange must be a RecommendationExchange`);return new Y({id:e.id,name:e.sender,media:e.items.map(e=>e.media),recommendations:e.items.map(e=>new J(e.recommendation)),version:1,createdAt:e.createdAt})}deleteIncomingList(e,t){return e.findIndex(e=>e.id===t)===-1?null:e.filter(e=>e.id!==t)}prepareComparison(e,t){if(!t)throw Error(`No WatchList loaded`);return{incomingRecommendationList:e,watchList:t}}compareRecommendations(e,t){return e.recommendations.map(n=>{let r=e.media.find(e=>e.id===n.mediaId),i=this.findMediaCandidates(r,t),a=`new`;return i.some(e=>e.matches.includes(`omdbId`))?a=`matched`:i.length>0&&(a=`candidate`),{recommendation:n,media:r,matches:i,status:a}})}findMediaCandidates(e,t){let n=[];for(let r of t.media){let t=[];e.omdbId&&r.omdbId&&e.omdbId===r.omdbId&&t.push(`omdbId`),e.matchKey===r.matchKey&&t.push(`matchKey`);let i=e.title.trim().toLowerCase(),a=r.title.trim().toLowerCase();i!==a&&(i.includes(a)||a.includes(i))&&t.push(`partialTitle`),t.length>0&&n.push({media:r,matches:t,differences:this.compareMedia(e,r)})}return n}compareMedia(e,t){let n=[];for(let r of[`title`,`originalTitle`,`type`,`year`,`runtimeMinutes`,`genres`,`poster`])JSON.stringify(e[r])!==JSON.stringify(t[r])&&n.push(r);return!t.omdbId&&e.omdbId&&n.push(`omdbId`),n}acceptRecommendation(e,t,n){let r=t.media.find(t=>t.id===e.mediaId);if(!r)throw Error(`Media not found in recommendationList`);let{id:i,...a}=r,o=new H(a);n.addMedia(o);let s=[t.name];e.recommenderRating!==void 0&&(s[0]+=` | (Nota: ${e.recommenderRating})`),e.reason&&s.push(e.reason);let c=new G({mediaId:o.id,platforms:e.platforms,spanishAudio:e.spanishAudio,spanishSubtitles:e.spanishSubtitles,reason:s.join(` | `)});return n.addWatchItem(c),e.status=q.ACCEPTED,c}mergeRecommendation({incomingRecommendationList:e,incomingRecommendation:t,watchList:n,targetMediaId:r,mediaFields:i=[]}){if(r===void 0)throw Error(`targetMediaId is required for merge`);let a=e.media.find(e=>e.id===t.mediaId);if(!a)throw Error(`Media not found in recommendationList`);let o=n.media.find(e=>e.id===r);if(!o)throw Error(`Target media not found in watchList`);let s=n.watchItems.find(e=>e.mediaId===o.id);if(!s)throw Error(`WatchItem not found for target media`);if(!Array.isArray(i))throw Error(`mediaFields must be an array`);let c=[`title`,`originalTitle`,`type`,`year`,`runtimeMinutes`,`genres`,`omdbId`,`poster`,`ratings`,`director`,`country`,`actors`,`plot`,`awards`];for(let e of i)if(!c.includes(e))throw Error(`Invalid media field: ${e}`);let l={};for(let e of i){let t=a[e];t!==void 0&&(l[e]=Array.isArray(t)?[...t]:t)}let u=new H({...o,...l,id:o.id});if(n.media.some(e=>e.id!==o.id&&e.matchKey===u.matchKey))throw Error(`Media already exists`);let d=[e.name];t.recommenderRating!==void 0&&d.push(`(Nota: ${t.recommenderRating})`),t.reason&&d.push(t.reason);let f=d.join(` | `),p=s.reason?.trim();if(p&&p.includes(f))throw Error(`Recommendation already added to WatchItem`);for(let[e,t]of Object.entries(l))o[e]=t;return s.reason=p?`${p} | ${f}`:f,t.status=q.ACCEPTED,s}discardRecommendation(e){return e.status=q.DISCARDED,e}resolveRecommendation({incomingRecommendationList:e,incomingRecommendation:t,decision:n,watchList:r,targetMediaId:i,mediaFields:a=[]}){if(t.status===q.ACCEPTED)throw Error(`Recommendation already accepted`);switch(n){case`create`:return this.acceptRecommendation(t,e,r);case`merge`:return this.mergeRecommendation({incomingRecommendationList:e,incomingRecommendation:t,watchList:r,targetMediaId:i,mediaFields:a});case`discard`:return this.discardRecommendation(t);default:throw Error(`Invalid decision`)}}},je=class{async encode(e){if(!e||typeof e!=`object`||Array.isArray(e))throw TypeError(`recommendationExchange debe ser un objeto`);let t=JSON.stringify(e),n=new TextEncoder().encode(t),r=await this.compress(n);return this.encodeBase64Url(r)}async decode(e){if(typeof e!=`string`||e.length===0)throw TypeError(`encodedData debe ser una cadena no vacía`);let t=this.decodeBase64Url(e),n=await this.decompress(t),r=new TextDecoder(`utf-8`,{fatal:!0}).decode(n);return JSON.parse(r)}async compress(e){if(typeof CompressionStream>`u`)throw Error(`Este navegador no soporta CompressionStream`);let t=new Blob([e]).stream().pipeThrough(new CompressionStream(`deflate`));return new Uint8Array(await new Response(t).arrayBuffer())}async decompress(e){if(typeof DecompressionStream>`u`)throw Error(`Este navegador no soporta DecompressionStream`);let t=new Blob([e]).stream().pipeThrough(new DecompressionStream(`deflate`));return new Uint8Array(await new Response(t).arrayBuffer())}encodeBase64Url(e){let t=``;for(let n=0;n<e.length;n+=32768)t+=String.fromCharCode(...e.subarray(n,n+32768));return btoa(t).replace(/\+/g,`-`).replace(/\//g,`_`).replace(/=+$/,``)}decodeBase64Url(e){let t=e.replace(/-/g,`+`).replace(/_/g,`/`),n=t+`=`.repeat((4-t.length%4)%4),r=atob(n);return Uint8Array.from(r,e=>e.charCodeAt(0))}},$={version:1,mediaTypes:[{id:`movie`,name:`Película`},{id:`series`,name:`Serie`},{id:`videogame`,name:`Videojuego`}],genres:[{id:`action`,name:`Acción`},{id:`adventure`,name:`Aventuras`},{id:`animation`,name:`Animación`},{id:`comedy`,name:`Comedia`},{id:`crime`,name:`Crimen`},{id:`documentary`,name:`Documental`},{id:`drama`,name:`Drama`},{id:`family`,name:`Familiar`},{id:`fantasy`,name:`Fantasía`},{id:`history`,name:`Historia`},{id:`horror`,name:`Terror`},{id:`music`,name:`Musical`},{id:`mystery`,name:`Misterio`},{id:`romance`,name:`Romance`},{id:`science-fiction`,name:`Ciencia ficción`},{id:`sport`,name:`Deporte`},{id:`thriller`,name:`Thriller`},{id:`war`,name:`Bélica`},{id:`western`,name:`Western`}],watchStatuses:[{id:`pending`,name:`Pendiente`},{id:`watching`,name:`Viendo`},{id:`paused`,name:`En pausa`},{id:`watched`,name:`Vista`},{id:`discarded`,name:`Descartada`}],platforms:[{id:`netflix-es`,name:`Netflix`,country:`ES`,active:!0,logo:`netflix`},{id:`max-es`,name:`HBO Max`,country:`ES`,active:!0,logo:`max`},{id:`prime-video-es`,name:`Prime`,country:`ES`,active:!0,logo:`prime-video`},{id:`disney-plus-es`,name:`Disney+`,country:`ES`,active:!0,logo:`disney-plus`},{id:`movistar-plus-es`,name:`Movistar Plus+`,country:`ES`,active:!0,logo:`movistar-plus`},{id:`apple-tv-plus-es`,name:`Apple TV+`,country:`ES`,active:!0,logo:`apple-tv-plus`},{id:`filmin-es`,name:`Filmin`,country:`ES`,active:!0,logo:`filmin`},{id:`skyshowtime-es`,name:`SkyShowtime`,country:`ES`,active:!0,logo:`skyshowtime`},{id:`atresplayer-es`,name:`Atresplayer`,country:`ES`,active:!0,logo:`atresplayer`},{id:`rtve-play-es`,name:`RTVE Play`,country:`ES`,active:!0,logo:`rtve-play`},{id:`youtube-es`,name:`YouTube`,country:`ES`,active:!0,logo:`youtube`},{id:`steam-pc`,name:`SteamPC`,country:`ES`,active:!0,logo:`steam`},{id:`xbox-eu`,name:`XboxGamePass`,country:`ES`,active:!0,logo:`xbox`},{id:`playstation-eu`,name:`PlayStationStore`,country:`ES`,active:!0,logo:`playstation`},{id:`switch-eu`,name:`NintendoSwitch`,country:`ES`,active:!0,logo:`switch`}]},Me=class e extends B{static styles=o`
+        `}};customElements.define(`app-footer`,Oe);var X=class{constructor(e){this.watchList=e}addItem({title:e,type:t,year:n,originalTitle:r,genres:i,platforms:a}){let o=null,s=!1;try{o=new H({title:e,type:t,year:n,originalTitle:r,genres:i});let c=new G({mediaId:o.id,platforms:a});return this.watchList.addMedia(o),s=!0,this.watchList.addWatchItem(c),{success:!0}}catch(e){return s&&this.watchList.removeMedia(o.id),{success:!1,error:e.message}}}updateItem({mediaId:e,media:t,watchItem:n,omdbDetails:r}){let i=this.watchList.media.find(t=>t.id===e),a=this.watchList.watchItems.find(t=>t.mediaId===e);if(!i||!a)return{success:!1,error:`Item not found`};let o=r&&r.imdbID!==i.omdbId,s=t.poster?.trim()?t.poster.trim():o?void 0:i.poster;try{let o=new H({id:e,title:t.title,type:t.type,year:t.year,originalTitle:t.originalTitle,genres:t.genres,trailer:t.trailer?.trim()||void 0,runtimeMinutes:i.runtimeMinutes,ratings:i.ratings,director:i.director,country:i.country,actors:i.actors,plot:i.plot,awards:i.awards,omdbId:i.omdbId,poster:s});if(this.watchList.media.some(t=>t.id!==e&&t.matchKey===o.matchKey))throw Error(`Media already exists`);if(r&&r.imdbID!==i.omdbId){let e=this.updateOmdbDetails({media:o,details:r});if(!e.success)throw Error(e.error)}return i.title=o.title,i.type=o.type,i.year=o.year,i.originalTitle=o.originalTitle,i.genres=o.genres,i.runtimeMinutes=o.runtimeMinutes,i.ratings=o.ratings,i.director=o.director,i.country=o.country,i.actors=o.actors,i.plot=o.plot,i.awards=o.awards,i.omdbId=o.omdbId,i.poster=o.poster,i.trailer=o.trailer,a.platforms=n.platforms,a.reason=n.reason,a.spanishAudio=n.spanishAudio,a.spanishSubtitles=n.spanishSubtitles,a.userRating=n.userRating,a.progress=n.progress,{success:!0}}catch(e){return{success:!1,error:e.message}}}changeStatus(e,t){let n=this.watchList.watchItems.find(t=>t.mediaId===e);if(!n)return{success:!1,error:`WatchItem not found`};try{switch(t){case U.WATCHING:if(n.status===U.PENDING)n.start();else if(n.status===U.PAUSED)n.resume();else throw Error(`Invalid status transition`);break;case U.PAUSED:if(n.status!==U.WATCHING)throw Error(`Invalid status transition`);n.pause();break;case U.WATCHED:if(n.status!==U.WATCHING)throw Error(`Invalid status transition`);n.markAsWatched();break;case U.PENDING:if(n.status!==U.DISCARDED&&n.status!==U.WATCHED)throw Error(`Invalid status transition`);n.markAsUnwatched();break;case U.DISCARDED:if(n.status===U.DISCARDED)throw Error(`Invalid status transition`);n.discard();break;default:throw Error(`Invalid status transition`)}let e=new G({mediaId:n.mediaId,platforms:n.platforms,reason:n.reason,spanishAudio:n.spanishAudio,spanishSubtitles:n.spanishSubtitles,status:n.status,userRating:n.userRating,progress:n.progress,addedAt:n.addedAt,watchedAt:n.watchedAt}),r=this.watchList.watchItems.indexOf(n);return this.watchList.watchItems[r]=e,{success:!0}}catch(e){return{success:!1,error:e.message}}}renameWatchList(e){return!e||!e.trim()?{success:!1,error:`El nombre no puede estar vacío`}:(this.watchList.name=e.trim(),{success:!0})}deleteItem(e){return this.watchList.removeWatchItem(e)?(this.watchList.watchItems.some(t=>t.mediaId===e)||this.watchList.removeMedia(e),{success:!0}):{success:!1,error:`Item not found`}}getItems(){return this.watchList.watchItems.map(e=>({media:this.watchList.media.find(t=>t.id===e.mediaId),watchItem:e}))}updateOmdbDetails({media:e,details:t}){if(!e||!t)return{success:!1,error:`Media and OMDb details are required`};if(t.Response===`False`||typeof t.imdbID!=`string`||!t.imdbID.trim())return{success:!1,error:`Invalid OMDb details`};e.poster||=t.Poster&&t.Poster!==`N/A`?t.Poster:void 0;let n=typeof t.Runtime==`string`?t.Runtime.match(/^(\d+)\s+min$/i):null,r=Array.isArray(t.Ratings)?t.Ratings.filter(e=>e?.Source&&e?.Value):[],i=e=>typeof e==`string`&&e.trim()&&e!==`N/A`?e.trim():void 0;return e.omdbId=t.imdbID.trim(),e.runtimeMinutes=n?Number(n[1]):void 0,e.ratings=r,e.director=i(t.Director),e.country=i(t.Country),e.actors=i(t.Actors),e.plot=i(t.Plot),e.awards=i(t.Awards),{success:!0}}clearOmdbDetails({mediaId:e}){let t=this.watchList.media.find(t=>t.id===e);return t?(t.omdbId=void 0,t.runtimeMinutes=void 0,t.ratings=void 0,t.director=void 0,t.country=void 0,t.actors=void 0,t.plot=void 0,t.awards=void 0,{success:!0}):{success:!1,error:`Media not found`}}},ke=class{export(e){return JSON.stringify(e,null,2)}import(e){let t=this.parse(e);this.validate(t);let n=t.media.map(e=>new H(e)),r=t.watchItems.map(e=>new G(e));return new K({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}parse(e){try{return JSON.parse(e)}catch{throw Error(`Invalid JSON`)}}validate(e){if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Invalid WatchList file`);if(!Number.isInteger(e.version)||e.version<1||e.version>1)throw Error(`Unsupported WatchList version`);if(!Array.isArray(e.media))throw Error(`WatchList media is not an array`);if(!Array.isArray(e.watchItems))throw Error(`WatchList watchItems is not an array`)}},Ae=class e{constructor({id:t=e.generateId(),name:n=void 0,recommendations:r=void 0,version:i=1,createdAt:a=new Date().toISOString()}={}){this.id=t,this.name=e.validateName(n),this.recommendations=e.validatesRecommendations(r),this.version=e.validateVersion(i),this.createdAt=a}static generateId(){return crypto.randomUUID()}static validateName(e){if(!e||typeof e!=`string`)throw Error(`name is required`);return e}static validatesRecommendations(e){if(e||=[],!Array.isArray(e))throw Error(`recommendations is not an array`);return e.forEach(e=>{if(!(e instanceof J))throw Error(`recommendations must contain only Recommendation`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported recommendation list version`);return e}},Z=class e{constructor({id:t=e.generateId(),version:n=1,createdAt:r=new Date().toISOString(),sender:i,items:a=[]}={}){this.id=t,this.version=e.validateVersion(n),this.createdAt=r,this.sender=e.validateSender(i),this.items=e.validateItems(a)}static generateId(){return crypto.randomUUID()}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported RecommendationExchange version`);return e}static validateSender(e){if(!e||typeof e!=`string`)throw Error(`sender is required`);return e}static validateItems(e){if(!Array.isArray(e))throw Error(`items is not an array`);return e}},Q=class{createRecommendation(e,t){if(!e.watchItems.some(e=>e===t))throw Error(`WatchItem is not in WatchList`);return new J({mediaId:t.mediaId,platforms:[...t.platforms],spanishAudio:t.spanishAudio,spanishSubtitles:t.spanishSubtitles,reason:t.reason,recommenderRating:t.userRating})}createRecommendationList(e,t){let n=t.map(t=>this.createRecommendation(e,t));return new Ae({name:`Recomendaciones desde : `+e.name,recommendations:n})}createRecommendationExchange(e,t){let n=e.recommendations.map(e=>{let n=t.media.find(t=>t.id===e.mediaId);if(!n)throw Error(`Media not found in WatchList: ${e.mediaId}`);return{media:{id:n.id,title:n.title,originalTitle:n.originalTitle,type:n.type,year:n.year,runtimeMinutes:n.runtimeMinutes,genres:[...n.genres],omdbId:n.omdbId,poster:n.poster,trailer:n.trailer,ratings:n.ratings,director:n.director,country:n.country,actors:n.actors,plot:n.plot,awards:n.awards,matchKey:n.matchKey},recommendation:e}});return new Z({sender:e.name,items:n})}createIncomingRecommendationList(e){if(!(e instanceof Z))throw Error(`exchange must be a RecommendationExchange`);return new Y({id:e.id,name:e.sender,media:e.items.map(e=>e.media),recommendations:e.items.map(e=>new J(e.recommendation)),version:1,createdAt:e.createdAt})}deleteIncomingList(e,t){return e.findIndex(e=>e.id===t)===-1?null:e.filter(e=>e.id!==t)}prepareComparison(e,t){if(!t)throw Error(`No WatchList loaded`);return{incomingRecommendationList:e,watchList:t}}compareRecommendations(e,t){return e.recommendations.map(n=>{let r=e.media.find(e=>e.id===n.mediaId),i=this.findMediaCandidates(r,t),a=`new`;return i.some(e=>e.matches.includes(`omdbId`))?a=`matched`:i.length>0&&(a=`candidate`),{recommendation:n,media:r,matches:i,status:a}})}findMediaCandidates(e,t){let n=[];for(let r of t.media){let t=[];e.omdbId&&r.omdbId&&e.omdbId===r.omdbId&&t.push(`omdbId`),e.matchKey===r.matchKey&&t.push(`matchKey`);let i=e.title.trim().toLowerCase(),a=r.title.trim().toLowerCase();i!==a&&(i.includes(a)||a.includes(i))&&t.push(`partialTitle`),t.length>0&&n.push({media:r,matches:t,differences:this.compareMedia(e,r)})}return n}compareMedia(e,t){let n=[];for(let r of[`title`,`originalTitle`,`type`,`year`,`runtimeMinutes`,`genres`,`poster`])JSON.stringify(e[r])!==JSON.stringify(t[r])&&n.push(r);return!t.omdbId&&e.omdbId&&n.push(`omdbId`),n}acceptRecommendation(e,t,n){let r=t.media.find(t=>t.id===e.mediaId);if(!r)throw Error(`Media not found in recommendationList`);let{id:i,...a}=r,o=new H(a);n.addMedia(o);let s=[t.name];e.recommenderRating!==void 0&&(s[0]+=` | (Nota: ${e.recommenderRating})`),e.reason&&s.push(e.reason);let c=new G({mediaId:o.id,platforms:e.platforms,spanishAudio:e.spanishAudio,spanishSubtitles:e.spanishSubtitles,reason:s.join(` | `)});return n.addWatchItem(c),e.status=q.ACCEPTED,c}mergeRecommendation({incomingRecommendationList:e,incomingRecommendation:t,watchList:n,targetMediaId:r,mediaFields:i=[]}){if(r===void 0)throw Error(`targetMediaId is required for merge`);let a=e.media.find(e=>e.id===t.mediaId);if(!a)throw Error(`Media not found in recommendationList`);let o=n.media.find(e=>e.id===r);if(!o)throw Error(`Target media not found in watchList`);let s=n.watchItems.find(e=>e.mediaId===o.id);if(!s)throw Error(`WatchItem not found for target media`);if(!Array.isArray(i))throw Error(`mediaFields must be an array`);let c=[`title`,`originalTitle`,`type`,`year`,`runtimeMinutes`,`genres`,`omdbId`,`poster`,`ratings`,`director`,`country`,`actors`,`plot`,`awards`,`trailer`];for(let e of i)if(!c.includes(e))throw Error(`Invalid media field: ${e}`);let l={};for(let e of i){let t=a[e];t!==void 0&&(l[e]=Array.isArray(t)?[...t]:t)}let u=new H({...o,...l,id:o.id});if(n.media.some(e=>e.id!==o.id&&e.matchKey===u.matchKey))throw Error(`Media already exists`);let d=[e.name];t.recommenderRating!==void 0&&d.push(`(Nota: ${t.recommenderRating})`),t.reason&&d.push(t.reason);let f=d.join(` | `),p=s.reason?.trim();if(p&&p.includes(f))throw Error(`Recommendation already added to WatchItem`);for(let[e,t]of Object.entries(l))o[e]=t;return s.reason=p?`${p} | ${f}`:f,t.status=q.ACCEPTED,s}discardRecommendation(e){return e.status=q.DISCARDED,e}resolveRecommendation({incomingRecommendationList:e,incomingRecommendation:t,decision:n,watchList:r,targetMediaId:i,mediaFields:a=[]}){if(t.status===q.ACCEPTED)throw Error(`Recommendation already accepted`);switch(n){case`create`:return this.acceptRecommendation(t,e,r);case`merge`:return this.mergeRecommendation({incomingRecommendationList:e,incomingRecommendation:t,watchList:r,targetMediaId:i,mediaFields:a});case`discard`:return this.discardRecommendation(t);default:throw Error(`Invalid decision`)}}},je=class{async encode(e){if(!e||typeof e!=`object`||Array.isArray(e))throw TypeError(`recommendationExchange debe ser un objeto`);let t=JSON.stringify(e),n=new TextEncoder().encode(t),r=await this.compress(n);return this.encodeBase64Url(r)}async decode(e){if(typeof e!=`string`||e.length===0)throw TypeError(`encodedData debe ser una cadena no vacía`);let t=this.decodeBase64Url(e),n=await this.decompress(t),r=new TextDecoder(`utf-8`,{fatal:!0}).decode(n);return JSON.parse(r)}async compress(e){if(typeof CompressionStream>`u`)throw Error(`Este navegador no soporta CompressionStream`);let t=new Blob([e]).stream().pipeThrough(new CompressionStream(`deflate`));return new Uint8Array(await new Response(t).arrayBuffer())}async decompress(e){if(typeof DecompressionStream>`u`)throw Error(`Este navegador no soporta DecompressionStream`);let t=new Blob([e]).stream().pipeThrough(new DecompressionStream(`deflate`));return new Uint8Array(await new Response(t).arrayBuffer())}encodeBase64Url(e){let t=``;for(let n=0;n<e.length;n+=32768)t+=String.fromCharCode(...e.subarray(n,n+32768));return btoa(t).replace(/\+/g,`-`).replace(/\//g,`_`).replace(/=+$/,``)}decodeBase64Url(e){let t=e.replace(/-/g,`+`).replace(/_/g,`/`),n=t+`=`.repeat((4-t.length%4)%4),r=atob(n);return Uint8Array.from(r,e=>e.charCodeAt(0))}},$={version:1,mediaTypes:[{id:`movie`,name:`Película`},{id:`series`,name:`Serie`},{id:`videogame`,name:`Videojuego`}],genres:[{id:`action`,name:`Acción`},{id:`adventure`,name:`Aventuras`},{id:`animation`,name:`Animación`},{id:`comedy`,name:`Comedia`},{id:`crime`,name:`Crimen`},{id:`documentary`,name:`Documental`},{id:`drama`,name:`Drama`},{id:`family`,name:`Familiar`},{id:`fantasy`,name:`Fantasía`},{id:`history`,name:`Historia`},{id:`horror`,name:`Terror`},{id:`music`,name:`Musical`},{id:`mystery`,name:`Misterio`},{id:`romance`,name:`Romance`},{id:`science-fiction`,name:`Ciencia ficción`},{id:`sport`,name:`Deporte`},{id:`thriller`,name:`Thriller`},{id:`war`,name:`Bélica`},{id:`western`,name:`Western`}],watchStatuses:[{id:`pending`,name:`Pendiente`},{id:`watching`,name:`Viendo`},{id:`paused`,name:`En pausa`},{id:`watched`,name:`Vista`},{id:`discarded`,name:`Descartada`}],platforms:[{id:`netflix-es`,name:`Netflix`,country:`ES`,active:!0,logo:`netflix`},{id:`max-es`,name:`HBO Max`,country:`ES`,active:!0,logo:`max`},{id:`prime-video-es`,name:`Prime`,country:`ES`,active:!0,logo:`prime-video`},{id:`disney-plus-es`,name:`Disney+`,country:`ES`,active:!0,logo:`disney-plus`},{id:`movistar-plus-es`,name:`Movistar Plus+`,country:`ES`,active:!0,logo:`movistar-plus`},{id:`apple-tv-plus-es`,name:`Apple TV+`,country:`ES`,active:!0,logo:`apple-tv-plus`},{id:`filmin-es`,name:`Filmin`,country:`ES`,active:!0,logo:`filmin`},{id:`skyshowtime-es`,name:`SkyShowtime`,country:`ES`,active:!0,logo:`skyshowtime`},{id:`atresplayer-es`,name:`Atresplayer`,country:`ES`,active:!0,logo:`atresplayer`},{id:`rtve-play-es`,name:`RTVE Play`,country:`ES`,active:!0,logo:`rtve-play`},{id:`youtube-es`,name:`YouTube`,country:`ES`,active:!0,logo:`youtube`},{id:`steam-pc`,name:`SteamPC`,country:`ES`,active:!0,logo:`steam`},{id:`xbox-eu`,name:`XboxGamePass`,country:`ES`,active:!0,logo:`xbox`},{id:`playstation-eu`,name:`PlayStationStore`,country:`ES`,active:!0,logo:`playstation`},{id:`switch-eu`,name:`NintendoSwitch`,country:`ES`,active:!0,logo:`switch`},{id:`others`,name:`Otras Fuentes...`,country:`ES`,active:!0,logo:`unknow`}]},Me=class e extends B{static styles=o`
         :host {
             display: block;
         }
@@ -306,7 +715,19 @@
 
         #overlay.opened {
             display: block;
-        }           
+        }    
+            
+        .overlay-section {
+            padding: 0.65rem 0;
+        }
+
+        .overlay-section + .overlay-section {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .overlay-section a {
+            color: rgba(0, 123, 255, 0.45);
+        }
 
         /* -------------------------
         Poster
@@ -315,10 +736,10 @@
         .poster {
             display: flex;
             align-items: center;
+            flex-direction: column;
             justify-content: center;
-
+            gap: 0.65rem;
             padding: 1rem;
-
             background: rgba(0, 0, 0, 0.12);
         }
 
@@ -382,10 +803,9 @@
         }
 
         .information-header h3 {
+            min-width: 0;
             margin: 0;
-
             color: #ffffff;
-
             font-size: 1.15rem;
         }
 
@@ -394,6 +814,10 @@
             gap: 0.4rem;
 
             flex-shrink: 0;
+        }
+
+        .watchitem-title {
+            overflow-wrap: anywhere;
         }
 
         /* -------------------------
@@ -585,6 +1009,17 @@
             transform: translateY(-1px);
         }
 
+        .discard-button {
+            flex-shrink: 0;
+            color: #ffffff;
+            background: rgba(220, 53, 69, 0.35);
+            border-color: rgba(220, 53, 69, 0.7);
+        }
+
+        .discard-button:hover {
+            background: rgba(220, 53, 69, 0.65);
+        }
+
         /* -------------------------
         Móvil
         ------------------------- */
@@ -616,7 +1051,17 @@
                 height: 32px;
             }
         }
-    `;static properties={media:{type:Object},watchItem:{type:Object},overlayOpened:{type:Boolean},selectedToShare:{type:Boolean}};static getCatalogName(e,t){return e.find(e=>e.id===t)?.name??t}constructor(){super(),this.overlayOpened=!1}editItem(){this.dispatchEvent(new CustomEvent(`edit-item`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}changeStatus(e){this.dispatchEvent(new CustomEvent(`change-status`,{detail:{mediaId:this.media.id,status:e},bubbles:!0,composed:!0}))}showInformation(){this.overlayOpened=!this.overlayOpened,this.classList.toggle(`overlay-open`,this.overlayOpened)}formatDate(e){return new Date(e).toLocaleDateString(`es-ES`)}toggleRecommendation(){this.dispatchEvent(new CustomEvent(`toggle-recommendation`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}renderProgress(){let e=this.watchItem.progress;return e?e.minute===void 0?e.season!==void 0&&e.episode!==void 0?`Temporada ${e.season}, episodio ${e.episode}`:``:`${e.minute} min`:``}renderStatusActions(){switch(this.watchItem.status){case U.PENDING:return j`
+    `;static properties={media:{type:Object},watchItem:{type:Object},overlayOpened:{type:Boolean},selectedToShare:{type:Boolean}};static getCatalogName(e,t){return e.find(e=>e.id===t)?.name??t}constructor(){super(),this.overlayOpened=!1}editItem(){this.dispatchEvent(new CustomEvent(`edit-item`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}changeStatus(e){this.dispatchEvent(new CustomEvent(`change-status`,{detail:{mediaId:this.media.id,status:e},bubbles:!0,composed:!0}))}showInformation(){this.overlayOpened=!this.overlayOpened,this.classList.toggle(`overlay-open`,this.overlayOpened)}formatDate(e){return new Date(e).toLocaleDateString(`es-ES`)}toggleRecommendation(){this.dispatchEvent(new CustomEvent(`toggle-recommendation`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}renderProgress(){let e=this.watchItem.progress;return e?e.minute===void 0?e.season!==void 0&&e.episode!==void 0?`Temporada ${e.season}, episodio ${e.episode}`:``:`${e.minute} min`:``}renderDiscardButton(){return this.watchItem.status===U.DISCARDED?``:j`
+            <button
+                type="button"
+                class="action-button discard-button"
+                title="Descartar"
+                aria-label="Descartar ${this.media.title}"
+                @click=${()=>this.changeStatus(U.DISCARDED)}
+            >
+                <i class="fa fa-archive" aria-hidden="true"></i>
+            </button>
+        `}renderStatusActions(){switch(this.watchItem.status){case U.PENDING:return j`
                     <button
                         type="button"
                         class="action-button"
@@ -652,18 +1097,19 @@
                     >
                         <i class="fa fa-play"></i>
                     </button>
-                `;case U.WATCHED:return j`
+                `;case U.WATCHED:case U.DISCARDED:return j`
                     <button
                         type="button"
                         class="action-button"
-                        title="VerDeNuevo"
+                        title="Reiniciar"
+                        aria-label="Reiniciar ${this.media.title}"
                         @click=${()=>this.changeStatus(U.PENDING)}
                     >
                         <i class="fa fa-refresh"></i>
                     </button>
                 `;default:return``}}renderInformation(){let t=e.getCatalogName($.mediaTypes,this.media.type),n=this.media.genres.map(t=>e.getCatalogName($.genres,t)),r=this.watchItem.platforms.map(t=>e.getCatalogName($.platforms,t)),i=Array.isArray(this.media.ratings)?this.media.ratings.filter(e=>e?.Source&&e?.Value):[{Source:`IMDb`,Value:this.media.ratings?.imdb},{Source:`Metascore`,Value:this.media.ratings?.metascore}].filter(e=>e.Value);return j`
                     <div class="information-header">
-                        <h3>
+                        <h3 class="watchitem-title">
                             ${this.media.title}
                         </h3>
    
@@ -765,6 +1211,20 @@
                                 </div>
                             `:``}
 
+                        ${this.media.trailer?j`
+                                <div class="overlay-section">
+                                    <strong>Tráiler</strong>
+                                    <a
+                                        href=${this.media.trailer}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                        Ver tráiler
+                                    </a>
+                                </div>
+                            `:``}
+
                         ${this.media.awards?j`
                                 <div class="overlay-section">
                                     <strong>Premios</strong>
@@ -835,6 +1295,7 @@
                                 <i class="fa fa-film"></i>
                             </div>
                         `}
+                    ${this.renderDiscardButton()}
                 </div>
 
                 <button
@@ -1308,7 +1769,7 @@
                 width: 100%;
             }
         }
-    `;static properties={media:{attribute:!1},watchItem:{attribute:!1},omdbResults:{state:!0},omdbPreview:{state:!0},omdbSearching:{state:!0},omdbLoadingDetails:{state:!0},omdbError:{state:!0}};constructor(){super(),this.mediaInfoService=new Pe,this.media=void 0,this.watchItem=void 0,this.omdbResults=[],this.omdbPreview=void 0,this.omdbSearching=!1,this.omdbLoadingDetails=!1,this.omdbError=void 0}save(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value),i=this.createProgress(t);this.dispatchEvent(new CustomEvent(`save-item`,{detail:{mediaId:this.media.id,media:{title:t.title.value.trim(),type:t.type.value,year:t.year.value?Number(t.year.value):void 0,originalTitle:t.originalTitle.value.trim()||void 0,genres:n,poster:t.poster.value.trim()||void 0},omdbDetails:this.omdbPreview,watchItem:{platforms:r,reason:t.reason.value.trim()||void 0,spanishAudio:t.spanishAudio.checked,spanishSubtitles:t.spanishSubtitles.checked,userRating:t.userRating.value?Number(t.userRating.value):void 0,progress:i}},bubbles:!0,composed:!0}))}async searchOmdb(){let e=this.renderRoot.querySelector(`[name="originalTitle"]`).value.trim();if(this.omdbError=void 0,this.omdbResults=[],this.omdbPreview=void 0,!e){this.omdbError=`Introduce un título para buscar.`;return}this.omdbSearching=!0;try{this.omdbResults=await this.mediaInfoService.search(e),this.omdbResults.length===0&&(this.omdbError=`OMDb no ha encontrado resultados.`)}catch(e){this.omdbError=`Error al buscar en OMDb: ${e.message}`}finally{this.omdbSearching=!1}}async selectOmdbResult(e){this.omdbError=void 0,this.omdbPreview=void 0,this.omdbLoadingDetails=!0;try{this.omdbPreview=await this.mediaInfoService.getDetails(e.imdbID),await this.updateComplete,this.renderRoot.querySelector(`.omdb-preview`)?.scrollIntoView({behavior:`smooth`,block:`start`})}catch(e){this.omdbError=`No se pudieron obtener los detalles: ${e.message}`}finally{this.omdbLoadingDetails=!1}}deleteItem(){this.dispatchEvent(new CustomEvent(`delete-item`,{detail:{mediaId:this.media.id},bubbles:!0,composed:!0}))}createProgress(e){if(this.media.type===V.SERIES){let t=e.season.value,n=e.episode.value,r=e.minute.value;return!t&&!n?void 0:new W({season:t?Number(t):void 0,episode:n?Number(n):void 0,minute:r?Number(r):void 0})}let t=e.minute.value;if(t)return new W({minute:Number(t)})}getProgressValue(e){return this.watchItem?.progress?.[e]??``}isGenreSelected(e){return this.media?.genres?.includes(e)}isPlatformSelected(e){return this.watchItem?.platforms?.includes(e)}renderProgress(){return this.media?.type===V.SERIES?j`
+    `;static properties={media:{attribute:!1},watchItem:{attribute:!1},omdbResults:{state:!0},omdbPreview:{state:!0},omdbSearching:{state:!0},omdbLoadingDetails:{state:!0},omdbError:{state:!0},showAllPlatforms:{state:!0},showAllGenres:{state:!0}};constructor(){super(),this.mediaInfoService=new Pe,this.media=void 0,this.watchItem=void 0,this.omdbResults=[],this.omdbPreview=void 0,this.omdbSearching=!1,this.omdbLoadingDetails=!1,this.omdbError=void 0,this.showAllPlatforms=!1,this.showAllGenres=!1}save(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value),i=this.createProgress(t);this.dispatchEvent(new CustomEvent(`save-item`,{detail:{mediaId:this.media.id,media:{title:t.title.value.trim(),type:t.type.value,year:t.year.value?Number(t.year.value):void 0,originalTitle:t.originalTitle.value.trim()||void 0,genres:n,poster:t.poster.value.trim()||void 0,trailer:t.trailer.value.trim()||void 0},omdbDetails:this.omdbPreview,watchItem:{platforms:r,reason:t.reason.value.trim()||void 0,spanishAudio:t.spanishAudio.checked,spanishSubtitles:t.spanishSubtitles.checked,userRating:t.userRating.value?Number(t.userRating.value):void 0,progress:i}},bubbles:!0,composed:!0}))}async searchOmdb(){let e=this.renderRoot.querySelector(`[name="originalTitle"]`).value.trim();if(this.omdbError=void 0,this.omdbResults=[],this.omdbPreview=void 0,!e){this.omdbError=`Introduce un título para buscar.`;return}this.omdbSearching=!0;try{this.omdbResults=await this.mediaInfoService.search(e),this.omdbResults.length===0&&(this.omdbError=`OMDb no ha encontrado resultados.`)}catch(e){this.omdbError=`Error al buscar en OMDb: ${e.message}`}finally{this.omdbSearching=!1}}async selectOmdbResult(e){this.omdbError=void 0,this.omdbPreview=void 0,this.omdbLoadingDetails=!0;try{this.omdbPreview=await this.mediaInfoService.getDetails(e.imdbID),await this.updateComplete,this.renderRoot.querySelector(`.omdb-preview`)?.scrollIntoView({behavior:`smooth`,block:`start`})}catch(e){this.omdbError=`No se pudieron obtener los detalles: ${e.message}`}finally{this.omdbLoadingDetails=!1}}deleteItem(){this.dispatchEvent(new CustomEvent(`delete-item`,{detail:{mediaId:this.media.id},bubbles:!0,composed:!0}))}createProgress(e){if(this.media.type===V.SERIES){let t=e.season.value,n=e.episode.value,r=e.minute.value;return!t&&!n?void 0:new W({season:t?Number(t):void 0,episode:n?Number(n):void 0,minute:r?Number(r):void 0})}let t=e.minute.value;if(t)return new W({minute:Number(t)})}getProgressValue(e){return this.watchItem?.progress?.[e]??``}isGenreSelected(e){return this.media?.genres?.includes(e)}isPlatformSelected(e){return this.watchItem?.platforms?.includes(e)}renderProgress(){return this.media?.type===V.SERIES?j`
                 <div class="progress">
 
                     <div class="field fit-content">
@@ -1515,12 +1976,10 @@
                 </div>
 
                 <div class="field">
-                    <label>
-                        Plataformas
-                    </label>
+                    <label>Plataformas</label>
 
                     <div class="checkbox-list">
-                        ${$.platforms.filter(e=>e.active).map(e=>j`
+                        ${$.platforms.filter(e=>e.active).filter(e=>this.showAllPlatforms||this.isPlatformSelected(e.id)).map(e=>j`
                                 <label class="checkbox">
                                     <input
                                         type="checkbox"
@@ -1532,6 +1991,15 @@
                                 </label>
                             `)}
                     </div>
+
+                    ${$.platforms.filter(e=>e.active&&!this.isPlatformSelected(e.id)).length?j`
+                            <button
+                                type="button"
+                                @click=${()=>{this.showAllPlatforms=!this.showAllPlatforms}}
+                            >
+                                ${this.showAllPlatforms?`Ocultar opciones`:`Añadir plataformas`}
+                            </button>
+                        `:``}
                 </div>
 
                 <div class="field">
@@ -1584,7 +2052,7 @@
 
                 <div class="field fit-content">
                     <label for="userRating">
-                        Puntuación personal
+                        Valoración personal
                     </label>
 
                     <input
@@ -1599,23 +2067,30 @@
                 </div>
 
                 <div class="field">
-                    <label>
-                        Géneros
-                    </label>
+                    <label>Géneros</label>
 
                     <div class="checkbox-list">
-                        ${$.genres.map(e=>j`
-                            <label class="checkbox">
-                                <input
-                                    type="checkbox"
-                                    name="genres"
-                                    value=${e.id}
-                                    ?checked=${this.isGenreSelected(e.id)}
-                                >
-                                ${e.name}
-                            </label>
-                        `)}
+                        ${$.genres.filter(e=>this.showAllGenres||this.isGenreSelected(e.id)).map(e=>j`
+                                <label class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="genres"
+                                        value=${e.id}
+                                        ?checked=${this.isGenreSelected(e.id)}
+                                    >
+                                    ${e.name}
+                                </label>
+                            `)}
                     </div>
+
+                    ${$.genres.some(e=>!this.isGenreSelected(e.id))?j`
+                            <button
+                                type="button"
+                                @click=${()=>{this.showAllGenres=!this.showAllGenres}}
+                            >
+                                ${this.showAllGenres?`Ocultar opciones`:`Añadir géneros`}
+                            </button>
+                        `:``}
                 </div>
 
                 <div class="field">
@@ -1654,6 +2129,23 @@
                         Déjalo vacío para utilizar el póster de OMDb.
                     </small>
                 </div>
+
+                <div class="field">
+                    <label for="trailer">URL del tráiler</label>
+
+                    <input
+                        id="trailer"
+                        name="trailer"
+                        type="url"
+                        placeholder="https://..."
+                        value=${this.media.trailer??``}
+                    >
+
+                    <small>
+                        Enlace al tráiler en Youtube u otras fuentes.
+                    </small>
+                </div>
+
                 <!--Resultados-->
                 ${this.renderOmdbSearch()}
 
@@ -1995,6 +2487,12 @@
             display: inline-block;
             margin-bottom: 0.7rem;
         }
+
+        .filter-separator {
+            height: 1px;
+            margin: 0.35rem 0;
+            background: var(--border);
+        }
         
         /* Móvil */
 
@@ -2008,7 +2506,7 @@
                 height: 32px;
             }
         }
-    `;static properties={watchList:{attribute:!1},dataVersion:{type:Number},items:{state:!0},editingItem:{state:!0},listName:{state:!0},addingItem:{type:Boolean},selectedItemsToShare:{state:!0},linkCopied:{state:!0},filters:{state:!0},sortMode:{state:!0},showFilterOptions:{state:!0}};constructor(){super(),this.watchList=void 0,this.service=void 0,this.items=[],this.listName=``,this.fileStorage=new ke,this.recommendService=new Q,this.editingItem=void 0,this.addingItem=!1,this.selectedItemsToShare=[],this.linkCopied=!1,this.filters={status:null},this.sortMode=`DEFAULT`,this.showFilterOptions=!1}willUpdate(e){e.has(`watchList`)&&this.watchList&&(this.service=new X(this.watchList)),this.service&&(e.has(`watchList`)||e.has(`dataVersion`))&&(this.listName=this.service.watchList.name,this.items=this.service.getItems())}notifyWatchListChanged(){this.dispatchEvent(new CustomEvent(`watch-list-changed`,{detail:{watchList:this.service.watchList},bubbles:!0,composed:!0}))}refreshItems(){this.items=[...this.service.getItems()],this.listName=this.service.watchList.name}showAddItemForm(){this.addingItem=!0}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.items=this.service.getItems(),this.notifyWatchListChanged(),e.target.resetForm(),this.hideAddItemForm()}hideAddItemForm(){this.addingItem=!1}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}deleteItem(e){let{mediaId:t}=e.detail;if(!confirm(`¿Quieres eliminar este elemento de tu lista?`))return;let n=this.service.deleteItem(t);if(!n.success){console.error(n.error);return}this.notifyWatchListChanged(),this.items=this.service.getItems(),this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.items=[...this.service.getItems()]}toggleRecommendation(e){let t=e.detail;if(this.selectedItemsToShare.some(e=>e.media.id===t.media.id)){this.selectedItemsToShare=this.selectedItemsToShare.filter(e=>e.media.id!==t.media.id);return}this.selectedItemsToShare=[...this.selectedItemsToShare,t]}isSelectedToShare(e){return this.selectedItemsToShare.some(t=>t.media.id===e.media.id)}createRecommendationExchange(){if(this.selectedItemsToShare.length===0)return;let e=this.selectedItemsToShare.map(e=>e.watchItem),t=this.recommendService.createRecommendationList(this.service.watchList,e),n=this.recommendService.createRecommendationExchange(t,this.service.watchList);this.shareRecommendationExchange(n)}async shareRecommendationExchange(e){let t=await new je().encode(e),n=new URL(`https://joselon79.neocities.org/quevemos`);n.searchParams.set(`recommendation`,t);try{await navigator.clipboard.writeText(n.toString()),this.linkCopied=!0,setTimeout(()=>{this.linkCopied=!1},2e3)}catch(e){console.error(`No se pudo copiar el enlace:`,e)}}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new X(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0,this.notifyWatchListChanged()}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new K({name:`Mi nueva lista`});this.service=new X(e),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.notifyWatchListChanged()}getStatusLabel(e){return{[U.PENDING]:`Pendientes`,[U.WATCHING]:`En curso`,[U.PAUSED]:`Pausadas`,[U.WATCHED]:`Vistas`,[U.DISCARDED]:`Descartadas`}[e]??e}getAvailableStatuses(){return Object.values(U)}getVisibleItems(){let e=this.items.filter(e=>{let t=this.filters.status;return!t||e.watchItem.status===t});return this.sortMode===`AZ`?e.sort((e,t)=>e.media.title.localeCompare(t.media.title,`es`,{sensitivity:`base`})):this.sortMode===`ZA`&&e.sort((e,t)=>t.media.title.localeCompare(e.media.title,`es`,{sensitivity:`base`})),e}getFilterDescription(){return this.filters.status?`Mostrando solo ${this.getStatusLabel(this.filters.status)}`:`Mostrando todos los elementos`}toggleFilterOptions(){this.showFilterOptions=!this.showFilterOptions}setStatusFilter(e){this.filters={...this.filters,status:e},this.showFilterOptions=!1}toggleSort(){let e={DEFAULT:`AZ`,AZ:`ZA`,ZA:`DEFAULT`};this.sortMode=e[this.sortMode]}render(){let e=this.getVisibleItems();return j`
+    `;static properties={watchList:{attribute:!1},dataVersion:{type:Number},items:{state:!0},editingItem:{state:!0},listName:{state:!0},addingItem:{type:Boolean},selectedItemsToShare:{state:!0},linkCopied:{state:!0},filters:{state:!0},sortMode:{state:!0},showFilterOptions:{state:!0}};constructor(){super(),this.watchList=void 0,this.service=void 0,this.items=[],this.listName=``,this.fileStorage=new ke,this.recommendService=new Q,this.editingItem=void 0,this.addingItem=!1,this.selectedItemsToShare=[],this.linkCopied=!1,this.filters={status:null,type:null},this.sortMode=`DEFAULT`,this.showFilterOptions=!1}willUpdate(e){e.has(`watchList`)&&this.watchList&&(this.service=new X(this.watchList)),this.service&&(e.has(`watchList`)||e.has(`dataVersion`))&&(this.listName=this.service.watchList.name,this.items=this.service.getItems())}notifyWatchListChanged(){this.dispatchEvent(new CustomEvent(`watch-list-changed`,{detail:{watchList:this.service.watchList},bubbles:!0,composed:!0}))}refreshItems(){this.items=[...this.service.getItems()],this.listName=this.service.watchList.name}showAddItemForm(){this.addingItem=!0}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.items=this.service.getItems(),this.notifyWatchListChanged(),e.target.resetForm(),this.hideAddItemForm()}hideAddItemForm(){this.addingItem=!1}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}deleteItem(e){let{mediaId:t}=e.detail;if(!confirm(`¿Quieres eliminar este elemento de tu lista?`))return;let n=this.service.deleteItem(t);if(!n.success){console.error(n.error);return}this.notifyWatchListChanged(),this.items=this.service.getItems(),this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.items=[...this.service.getItems()]}toggleRecommendation(e){let t=e.detail;if(this.selectedItemsToShare.some(e=>e.media.id===t.media.id)){this.selectedItemsToShare=this.selectedItemsToShare.filter(e=>e.media.id!==t.media.id);return}this.selectedItemsToShare=[...this.selectedItemsToShare,t]}isSelectedToShare(e){return this.selectedItemsToShare.some(t=>t.media.id===e.media.id)}createRecommendationExchange(){if(this.selectedItemsToShare.length===0)return;let e=this.selectedItemsToShare.map(e=>e.watchItem),t=this.recommendService.createRecommendationList(this.service.watchList,e),n=this.recommendService.createRecommendationExchange(t,this.service.watchList);this.shareRecommendationExchange(n)}async shareRecommendationExchange(e){let t=await new je().encode(e),n=new URL(`https://joselon79.neocities.org/quevemos`);n.searchParams.set(`recommendation`,t);try{await navigator.clipboard.writeText(n.toString()),this.linkCopied=!0,setTimeout(()=>{this.linkCopied=!1},2e3)}catch(e){console.error(`No se pudo copiar el enlace:`,e)}}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new X(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0,this.notifyWatchListChanged()}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new K({name:`Mi nueva lista`});this.service=new X(e),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.notifyWatchListChanged()}getStatusLabel(e){return{[U.PENDING]:`Pendientes`,[U.WATCHING]:`En curso`,[U.PAUSED]:`Pausadas`,[U.WATCHED]:`Vistas`,[U.DISCARDED]:`Descartadas`}[e]??e}getAvailableStatuses(){return Object.values(U)}getVisibleItems(){let e=this.items.filter(e=>{let t=e.watchItem.status,n=this.filters.status?t===this.filters.status:t!==U.DISCARDED,r=!this.filters.type||e.media.type===this.filters.type;return n&&r});return this.sortMode===`AZ`?e.sort((e,t)=>e.media.title.localeCompare(t.media.title,`es`,{sensitivity:`base`})):this.sortMode===`ZA`&&e.sort((e,t)=>t.media.title.localeCompare(e.media.title,`es`,{sensitivity:`base`})),e}getFilterDescription(){let e=[];return this.filters.type&&e.push(this.getMediaTypeFilterLabel(this.filters.type)),this.filters.status&&e.push(this.getStatusLabel(this.filters.status)),e.length===0?`Mostrando todos los elementos`:`Mostrando solo ${e.join(` · `)}`}toggleFilterOptions(){this.showFilterOptions=!this.showFilterOptions}setStatusFilter(e){this.filters={...this.filters,status:e},this.showFilterOptions=!1}toggleSort(){let e={DEFAULT:`AZ`,AZ:`ZA`,ZA:`DEFAULT`};this.sortMode=e[this.sortMode]}getMediaTypeFilterLabel(e){return{[V.MOVIE]:`Películas`,[V.SERIES]:`Series`,[V.VIDEOGAMES]:`Videojuegos`}[e]??e}getAvailableMediaTypes(){return Object.values(V)}setMediaTypeFilter(e){this.filters={...this.filters,type:e},this.showFilterOptions=!1}render(){let e=this.getVisibleItems();return j`
             <link
                 rel="stylesheet"
                 href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
@@ -2101,7 +2599,7 @@
                                 <div class="filter-container">
                                     <button
                                         type="button"
-                                        class="action-button ${this.filters.status?`active`:``}"
+                                        class="action-button ${this.filters.status||this.filters.type?`active`:``}"
                                         title="Filtrar por estado"
                                         aria-label="Filtrar por estado"
                                         aria-expanded=${this.showFilterOptions}
@@ -2117,7 +2615,7 @@
                                                     class="filter-option ${this.filters.status?``:`selected`}"
                                                     @click=${()=>this.setStatusFilter(null)}
                                                 >
-                                                    Todos
+                                                    Todos los estados (excepto Descartadas)
                                                 </button>
 
                                                 ${this.getAvailableStatuses().map(e=>j`
@@ -2127,6 +2625,26 @@
                                                         @click=${()=>this.setStatusFilter(e)}
                                                     >
                                                         ${this.getStatusLabel(e)}
+                                                    </button>
+                                                `)}
+
+                                                <div class="filter-separator"></div>
+
+                                                <button
+                                                    type="button"
+                                                    class="filter-option ${this.filters.type?``:`selected`}"
+                                                    @click=${()=>this.setMediaTypeFilter(null)}
+                                                >
+                                                    Todos los tipos
+                                                </button>
+
+                                                ${this.getAvailableMediaTypes().map(e=>j`
+                                                    <button
+                                                        type="button"
+                                                        class="filter-option ${this.filters.type===e?`selected`:``}"
+                                                        @click=${()=>this.setMediaTypeFilter(e)}
+                                                    >
+                                                        ${this.getMediaTypeFilterLabel(e)}
                                                     </button>
                                                 `)}
                                             </div>
