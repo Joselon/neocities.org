@@ -539,14 +539,9 @@ export class AppHeader extends LitElement {
                                     propia aplicación.
                                 </p>
                                 <p>
-                                    Si tienes guardada la web como aplicación
-                                    tendras que usar el botón 🔗 <small>Importar enlace</small>
-                                    para pegar el enlace recibido.
-                                </p>
-                                <p>
                                     El motivo puede servir para contar por qué
                                     recomiendas una película o qué te llamó
-                                    la atención.
+                                    la atención. Edítalo antes de crear el enlace.
                                 </p>
                             </article>
 
@@ -561,14 +556,21 @@ export class AppHeader extends LitElement {
                                 </div>
 
                                 <p>
-                                    Revisa las recomendaciones que recibas
-                                    en la bandeja de entrada. Puedes aceptarlas
+                                    Revisa las recomendaciones que recibas 
+                                    en la bandeja de entrada tras abrir el 
+                                    enlace. Puedes aceptarlas
                                     para añadirlas a tu lista o descartarlas.
                                 </p>
                                 <p>
-                                    Si el título ya está en tu lista, puedes
-                                    relacionar la recomendación con ese registro
-                                    en lugar de crear otro.
+                                    Si tienes guardada la web como aplicación
+                                    tendras que usar el botón 🔗 <small>Importar enlace</small>
+                                    para pegar el enlace recibido.
+                                </p>
+                                <p>
+                                    Si el título ya está en tu lista, puedes 
+                                    fusionar la recomendación con ese registro 
+                                    en lugar de crear otro. Incluso seleccionar 
+                                    que campos quieres fusionar
                                 </p>
                             </article>
                         </div>
@@ -579,8 +581,7 @@ export class AppHeader extends LitElement {
                             <p>
                                 <strong>Importante: tus datos son locales.</strong>
                                 Tu lista se guarda en el navegador y dispositivo
-                                donde utilizas la aplicación. Compartir
-                                recomendaciones no sincroniza las listas.
+                                donde utilizas la aplicación.
                                 Exporta una copia de seguridad periódicamente
                                 y guárdala en un lugar seguro.
                             </p>

@@ -121,11 +121,7 @@ export class WatchListService {
                 throw new Error("Media already exists");
             }
 
-            const hasNewOmdbSelection =
-                omdbDetails &&
-                omdbDetails.imdbID !== currentMedia.omdbId;
-
-            if (hasNewOmdbSelection) {
+            if (omdbDetails) {
                 const result = this.updateOmdbDetails({
                     media: updatedMedia,
                     details: omdbDetails

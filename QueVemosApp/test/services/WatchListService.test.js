@@ -52,3 +52,41 @@ test("Services: addItem elimina el Media si falla al añadir el WatchItem", () =
     assert.equal(watchList.media.length, 0);
     assert.equal(watchList.watchItems.length, 0);
 });
+/*
+test("Services: preserves OMDb details after accepting a recommendation and saving watched item", async () => {
+    // Arrange: película original con información completa de OMDb.
+    const originalMedia = {
+        title: "Película de prueba",
+        type: "movie",
+        omdbId: "tt1234567",
+        plot: "Una sinopsis que debe conservarse.",
+        awards: "Ganadora de dos premios.",
+        director: "Director de prueba",
+        actors: "Actor Uno, Actor Dos",
+        country: "Spain",
+        runtimeMinutes: 120
+    };
+
+    // Act 1: crear el intercambio sin los campos omitidos.
+    // Act 2: recibir y aceptar la recomendación.
+    // Act 3: completar los detalles desde OMDb.
+    // Act 4: marcar el WatchItem como watched y guardarlo.
+    // Act 5: recuperar la información persistida.
+    
+- Crear un Media con omdbId: "tt1234567", pero sin plot ni awards.
+- Crear su WatchItem, simulando una recomendación aceptada.
+- Invocar updateItem() con el mismo omdbId y una respuesta completa de OMDb.
+- Comprobar que se guardan plot, awards, director, actors, country, runtimeMinutes y ratings.
+- Comprobar que los campos editables por el usuario no se sobrescriben.
+- Comprobar que los metadatos siguen presentes después de serializar y reconstruir los datos, si el test de persistencia cubre ese flujo.
+
+    // Assert: comprobar los datos recuperados.
+    assert.equal(savedMedia.plot, originalMedia.plot);
+    assert.equal(savedMedia.awards, originalMedia.awards);
+    assert.equal(savedMedia.director, originalMedia.director);
+    assert.equal(savedMedia.actors, originalMedia.actors);
+    assert.equal(savedMedia.country, originalMedia.country);
+    assert.equal(savedMedia.runtimeMinutes, originalMedia.runtimeMinutes);
+    assert.equal(savedWatchItem.status, "watched");
+});
+*/

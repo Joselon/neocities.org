@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit";
 import settings from "../data/setting.json";
 import { WatchStatus } from "../domain/WatchStatus.js";
+import { MediaType } from "../domain/MediaType.js";
 
 
 export class WatchItemView extends LitElement {
@@ -794,8 +795,6 @@ export class WatchItemView extends LitElement {
 
                     <div class="metadata">
 
-
-
                         <span class="media-type">${typeName}</span>
 
                         ${this.media.year
@@ -886,9 +885,19 @@ export class WatchItemView extends LitElement {
                             >
                         `
                         : html`
-                            <div class="poster-placeholder">
-                                <i class="fa fa-film"></i>
-                            </div>
+                            ${this.media.type === MediaType.VIDEOGAMES
+                                ? html`
+                                <div class="poster-placeholder">
+                                <i class="fa fa-gamepad"></i>
+                                </div>
+                            `
+                            : html`
+                                <div class="poster-placeholder">
+                                    <i class="fa fa-film"></i>
+                                </div>
+                            `
+                            }
+                            
                         `
                     }
                     ${this.renderDiscardButton()}
