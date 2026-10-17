@@ -100,6 +100,27 @@ export class WatchListView extends LitElement {
         /* -------------------------
         Botones
         ------------------------- */
+        .savedlist-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 34px;
+            padding: 0.45rem 0.8rem;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
 
         .action-button {
             display: inline-flex;
@@ -124,7 +145,7 @@ export class WatchListView extends LitElement {
                 background 0.2s ease,
                 transform 0.2s ease;
         }
-
+        .savedlist-button:hover,
         .action-button:hover {
             background: rgba(255, 255, 255, 0.2);
 
@@ -347,6 +368,10 @@ export class WatchListView extends LitElement {
             .action-button {
                 width: 32px;
                 height: 32px;
+            }
+            .savedlist-button {
+                min-height: 32px;
+                padding: 0.4rem 0.7rem;
             }
         }
     `;
@@ -833,6 +858,7 @@ export class WatchListView extends LitElement {
                 <div class="storage-actions">
                     <button
                         type="button"
+                        class="savedlist-button"
                         @click=${this.exportWatchList}
                     >
                         <i class="fa fa-download"></i>
@@ -841,6 +867,7 @@ export class WatchListView extends LitElement {
 
                     <button
                         type="button"
+                        class="savedlist-button"
                         @click=${this.importWatchList}
                     >
                         <i class="fa fa-upload"></i>
@@ -849,6 +876,7 @@ export class WatchListView extends LitElement {
 
                     <button
                         type="button"
+                        class="savedlist-button"
                         @click=${this.resetWatchList}
                     >
                         <i class="fa fa-refresh"></i>

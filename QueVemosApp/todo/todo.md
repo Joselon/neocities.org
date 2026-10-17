@@ -22,3 +22,4 @@ Tareas 20261014:
 - [x] boton descartar bajo cartel y  permitir cambio de estado
 - [x] corregir botones editar y mas info que no se salgan de card
 - [x] campo editform visible en overlay para enlace trailer (posible iframe) target _blank. para pinchar y que abra youtube o archive.org
+- [x] Alert como eliminar en descartar

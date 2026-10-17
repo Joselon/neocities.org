@@ -486,23 +486,23 @@ export class AppHeader extends LitElement {
                                 </div>
 
                                 <p>
-                                    Añade películas, series y documentales.
-                                    Completa sus datos cuando quieras con el botón Editar(lápiz) y marca
+                                    Añade películas, series y videojuegos.
+                                    Completa sus datos cuando quieras con el botón Editar(📝) y marca
                                     si están pendientes, en curso, en pausa
                                     o terminados con los botones del pie de la tarjeta.
                                 </p>
                                 <p>
                                     <strong>¿Por dónde ibas?</strong>
                                     Guarda la temporada, el episodio o el
-                                    minuto para retomarlos después. 
-                                    Puedes editar para anotarlo y consultarlo con el botón (i)
+                                    minuto para retomarlos después editando. 
+                                    Puedes editar para anotarlo y consultarlo con el botón <span class="help-icon" aria-hidden="true">i</span>
                                 </p>
                             </article>
 
                             <article class="help-card">
                                 <div class="step-heading">
                                     <span class="step-icon"
-                                        aria-hidden="true">📝</span>
+                                        aria-hidden="true">⏯️</span>
                                     <div>
                                         <span class="step-number">Paso 2</span>
                                         <h3>Decide qué hacer con cada título</h3>
@@ -512,7 +512,7 @@ export class AppHeader extends LitElement {
                                 <p>
                                     Si te interesa, déjalo pendiente o empieza
                                     a verlo. Si no te convence, puedes
-                                    descartarlo e indicar el motivo.
+                                    descartarlo <span style="background-color:red; border-radius:33px">🗃️</span> e indicar el motivo editando.
                                 </p>
                                 <p>
                                     <strong>¡No lo pierdes!</strong>
@@ -537,6 +537,11 @@ export class AppHeader extends LitElement {
                                     para compartirlos con familiares o amigos.
                                     Así podrán recibir tus propuestas en su
                                     propia aplicación.
+                                </p>
+                                <p>
+                                    Si tienes guardada la web como aplicación
+                                    tendras que usar el botón 🔗 <small>Importar enlace</small>
+                                    para pegar el enlace recibido.
                                 </p>
                                 <p>
                                     El motivo puede servir para contar por qué
@@ -578,6 +583,16 @@ export class AppHeader extends LitElement {
                                 recomendaciones no sincroniza las listas.
                                 Exporta una copia de seguridad periódicamente
                                 y guárdala en un lugar seguro.
+                            </p>
+                        </div>
+
+                        <div class="help-note">
+                            <span class="help-note-icon"
+                                aria-hidden="true">📲</span>
+                            <p>
+                                Desde tu navegador pulsa en compartir
+                                y "Añadir a la pantalla de Inicio"
+                                para usar la web como Aplicación.
                             </p>
                         </div>
 

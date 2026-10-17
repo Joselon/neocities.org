@@ -443,6 +443,9 @@ export class WatchItemView extends LitElement {
     }
 
     changeStatus(status) {
+        if (status === WatchStatus.DISCARDED && !confirm("¿Quieres descartar este elemento de tu lista? \n (Sólo lo verás filtrando por 'Descartadas')")) {
+            return;
+        }
         this.dispatchEvent(new CustomEvent("change-status", {
             detail: {
                 mediaId: this.media.id,
