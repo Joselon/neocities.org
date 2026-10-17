@@ -877,26 +877,6 @@ export class EditItemForm extends LitElement {
                         `
                         : ""}
                 </div>
-
-                <div class="field">
-                    <label for="originalTitle">
-                        Título Uniforme (V.O.)
-                    </label>
-
-                    <input
-                        id="originalTitle"
-                        name="originalTitle"
-                        type="text"
-                        value=${this.media.originalTitle ?? ""}
-                    >
-                    <button
-                        type="button"
-                        @click=${this.searchOmdb}
-                    >
-                        <span role="img" aria-label="Buscar">🔍</span>
-                        Buscar en OMDb
-                    </button>
-                </div>
                 <div class="field">
                     <label for="poster">
                         URL del póster
@@ -931,6 +911,26 @@ export class EditItemForm extends LitElement {
                     </small>
                 </div>
 
+                <div class="field">
+                    <label for="originalTitle">
+                        Título Uniforme (V.O.)
+                    </label>
+
+                    <input
+                        id="originalTitle"
+                        name="originalTitle"
+                        type="text"
+                        value=${this.media.originalTitle ?? ""}
+                    >
+                    <button
+                        type="button"
+                        @click=${this.searchOmdb}
+                    >
+                        <span role="img" aria-label="Buscar">🔍</span>
+                        Buscar en OMDb
+                    </button>
+                </div>
+                
                 <!--Resultados-->
                 ${this.renderOmdbSearch()}
 
