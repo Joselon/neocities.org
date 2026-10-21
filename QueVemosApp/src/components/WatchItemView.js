@@ -164,7 +164,7 @@ export class WatchItemView extends LitElement {
             gap: 1rem;
         }
 
-        .information-header h3 {
+        .information-header h2 {
             min-width: 0;
             margin: 0;
             color: #ffffff;
@@ -652,9 +652,9 @@ export class WatchItemView extends LitElement {
                                 <i class="fa fa-pencil"></i>
                             </button>
                         </div>
-                        <h3 class="watchitem-title">
+                        <h2 class="watchitem-title">
                             ${this.media.title}
-                        </h3>
+                        </h2>
    
                         
                     </div>
