@@ -157,7 +157,8 @@ export class WatchItemView extends LitElement {
 
         .information-header {
             display: flex;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: flex-end;
             justify-content: space-between;
 
             gap: 1rem;
@@ -178,6 +179,7 @@ export class WatchItemView extends LitElement {
         }
 
         .watchitem-title {
+            align-self: start;
             overflow-wrap: anywhere;
         }
 
@@ -630,11 +632,7 @@ export class WatchItemView extends LitElement {
 
         return html`
                     <div class="information-header">
-                        <h3 class="watchitem-title">
-                            ${this.media.title}
-                        </h3>
-   
-                        <div class="information-actions">
+                    <div class="information-actions">
                             <button
                                 type="button"
                                 class="action-button"
@@ -654,6 +652,11 @@ export class WatchItemView extends LitElement {
                                 <i class="fa fa-pencil"></i>
                             </button>
                         </div>
+                        <h3 class="watchitem-title">
+                            ${this.media.title}
+                        </h3>
+   
+                        
                     </div>
 
                     <div id="overlay" class="${this.overlayOpened ? "opened" : ""}">

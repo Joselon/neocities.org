@@ -266,6 +266,40 @@ function jsonResponse(data, status, origin) {
 }
 ```
 
+## Extraccion palabras aleatorias en titulos
+
+```sh
+>node generate-omdb-words.js title.basics.tsv words.json
+Catálogo generado correctamente.
+Películas analizadas: 750,713
+Títulos adultos excluidos: 9,104
+Palabras únicas: 297,817
+Archivo: //Repositorios/neocities.org/QueVemosApp/todo/words.json
+Nota: el dataset no identifica el idioma; puede haber palabras de otros idiomas.
+
+>node split-omdb-words.js
+words-00.json: 14891 palabras
+words-01.json: 14891 palabras
+words-02.json: 14891 palabras
+words-03.json: 14891 palabras
+words-04.json: 14891 palabras
+words-05.json: 14891 palabras
+words-06.json: 14891 palabras
+words-07.json: 14891 palabras
+words-08.json: 14891 palabras
+words-09.json: 14891 palabras
+words-10.json: 14891 palabras
+words-11.json: 14891 palabras
+words-12.json: 14891 palabras
+words-13.json: 14891 palabras
+words-14.json: 14891 palabras
+words-15.json: 14891 palabras
+words-16.json: 14891 palabras
+words-17.json: 14890 palabras
+words-18.json: 14890 palabras
+words-19.json: 14890 palabras
+```
+
 ## Propuesta comparacion Media
 
 ```js

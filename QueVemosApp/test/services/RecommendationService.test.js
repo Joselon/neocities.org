@@ -1482,3 +1482,99 @@ test("resolveRecommendation: rejects missing incoming Media", () => {
     assert.equal(watchList.media.length, 0);
     assert.equal(watchList.watchItems.length, 0);
 });
+
+
+test("RecommendationService: accepts a discovered movie and preserves all OMDb metadata", () => {
+    const incomingMedia = {
+        id: "discovered-media-1",
+        title: "Blade Runner",
+        originalTitle: "Blade Runner",
+        type: "movie",
+        year: 1982,
+        runtimeMinutes: 117,
+        genres: ["Sci-Fi", "Thriller"],
+        omdbId: "tt0083658",
+        poster: "https://example.com/blade-runner.jpg",
+        trailer: "https://example.com/trailer",
+        ratings: [
+            {
+                Source: "Internet Movie Database",
+                Value: "8.1/10"
+            },
+            {
+                Source: "Rotten Tomatoes",
+                Value: "89%"
+            }
+        ],
+        director: "Ridley Scott",
+        country: "United States",
+        actors: "Harrison Ford, Rutger Hauer",
+        plot: "A blade runner hunts replicants in a dystopian future.",
+        awards: "Nominated for 2 Oscars.",
+        matchKey: "blade runner|movie|1982"
+    };
+
+    const recommendation = new Recommendation({
+        mediaId: incomingMedia.id,
+        reason: "Descubierta al azar"
+    });
+
+    const incomingList = new IncomingRecommendationList({
+        name: "Descubierta al azar",
+        media: [incomingMedia],
+        recommendations: [recommendation]
+    });
+
+    const watchList = new WatchList({
+        name: "La nuestra",
+        media: [],
+        watchItems: []
+    });
+
+    const service = new RecommendationService();
+
+    const watchItem = service.resolveRecommendation({
+        incomingRecommendationList: incomingList,
+        incomingRecommendation: recommendation,
+        decision: "create",
+        watchList
+    });
+
+    assert.equal(watchList.media.length, 1);
+    assert.equal(watchList.watchItems.length, 1);
+
+    const savedMedia = watchList.media[0];
+
+    assert.equal(watchItem.mediaId, savedMedia.id);
+    assert.equal(savedMedia.title, "Blade Runner");
+    assert.equal(savedMedia.originalTitle, "Blade Runner");
+    assert.equal(savedMedia.type, "movie");
+    assert.equal(savedMedia.year, 1982);
+    assert.equal(savedMedia.runtimeMinutes, 117);
+    assert.deepEqual(savedMedia.genres, ["Sci-Fi", "Thriller"]);
+    assert.equal(savedMedia.omdbId, "tt0083658");
+    assert.equal(
+        savedMedia.poster,
+        "https://example.com/blade-runner.jpg"
+    );
+    assert.equal(
+        savedMedia.trailer,
+        "https://example.com/trailer"
+    );
+    assert.deepEqual(savedMedia.ratings, incomingMedia.ratings);
+    assert.equal(savedMedia.director, "Ridley Scott");
+    assert.equal(savedMedia.country, "United States");
+    assert.equal(savedMedia.actors, "Harrison Ford, Rutger Hauer");
+    assert.equal(
+        savedMedia.plot,
+        "A blade runner hunts replicants in a dystopian future."
+    );
+    assert.equal(savedMedia.awards, "Nominated for 2 Oscars.");
+
+    assert.equal(
+        recommendation.status,
+        RecommendationStatus.ACCEPTED
+    );
+
+    assert.match(watchItem.reason, /Descubierta al azar/);
+});

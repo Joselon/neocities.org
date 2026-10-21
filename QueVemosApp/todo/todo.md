@@ -25,3 +25,6 @@ Tareas Version 0.1.0:
 - [x] Alert como eliminar en descartar
 - [ ] Actualizar todos los test
 - [ ] Mejorar comparaciones para la fusión.
+- [x] titulo bajo botones en watchItemView
+- [ ] busqueda en lista propia (lupa junto a filtros depliega input text resultado busqueda)
+- [ ] paginado omdb
