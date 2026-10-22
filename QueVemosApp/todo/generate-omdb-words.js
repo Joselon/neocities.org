@@ -1,163 +1,174 @@
-/**
- * Genera un catálogo de palabras a partir del dataset title.basics.tsv de IMDb.
- *
- * Uso:
- *  node generate-omdb-words.js title.basics.tsv words.json
- * https://datasets.imdbws.com/title.basics.tsv.gz
- */
 
-import { createReadStream, createWriteStream } from "node:fs";
-import { mkdir, rename, rm } from "node:fs/promises";
+import { createReadStream } from "node:fs";
+import { mkdir, writeFile } from "node:fs/promises";
+import { createGunzip } from "node:zlib";
 import { createInterface } from "node:readline";
-import { dirname, resolve } from "node:path";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const inputPath = process.argv[2];
-const outputPath = resolve(process.argv[3] ?? "words.json");
+const SCRIPT_DIRECTORY = path.dirname(fileURLToPath(import.meta.url));
 
-const MIN_WORD_LENGTH = 3;
-const MAX_WORD_LENGTH = 24;
-const INCLUDE_ADULT_TITLES = false;
+const INPUT_FILE = path.resolve(
+    SCRIPT_DIRECTORY,
+    process.argv[2] ?? "title.basics.tsv.gz"
+);
+
+const WORDS_FILE = path.resolve(
+    SCRIPT_DIRECTORY,
+    "../src/data/words.json"
+);
+
+const COUNTS_FILE = path.resolve(
+    SCRIPT_DIRECTORY,
+    "words-counts.json"
+);
+
+// Una palabra debe aparecer en, al menos, este número de títulos.
+const MIN_TITLE_COUNT = 6;
+
+const INCLUDED_TITLE_TYPES = new Set([
+    "movie",
+    "tvSeries",
+    "tvMiniSeries",
+    "videoGame"
+]);
 
 const STOP_WORDS = new Set(`
-a an and are as at be been being by for from had has have he her hers him his
-i if in into is it its me my of on or our ours she so than that the their them
-there these they this those to too up us was we were what when where which who
-why will with you your yours
+    a an and are as at be been being by for from had has have
+    he her hers him his i if in into is it its me my of on or
+    our ours she so than that the their them there these they
+    this those to too up us was we were what when where which
+    who why will with you your yours
 `.trim().split(/\s+/));
 
-function extractWords(title) {
-  return title
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .match(/[a-z]+/g) ?? [];
+const REPORT_THRESHOLDS = [
+    1, 2, 3, 5, 6, 10, 15, 20, 25, 30,
+    40, 50, 75, 100, 150, 200, 300, 500
+];
+
+function normalizeWords(title) {
+    return title
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .match(/[a-z]+/g) ?? [];
 }
 
-async function main() {
-  if (!inputPath) {
-    console.error(
-      "Uso: node scripts/generate-movie-words.js <title.basics.tsv.gz> [salida/words.json]"
+function getTitleWords(title) {
+    return new Set(
+        normalizeWords(title).filter(
+            word => word.length > 1 && !STOP_WORDS.has(word)
+        )
     );
-    process.exitCode = 1;
-    return;
-  }
+}
 
-  const counts = new Map();
-  let movieCount = 0;
-  let adultCount = 0;
-  let processedRows = 0;
+async function generateWordCatalog() {
+    console.log(`Origen: ${INPUT_FILE}`);
+    console.log("Procesando títulos de IMDb...");
 
-  const input = createReadStream(resolve(inputPath));
-  const lines = createInterface({
-    input,
-    crlfDelay: Infinity,
-  });
+    const fileStream = createReadStream(INPUT_FILE);
 
-  let columnIndexes;
+    const inputStream = INPUT_FILE.endsWith(".gz")
+        ? fileStream.pipe(createGunzip())
+        : fileStream;
 
-  for await (const line of lines) {
-    if (!columnIndexes) {
-      const headers = line.split("\t");
+    const lines = createInterface({
+        input: inputStream,
+        crlfDelay: Infinity
+    });
 
-      columnIndexes = {
-        titleType: headers.indexOf("titleType"),
-        primaryTitle: headers.indexOf("primaryTitle"),
-        originalTitle: headers.indexOf("originalTitle"),
-        isAdult: headers.indexOf("isAdult"),
-      };
+    const wordCounts = new Map();
+    let processedTitles = 0;
 
-      if (Object.values(columnIndexes).some(index => index < 0)) {
-        throw new Error(
-          "El TSV no contiene las columnas esperadas de IMDb."
+    let isHeader = true;
+
+    for await (const line of lines) {
+        if (isHeader) {
+            isHeader = false;
+            continue;
+        }
+
+        const [
+            ,
+            titleType,
+            ,
+            originalTitle,
+            isAdult
+        ] = line.split("\t");
+
+        if (!INCLUDED_TITLE_TYPES.has(titleType)) {
+            continue;
+        }
+
+        if (isAdult === "1" || !originalTitle || originalTitle === "\\N") {
+            continue;
+        }
+
+        processedTitles++;
+
+        // Cada palabra cuenta como máximo una vez por título.
+        for (const word of getTitleWords(originalTitle)) {
+            wordCounts.set(
+                word,
+                (wordCounts.get(word) ?? 0) + 1
+            );
+        }
+
+        if (processedTitles % 1_000_000 === 0) {
+            console.log(
+                `Títulos procesados: ${processedTitles.toLocaleString("es-ES")}`
+            );
+        }
+    }
+
+    const sortedWords = [...wordCounts.entries()]
+        .map(([word, count]) => ({ word, count }))
+        .sort((a, b) => b.count - a.count || a.word.localeCompare(b.word));
+
+    const selectedWords = sortedWords
+        .filter(({ count }) => count >= MIN_TITLE_COUNT)
+        .map(({ word }) => word)
+        .sort((a, b) => a.localeCompare(b));
+
+    await mkdir(path.dirname(WORDS_FILE), { recursive: true });
+
+    await writeFile(
+        COUNTS_FILE,
+        `${JSON.stringify(sortedWords, null, 2)}\n`,
+        "utf8"
+    );
+
+    await writeFile(
+        WORDS_FILE,
+        `${JSON.stringify(selectedWords, null, 2)}\n`,
+        "utf8"
+    );
+
+    console.log("\n--- Resultado del análisis ---");
+    console.log(`Títulos procesados: ${processedTitles.toLocaleString("es-ES")}`);
+    console.log(`Palabras distintas encontradas: ${sortedWords.length.toLocaleString("es-ES")}`);
+    console.log(`Mínimo configurado: ${MIN_TITLE_COUNT} títulos`);
+    console.log(`Palabras incluidas en words.json: ${selectedWords.length.toLocaleString("es-ES")}`);
+
+    console.log("\n--- Palabras que quedarían con cada mínimo ---");
+
+    for (const threshold of REPORT_THRESHOLDS) {
+        const total = sortedWords.filter(
+            ({ count }) => count >= threshold
+        ).length;
+
+        console.log(
+            `Mínimo ${String(threshold).padStart(3)} títulos: ` +
+            `${total.toLocaleString("es-ES")} palabras`
         );
-      }
-
-      continue;
     }
 
-    processedRows++;
-
-    const fields = line.split("\t");
-
-    if (fields[columnIndexes.titleType] !== "movie") {
-      continue;
-    }
-
-    const isAdult = fields[columnIndexes.isAdult] === "1";
-
-    if (isAdult && !INCLUDE_ADULT_TITLES) {
-      adultCount++;
-      continue;
-    }
-
-    movieCount++;
-
-    const titles = [
-      fields[columnIndexes.originalTitle],
-      fields[columnIndexes.primaryTitle],
-    ];
-
-    const wordsInThisMovie = new Set(
-      titles.flatMap(extractWords)
-    );
-
-    for (const word of wordsInThisMovie) {
-      if (
-        word.length < MIN_WORD_LENGTH ||
-        word.length > MAX_WORD_LENGTH
-      ) {
-        continue;
-      }
-
-      if (STOP_WORDS.has(word)) {
-        continue;
-      }
-
-      counts.set(word, (counts.get(word) ?? 0) + 1);
-    }
-
-    if (processedRows % 1_000_000 === 0) {
-      console.error(
-        `Filas procesadas: ${processedRows.toLocaleString("en-US")}`
-      );
-    }
-  }
-
-  const words = [...counts.keys()].sort(
-    (a, b) => a.localeCompare(b, "en")
-  );
-
-  await mkdir(dirname(outputPath), { recursive: true });
-
-  const temporaryPath = `${outputPath}.tmp`;
-  const output = createWriteStream(temporaryPath, {
-    encoding: "utf8",
-  });
-
-  output.write(`${JSON.stringify(words, null, 2)}\n`);
-
-  await new Promise((resolvePromise, rejectPromise) => {
-    output.on("error", rejectPromise);
-    output.end(resolvePromise);
-  });
-
-  await rename(temporaryPath, outputPath).catch(async error => {
-    await rm(temporaryPath, { force: true });
-    throw error;
-  });
-
-  console.log("Catálogo generado correctamente.");
-  console.log(`Películas analizadas: ${movieCount.toLocaleString("en-US")}`);
-  console.log(`Títulos adultos excluidos: ${adultCount.toLocaleString("en-US")}`);
-  console.log(`Palabras únicas: ${words.length.toLocaleString("en-US")}`);
-  console.log(`Archivo: ${outputPath}`);
-
-  console.log(
-    "Nota: el dataset no identifica el idioma; puede haber palabras de otros idiomas."
-  );
+    console.log("\nArchivos generados:");
+    console.log(`Catálogo: ${WORDS_FILE}`);
+    console.log(`Informe:  ${COUNTS_FILE}`);
 }
 
-main().catch(error => {
-  console.error(`Error: ${error.message}`);
-  process.exitCode = 1;
+generateWordCatalog().catch(error => {
+    console.error("Error generando el catálogo:", error);
+    process.exitCode = 1;
 });

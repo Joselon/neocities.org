@@ -300,6 +300,43 @@ words-18.json: 14890 palabras
 words-19.json: 14890 palabras
 ```
 
+Cambio de criterio:
+
+```sh
+Procesando títulos de IMDb...
+Títulos procesados: 1.000.000
+
+--- Resultado del análisis ---
+Títulos procesados: 1.176.069
+Palabras distintas encontradas: 391.937
+Mínimo configurado: 6 títulos
+Palabras incluidas en words.json: 49.175
+
+--- Palabras que quedarían con cada mínimo ---
+Mínimo   1 títulos: 391.937 palabras
+Mínimo   2 títulos: 145.039 palabras
+Mínimo   3 títulos: 93.919 palabras
+Mínimo   5 títulos: 57.816 palabras
+Mínimo   6 títulos: 49.175 palabras
+Mínimo  10 títulos: 31.494 palabras
+Mínimo  15 títulos: 22.150 palabras
+Mínimo  20 títulos: 17.198 palabras
+Mínimo  25 títulos: 14.155 palabras
+Mínimo  30 títulos: 12.002 palabras
+Mínimo  40 títulos: 9278 palabras
+Mínimo  50 títulos: 7580 palabras
+Mínimo  75 títulos: 5261 palabras
+Mínimo 100 títulos: 4033 palabras
+Mínimo 150 títulos: 2680 palabras
+Mínimo 200 títulos: 2000 palabras
+Mínimo 300 títulos: 1334 palabras
+Mínimo 500 títulos: 738 palabras
+
+Archivos generados:
+Catálogo: src/data/words.json
+Informe: todo/words-counts.json
+```
+
 ## Propuesta comparacion Media
 
 ```js
