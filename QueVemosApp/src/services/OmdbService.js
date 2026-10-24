@@ -51,17 +51,30 @@ export class OmdbService {
         return data;
     }
 
+    
     async request(path) {
-        const response = await this.fetchFunction(
-            `${this.baseUrl}${path}`
+        const controller = new AbortController();
+        const timeout = setTimeout(
+            () => controller.abort(),
+            8000
         );
 
-        if (!response.ok) {
-            throw new Error(
-                `OMDb request failed: ${response.status}`
+        try {
+            const response = await this.fetchFunction(
+                `${this.baseUrl}${path}`,
+                { signal: controller.signal }
             );
-        }
 
-        return response.json();
+            if (!response.ok) {
+                throw new Error(
+                    `OMDb request failed: ${response.status}`
+                );
+            }
+
+            return await response.json();
+        } finally {
+            clearTimeout(timeout);
+        }
     }
+
 }
