@@ -24,7 +24,7 @@ const COUNTS_FILE = path.resolve(
 );
 
 // Una palabra debe aparecer en, al menos, este número de títulos.
-const MIN_TITLE_COUNT = 6;
+const MIN_TITLE_COUNT = 10;
 
 const INCLUDED_TITLE_TYPES = new Set([
     "movie",
@@ -38,7 +38,14 @@ const STOP_WORDS = new Set(`
     he her hers him his i if in into is it its me my of on or
     our ours she so than that the their them there these they
     this those to too up us was we were what when where which
-    who why will with you your yours
+    who why will with you your yours de la no el le der en del 
+    les un di da los il na des du al vs das et que et und las 
+    una wa mi se si den van mr am ji ki wo ka re con ma ren sa 
+    une yi zhi im off hai tu es pa von th ga ye para te mo ne 
+    fu sin ke er wu ang por qi tian ya lo um ng yo hua em ta 
+    li bu mit og kai auf dai tou della je ek zi ba het jian sheng 
+    ko ex ming gu dem nos va fur dao ve mas jia ha xin per dans 
+    st za jin one last do all new out war tv
 `.trim().split(/\s+/));
 
 const REPORT_THRESHOLDS = [
@@ -57,7 +64,7 @@ function normalizeWords(title) {
 function getTitleWords(title) {
     return new Set(
         normalizeWords(title).filter(
-            word => word.length > 1 && !STOP_WORDS.has(word)
+            word => word.length > 3 && !STOP_WORDS.has(word)
         )
     );
 }
@@ -92,7 +99,7 @@ async function generateWordCatalog() {
             ,
             titleType,
             ,
-            originalTitle,
+            primaryTitle,
             isAdult
         ] = line.split("\t");
 
@@ -100,14 +107,14 @@ async function generateWordCatalog() {
             continue;
         }
 
-        if (isAdult === "1" || !originalTitle || originalTitle === "\\N") {
+        if (isAdult === "1" || !primaryTitle || primaryTitle === "\\N") {
             continue;
         }
 
         processedTitles++;
 
         // Cada palabra cuenta como máximo una vez por título.
-        for (const word of getTitleWords(originalTitle)) {
+        for (const word of getTitleWords(primaryTitle)) {
             wordCounts.set(
                 word,
                 (wordCounts.get(word) ?? 0) + 1
@@ -146,7 +153,7 @@ async function generateWordCatalog() {
 
     console.log("\n--- Resultado del análisis ---");
     console.log(`Títulos procesados: ${processedTitles.toLocaleString("es-ES")}`);
-    console.log(`Palabras distintas encontradas: ${sortedWords.length.toLocaleString("es-ES")}`);
+    console.log(`Palabras distintas encontradas(mas de 3 caracteres): ${sortedWords.length.toLocaleString("es-ES")}`);
     console.log(`Mínimo configurado: ${MIN_TITLE_COUNT} títulos`);
     console.log(`Palabras incluidas en words.json: ${selectedWords.length.toLocaleString("es-ES")}`);
 

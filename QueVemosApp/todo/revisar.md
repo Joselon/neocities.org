@@ -308,29 +308,29 @@ Títulos procesados: 1.000.000
 
 --- Resultado del análisis ---
 Títulos procesados: 1.176.069
-Palabras distintas encontradas: 391.937
-Mínimo configurado: 6 títulos
-Palabras incluidas en words.json: 49.175
+Palabras distintas encontradas(mas de 3 caracteres): 385.465
+Mínimo configurado: 10 títulos
+Palabras incluidas en words.json: 29.185
 
 --- Palabras que quedarían con cada mínimo ---
-Mínimo   1 títulos: 391.937 palabras
-Mínimo   2 títulos: 145.039 palabras
-Mínimo   3 títulos: 93.919 palabras
-Mínimo   5 títulos: 57.816 palabras
-Mínimo   6 títulos: 49.175 palabras
-Mínimo  10 títulos: 31.494 palabras
-Mínimo  15 títulos: 22.150 palabras
-Mínimo  20 títulos: 17.198 palabras
-Mínimo  25 títulos: 14.155 palabras
-Mínimo  30 títulos: 12.002 palabras
-Mínimo  40 títulos: 9278 palabras
-Mínimo  50 títulos: 7580 palabras
-Mínimo  75 títulos: 5261 palabras
-Mínimo 100 títulos: 4033 palabras
-Mínimo 150 títulos: 2680 palabras
-Mínimo 200 títulos: 2000 palabras
-Mínimo 300 títulos: 1334 palabras
-Mínimo 500 títulos: 738 palabras
+Mínimo   1 títulos: 385.465 palabras
+Mínimo   2 títulos: 140.501 palabras
+Mínimo   3 títulos: 90.077 palabras
+Mínimo   5 títulos: 54.730 palabras
+Mínimo   6 títulos: 46.313 palabras
+Mínimo  10 títulos: 29.185 palabras
+Mínimo  15 títulos: 20.197 palabras
+Mínimo  20 títulos: 15.481 palabras
+Mínimo  25 títulos: 12.632 palabras
+Mínimo  30 títulos: 10.612 palabras
+Mínimo  40 títulos: 8073 palabras
+Mínimo  50 títulos: 6514 palabras
+Mínimo  75 títulos: 4410 palabras
+Mínimo 100 títulos: 3314 palabras
+Mínimo 150 títulos: 2125 palabras
+Mínimo 200 títulos: 1529 palabras
+Mínimo 300 títulos: 978 palabras
+Mínimo 500 títulos: 501 palabras
 
 Archivos generados:
 Catálogo: src/data/words.json
