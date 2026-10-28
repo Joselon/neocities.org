@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { WatchListService } from "../../src/services/WatchListService.js";
 import { WatchList } from "../../src/domain/WatchList.js";
 import { Media } from "../../src/domain/Media.js";
+import { WatchStatus } from "../../src/domain/WatchStatus.js";
 
 
 test("Services: addItem añade un Media y su WatchItem", () => {
@@ -52,6 +53,87 @@ test("Services: addItem elimina el Media si falla al añadir el WatchItem", () =
     assert.equal(watchList.media.length, 0);
     assert.equal(watchList.watchItems.length, 0);
 });
+
+
+const omdbDetails = {
+    Response: "True",
+    Type: "movie",
+    imdbID: "tt0133093",
+    Title: "The Matrix",
+    Year: "1999",
+    Runtime: "136 min",
+    Genre: "Action, Sci-Fi",
+    Poster: "https://example.com/matrix.jpg",
+    Director: "Lana Wachowski, Lilly Wachowski",
+    Country: "United States",
+    Actors: "Keanu Reeves, Laurence Fishburne",
+    Plot: "A computer hacker discovers the truth.",
+    Awards: "4 wins & 37 nominations.",
+    Ratings: [
+        { Source: "Internet Movie Database", Value: "8.7/10" }
+    ]
+};
+
+test("Services: addMovieFromOmdb añade Media y WatchItem con los metadatos de OMDb", () => {
+    const watchList = new WatchList();
+    const service = new WatchListService(watchList);
+
+    const result = service.addMovieFromOmdb(omdbDetails);
+
+    assert.equal(result.success, true);
+    assert.equal(watchList.media.length, 1);
+    assert.equal(watchList.watchItems.length, 1);
+
+    const media = watchList.media[0];
+    const watchItem = watchList.watchItems[0];
+
+    assert.equal(media.title, "The Matrix");
+    assert.equal(media.omdbId, "tt0133093");
+    assert.equal(media.runtimeMinutes, 136);
+    assert.equal(media.director, omdbDetails.Director);
+    assert.equal(media.country, omdbDetails.Country);
+    assert.equal(media.actors, omdbDetails.Actors);
+    assert.equal(media.plot, omdbDetails.Plot);
+    assert.equal(media.awards, omdbDetails.Awards);
+    assert.deepEqual(media.ratings, omdbDetails.Ratings);
+    assert.equal(media.poster, omdbDetails.Poster);
+
+    assert.equal(watchItem.mediaId, media.id);
+    assert.equal(watchItem.status, WatchStatus.PENDING);
+});
+
+test("Services: addMovieFromOmdb no añade nada si falla la ficha OMDb", () => {
+    const watchList = new WatchList();
+    const service = new WatchListService(watchList);
+
+    const result = service.addMovieFromOmdb({
+        ...omdbDetails,
+        Response: "False",
+        Error: "Movie not found"
+    });
+
+    assert.equal(result.success, false);
+    assert.equal(watchList.media.length, 0);
+    assert.equal(watchList.watchItems.length, 0);
+});
+
+test("Services: addMovieFromOmdb elimina Media si falla al añadir WatchItem", () => {
+    class WatchListQueFalla extends WatchList {
+        addWatchItem() {
+            throw new Error("Error al añadir WatchItem");
+        }
+    }
+
+    const watchList = new WatchListQueFalla();
+    const service = new WatchListService(watchList);
+
+    const result = service.addMovieFromOmdb(omdbDetails);
+
+    assert.equal(result.success, false);
+    assert.equal(watchList.media.length, 0);
+    assert.equal(watchList.watchItems.length, 0);
+});
+
 /*
 test("Services: preserves OMDb details after accepting a recommendation and saving watched item", async () => {
     // Arrange: película original con información completa de OMDb.

@@ -28,13 +28,13 @@ export class RandomMovieService {
 
         while (attempts < this.maxAttempts) {
             const word = this.getRandomWord();
-
+            
+            attempts++;
+            
             if (typeof word !== "string" || !word.trim()) {
                 continue;
             }
-
-            attempts++;
-
+            
             try {
                 const results = await this.omdbService.search(word);
 

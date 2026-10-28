@@ -395,4 +395,61 @@ export class WatchListService {
         return { success: true };
     }
 
+    
+    addMovieFromOmdb(details) {
+        let media = null;
+        let mediaAdded = false;
+
+        try {
+            if (
+                details?.Response !== "True" ||
+                details?.Type !== "movie" ||
+                typeof details?.imdbID !== "string" ||
+                !details.imdbID.trim() ||
+                typeof details?.Title !== "string" ||
+                !details.Title.trim()
+            ) {
+                throw new Error("La ficha de OMDb no es válida");
+            }
+
+            const yearMatch = details.Year?.match(/^\d{4}/);
+            const year = yearMatch ? Number(yearMatch[0]) : undefined;
+
+            media = new Media({
+                title: details.Title,
+                type: "movie",
+                year
+            });
+
+            const updateResult = this.updateOmdbDetails({
+                media,
+                details
+            });
+
+            if (updateResult?.success === false) {
+                throw new Error("No se pudieron actualizar los datos de OMDb");
+            }
+
+            const watchItem = new WatchItem({
+                mediaId: media.id
+            });
+
+            this.watchList.addMedia(media);
+            mediaAdded = true;
+
+            this.watchList.addWatchItem(watchItem);
+
+            return { success: true };
+        } catch (error) {
+            if (mediaAdded) {
+                this.watchList.removeMedia(media.id);
+            }
+
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
 }
