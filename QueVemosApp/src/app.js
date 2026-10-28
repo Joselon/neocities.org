@@ -2,11 +2,14 @@ import { LitElement, html, css } from "lit";
 
 import { WatchListStorage } from "./storage/WatchListStorage.js";
 import { InboxStorage } from "./storage/InboxStorage.js";
+import { RandomMovieService } from "./services/RandomMovieService.js";
+import { WatchListService } from "./services/WatchListService.js";
 
 import "./components/AppHeader.js";
 import "./components/AppFooter.js";
 import "./components/WatchListView.js";
 import "./components/InboxView.js";
+import "./components/RandomMovieView.js";
 
 export class App extends LitElement {
     
@@ -103,7 +106,11 @@ export class App extends LitElement {
     static properties = {
         watchList: { state: true },
         inbox: { state: true },
-        dataVersion: { state: true }
+        dataVersion: { state: true },
+        randomMovieOpen: { state: true },
+        randomMovie: { state: true },
+        randomMovieLoading: { state: true },
+        randomMovieError: { state: true }
     };
 
     constructor() {
@@ -114,6 +121,14 @@ export class App extends LitElement {
 
         this.watchList = this.watchListStorage.load();
         this.inbox = this.inboxStorage.load();
+
+        this.randomMovieService = new RandomMovieService();
+
+        this.randomMovieOpen = false;
+        this.randomMovie = null;
+        this.randomMovieLoading = false;
+        this.randomMovieError = "";
+
         this.dataVersion = 0;
     }
 
@@ -140,10 +155,66 @@ export class App extends LitElement {
         this.dataVersion++;
     }
 
+
+    async handleDiscoverMovie() {
+        this.randomMovieOpen = true;
+        await this.discoverRandomMovie();
+    }
+
+    async discoverRandomMovie() {
+        this.randomMovieLoading = true;
+        this.randomMovieError = "";
+        this.randomMovie = null;
+
+        try {
+            this.randomMovie =
+                await this.randomMovieService.discoverRandomMovie();
+        } catch (error) {
+            this.randomMovieError =
+                "No hemos encontrado una película. Inténtalo de nuevo.";
+        } finally {
+            this.randomMovieLoading = false;
+        }
+    }
+
+    handleCloseRandomMovie() {
+        this.randomMovieOpen = false;
+    }
+
+    async handleAddRandomMovie(event) {
+        const { details } = event.detail;
+
+        const service = new WatchListService(this.watchList);
+        const result = service.addMovieFromOmdb(details);
+
+        if (!result.success) {
+            this.randomMovieError =
+                result.error || "No se pudo añadir la película.";
+            return;
+        }
+
+        this.saveChanges();
+        this.dataVersion++;
+        this.randomMovieOpen = false;
+        this.randomMovie = null;
+    }
+
     render() {
         return html`
-            <app-header></app-header>
-
+            <app-header
+             @discover-movie=${this.handleDiscoverMovie}
+            ></app-header>
+            ${this.randomMovieOpen ? html`
+                <random-movie-view
+                    .movie=${this.randomMovie}
+                    .loading=${this.randomMovieLoading}
+                    .error=${this.randomMovieError}
+                    @discover-another-movie=${this.discoverRandomMovie}
+                    @close-random-movie=${this.handleCloseRandomMovie}
+                    @add-random-movie=${this.handleAddRandomMovie}
+                ></random-movie-view>
+            ` : ""}
+            
             <main>
                 <section class="content">
                     <watch-list-view

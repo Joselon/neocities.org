@@ -398,6 +398,13 @@ export class AppHeader extends LitElement {
         }
     }
 
+    handleDiscoverMovie() {
+        this.dispatchEvent(new CustomEvent("discover-movie", {
+            bubbles: true,
+            composed: true
+        }));
+    }
+
     render() {
         return html`
             <header>
@@ -405,7 +412,7 @@ export class AppHeader extends LitElement {
                     LAB EXPERIMENTAL
                 </div>
 
-                <h1>¿Qué Vemos?</h1>
+                <h1 @click=${this.handleDiscoverMovie}>¿Qué Vemos?</h1>
 
                 <p class="hero-subtitle">
                     Tu listado de pelis y series local con gestión de recomendaciones
