@@ -147,6 +147,34 @@ export class InboxView extends LitElement {
             font-size: 0.9rem;
         }
 
+        .list--highlighted {
+            position: relative;
+            border: 2px solid var(--accent);
+            background: rgba(255, 107, 44, 0.16);
+            box-shadow: 0 0 0 2px rgba(255, 107, 44, 0.12);
+            animation: recommendation-pulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes recommendation-pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 2px rgba(255, 107, 44, 0.12);
+                border-color: var(--accent);
+            }
+
+            50% {
+                box-shadow: 0 0 18px 5px rgba(255, 107, 44, 0.38);
+                border-color: var(--accent-2);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .list--highlighted {
+                animation: none;
+                border-color: var(--accent-2);
+                box-shadow: 0 0 0 3px rgba(255, 107, 44, 0.25);
+            }
+        }
+
         /* -------------------------
            Vacía
            ------------------------- */
@@ -205,8 +233,38 @@ export class InboxView extends LitElement {
         this.service = new RecommendationService();
 
         this.selectedList = undefined;
+        this.highlightedListId = null;
+        this.scrollToListPending = false;
         this.showImportLink = false;
         this.importLink = "";
+    }
+
+    updated() {
+        if (!this.scrollToListPending || !this.highlightedListId) {
+            return;
+        }
+
+        const target = [
+            ...this.renderRoot.querySelectorAll(
+                "[data-recommendation-list-id]"
+            )
+        ].find(
+            element =>
+                element.dataset.recommendationListId ===
+                this.highlightedListId
+        );
+
+        if (!target) {
+            // Volver a intentarlo.
+            return;
+        }
+
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        this.scrollToListPending = false;
     }
 
     async connectedCallback() {
@@ -216,26 +274,33 @@ export class InboxView extends LitElement {
     }
 
     async importRecommendationFromUrl() {
-
-        const exchange = await this.linkReader.read(window.location.href);
+        const exchange = await this.linkReader.read(
+            window.location.href
+        );
 
         if (!exchange) {
             return;
         }
 
-        if (this.lists.some(list => list.id === exchange.id)) {
-            alert(
-                    `Ya se ha agregado al buzón de entrada`
-                );
-            
+        const existingList = this.lists.find(
+            list => list.id === exchange.id
+        );
+
+        if (existingList) {
+            // Ya existe: llevamos al usuario hasta ella.
+            this.highlightIncomingList(existingList.id);
+            this.clearRecommendationUrlParameter();
             return;
         }
 
-        const incomingList  = this.service.createIncomingRecommendationList(exchange);
+        const incomingList =
+            this.service.createIncomingRecommendationList(exchange);
+
+        this.highlightIncomingList(incomingList.id);
 
         this.notifyInboxChanged([
             ...this.lists,
-            incomingList,
+            incomingList
         ]);
 
         this.clearRecommendationUrlParameter();
@@ -262,6 +327,12 @@ export class InboxView extends LitElement {
         this.importLink = "";
     }
 
+    highlightIncomingList(listId) {
+        this.highlightedListId = listId;
+        this.scrollToListPending = true;
+        this.requestUpdate();
+    }   
+
     openRecommendationsLink(event) {
         event.preventDefault();
 
@@ -287,6 +358,8 @@ export class InboxView extends LitElement {
     }
 
     selectList(list) {
+        this.highlightedListId = null;
+        this.scrollToListPending = false;
         this.selectedList = list;
     }
 
@@ -406,7 +479,12 @@ export class InboxView extends LitElement {
                         <div class="lists" >
                             ${this.lists.map(list => html`
                                     <button
-                                        class="list"
+                                        class="list ${
+                                            this.highlightedListId === list.id
+                                                ? "list--highlighted"
+                                                : ""
+                                        }"
+                                        data-recommendation-list-id=${list.id}
                                         @click=${() => this.selectList(list)}
                                     >
                                         <strong>
