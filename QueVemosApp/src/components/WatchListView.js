@@ -6,6 +6,7 @@ import { RecommendationService } from "../services/RecommendationService.js";
 import { RecommendationLinkCodec } from "../services/RecommendationLinkCodec.js";
 import { WatchStatus } from "../domain/WatchStatus.js";
 import { MediaType } from "../domain/MediaType.js";
+import settings from "../data/setting.json";
 
 import "./WatchItemView.js";
 import "./AddItemForm.js";
@@ -797,12 +798,12 @@ export class WatchListView extends LitElement {
                 !this.filters.type ||
                 item.media.type === this.filters.type;
 
-            const matchesTitle =
-                searchText.length < 3 ||
-                this.normalizeSearchText(item.media.title)
-                    .includes(searchText);
+            const matchesSearch = this.matchesSearch(
+                item,
+                searchText
+            );
 
-            return matchesStatus && matchesType && matchesTitle;
+            return matchesStatus && matchesType && matchesSearch;
         });
 
         if (this.sortMode === "AZ") {
@@ -890,6 +891,62 @@ export class WatchListView extends LitElement {
         };
 
         this.showFilterOptions = false;
+    }
+
+    getSearchableValues(item) {
+        const { media, watchItem } = item;
+
+        const genres = (media.genres ?? []).flatMap(id => {
+            const genre = settings.genres.find(
+                entry => entry.id === id
+            );
+
+            return [id, genre?.name];
+        });
+
+        const platforms = (watchItem.platforms ?? []).flatMap(id => {
+            const platform = settings.platforms.find(
+                entry => entry.id === id
+            );
+
+            return [id, platform?.name];
+        });
+
+        const mediaType = settings.mediaTypes.find(
+            entry => entry.id === media.type
+        );
+
+        return [
+            media.title,
+            media.originalTitle,
+            media.year,
+            media.director,
+            media.actors,
+            media.country,
+            media.plot,
+            media.awards,
+            genres,
+            platforms,
+            media.type,
+            mediaType?.name,
+            watchItem.reason,
+            watchItem.status,
+            this.getStatusLabel(watchItem.status)
+        ];
+    }
+
+    matchesSearch(item, searchText) {
+        if (searchText.length < 3) {
+            return true;
+        }
+
+        return this.getSearchableValues(item)
+            .flat(Infinity)
+            .filter(value => value !== undefined && value !== null)
+            .some(value =>
+                this.normalizeSearchText(String(value))
+                    .includes(searchText)
+            );
     }
 
     toggleSearch() {
@@ -1099,7 +1156,7 @@ export class WatchListView extends LitElement {
                                 <button
                                     type="button"
                                     class="action-button ${this.showSearch ? "active" : ""}"
-                                    aria-label="${this.showSearch ? "Cerrar búsqueda" : "Buscar por título"}"
+                                    aria-label="${this.showSearch ? "Cerrar búsqueda" : "Buscar por cualquier campo"}"
                                     aria-expanded=${this.showSearch}
                                     @click=${this.toggleSearch}
                                 >
@@ -1111,8 +1168,8 @@ export class WatchListView extends LitElement {
                                     <input
                                         class="search-input"
                                         type="search"
-                                        placeholder="Buscar título (mín. 3 caracteres)"
-                                        aria-label="Buscar por título"
+                                        placeholder="Buscar por cualquier campo (mín. 3 caracteres)"
+                                        aria-label="Buscar por cualquier campo"
                                         .value=${this.searchText}
                                         @input=${this.handleSearchInput}
                                     />

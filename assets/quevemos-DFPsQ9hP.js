@@ -1,0 +1,4090 @@
+(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),t.credentials=e.crossOrigin===`use-credentials`?`include`:e.crossOrigin===`anonymous`?`omit`:`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=globalThis,t=e.ShadowRoot&&(e.ShadyCSS===void 0||e.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,n=Symbol(),r=new WeakMap,i=class{constructor(e,t,r){if(this._$cssResult$=!0,r!==n)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,n=this.t;if(t&&e===void 0){let t=n!==void 0&&n.length===1;t&&(e=r.get(n)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),t&&r.set(n,e))}return e}toString(){return this.cssText}},a=e=>new i(typeof e==`string`?e:e+``,void 0,n),o=(e,...t)=>new i(e.length===1?e[0]:t.reduce((t,n,r)=>t+(e=>{if(!0===e._$cssResult$)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: `+e+`. Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.`)})(n)+e[r+1],e[0]),e,n),s=(n,r)=>{if(t)n.adoptedStyleSheets=r.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let t of r){let r=document.createElement(`style`),i=e.litNonce;i!==void 0&&r.setAttribute(`nonce`,i),r.textContent=t.cssText,n.appendChild(r)}},c=t?e=>e:e=>e instanceof CSSStyleSheet?(e=>{let t=``;for(let n of e.cssRules)t+=n.cssText;return a(t)})(e):e,{is:l,defineProperty:u,getOwnPropertyDescriptor:d,getOwnPropertyNames:f,getOwnPropertySymbols:p,getPrototypeOf:ee}=Object,m=globalThis,h=m.trustedTypes,te=h?h.emptyScript:``,ne=m.reactiveElementPolyfillSupport,g=(e,t)=>e,_={toAttribute(e,t){switch(t){case Boolean:e=e?te:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},re=(e,t)=>!l(e,t),ie={attribute:!0,type:String,converter:_,reflect:!1,useDefault:!1,hasChanged:re};Symbol.metadata??=Symbol(`metadata`),m.litPropertyMetadata??=new WeakMap;var v=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=ie){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(e,n,t);r!==void 0&&u(this.prototype,e,r)}}static getPropertyDescriptor(e,t,n){let{get:r,set:i}=d(this.prototype,e)??{get(){return this[t]},set(e){this[t]=e}};return{get:r,set(t){let a=r?.call(this);i?.call(this,t),this.requestUpdate(e,a,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??ie}static _$Ei(){if(this.hasOwnProperty(g(`elementProperties`)))return;let e=ee(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(g(`finalized`)))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(g(`properties`))){let e=this.properties,t=[...f(e),...p(e)];for(let n of t)this.createProperty(n,e[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[e,n]of t)this.elementProperties.set(e,n)}this._$Eh=new Map;for(let[e,t]of this.elementProperties){let n=this._$Eu(e,t);n!==void 0&&this._$Eh.set(n,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let n=new Set(e.flat(1/0).reverse());for(let e of n)t.unshift(c(e))}else e!==void 0&&t.push(c(e));return t}static _$Eu(e,t){let n=t.attribute;return!1===n?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let n of t.keys())this.hasOwnProperty(n)&&(e.set(n,this[n]),delete this[n]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return s(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,n){this._$AK(e,n)}_$ET(e,t){let n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(r!==void 0&&!0===n.reflect){let i=(n.converter?.toAttribute===void 0?_:n.converter).toAttribute(t,n.type);this._$Em=e,i==null?this.removeAttribute(r):this.setAttribute(r,i),this._$Em=null}}_$AK(e,t){let n=this.constructor,r=n._$Eh.get(e);if(r!==void 0&&this._$Em!==r){let e=n.getPropertyOptions(r),i=typeof e.converter==`function`?{fromAttribute:e.converter}:e.converter?.fromAttribute===void 0?_:e.converter;this._$Em=r;let a=i.fromAttribute(t,e.type);this[r]=a??this._$Ej?.get(r)??a,this._$Em=null}}requestUpdate(e,t,n,r=!1,i){if(e!==void 0){let a=this.constructor;if(!1===r&&(i=this[e]),n??=a.getPropertyOptions(e),!((n.hasChanged??re)(i,t)||n.useDefault&&n.reflect&&i===this._$Ej?.get(e)&&!this.hasAttribute(a._$Eu(e,n))))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(e,t,{useDefault:n,reflect:r,wrapped:i},a){n&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,a??t??this[e]),!0!==i||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||n||(t=void 0),this._$AL.set(e,t)),!0===r&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[e,t]of this._$Ep)this[e]=t;this._$Ep=void 0}let e=this.constructor.elementProperties;if(e.size>0)for(let[t,n]of e){let{wrapped:e}=n,r=this[t];!0!==e||this._$AL.has(t)||r===void 0||this.C(t,void 0,n,r)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(e=>e.hostUpdate?.()),this.update(t)):this._$EM()}catch(t){throw e=!1,this._$EM(),t}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(e){}firstUpdated(e){}};v.elementStyles=[],v.shadowRootOptions={mode:`open`},v[g(`elementProperties`)]=new Map,v[g(`finalized`)]=new Map,ne?.({ReactiveElement:v}),(m.reactiveElementVersions??=[]).push(`2.1.2`);var y=globalThis,ae=e=>e,b=y.trustedTypes,oe=b?b.createPolicy(`lit-html`,{createHTML:e=>e}):void 0,se=`$lit$`,x=`lit$${Math.random().toFixed(9).slice(2)}$`,ce=`?`+x,le=`<${ce}>`,S=document,C=()=>S.createComment(``),w=e=>e===null||typeof e!=`object`&&typeof e!=`function`,T=Array.isArray,ue=e=>T(e)||typeof e?.[Symbol.iterator]==`function`,E=`[ 	
+\f\r]`,D=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,de=/-->/g,fe=/>/g,O=RegExp(`>|${E}(?:([^\\s"'>=/]+)(${E}*=${E}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),k=/'/g,pe=/"/g,A=/^(?:script|style|textarea|title)$/i,j=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),M=Symbol.for(`lit-noChange`),N=Symbol.for(`lit-nothing`),me=new WeakMap,P=S.createTreeWalker(S,129);function he(e,t){if(!T(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return oe===void 0?t:oe.createHTML(t)}var ge=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=D;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===D?c[1]===`!--`?o=de:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=O):(A.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=O):o=fe:o===O?c[0]===`>`?(o=i??D,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?O:c[3]===`"`?pe:k):o===pe||o===k?o=O:o===de||o===fe?o=D:(o=O,i=void 0);let d=o===O&&e[t+1].startsWith(`/>`)?` `:``;a+=o===D?n+le:l>=0?(r.push(s),n.slice(0,l)+se+n.slice(l)+x+d):n+x+(l===-2?t:d)}return[he(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},F=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=ge(t,n);if(this.el=e.createElement(l,r),P.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=P.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(se)){let t=u[o++],n=i.getAttribute(e).split(x),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?ve:r[1]===`?`?ye:r[1]===`@`?be:R}),i.removeAttribute(e)}else e.startsWith(x)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(A.test(i.tagName)){let e=i.textContent.split(x),t=e.length-1;if(t>0){i.textContent=b?b.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],C()),P.nextNode(),c.push({type:2,index:++a});i.append(e[t],C())}}}else if(i.nodeType===8){if(i.data===ce)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(x,e+1))!==-1;)c.push({type:7,index:a}),e+=x.length-1}}a++}}static createElement(e,t){let n=S.createElement(`template`);return n.innerHTML=e,n}};function I(e,t,n=e,r){if(t===M)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=w(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=I(e,i._$AS(e,t.values),i,r)),t}var _e=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??S).importNode(t,!0);P.currentNode=r;let i=P.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new L(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new xe(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=P.nextNode(),a++)}return P.currentNode=S,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},L=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=N,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=I(this,e,t),w(e)?e===N||e==null||e===``?(this._$AH!==N&&this._$AR(),this._$AH=N):e!==this._$AH&&e!==M&&this._(e):e._$litType$===void 0?e.nodeType===void 0?ue(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==N&&w(this._$AH)?this._$AA.nextSibling.data=e:this.T(S.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=F.createElement(he(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new _e(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=me.get(e.strings);return t===void 0&&me.set(e.strings,t=new F(e)),t}k(t){T(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(C()),this.O(C()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=ae(e).nextSibling;ae(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},R=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=N,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=N}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=I(this,e,t,0),a=!w(e)||e!==this._$AH&&e!==M,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=I(this,r[n+o],t,o),s===M&&(s=this._$AH[o]),a||=!w(s)||s!==this._$AH[o],s===N?e=N:e!==N&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===N?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},ve=class extends R{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===N?void 0:e}},ye=class extends R{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==N)}},be=class extends R{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=I(this,e,t,0)??N)===M)return;let n=this._$AH,r=e===N&&n!==N||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==N&&(n===N||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},xe=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){I(this,e)}},Se=y.litHtmlPolyfillSupport;Se?.(F,L),(y.litHtmlVersions??=[]).push(`3.3.3`);var Ce=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new L(t.insertBefore(C(),e),e,void 0,n??{})}return i._$AI(e),i},z=globalThis,B=class extends v{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=Ce(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return M}};B._$litElement$=!0,B.finalized=!0,z.litElementHydrateSupport?.({LitElement:B});var we=z.litElementPolyfillSupport;we?.({LitElement:B}),(z.litElementVersions??=[]).push(`4.2.2`);var V=Object.freeze({MOVIE:`movie`,SERIES:`series`,VIDEOGAMES:`videogame`}),H=class e{constructor({title:t,type:n,id:r=e.generateId(),originalTitle:i=void 0,year:a=void 0,runtimeMinutes:o=void 0,genres:s=[],omdbId:c=void 0,poster:l=void 0,ratings:u=void 0,director:d=void 0,country:f=void 0,actors:p=void 0,plot:ee=void 0,awards:m=void 0,trailer:h=void 0}){this.id=r,this.title=e.validateTitle(e.normalizeTitle(t)),this.originalTitle=i,this.type=e.validateType(n),this.year=a,this.runtimeMinutes=o,this.genres=s,this.omdbId=c,this.poster=l,this.ratings=u,this.director=d,this.country=f,this.actors=p,this.plot=ee,this.awards=m,this.trailer=h}get matchKey(){return e.createMatchKey(this.title,this.type,this.year)}static generateId(){return crypto.randomUUID()}static createMatchKey(e,t,n=void 0){let r=`${e.trim().toLowerCase().replace(/\s+/g,` `)}|${t}`;return n?`${r}|${n}`:r}static normalizeTitle(e){if(typeof e!=`string`)throw Error(`Media title is required`);return e.trim().replace(/\s+/g,` `)}static validateTitle(e){if(!e)throw Error(`Media title cannot be empty`);if(e.length>250)throw Error(`Media title cannot exceed 250 characters`);return e}static validateType(e){if(!Object.values(V).includes(e))throw Error(e+`Invalid media type`);return e}},U=Object.freeze({PENDING:`pending`,WATCHING:`watching`,PAUSED:`paused`,WATCHED:`watched`,DISCARDED:`discarded`}),W=class{constructor({season:e=void 0,episode:t=void 0,minute:n=void 0}){this.season=e,this.episode=t,this.minute=n}},G=class e{constructor({mediaId:t,platforms:n=[],reason:r=void 0,spanishAudio:i=!1,spanishSubtitles:a=!1,status:o=U.PENDING,userRating:s=void 0,progress:c=void 0,addedAt:l=new Date().toISOString(),watchedAt:u=void 0}){this.mediaId=e.validateMediaId(t),this.platforms=n,this.reason=r,this.spanishAudio=i,this.spanishSubtitles=a,this.status=e.validateStatus(o),this.userRating=s,this.progress=c,this.addedAt=l,this.watchedAt=u}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(U).includes(e))throw Error(`Invalid status type`);return e}start(){this.status=U.WATCHING}pause(){this.status=U.PAUSED}resume(){this.status=U.WATCHING}markAsWatched(){this.status=U.WATCHED}markAsUnwatched(){this.status=U.PENDING}discard(){this.status=U.DISCARDED}setProgress(e){if(!(e instanceof W))throw Error(`Invalid progress`);this.progress=e}},K=class e{constructor({version:t=1,id:n=e.generateId(),name:r=`Mi primera lista`,watchItems:i=void 0,media:a=void 0}={}){this.version=e.validateVersion(t),this.id=n,this.name=r,this.watchItems=e.validatesItems(i),this.media=e.validatesMedia(a)}static generateId(){return crypto.randomUUID()}static validatesItems(e){if(e||=[],!Array.isArray(e))throw Error(`watchItems is not an array`);return e.forEach(e=>{if(!(e instanceof G))throw Error(`watchItems must contain only WatchItem`)}),e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e.forEach(e=>{if(!(e instanceof H))throw Error(`media must contain only Media`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported watch list version`);return e}addMedia(e){if(this.media.some(t=>t.id===e.id)||this.media.some(t=>t.matchKey===e.matchKey))throw Error(`Media already exists`);this.media.push(e)}removeMedia(e){if(this.watchItems.some(t=>t.mediaId===e))return!1;let t=this.media.findIndex(t=>t.id===e);return t!==-1&&(this.media.splice(t,1),!0)}addWatchItem(e){if(!this.media.some(t=>t.id===e.mediaId))throw Error(`Media not found`);this.watchItems.push(e)}removeWatchItem(e){let t=this.watchItems.findIndex(t=>t.mediaId===e);return t!==-1&&(this.watchItems.splice(t,1),!0)}},Te=class{constructor(e,t=`quevemos-watchlist`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);if(!e)return new K;let t=JSON.parse(e),n=t.media.map(e=>new H(e)),r=t.watchItems.map(e=>new G(e));return new K({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}},q=Object.freeze({PENDING:`pending`,ACCEPTED:`accepted`,DISCARDED:`discarded`}),J=class e{constructor({id:t=e.generateId(),mediaId:n,platforms:r=[],spanishAudio:i=!1,spanishSubtitles:a=!1,reason:o=void 0,recommenderRating:s=void 0,status:c=q.PENDING}){this.id=t,this.mediaId=e.validateMediaId(n),this.platforms=r,this.spanishAudio=i,this.spanishSubtitles=a,this.reason=o,this.status=e.validateStatus(c),this.recommenderRating=s}static generateId(){return crypto.randomUUID()}static validateMediaId(e){if(!e||typeof e!=`string`)throw Error(`mediaId is required`);return e}static validateStatus(e){if(!Object.values(q).includes(e))throw Error(`Invalid recommendation status`);return e}},Y=class e{constructor({id:t=e.generateId(),name:n=void 0,recommendations:r=void 0,media:i=void 0,version:a=1,createdAt:o=new Date().toISOString()}={}){this.id=t,this.name=e.validateName(n),this.recommendations=e.validatesRecommendations(r),this.media=e.validatesMedia(i),this.version=e.validateVersion(a),this.createdAt=o}static generateId(){return crypto.randomUUID()}static validateName(e){if(!e||typeof e!=`string`)throw Error(`name is required`);return e}static validatesMedia(e){if(e||=[],!Array.isArray(e))throw Error(`media is not an array`);return e}static validatesRecommendations(e){if(e||=[],!Array.isArray(e))throw Error(`recommendations is not an array`);return e.forEach(e=>{if(!(e instanceof J))throw Error(`recommendations must contain only Recommendation`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported recommendation list version`);return e}},Ee=class{constructor(e,t=`quevemos-inbox`){this.storage=e,this.key=t}save(e){let t=JSON.stringify(e);this.storage.setItem(this.key,t)}load(){let e=this.storage.getItem(this.key);return e?JSON.parse(e).map(e=>new Y({version:e.version,id:e.id,name:e.name,recommendations:e.recommendations.map(e=>new J(e)),media:e.media,createdAt:e.createdAt})):[]}},De=JSON.parse(`["aaron","abad","abaddon","abajo","abandon","abandoned","abar","abare","abarenbo","abashiri","abba","abbai","abbas","abbayi","abbe","abbey","abbie","abbott","abby","abcd","abcs","abducted","abduction","abdul","abdullah","abed","abel","abend","abenteuer","abenteurer","aber","aberta","aberto","abgrund","abhi","abhilasha","abhimanyu","abierta","abierto","abigail","abilene","ability","abismo","abla","able","abnormal","aboard","abode","abominable","abomination","abord","abortion","aborto","abou","about","above","abracadabra","abraham","abrams","abrazo","abre","abridged","abril","abroad","abschied","absence","absent","absolut","absolute","absolutely","absolution","abstract","abstraction","absurd","abuela","abuelita","abuelo","abuelos","abunai","abura","abuse","abused","abyss","acaba","acacia","academia","academic","academie","academy","acampamento","acao","acapulco","acaso","accent","accept","acceptable","acceptance","accepted","access","acciaio","accident","accidental","accidentally","accidente","accidents","accion","accomplice","accord","according","account","accountant","accursed","accuse","accused","accuweather","acero","aces","achako","achanak","achievement","achilles","acht","achter","achtung","acid","acier","acme","aconteceu","acosta","acoustic","acqua","acre","acres","across","acte","acteur","acteurs","acting","action","actions","active","activism","activist","activists","activities","activity","acto","actor","actores","actors","actress","acts","actual","actually","acucar","adagio","adalat","adam","adama","adamo","adams","adan","adapt","adaptation","adarna","adasi","adauchi","adavi","adda","addams","addict","addicted","addiction","addicts","addio","addison","addition","address","adel","adela","adelaide","adelante","adele","adem","aden","adentro","adeul","adeus","adhd","adhikar","adhura","adhuri","adhyay","adieu","adim","adios","adjacent","adler","admiral","admission","adnan","adobansu","adobencha","adolescence","adolescente","adolescentes","adolf","adolfo","adonis","adopted","adoption","adorable","adore","adrenalin","adrenaline","adresse","adria","adrian","adriana","adrienne","adrift","adult","adulterio","adultery","adulting","adults","advance","advanced","advent","adventure","adventurer","adventurers","adventures","adventuress","adventurous","adversary","adverse","adversity","advertising","advice","advocate","advocates","advokat","aegean","aegi","aema","aerea","aerial","aero","aesop","aether","afar","affair","affaire","affaires","affairs","affare","affect","affected","affection","affet","affiche","affinity","affliction","afghan","afghanistan","aflame","afloat","afraid","africa","africain","africaine","african","africans","afrika","afrikas","afrique","afro","aftab","aften","after","afterbuzz","afterglow","afterlife","aftermath","afternoon","afterparty","aftershock","aftershow","afti","afton","afuera","agaci","again","against","agapi","agapis","agapisa","agapo","agar","agata","agatha","aged","ageless","agence","agencia","agency","agenda","agent","agente","agents","ageru","ages","aggression","aggressive","agha","aghaye","agila","agimat","aging","agios","aglama","aglar","agnes","agni","agonas","agonia","agony","agora","agosto","agra","agreement","agriculture","agua","aguas","aguila","aguilas","aguizotes","agun","agus","agustin","ahas","ahava","ahead","ahlam","ahmad","ahmar","ahmed","ahmet","ahora","ahoy","aibu","aida","aidoru","aidorumasuta","aids","aigaio","aigaiou","aijin","aijo","aika","aikatsu","aiko","aile","ailes","ailesi","ailleurs","aima","aime","aimee","aimer","aimless","aina","ainda","ainsi","ainsley","aint","ainu","aiqing","airando","airbender","airborne","aircraft","aire","aires","airline","airlines","airmen","airplane","airport","airwaves","aisa","aise","aisha","aishita","aishite","aishiteru","aishu","aisi","aisle","aisuru","aitai","aitsu","aiyoku","aizo","aizome","aizu","ajab","ajaib","ajax","ajay","ajeeb","ajia","ajnabi","akademi","akademia","akademiya","akado","akagaki","akagi","akai","akan","akane","akari","akasen","akash","akasha","akatsuki","akbar","akebono","akela","akhar","akharin","akher","akherin","akhir","akhira","akhtar","akiba","akihabara","akin","aking","akira","alabama","aladdin","aladin","alain","alam","alamat","alameda","alamo","alan","alarm","alas","alaska","alaskan","alatt","alba","albania","albanian","albany","albatross","albela","albergo","albero","albert","alberta","alberto","albion","album","albums","alcalde","alcatraz","alchemist","alchemists","alchemy","alcohol","aldea","aldeia","aldo","aldrich","aldrig","alec","alegre","alegres","alegria","aleixo","alejandra","alejandro","aleksandr","aleksandra","alem","alene","alentejo","aleppo","alert","alerta","alerte","alessandro","alex","alexa","alexander","alexanderplatz","alexandra","alexandre","alexandria","alexia","alexis","alfa","alfie","alfons","alfonso","alfred","alfredo","algarve","alger","algerie","algiers","algo","algorithm","alguem","alguien","algun","alhambra","alia","alias","alibaba","alibi","alice","alicia","alie","alien","alienated","aliens","alif","alignment","alina","aline","alipin","alisa","alison","alitheia","alive","aliya","alla","alladin","allah","allan","allari","alle","alleen","allegiance","allegro","allein","allen","allende","aller","alles","alley","alleys","allez","alli","alliance","allie","allied","allies","alligator","allison","allo","allos","allowed","allstars","allt","alltag","alltid","alludu","allure","ally","alma","almanac","almanya","almas","almeida","almeria","almighty","almost","aloha","alone","along","alor","alors","aloud","alpen","alpes","alpha","alphabet","alphas","alpi","alpine","alps","already","alright","alska","alskade","alskar","also","alta","altar","alte","alten","alter","altered","alternate","alternativa","alternative","altes","alti","altijd","altin","altinda","altitude","alto","altra","altre","altri","altro","alumni","alvarez","alvaro","alvin","always","alyas","alyssa","alzheimer","amada","amadera","amadeus","amado","amador","amai","amal","amalfi","amalia","aman","amanat","amanda","amandla","amando","amanece","amanecer","amanha","amant","amante","amantes","amanti","amants","amar","amara","amare","amarelo","amargo","amari","amarilla","amarillo","amaro","amarte","amartias","amateur","amateurs","amato","amazing","amazon","amazonas","amazone","amazones","amazonia","amazonie","amazons","ambar","ambassador","ambassadors","ambedkar","amber","ambicion","ambiguous","ambition","ambitions","ambrosia","ambrosio","ambulance","ambush","amcop","amelia","amelie","amen","amenaza","amendment","amer","america","americain","americaine","american","americana","americano","americans","americas","amerika","amerikas","amerique","ames","amica","amiche","amici","amicizia","amico","amie","amiga","amigas","amigo","amigos","amin","amina","amir","amira","amis","amish","amistad","amit","amitie","amityville","amleto","amma","amman","ammar","ammayi","ammo","amnesia","amnesiac","amok","amon","among","amongst","amor","amore","amores","amori","amos","amour","amoureuse","amoureux","amours","amphibia","amrapali","amrit","amrutha","amsterdam","amulet","amuse","amusement","anaba","anaconda","anadolu","anae","anaganaga","anak","analog","analyse","analysis","analyst","anam","anamesa","anand","ananda","ananya","anarchist","anarchy","anari","anarkali","anastasia","anata","anatolia","anatomia","anatomie","anatomy","anaza","anazitontas","anbar","anbe","anbu","ancestor","ancestors","ancestral","anche","anchor","ancient","ancients","ancora","anda","andalucia","andalus","andante","andar","andare","andata","andaz","andel","anden","ander","andere","anderen","andern","anders","andersen","anderson","andersson","andes","andha","andi","ando","andra","andre","andrea","andreas","andrei","andres","andrew","andrews","andrey","android","andromeda","andy","aneb","anego","anfang","anfanger","ange","angel","angela","angele","angeles","angeli","angelic","angelica","angelina","angelique","angelo","angelos","angels","angelus","angely","anger","anges","anghel","angie","angkor","angle","angler","angles","anglia","angola","angry","angst","angus","angustia","ania","anibal","aniki","anima","animada","animado","animais","animal","animales","animali","animalia","animals","animaniacs","animaru","animas","animate","animated","animation","animations","animator","animaux","anime","animus","anino","anita","aniversario","ankara","anna","annabel","annabelle","annai","annan","annapolis","annapurna","anne","annee","annees","annem","annette","anni","annie","annihilation","annika","anniversary","anno","annonce","annoying","annu","annual","anny","annyeong","anointed","anokha","anokhi","anomalies","anomaly","anong","anonima","anonimo","anonimos","anonymous","anos","another","anpanman","ansambli","ansatsu","ansei","ansikte","ansuya","answer","answered","answering","answers","anta","antar","antara","antarctic","antarctica","ante","antena","antenna","antenne","antes","antha","anthem","anthology","anthony","anthropoi","anthropos","anti","antica","antichrist","antics","antidote","antigone","antio","antique","antiques","antisocial","antoine","antoinette","antologia","anton","antoni","antonia","antonio","antony","ants","antwerp","antwerpen","anubhav","anubis","anunnaki","anuradha","anurag","anwalte","anxiety","anxious","anya","anybody","anymore","anyone","anys","anything","anytime","anyway","anywhere","anzac","aoki","aotearoa","aout","aozora","apache","apaches","apaga","apart","apartamento","aparte","apartheid","apartment","apartments","apat","apathy","apenas","aperta","aperture","apes","apex","aphrodite","apna","apne","apnea","apni","apocalipsis","apocalisse","apocalypse","apocalyptic","apollo","apologies","apology","apon","apoorva","apostle","apostles","apostol","apoy","appa","appalachia","appalachian","appare","apparences","apparent","apparition","apparitions","appassionata","appeal","appearance","appel","appelle","appetit","appetite","applause","apple","apples","apply","appointment","apprentice","apprentis","approach","approaches","approaching","apps","appu","appuntamento","appunti","apradhi","aprendiz","apres","apresenta","apricot","april","apsara","apuntes","apuros","aqua","aquarium","aquarius","aquel","aquella","aqui","aquila","arab","arabe","arabella","arabia","arabian","arabic","arabs","aradhana","araf","aragon","araki","aram","aramizda","arana","aranya","ararat","arashi","arasinda","arata","aratanaru","araw","arba","arbeit","arbol","arboles","arbor","arbre","arbres","arca","arcade","arcadia","arcana","arcane","arcanum","arch","archaeology","archana","archangel","arche","archer","archibald","archie","archipel","archipelago","architect","architects","architecture","archive","archives","archivo","archivos","arco","arctic","arde","ardente","ardh","ardhangini","ardiente","area","areas","areia","aren","arena","arenas","ares","aret","arga","argent","argentina","argentine","argentino","argentinos","argento","arger","argile","argo","argonauts","argument","argyle","arhaia","aria","ariana","arias","ariel","aries","arif","arigato","arima","arirang","aris","arise","arisu","arizona","arjun","arjuna","arkadas","arkadasim","arkadaslari","arkansas","arkham","arma","armaan","armada","armadillo","armageddon","arman","armand","armando","armani","armario","armas","armata","armchair","arme","armed","armee","armen","armenia","armenian","armes","armi","armies","armor","armored","armour","arms","armstrong","army","arne","arnhem","arno","arnold","aroha","aroma","aron","aroos","around","arquitecto","arquivos","arranged","arrangement","arredores","arrest","arrested","arret","arrete","arriba","arriere","arriva","arrival","arrivano","arrive","arrived","arrivederci","arrondissement","arrow","arrows","arroyo","arroz","arsenal","arsene","arsenio","arson","artagnan","arte","artemis","artemisia","artes","artful","arthur","article","artifact","artifacts","artificial","artik","artisan","artisans","artist","artista","artistas","artiste","artistes","artistic","artists","arts","artur","arturo","aruku","arun","arundhati","arvore","arwah","arya","aryan","arzoo","arzt","arzte","arzu","asagiri","asahi","asakusa","asal","asalto","asari","asas","asawa","ascend","ascendance","ascending","ascension","ascenso","ascent","asche","aseman","ases","asesinas","asesinato","asesino","asesinos","asfalt","asfalto","asha","ashanti","ashegh","asheghi","asher","ashes","ashi","ashita","ashley","ashok","ashoka","ashton","ashura","asia","asian","aside","asie","asik","asiklar","asile","aska","asked","aski","askim","askin","asking","asks","aslan","asleep","asli","asmara","asmr","asobi","asobo","aspectos","aspects","aspen","asperger","asphalt","aspiring","asrar","assalto","assange","assassin","assassination","assassino","assassins","assault","assedio","assemble","assembly","assessment","asset","assets","assi","assiette","assignment","assim","assistance","assistant","assisted","associates","association","associazione","asszony","asta","asteria","asterix","asteroid","asteroids","aston","astonishing","astor","astoria","astra","astral","astray","astrid","astro","astrology","astronaut","astronauts","astronomy","asturias","asuka","asunder","asura","aswad","aswang","asya","asylum","atakku","atalanta","atama","ataque","atarashii","atari","ataru","atas","atash","atashi","ataturk","atelier","atem","atentado","ateo","ates","atheist","athena","athens","athina","athinas","athinon","athlete","athletes","athletic","athletics","atithi","atkins","atlanta","atlantic","atlantica","atlantico","atlantida","atlantide","atlantique","atlantis","atlas","atletico","atma","atom","atomic","atonement","atorie","atranka","atrapados","atras","atraves","atsui","atsumare","atta","attacco","attached","attachment","attack","attacks","attaque","atte","attempt","attenborough","attendant","attente","attention","attesa","attic","atticus","attila","attitude","atto","attorney","attraction","attractions","attractive","atwood","aube","auberge","aubrey","auch","auction","audacity","audi","audience","audio","audiovisual","audition","auditions","audrey","aufbruch","aufruhr","aufs","aufstieg","auftrag","auge","augen","augenblick","augmented","august","augusta","augustine","augusto","augustus","aujourd","aula","aulad","aunque","aunt","auntie","aunty","aura","aurat","aurora","aurore","auschwitz","ausencia","ausente","aussi","aussie","austen","austin","australia","australian","australians","australien","austria","auteur","authentic","author","authority","authors","autism","autistic","auto","autobahn","autobiography","autobus","autograph","automatic","automne","automobile","automobiles","automotive","autopsie","autopsy","autor","autore","autos","autour","autre","autrement","autres","autumn","avagy","available","avais","avait","aval","avalanche","avalon","avan","avant","avanti","avare","avarice","avatar","avcilari","avec","aveiro","avenger","avengers","avenging","avenida","avenir","aventura","aventuras","aventure","aventurero","aventures","aventurier","aventuriers","aventyr","avenue","avenues","average","avery","aves","avesso","aveugle","avez","aviation","aviator","avignon","avila","avion","avis","aviv","avocado","avocat","avoir","avonturen","avril","avrio","avtar","avventura","avventure","avvocato","awaaz","awaits","awake","awaken","awakened","awakening","awakenings","awakens","awal","awan","awara","award","awards","aware","awareness","away","awaz","awdat","awesome","awful","awit","awkward","awlad","axel","axeman","axiom","axis","ayah","ayahuasca","ayakashi","ayam","ayamachi","ayer","ayna","ayodhya","ayrilik","ayrton","ayse","azad","azadi","azam","azap","azar","azbuka","azhagu","aziz","aziza","aztec","azteca","azucar","azul","azules","azur","azure","azzurra","azzurro","baad","baba","babae","babaeng","babai","babaing","babam","babar","babas","babble","babe","babel","babes","babi","babies","babilonia","babo","baboon","babs","babu","babul","babushka","baby","babylon","babymetal","babysitter","babysitting","bach","bacha","bachao","bache","bacheha","bachehaye","bachelor","bachelorette","bachelors","baci","bacio","back","backbone","backfire","backgammon","background","backlash","backpack","backpacker","backroads","backrooms","backseat","backshall","backstage","backstreet","backup","backward","backwards","backwoods","backyard","bacon","bada","badai","badal","badan","badass","baddest","baddies","bade","baden","badge","badger","badhu","badi","badia","badla","badlands","badly","badman","baek","bagdad","bagel","baggage","bagh","bagha","baghdad","baghi","bagi","bago","bagong","bags","bahadur","bahagia","bahamas","bahar","bahay","bahen","bahia","bahn","bahnhof","bahr","bahrain","bahu","baie","baiko","bail","baila","bailando","bailar","baile","bailey","bain","bairro","baiser","baisers","baishun","bait","baja","baje","baji","bajo","baka","bakal","bakas","bake","baked","baker","bakers","bakersfield","bakery","bakes","baki","baking","bakit","bakom","baku","bakudan","bakugan","bakuhatsu","bakumatsu","bakuretsu","bakusho","bakuso","bakuto","bala","balad","balada","balade","balaji","balak","balam","balance","balanced","balancing","balas","balat","balaton","balcon","balcony","bald","baldi","baldur","baldwin","bale","baleine","balgan","bali","balik","balkan","balkans","ball","balla","ballad","ballada","ballade","ballata","balle","ballena","baller","ballerina","ballers","ballet","ballett","ballin","ballistic","ballo","ballon","balloon","balloons","ballot","ballroom","balls","balma","balompie","balram","balthazar","baltic","baltimore","balu","bama","bamako","bamba","bambai","bambi","bambini","bambino","bambola","bamboo","bamse","bana","banal","banana","bananas","bananen","banaras","banashi","banat","banban","bancho","banco","band","banda","bande","bandeira","banden","bandera","banderas","bandh","bandha","bandham","bandhan","bandhana","bandhu","bandi","bandicoot","bandido","bandidos","bandiera","bandit","bandito","bandits","banditskiy","bando","bandolero","bandook","bands","bandstand","bane","banfield","bang","bangaichi","bangalore","bangaru","bangers","bangkok","bangla","bangladesh","banglar","bangs","bani","banished","banjo","bank","banka","banker","bankers","banking","banks","banksy","banlieue","banna","banne","banned","banner","banners","bano","banque","banquet","banquete","banshee","banter","banto","bantu","banu","banzai","banzuiin","baobab","bapak","baptism","baptist","bapu","bara","baraat","barack","baran","barao","barat","baray","baraye","barb","barba","barbara","barbares","barbarian","barbarians","barbaro","barbary","barbecue","barbed","barber","barbershop","barbi","barbie","barca","barcelona","barco","barcos","bard","bardo","bare","barefoot","barely","baren","bares","barf","barfi","bargain","barge","bari","baril","barista","bark","barker","barking","barkley","barman","barn","barna","barnen","barnes","barney","barnyard","baron","baroness","barons","barood","baroque","barra","barracuda","barre","barred","barrel","barren","barrera","barrett","barricade","barrier","barriers","barrio","barrios","barris","barro","barrow","barry","barrymore","bars","bart","bartender","bartolo","barton","baru","basa","basant","basanta","basanti","basara","base","baseball","based","basement","bases","bash","basha","bashi","basho","basic","basically","basics","basil","basilio","basin","baska","baskerville","basket","basketball","basque","bass","basse","bassett","bassie","bast","basta","bastan","bastard","bastardi","bastardo","bastards","basti","bastidores","bastion","basu","basura","bata","bataan","bataille","batailles","batal","batalha","batalla","batang","batas","batch","bate","bateau","bates","bath","bathory","bathroom","bathtub","batisseurs","batista","batman","bato","baton","batoru","bats","battaglia","battalion","battant","battered","battery","batti","battle","battlefield","battlefields","battlefront","battleground","battlegrounds","battles","battleship","battlestar","battletech","battlezone","battling","battre","batu","bauen","bauer","bauern","bauhaus","baume","bava","bawa","bawah","bawal","bawang","bawat","baxter","bayan","bayani","bayashi","bayer","bayern","bayko","bayn","bayou","bayram","bazaar","bazar","bazgasht","bazi","beach","beaches","beacon","beam","bean","beans","beanstalk","bear","beard","bearded","bearer","bearing","bears","beast","beastly","beasts","beat","beatbox","beatdown","beaten","beating","beatles","beatmania","beatrice","beatrix","beatriz","beats","beau","beaucoup","beaute","beauties","beautiful","beautifully","beauty","beaux","beaver","beavers","beavis","bebe","bebek","bebes","bebop","became","because","beck","becker","beckett","beckham","becky","become","becomes","becoming","bede","bedel","bedeli","bedford","bedlam","bedre","bedrock","bedroom","bedrooms","beds","bedside","bedste","bedtime","bedzie","beech","beef","beep","beer","beers","bees","beet","beethoven","beetle","befehl","before","began","begegnung","begegnungen","beggar","beggars","begin","beginner","beginners","beginning","beginnings","beginnt","begins","begum","begun","behan","behave","behaving","behavior","behaviour","behcet","behemoth","behesht","behind","behold","beholder","beibi","beichte","beiden","beijing","beijo","beim","bein","beine","beings","beira","beirut","beispiel","beit","bela","belarus","belasi","belaya","beleza","belfast","belge","belges","belgeseli","belgian","belgie","belgique","belgium","belgrade","beli","belief","believe","believer","believers","believing","belinda","belize","bell","bella","belladonna","bellamy","bellas","belle","belles","belleville","belleza","bellezza","belli","bellini","bello","bells","belly","belmont","belo","belong","belonging","belongs","beloved","below","beloy","belt","belushi","belve","belvedere","belye","belyy","bench","bend","bende","bender","benders","bending","bendita","bendy","bene","beneath","benedict","benefit","benefits","beng","bengal","bengali","bengoshi","benhavn","beni","benidorm","benim","benita","benito","benjamin","benji","bennett","benny","benoit","benson","bent","benten","bentley","bento","benvenuti","benz","beograd","beon","berdarah","berdugo","bereg","berega","berenice","berenstain","beret","berg","berge","bergen","berger","bergerac","berglan","bergman","bering","berkeley","berlin","berliner","berman","bermuda","bern","bernadette","bernard","bernarda","bernardo","bernd","bernhard","bernie","bernstein","berry","berserk","berserker","bert","berta","bertha","bertie","bertram","bertrand","besame","besar","beside","beso","besoin","besos","bess","besser","bessie","best","beste","besten","bester","bestia","bestias","bestie","besties","besuch","besuto","beta","bete","betes","beth","bethany","bethlehem","beti","betis","beto","beton","betrayal","betrayals","betrayed","bets","betsy","bett","bette","better","bettina","betting","betty","between","beverly","bewafa","beware","bewitched","beyaz","beyblade","beyoglu","beyonce","beyond","bian","bianca","bianche","bianchi","bianco","biao","bias","biasa","bibi","bible","bibleway","biblia","biblical","biblioteca","bibo","bicho","bichos","bicicleta","bicycle","bidadari","biden","bideo","bieber","bien","bienvenido","bienvenidos","bienvenue","bier","biet","bigfoot","bigg","bigger","biggest","biggie","bigpauly","bihar","bijin","bijli","bijo","bike","biker","bikers","bikes","biking","bikini","bikkuri","bila","bilal","bilbao","bild","bilder","bile","bilet","bill","billa","billabong","billboard","billet","billi","billie","billion","billionaire","billionaires","billions","bills","billu","billy","bilo","bimbo","bimil","bina","binan","binary","bind","binding","bindiya","binds","bindu","bing","binge","bingo","binh","bini","biniku","binnen","bint","bintang","binyu","biografia","biography","biohazard","biology","bionic","bionicle","biopic","bioshock","biosphere","bipolar","biraki","birbal","birch","bird","birdie","birdman","birds","birdwatcher","birhen","biri","birmingham","biro","birth","birthday","birthright","biru","biscuit","biscuits","bish","bishimai","bishojo","bishop","bishoujo","bisikan","bismarck","bison","bist","bistro","biswas","bitch","bitches","bitcoin","bite","bites","bitesize","biti","bitiya","bitmeyen","bito","bits","bitte","bitten","bitter","bittersweet","bitti","bituin","bitva","biwi","biya","biye","biyori","biyoshi","bizarre","bizarro","bize","bizi","bizim","biznes","bjorn","bkfc","black","blackberry","blackbird","blackburn","blackie","blackjack","blacklist","blackmail","blackness","blackout","blackpool","blacks","blacksmith","blacktop","blackwater","blackwell","blackwood","blade","blades","blair","blake","blame","blanc","blanca","blancas","blanche","blanches","blanco","blancos","blancs","bland","blank","blanket","blanks","blast","blaster","blasters","blatt","blau","blaue","blauen","blazblue","blaze","blazer","blazing","bleach","bleak","bled","bleed","bleeding","bleeds","bleiben","bleibt","blend","blended","bless","blessed","blessing","blessings","bleu","bleue","bleues","bleus","blev","blew","blick","blight","blind","blinde","blinded","blinders","blindfold","blindness","blinds","blindsided","bling","blink","blinky","blippi","blir","bliss","blissful","blitz","blitzkrieg","blizzard","blob","bloc","block","blockade","blockbuster","blockbusters","blockchain","blocks","blod","bloed","blog","blogger","blok","bloke","blond","blonde","blondes","blondie","blood","bloodbath","blooded","bloodhound","bloodline","bloodlines","bloodlust","bloods","bloodshed","bloodstained","bloodstone","bloodthirsty","bloody","bloom","bloomberg","bloomers","blooming","blooms","bloons","bloopers","blossom","blossoms","blow","blowback","blowing","blown","blowout","blows","blox","blue","bluebeard","blueberry","bluebird","bluegrass","blueprint","blues","bluey","bluff","bluht","blum","blume","blumen","blumhouse","blunders","blunt","blur","blurred","blush","blut","blvd","boar","board","boarders","boarding","boardwalk","boat","boats","boba","bobbie","bobble","bobby","bobo","boca","bocca","boccaccio","bock","boda","bodas","bodega","bodensee","bodhu","bodies","bodo","body","bodycam","bodyguard","bodyguards","boei","boeing","boer","boga","bogan","bogart","bogatyrya","bogey","boggy","bogo","bogota","boheme","bohemia","bohemian","boil","boiled","boiler","boiling","boin","bois","boite","boizu","bojo","bokan","boken","bokensha","boko","bokoma","boku","bokujo","bokura","bokutachi","bokyo","bola","boland","bold","bole","bolero","boli","bolivar","bolivia","bolle","bollywood","bolo","bologna","bolshaya","bolshe","bolshie","bolshoi","bolshoy","bolt","bolton","bolts","bomb","bomba","bombay","bombe","bomber","bomberman","bombers","bombing","bombs","bombshell","bomma","bona","bonanza","bonaparte","bonbon","bond","bondage","bonde","bonded","bondhu","bondi","bonds","bone","bones","boneyard","bonfire","bong","bongo","bonheur","bonifacio","bonita","bonito","bonjour","bonkers","bonn","bonne","bonnes","bonneville","bonnie","bonno","bono","bons","bonsai","bonsoir","bonus","boob","boobs","bood","boogaloo","boogeyman","boogie","book","booked","booker","bookie","books","bookstore","bookworm","boom","boomer","boomerang","boomers","boomtown","boon","boone","boop","boost","booster","boot","bootcamp","booth","bootleg","boots","booty","booye","booze","bora","bord","borde","bordeaux","bordello","borden","border","borderland","borderlands","borderline","borders","bordertown","bordo","bore","boreal","borealis","bored","borges","borghese","borgia","boring","boris","born","borneo","boro","borough","borrow","borrowed","boru","borussia","boryoku","bosch","bosco","bose","bosen","boshi","bosnia","boso","bosque","boss","bossa","bosses","boston","botan","botas","botchan","bote","both","bother","bots","bottes","bottle","bottled","bottles","bottom","bottoms","bouche","boudoir","bought","bouken","boulder","boule","boulevard","bounce","bouncer","bound","boundaries","boundary","boundless","bounds","bountiful","bounty","bouquet","bourbon","bourgeois","bourne","bournemouth","bout","boutique","bovary","boven","bowen","bowery","bowie","bowl","bowling","bowman","bowser","boxed","boxer","boxes","boxing","boyard","boyband","boyd","boyevoy","boyfriend","boyfriends","boyle","boys","boyz","bozo","bozorg","bozu","bracelet","bracket","brad","bradbury","braden","bradford","bradley","bradshaw","brady","braga","bragg","brahma","brahmachari","brain","brainiac","brains","brainstorm","brainwashed","brak","brake","bram","branca","branch","branches","branco","brand","branded","brandenburg","brandi","branding","brando","brandon","brands","brandy","branson","bras","brasil","brasileira","brasileiras","brasileiro","brasileiros","brasilia","brass","brat","brata","brats","bratya","bratz","braucht","braun","braut","brava","bravas","brave","bravery","braves","bravest","bravo","bravos","brawl","brawler","brawlers","braxton","brazen","brazil","brazilian","brazos","breach","bread","break","breakaway","breakdown","breaker","breakers","breakfast","breakin","breaking","breakout","breaks","breakthrough","breakup","breast","breasts","breath","breathe","breathing","breathless","brecht","bred","breed","breeder","breeders","breeding","breeze","brel","bremen","brenda","brendan","brennan","brennende","brennpunkt","brennt","brent","bresil","bret","brethren","brett","breve","breves","brew","brewed","brewer","brewing","brews","brewster","brexit","brian","brianna","brick","bricks","bridal","bride","brides","bridesmaid","bridge","bridges","bridget","bridging","brief","briefcase","briefe","briefing","briefs","brien","brigada","brigade","brigand","brigands","briggs","brigham","bright","brighter","brightest","brighton","brigitte","brilliance","brilliant","brimstone","brincar","bring","bringing","brings","brink","brisbane","brise","bristol","brit","britain","britannia","british","britney","brits","britt","brittany","brixton","broad","broadcast","broadcasting","broadway","brock","broder","broderna","brody","broer","broke","broken","broker","brokers","bromance","bromley","bromwich","bronco","bronson","bronte","bronx","bronze","brood","brook","brooke","brookhaven","brooklyn","brooks","broom","bror","bros","brot","brothel","brother","brotherhood","brotherly","brothers","brott","brought","brown","browne","browning","browns","bruce","brucia","brucke","bruder","bruges","bruised","bruiser","bruit","bruja","brujas","brujo","brule","bruma","bruna","brunch","bruno","brunswick","brush","brussel","brut","brutal","brute","bruto","brutus","bruxelles","bryan","bryant","bryce","bryllup","buang","bubba","bubble","bubblegum","bubbles","bubi","bubu","buccaneer","buccaneers","buch","buchanan","buck","buckaroo","bucket","bucking","buckle","buckley","bucks","buckskin","bucky","bucuresti","budak","budapest","budapesten","buddha","buddhism","buddhist","buddies","buddy","bude","budet","budget","budo","buds","budu","budz","buen","buena","buenas","bueno","buenos","buff","buffalo","buffet","buffy","bugeicho","buggy","bugs","bugun","bugyo","buhay","buhne","build","builder","builders","building","buildings","builds","built","buin","buio","buitres","bujang","bukan","bukas","buke","bukid","bukit","bulag","bulaklak","bulan","bulbul","bulbule","bulgaria","bulgarian","bulge","bull","bullard","bulldog","bulldogs","bulle","bullet","bulletin","bulletproof","bullets","bullied","bullies","bullitt","bullodu","bulls","bullseye","bullshit","bully","bullying","bumble","bumblebee","bumerang","bumi","bummer","bump","bumper","bumpy","bums","buna","bunch","bunda","bundesliga","bundeswettbewerb","bundle","bundy","bune","bunga","bungalow","bungo","bunk","bunker","bunnies","bunny","bunt","bunte","bunty","bunuel","buon","buona","buongiorno","bura","buraddo","burai","burakku","burazazu","burbank","burden","bureau","bureibu","bureido","bureiku","buren","burg","burger","burgers","burglar","buri","burial","buried","burke","burlesque","burma","burn","burned","burnett","burning","burnley","burnout","burns","burnt","buro","burrito","burro","burst","burt","burton","buru","burusu","bury","burying","busca","buscando","busch","busco","buses","bush","bushi","bushido","bushwick","busiest","business","busker","buskers","busqueda","bust","busted","buster","busters","bustin","busy","buta","butai","butch","butcher","butchers","butler","buto","butt","butte","butter","buttercup","butterflies","butterfly","button","buttons","buwan","buying","buyuden","buyuk","buzz","buzzard","buzzfeed","buzzkill","byakko","byen","byeol","byeon","byla","byli","bylo","byoin","byomkesh","byoto","bypass","byrd","byrne","byron","bystander","byte","bytes","byvaet","cabal","caballero","caballeros","caballo","caballos","cabana","cabane","cabaret","cabbage","cabbie","cabeca","cabela","cabeza","cabezas","cabin","cabinet","cable","cabo","cabra","cabral","caca","cacador","caccia","cacciatore","caceria","cache","cachee","cachorro","cactus","cada","cadaver","cadavere","caddy","cade","cadena","cadence","cadet","cadets","cadillac","cadiz","caer","caes","caesar","caesars","cafe","caffe","caffeine","cage","caged","cages","cahaya","caida","caido","caidos","caillou","cain","caine","cairo","caixa","caja","cajun","cake","cakes","cala","calabria","calais","calamity","calavera","calcio","calcutta","calda","caldo","caleb","calendar","calgary","cali","caliber","calibre","calico","caliente","california","caligari","caligula","call","callas","callback","calle","called","callejon","caller","calles","calling","calls","calm","calon","calor","calvary","calvin","calw","calypso","cama","camara","cambia","cambio","cambodia","cambodian","cambridge","camden","came","camel","camelia","camelias","camelot","camels","cameo","camera","cameraman","cameras","cameron","cami","camila","camilla","camille","camillo","camilo","caminando","caminho","caminhos","camino","caminos","cammino","camorra","camouflage","camp","campagna","campagne","campaign","campamento","campana","campanadas","campbell","campeao","campeoes","campeon","campeonato","campeones","camper","campers","campfire","camping","campo","campos","camps","campus","canaan","canada","canadian","canadians","canadiens","canakkale","canal","canape","canarias","canary","canberra","cancao","cancel","canceled","cancelled","cancer","cancion","canciones","cancoes","candace","candela","candice","candid","candida","candidate","candidato","candido","candle","candlelight","candlepin","candles","candy","candyland","candyman","cane","canela","canelo","cang","cangaceiro","cangaco","canh","cani","canibal","canim","canine","canli","cannabis","canned","cannes","cannibal","cannibals","cannon","cannonball","cannot","cano","canoe","canon","cant","canta","cantando","cantante","cantar","cante","canteen","canterbury","cantik","cantinflas","canto","canton","cantor","cantos","canvas","canyon","canzone","canzoni","caos","capa","capcom","cape","caper","capers","capitaine","capital","capitale","capitalism","capitalist","capitan","capitano","capitao","capitol","capitulo","capkin","capo","capoeira","capone","cappuccino","capri","capriccio","caprice","capricorn","capsule","capt","captain","captains","captive","captives","captivity","capture","captured","capturing","capulina","cara","carabao","caracas","caracol","caraibes","caras","carat","caravaggio","caravan","caravana","carbon","carbone","carcel","carcere","card","cardboard","cardiff","cardinal","cardio","cardoso","cards","care","career","careers","careful","caregiver","caregivers","careless","cares","caretaker","carey","carga","cargo","cari","caribbean","caribe","caribou","caring","carino","carioca","carl","carla","carlitos","carlo","carlos","carlota","carlson","carlton","carmel","carmela","carmen","carmichael","carmilla","carmina","carnage","carnal","carnaval","carne","carnegie","carnet","carnets","carnevale","carnival","carnivore","carnivorous","carny","caro","carol","carola","carole","carolina","caroline","carolyn","carousel","carpe","carpenter","carpet","carpool","carr","carre","carrefour","carrera","carretera","carrie","carried","carrier","carriers","carro","carroll","carrot","carry","carrying","cars","carson","cart","carta","cartas","carte","cartel","carter","carters","cartes","cartier","carton","cartoon","cartoons","caruso","carve","carver","carving","casa","casablanca","casada","casados","casal","casamento","casanova","casar","casarse","casas","cascade","cascadia","case","casebook","cases","casey","cash","casi","casino","caso","casos","casper","cassandra","casse","cassette","cassidy","cassie","cassino","cast","casta","castaway","castaways","caste","castello","castelo","castigo","castilla","castillo","casting","castle","castles","castlevania","castro","casu","casual","casualty","casus","cataclysm","catacombs","catala","catalina","catalogue","cataluna","catalunya","catalyst","catarina","catastrophe","catatan","catch","catcher","catchers","catching","catena","catene","caterina","caterpillar","catfish","catharsis","cathedral","cathedrals","catherine","catholic","cathy","cats","cattle","catwalk","cauchemar","caught","cauldron","causa","cause","causes","caution","cautiva","cavalcade","cavale","cavalier","cavaliere","cavalieri","cavaliers","cavalleria","cavallo","cavalo","cavalry","cave","caveman","cavern","caves","caviar","cavite","cayman","cayo","caza","cazador","cazadores","cbbc","cbeebies","cctv","ceci","cecil","cecile","cecilia","cedar","cehennem","ceiling","cela","celeb","celebrate","celebrates","celebrating","celebration","celebrations","celebridades","celebrities","celebrity","celebs","celeste","celestial","celestine","celia","celibate","celine","cell","cellar","celle","cello","cells","cellule","celluloid","celos","celtic","celui","cement","cementerio","cemetery","cena","cenas","cendres","cenere","cenerentola","ceng","ceniza","cenizas","cennet","censored","censura","cent","centaur","centauri","centauro","centenario","centennial","center","centipede","cento","central","centrale","centre","centro","cents","centuries","century","ceos","cerca","cercasi","cerchio","cercle","cerco","cereal","cerebral","cerebro","ceremonie","ceremony","cerita","cero","cerrado","cerro","certain","certainty","certified","certo","cervantes","cerveau","cesar","cesare","ceska","ceske","cesko","cesky","cesta","cesur","cetesi","cetiri","cette","ceux","chaal","chaar","chacal","chacha","chachi","chaco","chacun","chad","chahar","chahiye","chai","chaim","chain","chaine","chained","chains","chainsaw","chair","chairman","chairs","chaitanya","chak","chaka","chakkar","chakra","chakram","chakravarthy","chakravyuh","chal","chala","chale","chalet","chali","chalice","chalk","challenge","challenged","challenger","challengers","challenges","chalo","chalu","cham","chama","chamada","chamado","chaman","chamas","chamber","chambers","chambre","chameleon","champ","champa","champagne","champion","champions","championship","championships","champs","chan","chanakya","chance","chances","chand","chanda","chandamama","chandan","chandi","chandler","chandni","chandra","chandrahasa","chandralekha","chandu","chanel","chang","changa","change","changed","changeling","changement","changer","changers","changes","changing","chann","channel","channeling","channels","channeru","chanson","chansons","chant","chantal","chante","chanteur","chants","chao","chaos","chaotic","chap","chapeau","chapel","chaplain","chaplin","chapman","chapo","chapter","chapters","char","character","characters","charade","charat","charge","charged","chariot","charisma","charitra","charity","charlatan","charles","charleston","charley","charli","charlie","charlotte","charly","charm","charme","charmed","charmer","charming","charms","charro","chart","charter","charts","chas","chasa","chase","chaser","chasers","chasing","chasse","chasseur","chasseurs","chastity","chat","chateau","chateaux","chats","chatter","chatterbox","chatterley","chatur","chau","chaud","chauffeur","chauhan","chavez","chay","chaya","chaz","cheap","cheaper","cheat","cheated","cheater","cheaters","cheating","cheats","check","checker","checkered","checkers","checking","checkmate","checkout","checkpoint","checks","cheddar","cheer","cheerleader","cheerleaders","cheers","cheese","cheetah","chef","chefs","chegada","chehel","chehra","chehre","chein","chekhov","chele","chelovek","cheloveka","chelsea","chelsey","chem","chemi","chemical","chemin","chemins","chemistry","chen","cheng","chennai","cheo","cheol","cheon","cheong","cheongchun","cheonyeo","cher","cherche","cherchez","chere","cherez","cheri","cherie","chernaya","chernobyl","cherokee","cherry","chers","cheryl","cheshire","cheshm","chess","chessmaster","chest","chester","chestnut","chet","chetyre","cheung","cheval","chevalier","chevaliers","chevrolet","chevy","chew","cheyenne","chez","chha","chhaon","chhathi","chhatrapati","chhaya","chhe","chhota","chhote","chhoti","chia","chiama","chiamavano","chiapas","chiara","chibi","chibusa","chic","chica","chicago","chicagoland","chicano","chicas","chichi","chick","chicken","chickens","chicks","chico","chicos","chidiya","chidori","chie","chief","chiefs","chien","chiens","chiesa","chihuahua","chiisana","chijo","chik","chika","chikai","chikan","chikara","chikatetsu","chikemuri","chikyodai","chikyu","chikyuu","child","childhood","childish","children","chile","chilena","chileno","chili","chill","chiller","chillers","chilli","chilling","chills","chim","chima","chimata","chime","chimera","chimp","chimu","chin","china","chinatown","chine","chinese","ching","chingari","chinmoku","chinna","chino","chinois","chinoise","chip","chipmunks","chips","chiquito","chirag","chiranjeevi","chiru","chiryo","chispa","chit","chitai","chitra","chitram","chitthi","chiu","chivo","chizome","chizu","chloe","chobei","choc","chocolat","chocolate","chohatsu","choi","choice","choices","choir","choix","choja","choji","chojin","choke","chokyo","chola","cholo","chome","chomsky","chon","chong","choo","choose","choosing","chop","chopin","chopped","chopper","choppers","chopping","choque","chor","chora","choral","chord","chords","chori","chorus","chose","chosen","choses","chota","choti","chotokkyu","chotto","chou","chouchou","chousenjou","chovek","chow","chris","chrissy","christ","christi","christian","christiane","christianity","christians","christie","christina","christine","christmas","christo","christoph","christophe","christopher","christy","chrome","chronic","chronicle","chronicles","chronik","chronique","chroniques","chrono","chronos","chrysalis","chto","chua","chuan","chuang","chuanqi","chubby","chucho","chuchu","chuck","chucky","chuda","chudail","chudes","chudo","chuen","chuhen","chui","chuji","chuk","chum","chums","chun","chundadi","chung","chup","chupa","chupacabra","church","churches","churchill","chushingura","chut","chute","chutes","chuva","chuvanna","chuya","chuyen","chuzhaya","chuzhie","chuzhoy","chyom","chyornaya","chyornyy","ciao","cicada","cicatrices","ciccio","cicegi","cicek","cicero","cici","ciclo","cidade","cidades","cieca","ciega","ciego","ciel","cielo","cielos","cien","ciencia","cifte","cigar","cigarette","cigarettes","ciguena","cilali","cilgin","cima","cimarron","cina","cinayet","cincinnati","cinco","cinder","cinderella","cindy","cine","cineasta","cineaste","cinecitta","cinema","cinemas","cinematic","cinematographer","cinnamon","cinq","cinque","cinquieme","cinta","cipher","ciplak","circa","circle","circles","circo","circuit","circuito","circuits","circular","circulo","circumstance","circumstances","circus","cirkus","cirkusrevyen","ciro","cirque","cisco","cita","citadel","cite","cites","cities","citizen","citizens","citta","city","ciudad","ciudadano","ciudades","ciutat","civic","civil","civilian","civilisation","civilisations","civilization","civilizations","cking","claim","claimed","claims","clair","claire","clairvoyant","clan","clancy","clandestine","clandestino","clank","clans","clap","clapton","clara","clare","clarence","clarissa","clarity","clark","clarke","clarkson","claro","clary","clase","clash","clasico","class","classe","classes","classic","classical","classics","classified","classmate","classmates","classroom","classtro","classy","claude","claudia","claudine","claudio","claus","clause","clave","claw","claws","clay","clayton","clean","cleaner","cleaners","cleaning","cleansing","clear","clearing","clearly","clearwater","cleaver","clef","clement","clemente","clementine","cleo","cleopatra","cleveland","clever","cliche","click","clickbait","clicker","client","cliff","cliffhanger","clifford","cliffs","climate","climax","climb","climber","climbers","climbing","clinic","clinica","clint","clinton","clip","clipped","clipper","clips","clique","clive","cloak","clock","clockwork","clone","clones","close","closed","closer","closes","closet","closing","closure","cloth","clothes","clothing","cloud","clouded","clouds","cloudy","clout","clovek","clover","clown","clowns","club","clube","clubhouse","clubs","clue","clueless","clues","cluster","clutch","clutter","clyde","cmll","cnbc","coach","coachella","coaches","coaching","coal","coalition","coast","coastal","coaster","coat","cobalt","coban","cobarde","cobbler","cobra","coca","cocaine","cochon","cocina","cock","cockpit","cockroach","cocktail","cocktails","coco","cocoa","coconut","coconuts","cocoon","cocugu","cocuk","cocuklar","cocuklari","coda","code","coded","codename","codes","codex","codice","codicia","codigo","cody","coeur","coeurs","coffee","coffin","cognition","cohen","coil","coimbra","coin","coincidence","coins","coisa","coisas","coke","cola","colby","cold","coldest","coldplay","cole","colectivo","colegio","coleman","colere","colette","colibri","colin","coliseum","collaboration","collage","collapse","collar","collateral","collect","collected","collecting","collection","collections","collective","collector","collectors","colleen","college","collegiate","collide","collider","collier","colline","collins","collision","colmena","colomba","colombia","colombian","colombo","colon","colonel","colonia","colonial","colony","color","colorado","colorblind","colore","colored","colores","colorful","colori","coloring","colors","colossal","colosseum","colossus","colour","colours","colpa","colpo","colt","columbia","columbus","column","coma","comanche","comandante","comando","combat","combate","combination","combo","combustion","come","comeback","comedia","comedian","comedians","comedic","comedie","comedies","comedy","comer","comes","comet","cometa","cometh","comfort","comic","comico","comicos","comics","comida","comigo","comin","coming","comix","command","commander","commanders","commandment","commandments","commando","commandos","comme","commedia","commence","comment","commentaires","commentary","comments","commerce","commercial","commercials","commissaire","commissario","commission","commissioner","commit","commitment","committed","committee","commodore","common","commons","commonwealth","commune","communication","communications","communion","communism","communist","communities","community","commute","como","compact","compadre","compadres","compagnia","compagnie","compagnons","companeros","companhia","compania","companion","companions","company","compas","compass","compassion","compassionate","competition","compilation","complete","completely","complex","complicated","complices","complot","composer","composers","composition","compound","compromise","compromiso","compte","compton","compulsion","compulsive","computer","comrade","comrades","comte","comtesse","comun","comunidad","comunista","conan","concacaf","concealed","concentration","concepcion","concept","conception","concern","concert","concerto","concerts","concha","conciencia","concierge","concierto","conclusion","concord","concorde","concordia","concours","concrete","concreto","concurso","conde","condemned","condena","condenado","condenados","condition","conditions","condo","condominio","condor","conduct","conductor","cone","conexao","conexion","coney","confederate","conference","confesion","confesiones","confess","confession","confessional","confessions","confetti","confidence","confidences","confidencial","confidencias","confidential","confine","confined","confinement","confines","confini","confirmation","confissoes","conflict","conflicts","confluence","confrontation","confused","confusion","cong","congo","congratulations","congreso","congress","conjugal","conjuring","conmigo","connect","connected","connecticut","connecting","connection","connections","connexion","connie","connolly","connor","conny","conor","conquer","conquered","conquering","conqueror","conquerors","conquers","conquest","conquete","conquista","conquistador","conquistadores","conrad","cons","conscience","conscious","consciousness","conseils","consent","consequence","consequences","conservation","consider","console","conspiracies","conspiracy","constable","constance","constant","constantine","constellation","constitucion","constitution","construcao","construccion","constructing","construction","constructor","consul","consultant","consumed","conta","contact","contacto","contados","contagion","container","containment","contamination","contar","conte","contemporary","contempt","contender","contenders","content","contes","contessa","contest","context","conti","contigo","continent","continental","continente","continents","continua","continue","continued","continues","continuity","continuum","conto","contos","contra","contraband","contrabando","contract","contractor","contrary","contrato","contre","contro","control","controle","controlled","controller","controversy","conundrum","convenience","convent","convention","convento","convergence","conversa","conversaciones","conversas","conversation","conversations","conversion","convict","convicted","conviction","convictions","convicts","convos","convoy","conway","cook","cookbook","cooked","cooker","cookery","cookie","cookieland","cookies","cookin","cooking","cooks","cool","cooler","coolest","coolie","coop","cooper","copa","copacabana","copains","copas","copenhagen","coping","copla","coppa","copper","copperfield","coppers","coppia","cops","copy","copycat","copyright","cora","coracao","coracoes","coraggio","corail","coraje","coral","corazon","corazones","corbett","cord","corda","corde","cordero","cordoba","core","cores","corey","cork","corman","corn","cornelia","cornelius","corner","cornered","corners","cornwall","coro","corona","coronado","coronation","coronavirus","coronel","coroner","corp","corpo","corporate","corporation","corps","corpse","corpses","corpus","corral","corre","correction","correr","correspondent","corrida","corrido","corridor","corridors","corrientes","corrupcion","corrupt","corrupted","corruption","corsa","corsaro","corse","corsica","corso","corte","cortejo","cortes","cortex","cortez","cortina","corto","cortos","corwin","cory","cosa","cosas","cosby","coscienza","cose","cosecha","cosi","cosm","cosmic","cosmo","cosmopolitan","cosmos","cosplay","cossacks","cost","costa","costas","costello","costs","costume","cote","cottage","cotton","couch","cougar","could","couldn","couleur","couleurs","coulisses","council","counsel","counseling","counsellor","counselor","count","countdown","counter","counterfeit","countess","counting","countries","country","countryside","counts","county","coup","coupable","coupe","couple","couples","coups","cour","courage","courageous","courant","courier","courrier","cours","course","court","courte","courting","courtney","courtroom","courts","courtship","courtside","cousin","cousins","cousteau","couture","cove","covek","coven","covenant","cover","coverage","covered","covers","covert","covid","covjek","coward","cowboy","cowboys","cowgirl","cowgirls","cows","coyote","coyotes","cozinha","cozy","crab","crack","crackdown","cracked","cracker","crackerjack","crackers","cracking","cracks","cradle","craft","crafted","crafters","crafting","crafts","craftsman","crafty","craig","craigslist","crane","cranes","crank","crap","crappy","crash","crashed","crasher","crashers","crashes","crashing","crate","crater","crave","craving","crawford","crawl","crawler","crawlers","crawling","crawlspace","crayon","crayons","craze","crazed","craziest","crazy","crea","creadores","cream","create","created","creating","creation","creations","creative","creatives","creativity","creator","creators","creature","creatures","credit","credits","credo","creed","creek","creep","creeper","creepers","creeping","creeps","creepy","creepypasta","creer","creme","crenshaw","creo","creole","crepuscule","crescendo","crescent","crest","crete","crew","cria","crianca","criancas","criaturas","crib","cribs","cricket","cried","cries","crime","crimea","crimen","crimenes","crimes","criminal","criminale","criminals","crimine","crimson","cringe","criollo","crippled","cris","crise","crisis","crispy","cristal","cristiano","cristina","cristo","cristobal","critic","critical","critics","critique","critter","critters","crna","crni","croatia","croc","croce","crockett","crocodile","crocodiles","croft","croisiere","croix","cronaca","cronache","cronica","cronicas","cronkite","crook","crooked","crooks","crop","crorepati","crosby","cross","crossed","crosses","crossfire","crossing","crossings","crossover","crossroad","crossroads","crossword","crow","crowd","crowded","crowley","crown","crowned","crowning","crowns","crows","cruce","cruces","crucible","crucis","crude","cruel","cruelty","cruise","cruisin","cruising","crumbs","crunch","crusade","crusader","crusaders","crusades","crush","crushed","crushing","crusoe","crust","crusty","cruz","cruzadas","cruzados","crying","crypt","cryptic","cryptid","cryptids","crypto","crystal","csak","csalad","cthulhu","ctrl","cuadro","cual","cualquiera","cuando","cuanto","cuarenta","cuarentena","cuarto","cuatro","cuba","cuban","cubana","cube","cubicle","cubs","cuccioli","cucina","cuckoo","cuddle","cuenta","cuentame","cuentas","cuento","cuentos","cuerdas","cuerpo","cuerpos","cuervos","cuesta","cuestion","cueva","cuff","cuidado","cuisine","culinary","cullen","culpa","culpable","culpables","cult","cults","cultura","cultural","culture","cultured","cultures","cumbia","cumbre","cumbres","cuna","cung","cunningham","cuoc","cuoi","cuore","cuori","cupcake","cupcakes","cupid","cupido","cupids","cups","cura","curb","cure","cured","cures","curfew","curie","curiosities","curiosity","curious","curling","curly","currency","current","currently","currents","curry","curse","cursed","curso","curt","curtain","curtains","curtis","curve","curveball","curves","cushing","custer","custodi","custody","custom","customer","customs","cute","cutie","cuts","cutter","cutthroat","cutting","cyanide","cyber","cyberpunk","cyborg","cyborgs","cycle","cycles","cycling","cyclone","cyclops","cynthia","cypher","cypress","cyprus","cyrano","cyril","cyrus","czar","czarna","czarne","czas","czech","czlowiek","czyli","dabba","dabi","daburu","dach","dada","daddies","daddy","dadi","dado","dads","daemon","daeng","daffy","daga","dagar","dagat","dagboek","dage","dagen","dager","dagger","dagh","daglar","dagli","daha","daheim","dahej","dahil","dahl","dahlia","dahmer","daiboken","daibosatsu","daibouken","daichi","daigaku","daigdig","daiichibu","daiippen","daikaiju","daikessen","daiko","dailies","daily","daimon","daimyo","daini","dainibu","dainihen","dairy","daisaku","daisakusen","daisan","daisanbu","daisanpen","daisei","daisenso","daisies","daisuke","daisuki","daisy","daite","daiva","daivam","daiyamondo","dakar","dakara","dakarete","dake","dakedo","dakot","dakota","dakrya","daku","dala","dalagang","dalai","dalam","dalawa","dalawang","dale","daleko","daley","dali","dalia","dalila","dall","dalla","dallas","dalle","dalmatians","dalton","daly","dama","damad","damage","damaged","damals","daman","damas","damascus","damashii","damat","dame","damen","dames","dami","damian","damien","damm","damn","damnation","damned","damo","damon","damsel","damu","dana","danach","danca","dance","danced","dancehall","dancer","dancers","dances","danchi","danchizuma","dancin","dancing","dandelion","dandelions","dando","dandy","dane","dang","dangai","dangal","danganronpa","danger","dangereuses","dangereux","dangerous","dangerously","dangers","dango","dani","daniel","daniela","danielle","daniels","danish","danjon","dank","danka","dankon","danmark","danmarks","dann","danni","danny","dano","dansa","danse","dansei","dansen","danser","danseuse","danshi","dansk","danske","dansu","dantdm","dante","danube","danza","dapat","daphne","dara","darah","darake","darb","darbar","darbe","darby","darcy","dard","dare","dared","daredevil","daredevils","dareka","dares","darf","darfur","dari","daria","daring","dario","darius","dariya","dark","darker","darkest","darklands","darkly","darkness","darkroom","darkside","darling","darlings","darn","darna","darpan","darr","darrah","darren","darshan","dart","darth","darts","darwaza","darwin","darya","daryl","dash","dashi","dasi","dass","dasshutsu","dasso","dast","dastaan","dastak","dastan","data","datang","date","dateline","dater","dates","dating","datsugoku","datta","datter","daughter","daughters","daulat","dave","davey","davi","david","davidson","davies","davis","davon","davy","dawg","dawgs","dawn","dawning","dawson","dayan","daybreak","daycare","daydream","daylight","dayo","days","daytime","dayton","daytona","dayz","daze","dazzle","dazzling","deacon","dead","deadbeat","deadfall","deadliest","deadline","deadlock","deadly","deadman","deadpool","deadtime","deadwood","deaf","deai","deal","dealer","dealers","dealing","deals","dean","dear","dearest","dearly","death","deathly","deathmatch","deaths","debat","debate","debates","debbie","debi","deborah","debout","debra","debris","debt","debts","debunked","debut","debutante","deca","decade","decadence","decades","decalogie","decameron","decay","deceased","deceit","deceitful","deceived","deceiver","december","decembre","decent","decente","deception","deceptions","deceptive","decide","decides","decir","decision","decisiones","decisions","deck","decker","decks","declaration","declare","declassified","decline","deco","decoded","decoding","deconstructing","decor","decouverte","decoy","decree","deda","deddo","dede","dedicated","dedication","dedo","dedos","deed","deeds","deen","deep","deepak","deepam","deeper","deepest","deeply","deer","deewana","deewane","deewangi","deewar","defa","default","defeat","defence","defend","defender","defenders","defending","defensa","defense","deferred","defi","defiance","defiant","define","defined","defining","definitely","definition","definitive","defteri","defying","degenerate","degil","degli","degrassi","degree","degrees","dehors","dein","deine","deines","deis","deity","deivam","deixa","deizu","deja","dejar","dejimon","deka","dekh","dekha","dekhi","dekho","dekinai","dekiru","dekotora","dela","delaney","delas","delaware","delay","delayed","dele","delete","deleted","delfin","delhi","deli","delia","delicate","delicias","delicious","delight","delights","delikanli","delilah","delinquent","delirio","delirium","delitti","delitto","deliver","deliverance","delivered","delivering","delivery","dell","delle","dello","delo","delorean","delphi","delphine","dels","delta","deluge","delusion","delusional","delusions","deluxe","demain","demais","demand","demande","demas","demasiado","demented","dementia","demi","demir","demise","demo","democracia","democracy","democratic","democratie","demokratie","demolition","demon","demoni","demonic","demonio","demonios","demons","dempsey","dendam","deng","dengan","dengeki","dengi","denial","denied","denim","denis","denise","deniz","denk","denki","denmark","denn","dennis","denpa","dens","densetsu","densha","denshichi","densuke","dent","dental","dente","dentist","dentro","dents","denver","denzel","depart","departed","department","departure","departures","depois","deporte","deported","deportes","deportiva","deportivo","deposit","depraved","depravity","depressed","depression","deprivation","depth","depths","depuis","deputy","dera","derailed","derakkusu","deranged","derby","derecho","derechos","derek","derelict","deriva","derive","dernier","derniere","dernieres","derniers","derren","derrick","derriere","derrota","dertli","desa","desafio","desam","desaparecidos","desastre","descendant","descendants","descending","descent","desconocida","desconocido","descubriendo","desde","desejo","deseo","deseos","desert","deserted","deserto","deserts","deserve","desh","deshita","desi","desiderio","desierto","design","designated","designed","designer","designers","designing","designs","desir","desire","desired","desiree","desires","desk","desmond","desnuda","desnudo","desolate","desolation","desordre","despair","despedida","desperado","desperados","desperate","desperately","desperation","despertar","despierta","despite","despre","despues","dessert","dessine","dessous","dessus","deste","destin","destination","destinations","destined","destinies","destino","destinos","destins","destiny","destroy","destroyed","destroyer","destroyers","destroys","destruction","desu","deta","detached","detail","details","detective","detectives","detector","detektiv","detektivbyra","detektive","detention","determination","determined","deti","detour","detours","detox","detras","detroit","detstva","detstvo","dette","detto","deuce","deuces","deuda","deul","deus","deuses","deutsch","deutsche","deutschen","deutscher","deutsches","deutschland","deutschlands","deux","deuxieme","deva","devant","devar","devara","devaru","devastation","devatha","devdas","deve","development","devenir","devi","deviant","device","devil","devils","devin","devious","devo","devochka","devochki","devon","devoted","devotion","devotional","devour","devta","devuelveme","devushka","dewa","dewey","dewi","dexter","deyueru","diabetes","diabla","diable","diablo","diablos","diabo","diabolica","diabolical","diabolico","diabolik","diagnosis","dial","dialing","dialog","dialogo","dialogos","dialogue","dialogues","diamant","diamante","diamantes","diamanti","diamond","diamonds","dian","diana","diane","diao","diari","diaries","diario","diarios","diary","dias","diaspora","diavolo","diaz","dibdib","dice","dicen","dich","dick","dicke","dickens","dickie","dickinson","dicks","dictator","dictators","dictionary","didar","diddy","didi","didn","dieb","dieci","died","diego","diem","dien","dienst","dies","diese","diesel","dieser","diet","dieter","dietrich","dietro","dieu","dieux","diez","diferente","difference","differences","different","difficile","difficult","dificil","diga","digar","digas","digest","digger","diggers","digging","digimon","digital","digitale","digits","digmaan","dignidad","dignity","dijo","dijon","diki","dikiy","dikri","dilan","dilemma","dilemmas","diler","dilim","dillagi","dilli","dillinger","dillon","dilon","dilruba","dimanche","dimas","dime","dimension","dimensional","dimensions","dimitri","dina","dinah","dinastia","dine","diner","dinero","diners","ding","dinge","dingen","dingle","dingo","dinh","dinheiro","dining","dink","dinner","dinners","dino","dinos","dinosaur","dinosaurs","dion","dior","dios","diosa","dioses","diplomacy","diplomat","diplomatic","dire","direct","directed","directing","direction","directions","directive","directo","director","directors","directv","direito","direkt","direkte","direktor","diretta","dirk","dirt","dirty","disability","disabled","disappear","disappearance","disappeared","disappearing","disaster","disasters","disc","discarded","disciple","disciples","discipline","disclosure","disco","disconnect","disconnected","discord","discos","discount","discover","discovered","discoveries","discovering","discovers","discovery","discretion","discussion","discussions","disease","diseno","disgaea","disgrace","disguise","dish","disha","dishes","dishonored","disi","disintegration","disk","dismissed","disney","disneyland","disorder","disorderly","disparition","disparu","disparue","disparus","dispatch","dispatches","dispensary","displaced","display","disposable","dispute","disrupted","disruption","disruptors","disse","dissent","dissident","dissonance","distance","distancia","distant","distorted","distortion","distraction","distractions","distress","district","distriktsnyheter","disturb","disturbance","disturbed","disturbing","ditch","dite","dites","dito","ditt","dittytv","diva","divan","divar","divas","dive","diver","divers","diverse","diversion","diversity","dives","divide","divided","divina","divinas","divine","diving","divinity","divino","division","divorce","divorced","divorcio","divya","diwali","diwana","diwani","dixie","dixon","diya","diyan","diye","diyos","dizer","dizzy","django","djeca","djinn","dlya","dnevnik","dney","dnya","doba","dobbs","doble","dobra","dobre","dobro","dobrodruzstvi","dobry","dobu","dobutsu","doce","doch","dochki","dochu","dochuki","dock","docks","docs","docteur","doctor","doctors","doctrine","docu","document","documentaire","documental","documentaries","documentario","documentary","documenting","documento","documents","docuseries","doda","dodd","doden","dodge","dodgeball","dodger","dodgers","dodo","doel","doen","does","doesn","dogg","doggie","doggy","doghouse","dogma","dogman","dogru","dogs","dogtown","dogu","dogumentary","doherty","dohyo","doigts","doin","doing","dois","doji","dojo","dokhtar","dokhtaran","dokhtare","dokhtari","doki","dokidoki","dokimanter","doko","dokter","doktor","doktora","doku","dokufu","dokuhon","dokument","dokumentation","dokuro","dokushin","dokuta","dokyo","dokyumento","dola","dolan","dolaon","dolar","dolce","dole","doli","dolina","dolittle","doll","dollar","dollari","dollars","dollhouse","dolls","dolly","dolor","dolore","dolores","dolorosa","dolphin","dolphins","doma","domain","domani","dome","domenica","domestic","domicile","domicilio","dominance","domination","domingo","domingos","dominic","dominican","dominicana","dominio","dominion","dominique","domino","dominus","domo","domoy","domu","dona","donal","donald","donau","donc","donde","done","dong","donga","dongala","dongalu","donia","donkey","donna","donne","donnell","donner","donnie","donny","dono","donor","donors","donovan","dons","dont","dontaku","donus","donusu","donut","donuts","donya","dood","doodh","doodle","doodles","dooley","doom","doomed","doomsday","doon","door","doorman","doors","doorstep","doorway","doosra","doost","dope","dopo","doppelganger","doppio","dora","dorado","doraemon","doragon","doraibu","dorakyura","dorama","doran","dore","doree","dorei","dorf","dori","dorian","dorimu","doris","dorm","dormant","dormir","doro","dorobo","doroga","dorogi","dorogoy","doroppu","dorothea","dorothy","dorp","dort","dortmund","doru","dory","dosa","dose","dosei","doshi","dosokai","dossier","dossiers","dost","dosti","dosukebe","dote","dotei","doto","dots","dotter","dottor","dottoressa","doua","double","doubles","doubt","doubutsu","douce","doug","douga","dough","douglas","douglass","doula","douleur","douro","doute","doutor","doux","douze","dove","dover","doves","dowa","down","downey","downfall","downhill","downing","download","downs","downstairs","downtown","doyle","doyo","dozd","dozen","drachen","dracula","draft","drag","draga","dragao","dragnet","drago","dragon","dragonfly","dragons","dragoon","dragoste","drags","drain","drake","drakona","drakula","drama","dramas","dramatic","drame","dramedy","dramma","drau","draupadi","draw","drawing","drawings","drawn","dread","dreaded","dreadful","dream","dreamcatcher","dreamed","dreamer","dreamers","dreamhouse","dreamin","dreaming","dreamland","dreams","dreamscape","dreamtime","dreamworks","dreamzzz","dredd","drei","dreizehn","drene","dreng","drenge","dresden","dress","dressed","dresses","dressing","drew","drie","dries","drift","drifter","drifters","drifting","driftwood","drill","driller","drink","drinking","drinks","drip","drishyam","dritte","dritten","drive","driven","driver","drivers","drives","driving","droga","droid","droit","droite","drole","droles","drom","drommen","dromo","dromoi","dromos","drone","drones","droom","drop","dropout","dropouts","dropping","drops","drought","drown","drowned","drowning","drug","druga","drugaya","drugi","drugie","drugoy","drugs","druid","drum","drummer","drummond","drums","drunk","drunken","druzya","dschungel","dual","duality","duan","duang","duarte","duas","dubai","dublin","duce","duch","duchess","duck","duckling","ducks","ducktales","duda","dude","dudes","dudley","dudu","duel","duell","duello","duelo","duels","duende","duendes","duenos","duerme","dues","duet","duets","duff","duffy","dugan","dugo","dugong","dugout","dugun","duin","duka","duke","dukes","dukh","dukun","dulce","dulces","dulha","dulhan","dulhaniya","dull","dulo","duma","dumas","dumb","dummies","dummy","dumont","dump","dumped","dumping","dumpster","dumpty","duna","dunbar","duncan","dundee","dune","dunes","dung","dungeon","dungeons","dunia","duniya","dunk","dunkel","dunkirk","dunkle","dunn","dunya","dunyalar","dunyasi","duong","dupa","duper","dupla","duplicity","dupont","dupree","dura","durai","duran","durand","durango","durant","durante","durch","durchs","dure","durfen","durga","durham","during","duro","duros","duse","dusen","dushi","dushman","dushmani","dusk","dusman","dusseldorf","dust","dusty","dutch","dutchman","duty","duval","dver","dvoe","dvoikh","dvoynaya","dwarf","dwarfs","dwayne","dweller","dwellers","dwelling","dwight","dyavola","dyavoly","dybbuk","dying","dyke","dykhanie","dylan","dynamic","dynamite","dynamo","dynasties","dynasty","dysfunction","dysfunctional","dystopia","dzieci","dzien","dziewczyna","each","eagle","eagles","earl","early","earn","earnest","earp","earring","ears","earth","earthbound","earthling","earthlings","earthly","earthquake","earthworm","east","eastenders","easter","eastern","easton","eastside","eastwood","easy","eaten","eater","eaters","eating","eats","eaux","ebola","ebony","ecce","ecchi","ecco","echec","echigo","echo","echoes","echos","echt","echte","eclipse","eclipsed","ecole","ecology","economia","economic","economics","economy","ecos","ecoute","ecran","ecrire","ecrivains","ecstasy","ecuador","edad","eddie","eddy","edelweiss","eden","edens","edes","edgar","edge","edges","edible","edibles","edicao","edicion","edificio","edin","edinburgh","edison","edit","edith","editie","editing","edition","editor","edmonton","edmund","edna","edokko","edouard","eduard","eduardo","educacao","educacion","educar","educated","educating","education","educational","educazione","edward","edwards","edwin","eens","eerie","eerste","eesti","eeuw","efecto","effect","effects","effekt","effet","effort","efter","egen","eggs","eglima","egos","egypt","egypte","egyptian","egyszer","ehre","ehrlich","eibar","eichmann","eidiseis","eidolon","eien","eiffel","eiga","eigen","eigenen","eigentlich","eight","eighteen","eighth","eighties","eighty","eigo","eiji","eiko","eikona","eiland","eileen","eimai","einai","eine","einem","einen","einer","eines","einfach","einmal","eins","einsame","einsatz","einst","einstein","einsteins","eintracht","eisai","eisenstein","eiserne","eiyu","eiyuu","eizo","ejercito","ekho","ekimae","ekka","ekkusu","ekloges","ekmek","ekspeditionen","ekti","ektos","elaine","elama","elamaa","elaman","elan","elas","elbe","elbow","elden","elder","elders","eldorado","eleanor","election","elections","electoral","electra","electric","electricity","electro","electronic","elefant","elefante","elegance","elegant","elegy","elektra","element","elemental","elementary","elements","elena","eleni","elephant","elephants","eles","elet","elete","elevate","elevated","elevation","elevator","eleven","eleventh","eliana","elias","elie","elif","elijah","elimination","eliot","elisa","elisabeth","elise","elite","elixir","eliza","elizabeth","elke","ella","ellada","elladas","ellados","ellam","ellas","elle","ellen","eller","ellery","elles","elli","ellie","ellines","ellinika","elliniki","elliniko","ellinon","elliot","elliott","ellis","ellos","elly","elma","elmer","elmo","eloise","elokuva","elon","elsa","else","elsewhere","elskede","elsker","elso","eltern","elton","elusive","elveda","elves","elvira","elvis","elysees","elysian","elysium","elza","emaki","emancipation","emanet","emanuelle","embargo","embarrassing","embassy","embedded","ember","emberek","embers","emblem","embrace","embracing","embrujo","embryo","emden","emei","emeis","emerald","emergence","emergencia","emergency","emerging","emeril","emerson","emery","emil","emile","emilia","emilie","emilio","emily","emine","eminem","emir","emissary","emission","emma","emmanuel","emmanuelle","emmy","emoji","emon","emotion","emotional","emotions","empathy","empereur","emperor","empezar","empieza","empire","empires","emploi","employee","empowered","empowerment","empreinte","empress","empty","emraa","enakku","enamorada","enamorado","enan","enas","encantado","encanto","enchanted","enchantimals","enchantment","enclave","encontro","encontros","encore","encounter","encounters","encre","encrucijada","encuentro","encuentros","encyclopedia","endan","endangered","ende","ended","endgame","ending","endings","endless","endlich","endo","ends","endstation","endurance","enduring","enduro","enemies","enemiga","enemigo","enemigos","enemy","energia","energie","energy","enero","enfance","enfant","enfants","enfer","enforcement","enforcer","enforcers","enga","engaged","engagement","engal","engano","engel","engi","engine","engineer","engineering","engineers","engines","england","english","englishman","enhanced","enid","enigma","enigmas","enigme","enimerosi","enjeru","enjo","enjoy","enkel","enlightened","enlightenment","enmascarado","enna","ennai","ennemi","ennemis","ennen","enoch","enoken","enos","enough","enquete","enquetes","enrico","enrique","ensaio","ensayo","ensemble","enta","entangled","entanglement","entdecken","ente","enteng","enter","entering","enterprise","enterprises","entertain","entertainer","entertainers","entertaining","entertainment","entezar","entha","entities","entitled","entity","entra","entre","entree","entrega","entrepreneur","entrepreneurs","entretien","entrevista","entropy","entry","entscheidung","envelope","envers","envie","environment","environmental","envoy","envy","enzo","eobtda","eomeoni","eomma","eoneu","ephemeral","epic","epidemic","epilogue","epiphany","episode","episodes","episodio","episodo","epistrofi","epitaph","epoca","epoch","epohi","epopee","epoque","epouse","epreuve","epstein","equal","equality","equalizer","equals","equation","equator","equestria","equilibrio","equinox","equipe","equipo","equity","eradication","eramos","eran","eras","erase","erased","eraser","erasmus","eravamo","erba","erbe","erben","ercole","erde","eredita","ereji","eren","eres","eretz","erfenis","ergo","eric","erica","erich","erie","erik","erika","erin","erinnerung","erinnerungen","erkek","erlebnis","ermine","ermittelt","ernest","ernesto","ernie","ernst","ernu","eroe","eroi","eroica","eros","erota","erotas","erotic","erotica","erotico","erotika","errand","errant","errante","erreur","error","errorista","errors","erst","erste","ersten","erster","erzahlt","escalation","escale","escalera","escandalo","escapade","escapades","escape","escaped","escapes","escaping","escena","escenario","escobar","escola","escondido","escorpion","escort","escrito","escuadron","escuela","escuro","eseo","eshchyo","eshgh","eshghe","eshq","esir","esittaa","eski","eskimo","eskiya","esli","esmeralda","esos","espace","espacio","espaco","espada","espagne","espana","espanol","espanola","espanoles","espanyol","especial","especiales","espectaculo","espectro","espejo","espejos","espelho","espera","esperanca","esperance","esperando","esperanza","esperar","espia","espion","espionage","espions","espirito","espiritu","esplendor","espn","espoir","esporte","esports","esposa","esprit","esprits","esquadrao","esquina","esquire","essa","essays","esse","essen","essence","essential","essentials","essere","essex","esta","estacao","estacion","estaciones","estadio","estado","estados","estafa","estamos","estan","estar","estas","estate","estates","este","estela","ester","esther","esti","estilo","esto","estonia","estoril","estou","estoy","estrada","estranged","estranha","estranhas","estranho","estrela","estrelas","estrella","estrellas","estudiante","estudiantes","estudio","etaient","etais","etait","etat","etats","etchi","eterna","eternal","eternally","eternel","eternelle","eternite","eternity","eterno","etes","ethan","ethel","ether","ethereal","ethics","ethiopia","ethos","etienne","etiquette","etoile","etoiles","etrange","etranger","etrangere","etre","etsi","etsuraku","etter","etwas","euch","eugen","eugene","eugenia","eugenie","eulogy","euphoria","eureka","euro","europa","europas","europe","european","euros","eurosong","eurovision","evan","evangeline","evangelion","evangelist","evans","evaru","evas","evasion","evel","evelyn","even","evenement","evening","event","eventide","events","eventyr","ever","everest","everett","everglades","evergreen","everlasting","evermore","everquest","everton","every","everybody","everyday","everyman","everyone","everything","everywhere","eves","evicted","evidence","evie","evig","evil","evils","evita","evlat","evol","evolution","evolve","evolved","evolving","evropi","ewan","ewig","ewige","ewigkeit","ewtn","exactly","exam","examen","example","exatlon","excalibur","excellence","excellent","excelsior","exceptional","excess","exchange","excitement","exciting","exclusion","exclusive","excursion","excuse","excuses","execution","executioner","executive","exercicios","exercise","exercito","exes","exhale","exhibit","exhibition","exil","exile","exiled","exiles","exilio","exist","existe","existence","exists","exit","exito","exodos","exodus","exorcism","exorcist","exorcists","exotic","expanded","expanding","expansion","expats","expect","expectations","expected","expecting","expedicao","expedicion","expediente","expeditie","expedition","expeditions","expendables","expensive","experience","experiences","experiencia","experiment","experimental","experiments","expert","experts","expiration","expired","explain","explained","explains","explode","exploding","exploitation","exploits","exploration","explore","explored","explorer","explorers","explores","exploring","explosion","explosive","expo","export","expose","exposed","exposicao","exposing","exposition","exposure","express","expression","expressions","expresso","exquisite","extase","extended","exterior","exterminator","extinct","extinction","extra","extraction","extrana","extrano","extranos","extraordinaire","extraordinaires","extraordinario","extraordinary","extras","extraterrestre","extraterrestrial","extravaganza","extrem","extrema","extreme","extremely","extremes","extremo","extremos","eyal","eyed","eyes","eyetoy","eyewitness","eyre","eyvah","ezdevaj","ezekiel","ezra","faan","fabbrica","faber","fabian","fabio","fable","fabled","fables","fabric","fabrica","fabrication","fabrik","fabrika","fabrique","fabrizio","fabula","fabuleuse","fabuleux","fabulous","faca","facade","faccia","faccio","face","facebook","faced","faceless","faces","facil","facile","facility","facing","fact","facteur","faction","factor","factories","factory","facts","faculty","fada","fade","faded","fades","fading","fado","faerie","fahrenheit","fahrt","faia","fail","failed","failing","fails","failure","failures","fainaru","fair","faire","fairfax","fairfield","fairies","fairly","fairy","fairytale","fairytales","fais","faisla","fait","faita","faites","faith","faithful","faithless","faito","faits","fake","fakes","faking","fakir","fakt","fakta","faktor","fala","falar","falco","falcon","falk","fall","falla","falle","fallen","faller","fallet","falling","fallon","fallout","falls","fallt","falsa","falsche","false","falso","falta","fama","fame","famicom","famiglia","familia","familiar","familias","familie","familien","families","familjen","famille","familles","family","famine","famiri","famoso","famosos","famous","famously","famu","fanatic","fanatics","fanboy","fanciulla","fancy","fandango","fandom","fanfare","fang","fango","fangs","fanny","fans","fantaji","fantasia","fantasies","fantasma","fantasmas","fantasmi","fantastic","fantastica","fantastical","fantastico","fantastique","fantasy","fantom","fantomas","fantome","fantomes","fantozzi","fara","faraar","farah","farar","farari","faraway","farbe","farben","farce","farda","fare","fareb","farewell","farfalla","fargo","farhad","farina","farishta","farley","farlig","farligt","farm","farma","farmer","farmers","farmhouse","farming","farms","faro","farsi","fart","farvel","faryad","farz","fascinating","fascination","fascism","fashion","fashionable","fashioned","fashionista","faso","fast","faster","fastest","fasting","fasuto","faszination","fata","fatal","fatale","fate","fated","fateful","fates","father","fatherhood","fatherland","fatherless","fathers","fathom","fathoms","fatih","fatima","fatma","fatman","fatti","fatto","fatty","fauji","fault","fauna","faust","fausto","faustus","faut","faute","faux","favela","favola","favor","favorita","favorite","favorites","favourite","favourites","faye","fazbear","fazer","fear","fearless","fears","feast","feasts","feat","feather","feathered","feathers","feature","features","featuring","febbre","february","feda","fede","federal","federales","federation","federico","fedora","feed","feedback","feeding","feeds","feel","feelin","feeling","feelings","feels","feest","feet","feher","feihong","feind","feira","feito","fekete","fela","felice","felices","felici","felicia","felicidad","felicidade","felicita","feline","felipe","felix","feliz","fell","fella","fellas","fellini","fellow","fellows","fellowship","felony","felt","feluda","female","females","femenino","feminin","feminine","feminism","feminist","femme","femmes","femmina","fence","fences","fender","fenetre","feng","fengyun","fenix","fenomen","fenomeno","fenomenos","fenster","fentanyl","feny","fera","feral","ferb","ferdinand","ferenc","ferguson","feria","ferias","ferie","ferien","fermata","ferme","fermi","fern","fernand","fernanda","fernandez","fernando","ferne","fernseh","fernsehen","ferocious","ferrari","ferris","ferro","ferry","ferryman","fertility","fest","festa","festas","feste","festin","festival","festivals","festive","fetch","fete","fetish","fett","feud","feuds","feuer","feux","fever","fevrier","fiamma","fiamme","fiance","fiancee","fiasco","fiat","fiba","fica","fiction","fiddle","fiddler","fidel","fidele","fidelity","fieber","fiebre","fiel","field","fields","fiend","fiends","fiera","fieras","fierce","fierro","fiery","fiesta","fiestas","fifa","fifi","fifigrot","fifteen","fifth","fifty","figaro","fight","fighter","fighters","fightin","fighting","fights","figli","figlia","figlio","figment","figura","figuras","figure","figures","fiji","fila","file","filemon","files","filha","filho","filhos","filip","filipino","fill","fille","filles","filling","fillmore","film","filma","filme","filmed","filmen","filmer","filmes","filmi","filming","filmmaker","filmmakers","filmmaking","films","filmu","filmy","filo","filosofia","fils","filter","filth","filthy","filtro","fina","final","finale","finally","finalmente","finals","finance","financial","finch","finche","find","finder","finders","finding","finds","findus","fine","finesse","finest","finestra","finger","fingers","fini","finish","finished","finishing","fink","finland","finn","finnish","finns","fino","finsternis","fiona","fiore","fiori","firangi","fire","fireball","firebird","firebrand","firecracker","fired","firefighter","firefighters","fireflies","firefly","firehouse","fireman","firenze","fireplace","fires","fireside","firestorm","fireworks","firing","firm","firma","first","firsts","firtina","firumu","fiscal","fisch","fischer","fish","fishbowl","fisher","fisherman","fishermen","fishes","fishing","fishy","fisica","fisk","fist","fisted","fistful","fists","fitness","fits","fittest","fitz","fitzgerald","fiume","five","fives","fixation","fixed","fixer","fixers","fixing","fjord","flag","flags","flame","flamenco","flames","flaming","flamingo","flamingos","flamme","flammen","flanagan","flanders","flapper","flare","flash","flashback","flashes","flashing","flashpoint","flat","flatmates","flats","flavor","flavors","flavour","flavours","flaw","flawed","flawless","flaws","flay","flea","fleet","fleeting","fleetwood","fleming","flesh","fletcher","fleur","fleurs","fleuve","flew","flex","flic","flick","flicka","flickan","flicker","flickers","flickor","flicks","flics","fliegen","fliegende","flies","flight","flights","fling","flint","flintstones","flip","flipped","flipper","flippers","flipping","flipside","flirt","flirting","flix","float","floating","flock","flood","floor","floors","flop","flor","flora","florence","flores","floresta","florian","florida","floss","flotsam","flow","flower","flowers","flowing","flows","floyd","fluch","flucht","fluff","fluffy","flug","flugel","fluid","flush","fluss","flute","flux","flyer","flyers","flying","flynn","fnaf","focal","foco","focus","foes","fogle","fogo","fogones","foil","fois","fokus","fold","foley","folge","folhas","folie","folies","folk","folket","folkets","folklore","folks","folle","folles","follia","follies","follow","followed","follower","followers","following","follows","folly","fomo","fond","fonda","fondo","fong","font","fontaine","fontana","food","foodie","foodies","foods","fool","foolish","fools","foot","footage","football","footballers","footloose","footprint","footprints","footsoldier","footsteps","footy","fora","forbes","forbidden","forca","force","forced","forces","ford","fore","forecast","foreclosure","foreign","foreigner","foreigners","forelsket","foreman","forensic","forensics","foresight","forest","foresta","forests","foret","foretold","forets","forever","forf","forge","forged","forget","forgetting","forging","forgive","forgiven","forgiveness","forgot","forgotten","fork","form","forma","format","formation","formel","former","formidable","formosa","forms","formula","forrest","forsaken","forscht","forse","forsta","forsvann","fort","fortaleza","forte","fortes","forth","fortnite","fortress","forts","fortuna","fortunate","fortunato","fortune","fortunes","forty","forum","forward","forza","fosse","fossil","foster","fosu","foto","fotograf","fotografia","fotografo","fotos","foudre","fought","foul","found","foundation","foundations","founder","founders","founding","fountain","four","foursome","fourteen","fourth","fous","fowl","foxes","foxtrot","foxy","foyer","frack","fracture","fractured","frag","fraga","fragen","fragil","fragile","fragiles","fragment","fragmented","fragmentos","fragments","fragrance","fram","frame","framed","frames","framing","frammenti","fran","franc","franca","francais","francaise","france","frances","francesca","francesco","franchise","francia","francis","francisco","franco","francois","francoise","francs","franja","frank","franken","frankenstein","frankfurt","frankie","franklin","frankly","franky","frans","frantic","franz","fraser","frat","fratelli","fratello","fraternity","frau","fraud","frauen","frauenarzt","fraulein","fray","frazier","freak","freakin","freaks","freakshow","freaky","freccia","fred","fredag","freddie","freddo","freddy","frederic","frederick","fredrik","free","freed","freedom","freefall","freelance","freeman","freestyle","freeway","freeze","freezer","freezing","frei","freie","freier","freiheit","freitag","fremde","fremden","french","frenemies","frente","frenzy","frequency","frere","freres","fresa","fresh","freshers","freshman","freud","freund","freunde","freundin","freundschaft","freya","fria","friction","frida","friday","fridays","fridge","fried","frieda","frieden","friedman","friedrich","friend","friendly","friends","friendship","fries","fright","frightened","frights","frihed","fringe","frio","frisch","frisco","fritz","frog","frogger","froggy","frogs","frohliche","froid","froken","front","frontal","fronte","fronteira","fronteiras","frontera","fronteras","frontier","frontiere","frontieres","frontiers","frontline","frontlines","fronts","frost","frosty","frozen","fruher","fruhling","fruhstuck","fruit","fruits","fruity","frustrated","fruto","frutti","fubar","fubuki","fuchi","fuchs","fuck","fucked","fucking","fudge","fuego","fuel","fueled","fuente","fuentes","fuera","fuerte","fuertes","fuerza","fufu","fuga","fugitive","fugitives","fugitivo","fugitivos","fugue","fuhrer","fuimos","fuite","fuji","fujiko","fujin","fujo","fukei","fukkatsu","fuku","fukushima","fukushu","fulham","full","fuller","fully","fuma","fumo","funcion","function","fund","fundamental","fundamentals","fundo","fune","funerailles","funeral","funf","fung","fungi","funhouse","funk","funkin","funky","funnies","funniest","funny","fuoco","fuori","furaibo","furenzu","fureur","furi","furia","furies","furin","furinzuma","furious","furisode","furnace","furniture","furo","furontia","furry","furs","furst","furstin","further","furto","furu","furusato","fury","furyo","furyu","fuse","fushidara","fushigi","fushigina","fusil","fusion","fuss","futago","futari","futatabi","futatsu","futbol","futebol","futomomo","futur","futura","future","futures","futuro","fuun","fuyu","fuzoku","fuzokushi","fuzz","fuzzy","fyra","fyre","gabbar","gabby","gabe","gabi","gables","gabor","gabriel","gabriela","gabriele","gabrielle","gabros","gaby","gacha","gachiban","gacy","gadar","gadbad","gaddar","gaden","gadget","gadi","gadis","gaga","gage","gagne","gags","gaia","gaiam","gaiden","gaijin","gaika","gail","gain","gaja","gajab","gajok","gaki","gakko","gakkou","gaku","gakuen","gakuin","gakusei","gala","galactic","galactica","galapagos","galaxies","galaxy","gale","galera","galeria","galerie","gali","galicia","galileo","gallagher","gallant","gallery","galli","gallina","gallipoli","gallo","gallop","galloping","gallos","gallows","galore","galpo","gals","galveston","gama","gaman","gamba","gambit","gamble","gambler","gamblers","gambling","game","gameday","gameplay","gamer","gamera","gamers","games","gameshow","gami","gamin","gaming","gamla","gamle","gamma","gana","ganar","ganas","ganbare","ganda","gandamu","gandhi","gandu","ganesh","ganesha","ganeun","gang","ganga","gange","ganges","gangland","gangrene","gangs","gangsta","gangstar","gangster","gangsters","gangu","ganja","gans","ganti","ganyan","ganz","ganze","gaon","gara","garage","garam","garasu","garbage","garbo","garcia","garcon","garcons","garda","garde","gardel","garden","gardener","gardeners","gardening","gardens","gardien","gardiens","gardner","gare","gareth","garfield","gari","garib","garibaldi","garip","garland","garlic","garo","garota","garotas","garou","garras","garrel","garrett","garrison","garry","gars","garten","garth","garu","garuda","garuzu","gary","gasa","gaslight","gasoline","gasp","gassen","gassho","gast","gaste","gaston","gata","gatas","gate","gatekeeper","gates","gateway","gatha","gather","gathering","gato","gator","gatos","gatsby","gatsu","gatta","gattai","gatti","gatto","gaucha","gauche","gaucho","gaudi","gauguin","gaulle","gaun","gauner","gauntlet","gauri","gave","gavilan","gavin","gawa","gaya","gaye","gayi","gayo","gays","gaza","gaze","gazi","gdzie","geants","gear","gears","geass","geben","geboren","geburt","gece","geceler","gecenin","gecesi","gecko","gecti","gedachtnis","gedanken","geek","geeked","geeks","geen","geer","gees","geese","geet","geeta","geetha","geetham","geethanjali","geezers","gefahr","gefahrliche","gefangene","gegege","gegen","gegenwart","geheim","geheime","geheimnis","geheimnisse","geheimnisvolle","gehen","gehort","geht","geim","geinin","geisha","geist","geister","geki","gekido","gekijo","gekijoban","gekijou","gekijouban","gekito","gekitotsu","gekitou","gekka","gekkan","gekko","gelbe","geld","gelen","geliebte","gelin","geliyor","gelo","geluk","gemini","gemma","gems","gemu","genba","genc","genclik","gendai","gendarme","gender","gene","genealogy","generacio","generacion","general","generale","generals","generation","generations","generator","generazione","generic","genes","genesis","genetic","genevieve","geng","genghis","genial","genie","genies","genio","genitori","genius","geniuses","genji","genjitsu","genkai","genki","genkotsu","gennem","genoa","genocide","genom","genova","genre","genroku","gens","genso","gent","genta","gente","gentle","gentleman","gentlemen","gently","gentry","genug","genuine","genzo","geoff","geoffrey","geografia","geographic","geography","geom","geometry","geomeun","geon","geordie","georg","george","georges","georgia","georgian","georgie","geot","geracao","geral","gerald","geraldine","gerard","gercek","gerda","gerechtigkeit","gerhard","geri","gericht","germain","german","germania","germans","germany","gern","geroi","geronimo","geroy","gerry","gert","gertie","gertrude","geschaft","geschah","geschichte","geschichten","gesellschaft","gesetz","geshuku","gesicht","gesichter","gespenster","gesprach","gesprache","gestapo","geste","gestern","gesto","gestohlene","gesture","gesu","gesucht","getaway","getaways","gether","geto","gets","getter","gettin","getting","getto","gettysburg","geudae","geuk","geum","geung","geunyeo","gewalt","gewinnt","gewissen","gewoon","ggot","ghadam","ghadi","ghahreman","ghalb","gham","ghana","ghar","ghara","gharam","gharana","gharib","gharwali","ghat","ghayal","ghazi","ghermez","ghesse","ghetto","ghiaccio","ghobar","ghost","ghostbusters","ghosted","ghosting","ghostly","ghosts","ghostwriter","ghoul","ghouls","ghulam","giacomo","giada","giallo","gian","gianni","giannis","giant","giants","giardino","giati","gibi","gibo","gibraltar","gibson","gibt","giden","gideon","gift","gifted","gifts","gifu","giga","gigante","giganten","gigantes","giganti","gigantic","giggle","giggles","gigi","gigolo","gila","gilbert","gilberto","gilda","gilded","gilgamesh","gill","gilles","gilligan","gimme","gina","ging","ginga","ginger","gingerbread","gini","ginji","gino","gintama","ginto","ginza","giochi","gioco","gioia","gion","giorgio","giorgos","giornata","giorni","giorno","giovane","giovani","giovanna","giovanni","gioventu","gipsy","gira","giraffe","giri","girl","girlfriend","girlfriends","girls","girlz","giro","girona","gisela","giselle","gishi","gita","gitana","gitano","gittern","giuda","giudice","giulia","giuliano","giulietta","giulio","giungla","giuseppe","giusto","give","given","giver","gives","giving","gizli","gizmo","glace","glacier","glad","glade","gladiator","gladiatore","gladiatori","gladiators","gladys","glam","glamorous","glamour","glance","glanz","glas","glasgow","glass","glasses","glastonbury","glaube","glaza","glee","gleich","glemte","glen","glenn","glide","glimpse","glimpses","glitch","glitter","glitters","global","globalization","globe","globetrotters","globo","gloire","gloom","gloria","glorious","glory","glove","gloves","glow","glowing","gluck","glucklich","gluckliche","glucks","glue","gluten","gnade","gnezdo","gnome","gnomes","goal","goals","goanimate","goat","goats","gobaek","gobi","goblin","goblins","goda","godard","goddamn","goddess","goddesses","gode","godfather","godfathers","godfrey","godina","godine","godless","godmother","gods","godspeed","godt","gody","godzilla","goed","goede","goemon","goes","goethe","gogh","gogo","gogol","gohan","gohyang","goin","going","gojira","gojusan","gojusantsugi","gokan","goke","goketsu","gokko","gokoro","goku","gokudo","gokuhi","gokuraku","gola","gold","golda","goldberg","golden","goldene","goldenen","goldfish","goldie","goldilocks","goldman","gole","golem","goles","golf","golfer","golfo","golgotha","goli","goliath","golmaal","golos","golosa","golpe","golpes","golpo","goluboy","goma","gomen","gomez","gomon","gomshode","gonah","gone","gong","gongju","gongzhu","gonin","gonna","gonpachi","gonul","gonza","gonzaga","gonzalez","gonzo","goochelaar","good","goodall","goodbye","goode","goodman","goodness","goodnight","goods","goodwin","goofy","google","goon","goons","goose","goosebumps","gopal","gopala","gopi","gopichand","gora","gorakh","gorbachev","gorda","gordo","gordon","gore","gorge","gorgeous","gorgon","gori","gorilla","gorillas","goro","gorod","goroda","gorode","goroshi","gorufu","gory","goshta","gospel","gospels","gospoda","gospodi","gosse","gosses","gossip","gost","gosti","gosto","gosuto","gota","gotcha","goten","goth","gotham","gothic","goto","gotoku","gott","gotta","gotter","gottes","gotti","gottschalk","goud","gouden","gould","gourmet","gout","government","governor","govinda","govori","gown","gowri","goya","goyo","goyojin","gozar","gozen","gozler","gozonji","gozyaslari","grab","graca","grace","graceland","graces","gracia","gracias","gracie","grad","grada","grade","grader","gradius","grado","grados","graduate","graduates","graduation","grady","graf","grafen","graffiti","grafin","graham","grail","grain","graine","graines","gram","gramma","grammar","grammi","grams","gran","granada","grand","grandad","grande","grandes","grandeur","grandfather","grandi","grandir","grandma","grandmas","grandmaster","grandmother","grandpa","grands","grandson","granite","granitsa","granja","grannies","granny","grano","grant","granted","grape","grapes","grapevine","graphic","gras","grass","grasshopper","grassroots","grata","grateful","gratitude","grau","grauens","grave","gravedigger","gravel","graves","graveyard","gravity","gravy","gray","grayson","grazia","grazie","grease","great","greater","greatest","greatness","greats","grece","greco","greece","greed","greedy","greek","greeks","green","greenberg","greene","greener","greenhouse","greenland","greenlight","greens","greenwich","greenwood","greetings","greg","gregg","gregorio","gregory","gremlins","grenade","grenier","grens","grenze","grenzen","greta","gretchen","gretel","greve","grew","grey","greyhound","grid","gridiron","grido","grief","griff","griffin","griffith","grihalakshmi","grill","grim","grime","grimm","grimoire","grinch","grind","grinder","grindhouse","gringa","gringo","gringos","grinning","griot","grip","gris","grit","grito","gritos","gritty","grizzly","grocery","groland","grom","gromit","grona","groom","groot","groove","groovy","gros","gross","grosse","grote","grotesque","ground","grounded","grounds","group","groupe","groupies","grove","grow","growing","grown","grows","growth","grudge","gruesome","grumpy","grun","grunde","grune","grunen","grunge","grunt","grupo","gruppo","grylls","guadalajara","guadalcanal","guadalupe","guai","guan","guanajuato","guang","guangdong","guangzhou","guantanamo","guapo","guarani","guarantee","guaranteed","guard","guarda","guardia","guardian","guardianes","guardians","guarding","guards","guatemala","gubat","gucci","gudi","guds","guerilla","guernica","guerra","guerras","guerre","guerrero","guerreros","guerres","guerrieri","guerriero","guerrilla","guerrillero","guess","guessing","guest","guests","gueule","guevara","guggenheim","guia","guidance","guide","guided","guides","guido","guignol","guild","guillaume","guillermo","guillotine","guilt","guilty","guinea","guinness","guitar","guitarra","guitarras","guitars","gujarat","gujarati","gujjar","gula","gulabi","gulam","gulch","guld","gulf","gull","gulliver","gully","gulu","gumball","gumbo","gumi","gummy","gumo","gumrah","gumshoe","guna","gunah","gunahi","gunda","gundam","gundan","gunes","gunesi","gunfight","gunfighter","gung","gunler","gunman","gunn","gunnar","gunner","gunpoint","gunpowder","guns","gunslinger","gunslingers","gunsmoke","gunter","gunther","gunu","gunung","gupt","gupta","gurashi","gurbet","gureko","guren","gurentai","guri","gurl","guru","gurui","gurus","gushi","gusta","gustan","gustav","gustavo","gusto","gute","guten","gutierrez","guts","gutta","gutter","guyane","guys","guzel","guzeli","guzman","gwai","gwan","gwen","gwong","gyaku","gyakushu","gyakushuu","gyakuten","gyangu","gyarakushi","gyaru","gyeol","gyeolhon","gyeoul","gyldne","gymnastics","gynaika","gynaikes","gynt","gyojoki","gypsies","gypsy","haba","hababam","habana","habang","habe","haben","haber","habib","habibi","habit","habitacion","habitat","habits","habla","hablan","hablando","hablar","hablemos","hace","hacen","hacer","hacha","hachi","hachigatsu","hachiro","hacia","hacienda","haciendo","hack","hacked","hacker","hackers","hacking","hacks","hada","hadaka","hadashi","hades","hadi","hado","haeng","hafiz","haft","hagadol","hagane","hagen","hageshii","hageshiku","hago","hagu","hague","hagure","haha","hahn","haider","haie","haifa","haiku","haikyu","hail","hailey","hain","haine","hair","haired","hairy","haiti","haitian","haitoku","haji","hajimari","hajimaru","hajime","hajimemashita","hajimeru","hajimete","hajj","haka","hakai","hakan","hakase","haken","hakim","hakken","hakkenden","hakki","hakko","hako","hakobune","hakol","hakucho","hakuchu","hakui","hakuoki","hakuouki","hakusho","hala","halal","halb","halbe","halcon","halcones","halcyon","hale","halen","half","halftime","halfway","hali","halifax","halik","hall","halla","hallelujah","haller","hallo","hallow","hallowed","halloween","hallows","halls","halo","halos","halt","halves","hama","hamaar","hamar","hamara","hamare","hamari","hambre","hamburg","hamburger","hame","hamilton","hamish","hamlet","hammer","hammers","hammond","hamon","hampshire","hampton","hamptons","hamster","hamsters","hana","hanabi","hanako","hanamaru","hanamichi","hanamuko","hanasaku","hanashi","hanataba","hanayome","hanbeon","hancock","hand","handa","handball","handbook","hande","handed","handel","handen","handful","handicap","handle","handler","handling","handmade","hands","handsome","handv","handy","handyman","hang","hangan","hangar","hanged","hanggang","hangin","hanging","hangman","hangout","hangover","hangry","hangyaku","hanh","hani","hanim","hanjuku","hank","hanko","hanna","hannah","hannes","hannibal","hanno","hanoi","hanpeita","hans","hansa","hansel","hansen","hansi","hanson","hanta","hantu","hanukkah","hanuman","hany","hanzai","hanzo","haolam","happen","happened","happening","happenings","happens","happi","happiest","happily","happiness","happy","happyaku","haqeeqat","hara","harakiri","harald","haram","harami","haran","harawata","harbinger","harbor","harbour","hard","hardball","hardcore","harder","hardest","harding","hardly","hardy","hare","harem","harenchi","hari","harim","harimau","haring","harishchandra","harlan","harlem","harley","harlow","harm","harmonie","harmony","haro","harold","harom","harp","harper","harriet","harris","harrison","harry","harsh","hart","harta","harte","hartman","harty","haru","haruhi","haruka","harukanaru","harvard","harvest","harvester","harvesting","harvey","haryana","hasan","hasard","hase","haseen","haseena","hashi","hashire","hashiru","hashtag","hasina","hasret","hass","hassan","hast","hasta","haste","hastings","hata","hatachi","hatamoto","hataraku","hatch","hatchet","hate","hated","hater","haters","hates","hath","hati","hating","hato","hatoba","hatred","hats","hatsu","hatsujo","hatsukoi","hatsune","hatte","hatten","haul","haunt","haunted","haunters","haunting","hauntings","haunts","hauptmann","haus","hause","hauser","hausu","haut","haute","hautnah","hava","havana","havasi","haveli","haven","havet","havets","having","havoc","hawa","hawai","hawaii","hawaiian","hawas","hawk","hawkeye","hawking","hawkins","hawks","hawthorne","haya","hayabusa","hayal","hayashi","hayat","hayate","hayati","hayatlar","hayden","haye","hayes","hayley","hayop","hayride","haywire","haza","hazard","hazardous","haze","hazel","hazreti","hazukashii","head","headed","headhunter","headhunters","headin","heading","headless","headline","headliner","headliners","headlines","headquarters","heads","headshot","heal","healed","healer","healers","healing","heals","health","healthcare","healthy","hear","heard","hearing","hearings","heart","heartache","heartbeat","heartbeats","heartbreak","heartbreaker","hearted","heartland","heartless","hearts","heat","heath","heathen","heather","heaven","heavenly","heavens","heavy","heavyweight","hebi","hebron","hecho","hechos","heck","hector","hedda","hedge","hedgehog","heel","heels","heer","heera","heere","heide","heidelberg","heidi","height","heights","heiji","heil","heilige","heiligen","heim","heimat","heimkehr","heimweh","heinrich","heinz","heir","heirate","heiraten","heiratet","heiress","heirloom","heirs","heisei","heist","heitai","heiter","hekayat","hela","held","helden","hele","helen","helena","helene","helga","helicopter","helix","hell","hella","hellas","hellbent","hellbound","hellboy","hellcat","helle","heller","hellfire","hellgate","hello","hellraiser","hells","hellstr","helm","helmet","help","helper","helpers","helping","helsing","helsinki","helt","helte","helter","helvede","helvete","helwa","hemel","hemingway","hemliga","hemlighet","hemma","hemmelige","hemmelighed","hemp","henchmen","henderson","hendes","hendrix","hendthi","heng","henge","hengen","henka","henker","henna","hennu","henri","henrietta","henrik","henry","henshin","henshitsu","henson","hentai","heptic","hera","herald","heranca","herb","herbe","herbert","herbie","herbs","herbst","hercule","hercules","herd","here","hereafter","heredera","herederos","herencia","heresy","heretic","heretics","heria","herida","heritage","heritiers","herman","hermana","hermanas","hermann","hermano","hermanos","hermes","hermit","hermosa","hernandez","hero","heroe","heroes","heroi","heroic","heroin","heroine","heroines","herois","heron","heros","herr","herra","herre","herren","herrera","herrin","herring","herrn","herself","herstory","herz","herzen","herzens","herzog","hessen","heung","heure","heures","heureux","heut","heute","hexe","hexen","heya","hezar","hgtv","hibana","hibari","hibi","hibiki","hibiscus","hibotan","hibun","hicho","hickok","hickory","hicks","hidamari","hidden","hide","hideaway","hideous","hideout","hides","hiding","hidup","hielo","hien","hier","hierba","hierro","higashi","hige","higeki","higgins","high","higher","highest","highland","highlander","highlands","highlight","highlights","highly","highness","highschool","highway","highwayman","highways","higi","higurashi","hiho","hihou","hiiro","hija","hijab","hijack","hijacked","hijacking","hijas","hijo","hijos","hikae","hikari","hikaru","hikaye","hikayeleri","hikayesi","hike","hiken","hiker","hiki","hikikomori","hiking","hikisakareta","hiko","hikoza","hikozaemon","hilang","hilarious","hilda","hilde","hildegard","hilfe","hilft","hill","hillary","hillbilly","hills","hillside","hillsong","hilo","hilos","hilton","hima","himalaya","himalayan","himalayas","himawari","hime","himegimi","himegoto","himitsu","himlen","himmat","himmel","himo","himself","hina","hinaus","hinckley","hind","hindenburg","hindi","hindsight","hindu","hindustan","hindustani","hines","hing","hinter","hinterland","hippie","hippies","hippo","hippy","hipster","hipsters","hira","hiraite","hiraku","hiram","hire","hired","hiren","hiro","hiroku","hiroshi","hiroshima","hirotta","hirozu","hirsiz","hirsizi","hiru","hirusagari","hiryu","hisho","hispanic","hissatsu","histoire","histoires","historia","historian","historias","historic","historical","historico","historie","historien","historier","histories","history","hitam","hitch","hitchcock","hitchhiker","hitler","hitlers","hitman","hitmen","hito","hitobito","hitokiri","hitomi","hitori","hitotsu","hitozuma","hitozumatachi","hits","hitter","hitting","hive","hiver","hiwa","hiwaga","hizakurige","hizo","hjaltar","hjarta","hjem","hjemme","hjerte","hjerter","hjertet","hoang","hoard","hoarder","hoax","hobbit","hobbs","hobby","hobe","hobo","hoboken","hoca","hoch","hochzeit","hochzeitsnacht","hockey","hocus","hodges","hodo","hoero","hoffman","hoffnung","hoga","hogan","hogar","hogi","hogwarts","hoheit","hoho","hohoemi","hohoemu","hoje","hokago","hokkaido","hokm","hoko","hokuto","hola","hold","holden","holder","holding","holds","hole","holes","holger","holi","holiday","holidays","holistic","holk","holland","hollander","hollands","holle","holler","holliday","hollow","holloway","hollows","holly","hollyoaks","hollyweird","hollywood","holm","holmes","holnap","holo","holocaust","hologram","holt","holy","homa","homage","homare","hombre","hombres","home","homebound","homecoming","homefront","homegrown","homeland","homeless","homelessness","homem","homemade","homenaje","homens","homer","homes","homesick","homestead","hometown","homeward","homework","homewrecker","homicidal","homicide","homies","hommage","homme","hommes","homo","homu","homunculus","hona","honban","hond","honda","honduras","hone","honest","honestly","honesty","honey","honeymoon","hong","hongkong","honki","honkon","honky","honneur","hono","honolulu","honoo","honor","honorable","honoring","honour","honra","honte","honto","hood","hoodlum","hoods","hoofs","hook","hooked","hooker","hookers","hooking","hooks","hooligan","hooligans","hoon","hoop","hooper","hoops","hoor","hooray","hoosier","hoot","hoover","hope","hopeful","hopeless","hopes","hopital","hopkins","hopp","hopper","hora","horace","horas","horde","hori","horis","horizon","horizons","horizont","horizonte","horizontes","horn","hornet","hornets","horns","horny","horo","horowitz","horrible","horror","horrors","hors","horse","horseback","horseman","horsemen","horsepower","horses","horseshoe","horst","hort","horus","hosa","hosen","hoshi","hoshii","hoshikuzu","hoshizora","hoshu","hoso","hospice","hospital","hospitality","host","hostage","hostages","hosted","hostel","hostess","hostile","hosts","hota","hotaru","hotdog","hote","hotel","hotell","hotels","hoteru","hoti","hotline","hotori","hototogisu","hotshots","hotspot","hotspur","hottest","houdini","houkago","hound","hounds","hour","hourglass","hours","house","household","housekeeper","housemates","houses","housewife","housewives","housing","houston","hove","howard","howerd","howie","howl","howling","hoyo","hronia","hrono","hronou","hrvatska","huai","huajai","huan","huang","hubad","hubb","hubby","hubert","huck","huckleberry","hudas","huddersfield","huddle","hudson","huella","huellas","huesos","huesped","huet","huevos","huey","huge","hugh","hughes","hugo","hugs","huis","huit","hukum","hula","huli","huling","hulk","hull","hulu","humain","humaine","humains","human","humana","humanidad","humanite","humanity","humano","humanos","humans","humberto","humble","humboldt","humming","hummingbird","humo","humor","humour","humphrey","humpty","humsafar","hunch","hunchback","hund","hunde","hundred","hung","hungama","hungarian","hungary","hunger","hungry","hunt","hunted","hunter","hunters","hunting","huntress","hunts","huong","huracan","hurra","hurricane","hurry","hurt","hurts","husar","husband","husbands","huset","hush","husky","husmorfilmen","husn","hussein","hustle","hustler","hustlers","huston","hutch","huwag","huye","hvad","hvar","hvem","hvide","hvor","hvorfor","hwang","hyakka","hyaku","hyakuman","hyakumanryo","hyakunen","hyakunin","hyang","hybrid","hybrids","hyde","hyderabad","hydra","hyena","hyeong","hygiene","hymn","hymns","hyoryu","hype","hyper","hypnosis","hypnotic","hysteria","hysterical","ibig","ibigin","ibis","ibiza","iblis","ibong","ibrahim","ibun","icarus","iceberg","icebreaker","iced","iceland","iceman","ichi","ichiba","ichiban","ichibu","ichidai","ichido","ichigo","ichinen","ichiro","ichiya","ichizoku","icimdeki","icin","icinde","icon","iconic","icons","idade","idaho","idam","iddaru","idea","ideal","ideale","ideas","idee","idees","identical","identidad","identite","identities","identity","idhu","idiot","idiota","idiots","idle","idol","idolm","idolo","idolos","idols","iedereen","ieri","ifbb","ifrit","igen","iggy","iglesias","ignacio","ignite","ignition","ignorance","igor","igra","igre","igry","igual","iguales","iguana","iguanas","ihen","ihni","ihre","ihrer","iidx","ijime","ijiri","ijiwaru","ikari","ikarus","ikasete","ikaw","ikea","ikemen","ikenai","ikenie","ikimono","ikiru","ikite","ikiteiru","ikka","ikke","ikki","ikoku","ikon","ilalim","ilegales","iles","ilgi","ilha","ilhas","ilio","iljimae","illa","illai","illalu","illegal","illicit","illinois","illness","illu","illuminate","illuminati","illumination","illusion","illusione","illusionist","illusions","illustrated","ilmu","ilona","ilsaeng","ilusao","ilusion","ilusiones","image","imagen","imagenes","imagens","images","imaginaire","imaginario","imaginary","imagination","imagine","imagined","imagining","imago","imam","iman","imdb","imeni","imeres","imitation","immaculate","immagini","immediate","immer","immersion","immersive","immigrant","immigrants","immigration","imminent","immoral","immortal","immortality","immortals","immunity","imoto","imouto","impact","impacto","impaler","impasse","impeachment","imperatora","imperfect","imperial","imperii","imperio","imperium","impero","impian","implacable","import","importa","importance","importancia","important","importante","imposible","impossible","imposter","impostor","impractical","impression","impressions","imprisoned","improbable","improv","improve","improvement","improvised","improvviso","impulse","imya","inai","inang","inanimate","inappropriate","inauguration","inazuma","inbeda","inbetween","inbo","inca","incarceration","incarnate","incarnation","inception","inch","inches","incident","incidents","included","inclusion","inclusive","incognita","incognito","income","incoming","incomplete","inconceivable","inconnu","inconnue","incontri","incontro","inconvenient","incorporated","incredibile","incredible","incredibles","incredibly","increible","incroyable","incubo","incubus","incurable","incursion","indah","inday","inde","indecent","indelible","independance","independence","independencia","independent","independents","indestructible","index","india","indian","indiana","indianapolis","indians","indias","indie","indien","indiens","indies","indietro","indigenous","indigo","indio","indios","indira","indische","indiscretion","indivisible","indo","indochine","indomable","indomitable","indonesia","indoor","indoors","indra","indru","indulgence","indus","industria","industrial","industrie","industries","industry","indy","indycar","inertia","ines","inesperado","inevitable","inexplicable","infame","infamous","infamy","infancia","infante","infantil","infected","infection","infernal","infernale","infernales","inferno","infestation","infidel","infidelity","infieles","infierno","infiltration","infini","infinita","infinite","infinito","infinity","influence","influenced","influencer","influencers","info","informal","informant","information","informativo","informe","inga","ingan","inge","ingen","ingles","ingredient","ingredients","ingrid","inherit","inheritance","inherited","inhuman","inima","inimigo","iniquity","init","initial","initiation","initiative","inju","injury","injustice","inka","inked","inko","inkognito","inland","inmate","innen","inner","innere","inni","innings","innocence","innocent","innocente","innocents","innovation","innovators","inocencia","inocente","inocentes","inochi","inolvidable","inori","inpu","inquieto","inquiry","inquisition","inran","insaaf","insaan","insaeng","insaf","insan","insane","insanity","insanlari","insatiable","insect","insects","insecure","insel","inseln","inseparables","insert","insha","inside","insider","insiders","insidious","insieme","insight","insights","insignificant","insolito","insomnia","insomniac","inspecteur","inspector","inspektor","inspiration","inspirational","inspirations","inspire","inspired","inspiring","insta","instagram","installation","instant","instantaneas","instante","instead","instinct","instincts","instinto","institute","institution","instructions","instrument","instrumental","instruments","insurance","insurrection","intangible","inte","integral","integration","intel","intelligence","intelligent","intensive","intent","intention","intentions","inteqam","inter","interactive","interceptor","interceptors","interdit","interdite","interdits","interest","interesting","interface","interference","intergalactic","interieur","interior","interiors","interlude","intermezzo","intermission","intern","internacional","internal","international","internationale","internazionale","internet","interno","interns","interpol","interrogation","interrupted","intersection","interstate","interstellar","interval","intervention","interview","interviews","inti","intikam","intikami","intimacy","intimate","intime","intimes","intimo","intrepid","intriga","intrigo","intrigue","intro","introducing","introduction","intruder","intruders","intrusa","intrusion","intuition","inui","inuit","inutil","inuyasha","invader","invaders","invasion","invasive","inventaire","invented","inventing","invention","inventions","invento","inventor","inventors","inverno","inversion","investigacion","investigates","investigating","investigation","investigations","investigator","investigators","investing","investment","investor","investors","invictus","invierno","invincibile","invincible","invisibile","invisible","invisibles","invisivel","invitacion","invitation","invitational","invite","invited","invocation","involved","inzetsu","iowa","ipanema","iphone","ippai","ippatsu","ippei","ippen","ippiki","ippo","ippon","iqbal","irae","irai","irak","iran","irani","iranian","iraq","iraqi","iravu","irebun","ireland","irena","irene","irezumi","irina","iris","irish","irishman","irma","irmao","irmaos","iroes","iroha","iron","irons","irresistible","irreversible","iruvar","irvine","irving","irwin","isaac","isabel","isabella","isabelle","isaiah","isami","isan","isang","isekai","isha","ishah","ishi","ishikawa","ishimatsu","ishin","ishq","isis","isla","islam","islamic","island","islanders","islands","islas","isle","isler","isles","ismael","ismail","isola","isolated","isolation","ispettore","ispoved","israel","israeli","issa","isshin","issho","isso","issue","issues","istanbul","iste","isten","istiklal","isto","istoria","istorias","istories","istorii","istorija","istoriya","istri","itai","italia","italian","italiana","italiani","italiano","italians","italie","italien","italiens","italo","italy","itan","itazura","itch","itda","item","ithaca","ithu","itihaas","itim","itineraire","itlu","itoshi","itoshiki","itself","itsu","itsuka","itsumo","ittefaq","itto","iubire","ivan","ivana","ivanhoe","ivanov","ives","ivide","ivory","iwami","iyagi","iyarashii","iyong","izakaya","izuko","izumi","izzat","izzy","jacht","jacinta","jacinto","jack","jackal","jackass","jackbox","jacked","jacket","jackie","jackpot","jackrabbit","jacks","jackson","jacky","jacob","jacobs","jacqueline","jacques","jada","jade","jaded","jadi","jadoo","jadu","jadugar","jadui","jaffa","jaga","jagannath","jagat","jagd","jager","jagga","jagged","jagger","jago","jagratha","jagten","jaguar","jahan","jahr","jahre","jahren","jahrhundert","jail","jailbreak","jailhouse","jaime","jain","jaka","jakarta","jake","jakeun","jakku","jako","jakob","jakten","jakub","jala","jalan","jalisco","jaljilla","jamai","jamaica","jamaican","jamais","jamal","jamas","jamboree","james","jamie","jamil","jammin","jampack","jams","jamuna","jana","janai","janaki","janam","janani","janda","jane","janeiro","janet","jang","jangal","jangan","jangi","jangmi","jango","jani","janice","janine","janis","janitor","janji","janma","janna","jannat","janne","janos","january","janus","janvier","japan","japanese","japon","jaque","jara","jardim","jardin","jardins","jared","jaren","jasmin","jasmine","jason","jasoos","jasper","jatra","jatt","jatta","jatti","jatuh","jaula","jaune","java","javani","javier","javla","jawa","jawaani","jawab","jawai","jawan","jawani","jaws","jaya","jayam","jayden","jaye","jayne","jays","jayson","jazeera","jazz","jazzy","jealous","jealousy","jean","jeanne","jeannie","jeans","jedal","jedan","jede","jeden","jeder","jedermann","jedi","jedna","jedne","jednog","jednom","jeena","jeene","jeep","jeet","jeeva","jeevan","jeevana","jeevitha","jeevitham","jeewan","jefa","jefe","jeff","jefferson","jeffrey","jeho","jehovah","jejak","jekyll","jelger","jelly","jellyfish","jenereshon","jenkins","jenn","jenna","jenner","jenni","jennie","jennifer","jennings","jenny","jens","jenseits","jensen","jeok","jeolmeun","jeon","jeong","jeonjaeng","jeopardy","jeremiah","jeremy","jericho","jerk","jerks","jerome","jeronimo","jerry","jersey","jerusalem","jess","jesse","jessica","jessie","jessy","jest","jestem","jester","jesus","jeszcze","jete","jetes","jethro","jets","jett","jetzt","jeugd","jeuk","jeune","jeunes","jeunesse","jeung","jeux","jewel","jewelry","jewels","jewish","jews","jezebel","jhansi","jhoom","jhoot","jiang","jianghu","jiao","jiban","jibon","jidai","jidaigeki","jigar","jigen","jigoku","jigsaw","jihad","jijo","jikan","jiken","jikenbo","jikken","jikkyou","jiko","jiku","jill","jillian","jima","jimbo","jimenez","jimi","jimmie","jimmy","jindagi","jinete","jing","jingi","jingle","jinn","jinsei","jinx","jiong","jiraiya","jiri","jiro","jirocho","jirokichi","jiru","jishi","jism","jissha","jitensha","jitsu","jitsuroku","jitsuwa","jiwa","jiya","jiyu","jizo","joachim","joan","joana","joanna","joao","joaquin","jobs","jocelyn","jochi","jochu","jock","jockey","jocks","jodi","jodie","jodoh","joel","joen","joey","jofu","jogakusei","jogi","jogo","jogos","johan","johann","johanna","johannes","johannesburg","johar","johatsu","joheun","john","johnnie","johnny","johns","johnson","johnsons","johnston","johny","joho","joie","join","joined","joins","joint","joji","jojo","joka","joke","joken","joker","jokers","jokes","joking","joko","jokosei","jokyo","jokyoshi","joli","jolie","jolly","jonah","jonan","jonas","jonathan","jonbenet","jone","jones","joneses","jonestown","jonetsu","jong","jongens","joni","jonny","jonssonligan","joobachi","joon","jord","jordan","jorden","jordi","jorg","jorge","jornada","jornal","joro","joru","jose","josef","josei","joseline","joseon","joseph","josephine","josh","joshi","joshidai","joshidaisei","joshiryo","joshu","joshua","josiah","josie","joue","jouer","joueur","joulukalenteri","jour","journaal","journal","journalist","journals","journee","journey","journeyman","journeys","jours","jovem","joven","jovenes","jovi","jowa","joyce","joyful","joyoku","joyride","joyu","jozi","jozu","jsem","jsme","juan","juana","juanita","juarez","juban","jubei","jubilee","judah","judai","judan","judas","judd","juddho","jude","juden","judge","judgement","judges","judgment","judi","judicial","judith","judo","judy","juego","juegos","juen","jueves","juez","jugando","jugar","juge","jugement","jugend","juggernaut","juggler","jugo","jugyo","juice","juicio","juicy","juif","juillet","juin","juju","juke","jukebox","juku","jukujo","julekalender","jules","juli","julia","julian","juliana","julie","julien","juliet","julieta","juliette","julio","julius","july","jumanji","jumbo","jump","jumper","jumpers","jumpin","jumping","jumpstart","junana","junction","june","juneteenth","jung","junge","jungen","junger","jungfrau","jungle","junglee","jungs","juni","junin","junior","juniors","juniper","junji","junjo","junk","junkie","junkies","junkyard","juno","junoon","juntas","junto","juntos","jupiter","jura","juramento","jurassic","jurgen","jurm","juroku","juror","jury","jusqu","just","justa","juste","justica","justice","justicia","justified","justin","justine","justo","jutaro","jutro","juvenile","juventud","juventude","juventus","juyaku","juyoku","juyushi","jwala","jyothi","jyoti","kabadayi","kabaddi","kabarett","kabe","kaben","kabhi","kabi","kabir","kaboom","kaboul","kabuki","kabul","kabut","kabuto","kacak","kacha","kacho","kacis","kada","kadal","kadam","kadar","kadavul","kade","kader","kaderin","kadha","kadhai","kadhal","kadhali","kadin","kadini","kadinlar","kado","kadu","kaen","kaeru","kaette","kaettekita","kaew","kafa","kafe","kafes","kafka","kaga","kagai","kagaku","kagami","kagayaki","kagayaku","kage","kageboshi","kageki","kagero","kagi","kago","kagura","kaguya","kahlo","kahn","kaho","kahraman","kaibutsu","kaibyo","kaidan","kaidanji","kaido","kaigan","kaigara","kaigi","kaigun","kaii","kaijin","kaiju","kaijuu","kaika","kaikan","kaiketsu","kaiki","kaikki","kaikyo","kailan","kailangan","kailash","kain","kairaku","kairo","kairos","kaisa","kaise","kaisen","kaiser","kaiserin","kaisers","kaisha","kaisi","kaitei","kaiten","kaito","kaitou","kaizo","kaizoku","kaji","kajitsu","kaka","kakadu","kake","kakera","kakero","kakeru","kaki","kako","kaku","kakumei","kakusei","kakushi","kala","kalahari","kalam","kalan","kalandjai","kalb","kalbi","kalbim","kale","kaleidoscope","kali","kalimera","kalinga","kaliyuga","kalki","kalla","kallan","kalle","kallu","kalo","kalokairi","kalp","kalpana","kalpler","kalt","kalte","kalu","kalyan","kalyana","kalyanam","kalyani","kalyug","kama","kamaal","kamakiri","kamakura","kamal","kamala","kamandag","kamar","kamasutra","kamay","kambal","kamel","kameleon","kamen","kamera","kameraden","kami","kamigami","kamikaze","kamil","kaminari","kaming","kamini","kamisama","kamo","kamp","kampen","kampf","kampung","kamu","kamui","kana","kanada","kanak","kanaka","kanal","kanan","kanashi","kanashiki","kanashimi","kanasu","kanata","kanavu","kanchan","kanchana","kanda","kandahar","kande","kanden","kando","kane","kanei","kaneis","kang","kangal","kangaroo","kangofu","kangoku","kani","kanikuly","kanja","kanji","kanjiru","kanjo","kankan","kankei","kanketsu","kanketsuhen","kankin","kanli","kanmani","kann","kanna","kannada","kannan","kanne","kanni","kanno","kannon","kannst","kannu","kano","kanojo","kanon","kanoon","kanpai","kansas","kanssa","kant","kanta","kantai","kanto","kantoku","kanun","kanunu","kanya","kanyadaan","kanye","kanzen","kaori","kaoru","kaos","kaoyaku","kapag","kapatid","kapetan","kapi","kapital","kapitan","kapitana","kapitel","kapkan","kaplan","kapoor","kappa","kaptan","kapuram","kara","karachi","karada","karai","karakuri","karam","karan","karanlik","karaoglan","karaoke","karasu","karate","karavan","kardashian","kardes","kardesim","kardesler","kardia","kardies","kare","karega","karei","karel","karen","karena","karenina","kareshi","kari","karim","karin","karina","karl","karla","karlek","karleken","karlekens","karlsson","karm","karma","karn","karna","karnataka","karneval","karo","karol","karriere","karsi","karsinta","karsten","kart","karta","kartal","kartali","kartavya","karte","karthik","karts","karu","karun","karuppu","karussell","karute","karvakuonot","karz","kasa","kasai","kasal","kasalanan","kasam","kaseifu","kash","kashi","kashin","kashmir","kasi","kasih","kaspar","kasper","kassen","kasturi","kasumi","kata","katakiuchi","katamari","katana","katanga","kataomoi","katari","katarina","katarungan","katawan","kate","katei","kater","katerina","kath","katha","kathai","katharina","kathe","katherine","kathi","kathleen","kathmandu","kathy","kati","katia","katie","katil","kato","katrina","katsu","katsura","katsushika","katta","katte","kattu","katy","katya","katz","katze","kaufman","kaun","kaunis","kaupunki","kaur","kavali","kaveri","kavi","kavya","kawa","kawachi","kawaii","kawin","kaya","kaybolan","kaye","kayip","kayla","kayo","kazakh","kazan","kaze","kazim","kazoku","kazooie","kazuo","kdyz","keane","keaton","kebab","keda","kedi","keemat","keen","keep","keeper","keepers","keepin","keeping","keeps","kees","kehna","keiji","keikaku","keikan","keiko","kein","keine","keinen","keiner","keiren","keisatsu","keisha","keishicho","keitai","keith","keiyaku","keizu","kekasih","keke","kekkon","keli","kell","keller","kelley","kelly","kellys","keloglan","kelsey","kelsi","keluarga","kelvin","kemal","kembali","kembang","kemono","kemp","kemuri","kenan","kenar","kendall","kendi","kendra","keng","kengo","kenja","kenji","kenju","kenka","kenkaku","kenkyo","kennedy","kennedys","kennel","kennen","kenneth","kennt","kenny","keno","kenpo","kenran","kenshi","kenshin","kensington","kent","kentucky","kenya","kepler","kept","kerala","kerle","kern","kerran","kerridge","kerry","kerstshow","kesa","kesari","kesho","kessen","ketai","ketchup","ketika","ketten","kettle","ketto","ketu","keung","kevin","keyboard","keyhole","keys","kezban","khab","khabar","khaidi","khair","khak","khakestari","khaki","khal","khali","kham","khamoosh","khamosh","khamsa","khan","khana","khane","khaneh","khanevade","khaneye","khanjar","khanna","khanom","khao","khara","khat","khata","khatar","khatarnak","khatir","khatta","khazana","khel","khela","khiladi","khilona","khloe","khmer","khochu","khod","khoda","khoj","khon","khong","khoob","khoon","khooni","khorshid","khosh","khota","khozyain","khronika","khroniki","khuda","khun","khuni","khush","khushboo","khushi","khwab","khyber","kiarostami","kiba","kibo","kibou","kibris","kibun","kichi","kick","kickback","kickboxer","kicked","kicker","kickin","kicking","kickoff","kicks","kidan","kidd","kidding","kiddo","kiddy","kidlat","kidnap","kidnapped","kidnapper","kidnapping","kidney","kido","kidotai","kidou","kids","kidz","kieta","kiev","kigeki","kiiroi","kika","kikansha","kiken","kikenna","kiketsu","kiki","kiko","kikoeru","kilabot","kiladi","kildare","kili","kilimanjaro","kill","killa","killed","killer","killers","killing","killings","kills","kilo","kilometer","kilos","kilroy","kimagure","kimberly","kimchi","kimetsu","kimi","kimono","kimura","kina","kinare","kinbaku","kind","kinda","kindai","kindaichi","kindan","kinder","kinderen","kindergarten","kindheit","kindness","kindred","kinds","kinect","kinetic","kinfolk","king","kingdom","kingdoms","kingfisher","kingoro","kingpin","kings","kingston","kingu","kingudamu","kingyo","kingz","kinjirareta","kink","kinks","kinky","kinnikuman","kinno","kino","kinosbornik","kinpatsu","kinshasa","kinshi","kinta","kioku","kira","kirai","kirakira","kiralik","kiran","kirby","kirei","kiri","kirigakure","kirik","kiritan","kirk","kirmizi","kiro","kiroku","kirstie","kirti","kiru","kisah","kiseki","kisetsu","kisha","kishi","kishin","kishu","kisi","kismat","kismet","kiso","kiss","kissa","kissed","kisses","kissing","kisu","kita","kitan","kitaro","kitchen","kitchens","kite","kites","kiti","kitsch","kitsune","kitten","kittens","kitties","kitto","kitty","kiwami","kiwi","kiya","kizgin","kizi","kizil","kizim","kizin","kizlar","kizlari","kizoku","kizu","kizudarake","kizuna","kizzu","kjendis","kken","kkot","klaas","klan","klang","klar","klara","klas","klasa","klass","klasse","klassen","klassik","klassiker","klaus","klein","kleine","kleinen","kleiner","kleines","klima","klinik","klinika","klondike","klub","klyuch","knee","knees","knew","knievel","knife","kniga","knight","knightfall","knights","knives","knock","knocked","knocking","knockout","knocks","knot","knots","know","knowing","knowledge","knowles","known","knows","knox","knuckle","knuckles","knut","koala","koban","kobayashi","kobe","kobieta","kobiety","kobo","kobra","koca","koch","kochaj","kochen","kochi","kochira","kochiyama","kocht","kochu","kodai","kodalu","kode","kodi","kodo","kodokan","kodoku","kodomo","kodomotachi","koduku","koen","koete","koffer","kofuku","kofun","koga","kogda","kogen","kohan","kohen","kohinoor","koibito","koichiro","koina","koinonia","koishi","koishite","koisuru","koja","koji","kojin","kojiro","kojo","kokai","kokaku","kokan","koki","kokila","kokkino","koko","kokoro","kokosei","kokotsu","koku","kokuhaku","kokusai","kokyo","kokyu","kola","kolah","kole","koli","kolkata","koln","kolo","koma","komachi","komanda","kombat","kome","komedi","komedy","komete","komi","komm","kommen","kommer","kommissar","kommt","komnata","komon","komori","komoriuta","kompani","komt","komu","kona","konan","koncert","kondo","kone","konec","konets","kong","kongelige","kongen","kongo","kongu","koni","koniec","konig","konige","konigin","konigs","koning","konjiki","konkatsu","konna","konnen","kono","konrad","konsten","konta","kontakt","kontinent","kontra","kontrakt","kontrolle","kontsert","konya","konzen","konzert","koochak","kooche","koochooloo","kook","kool","kopf","kopfe","kopi","kora","korban","kore","korea","korean","korekushon","kori","koritsi","koritsia","korkusuz","korkut","korn","korner","koro","korol","koroleva","korona","koroshi","koroshiya","korosu","korper","kort","koru","kosam","kosaten","kose","kosher","koshi","koshien","koshin","koshinkyoku","koshinuke","kosho","koshoku","kosmo","kosmos","kosmou","koso","kosoku","kosovo","kost","kota","kotengu","kotetsu","kotha","koti","koto","kotoba","kotobuki","kotodama","kotonoha","kotoryy","kotta","kotu","kouhen","koukou","koukuu","kouta","kouti","kouzina","kovacs","kowa","kowai","koya","koyu","koyun","koza","kozo","kozure","kpop","krach","kraft","kraj","kraken","kral","krali","kram","kramer","krampus","kranti","krasavitsa","krasnaya","krasnye","krasnyy","krasoty","krass","krasue","krav","kray","krays","krayu","krazy","kreis","kremlin","krepost","kreuz","kreuzberg","krew","krieg","krieger","krieges","krig","krik","krimi","kriminal","kriminalfalle","kris","krise","krishna","krishnan","krishnudu","kristal","kristian","kristin","kristina","kriti","krol","kron","krone","kronika","kronos","krov","krovi","kroz","krug","kruger","krus","krylya","kshanam","ktory","kuai","kuan","kuang","kuba","kubi","kubrick","kubur","kuca","kuch","kuche","kuchh","kuchibiru","kuchibue","kuchizuke","kuchu","kuci","kucuk","kuda","kudasai","kudi","kudrat","kudumba","kudumbam","kuen","kuesuto","kugel","kuin","kuizu","kujaku","kujira","kuka","kuko","kula","kulang","kulay","kule","kull","kulla","kult","kultur","kulture","kulturen","kuma","kumander","kumar","kumara","kumari","kumbh","kume","kumkuma","kumo","kumoru","kumpel","kundalini","kundo","kung","kungen","kungfu","kuni","kuningas","kunio","kunisada","kunku","kunlun","kunoichi","kunsho","kunst","kunsten","kunstler","kuntilanak","kunwara","kunwari","kura","kurabe","kurabu","kurage","kural","kurama","kurashi","kurasshu","kurayami","kurban","kurbanlari","kurdistan","kure","kureji","kurenai","kureta","kureyon","kuri","kurippu","kurisumasu","kurisutaru","kuro","kuroda","kuroi","kurokami","kuroneko","kuronikuru","kurosu","kurozu","kurozukin","kurs","kursun","kurt","kurtlar","kuru","kurueru","kurui","kurukshetra","kuruma","kurumi","kurutta","kurz","kurze","kusa","kusari","kush","kushi","kuso","kusse","kusu","kusum","kutsu","kuttram","kutty","kutukan","kutumba","kutumbam","kuwait","kuya","kuzu","kuzure","kuzushi","kvinna","kvinnor","kwai","kwam","kwame","kwan","kwento","kwong","kyaputen","kyiv","kyla","kyle","kylie","kyodai","kyoen","kyofu","kyohaku","kyoiku","kyojin","kyojo","kyoju","kyokai","kyokaku","kyokasho","kyoko","kyoku","kyokugen","kyokyaku","kyon","kyonyu","kyoraku","kyoran","kyoren","kyoretsu","kyoryu","kyosei","kyoshi","kyoshiro","kyoshitsu","kyoso","kyoto","kyou","kyoufu","kypros","kyra","kyria","kyriaki","kyriakis","kyrie","kyujitsu","kyukyoku","kyun","kyushu","laban","label","laberinto","labi","labios","labirinto","labo","labor","laboratorio","laboratory","labour","labrador","labs","labyrint","labyrinth","lace","laced","lacey","lach","lachen","lachende","lacht","lack","lacrime","lacrosse","ladakh","ladder","ladders","laddu","laden","ladies","ladki","lado","ladra","ladrao","ladri","ladro","ladron","ladrones","lads","lady","ladybug","lafayette","laff","laga","lagan","lage","lager","lagi","lagim","lagna","lagnachi","lago","lagoon","lagos","lagrimas","lagu","laguna","lahat","lahi","lahn","lahore","laid","laika","lail","laila","lailat","lain","lair","laisse","laissez","lait","lakas","lake","laken","lakers","lakes","lakeside","lakh","lakhon","laki","lakota","lakshmi","lakshya","lala","lalake","lalaki","lale","laliga","lalla","lama","laman","lamang","lamar","lamb","lambert","lambs","lament","lamont","lamp","lampara","lampiao","lampoon","lana","lancaster","lance","lancer","land","landas","lande","landed","lander","landes","landet","landfall","landing","landline","landlord","lands","landscape","landscapes","landschaft","landslide","lane","lanes","lang","langa","lange","langer","langit","langs","language","langue","lanka","lansangan","lantern","lanterns","lany","laos","lapin","laps","lapse","lapset","lara","laramie","larceny","laredo","larga","large","larger","largest","largo","lari","larmes","larry","lars","larsen","larson","laser","lash","laska","lasky","lass","lasse","lassemajas","lassen","lassie","lasting","lata","late","lately","later","latest","latido","latidos","latigo","latin","latina","latinas","latino","latinoamerica","latinos","latitude","lato","latter","lauf","lauft","laugh","laughing","laughs","laughter","laul","laulu","laulukilpailu","launch","laundry","laura","laurel","lauren","laurence","laurent","laurie","laut","lava","lavender","lavina","lavoro","lawin","lawless","lawman","lawn","lawrence","laws","lawson","lawyer","lawyers","laxmi","layali","layers","layla","laylat","layover","lazar","lazaro","lazarus","lazer","lazio","lazy","lead","leader","leaders","leadership","leading","leads","leaf","league","leagues","leah","leak","lean","leap","lear","learn","learned","learning","learns","leary","lease","leash","least","leather","leave","leaves","leaving","lebanon","lebe","leben","lebende","lebens","lebron","lebt","lecciones","leche","lecker","lecon","lecture","lectures","lederhose","ledge","ledger","leech","leeds","leela","leeuw","left","leftover","leftovers","lefty","legacies","legacy","legado","legal","legally","leganes","legend","legenda","legendary","legende","legenden","legendes","legends","legendy","leger","legge","leggenda","legion","legions","legit","lego","legs","lehrer","leicester","leid","leiden","leidenschaft","leif","leigh","leila","leipzig","leisure","lejos","leken","lekha","lekker","lele","leme","lemmings","lemon","lemonade","lemons","lena","lend","lenda","lene","leng","length","lengua","leni","lenin","leningrad","lennon","lenny","lens","lente","leon","leona","leonard","leonardo","leone","leones","leoni","leonora","leopard","leopards","leopold","leprechaun","lepta","leroy","lesa","lesbian","lesbians","lescaut","leslie","less","lesser","lesson","lessons","lest","lester","leta","lethal","leto","letra","letras","lets","letter","lettera","lettere","letterman","letters","letting","letto","lettre","lettres","letzte","letzten","letzter","letztes","leung","leur","leurs","leute","leva","levande","levante","leve","level","leveling","levels","leven","lever","leverkusen","levi","leviathan","levine","levy","lewis","lexi","leyenda","leyendas","leyla","leyli","lezioni","lgbt","lgbtq","liaisons","liam","lian","liang","liao","liar","liars","libby","libera","liberacion","liberal","liberated","liberation","liberator","liberdade","liberi","liberia","libero","liberta","libertad","liberte","liberty","libra","library","libre","libres","libro","libros","libya","licence","license","licensed","liceu","licht","lick","lida","lide","lidia","lido","lieb","liebe","lieben","lieber","liebes","liebling","liebt","lied","lieder","liefde","liegt","lien","lies","lietuvos","lieu","lieutenant","lieux","lieve","life","lifeboat","lifeless","lifeline","lifers","lifestyle","lifestyles","lifetime","lift","lifted","lifting","liga","ligaw","ligaya","lige","light","lighter","lighthouse","lighting","lightness","lightnin","lightning","lights","ligne","lignes","ligue","lihim","lika","like","likely","likes","likit","likod","lila","lili","lilian","lilies","lilith","lilla","lille","lilli","lillian","lilly","lily","lima","limb","limbas","limbo","limbs","lime","limelight","liminal","limit","limite","limited","limites","limitless","limits","limo","limon","limpio","lina","lincoln","linda","linden","lindo","lindsay","lindsey","line","linea","lineage","lineas","liner","lines","lineup","ling","linger","lingerie","linggo","lingo","lingua","linha","linhas","lining","liniya","link","linked","links","linn","lino","linus","lion","lionel","lioness","lionheart","lions","lips","lipstick","liquid","liquor","lira","lire","lisa","lisboa","lisbon","lise","liss","list","lista","liste","listen","listener","listening","listers","listing","listy","lite","liten","literacy","literally","literary","literatura","literature","lithium","lithuania","litso","little","littlebigplanet","littles","littlest","live","lived","lively","liverpool","lives","livestream","livestreams","livet","livets","livin","living","livingston","livre","livres","livro","livros","livs","liwanag","liya","liye","liza","lizard","lizards","lizzie","lizzy","ljubav","ljubavi","ljudi","llama","llamada","llamado","llaman","llamas","llamo","llanto","llega","llego","llena","lleva","llevo","lliure","lloran","llorona","lloyd","lluvia","load","loaded","loading","loafer","loan","loathing","loba","lobby","lobo","lobos","lobster","loca","local","locals","locas","location","loch","lock","lockdown","locke","locked","locker","locket","lockup","loco","locos","locura","locuras","lode","lodge","lodo","lodz","loft","logan","logic","login","logo","logos","logs","loin","lois","loitering","loja","lokalzeit","lokam","loki","lola","lolita","lollapalooza","lollipop","lolo","loma","london","londra","londres","lone","loneliest","loneliness","lonely","loner","lonesome","long","longe","longer","longest","longevity","longing","longo","longue","lontano","look","lookin","looking","lookout","looks","loon","looney","loop","loops","loose","loot","lopes","lopez","lora","lorca","lord","lords","lore","lorelei","loren","lorenzo","loretta","lori","lorna","loro","lorraine","lorry","lose","loser","losers","losing","loss","lost","loteria","loto","lots","lotta","lotte","lottery","lotto","lotus","louca","louco","loud","louder","louie","louis","louisa","louise","louisiana","louisville","loulou","lounge","loup","loups","lourdes","louvre","love","lovecraft","loved","loveless","lovely","lover","lovers","loves","lovesick","lovin","loving","lowdown","lowe","lowell","lower","loyal","loyalty","lozh","luan","luang","luar","luca","lucas","luccas","luce","luces","lucha","lucho","luchshe","luchshiy","luci","lucia","luciana","luciano","lucid","lucie","lucien","lucifer","lucinda","lucio","luck","luckiest","lucky","lucrezia","lucy","ludi","ludo","ludwig","ludzie","luen","luft","lugar","lugares","luge","lugen","luggage","lugosi","luha","luigi","luis","luisa","luise","luiz","luka","lukas","luke","lula","lullabies","lullaby","lulu","lumaban","lumberjack","lume","lumea","lumi","lumiere","lumieres","luminous","lumley","luna","lunacy","lunar","lunas","lunatic","lunatics","lunch","lunchbox","lunchtime","lund","lundi","lune","lunes","lung","lunga","lungo","luny","lupa","lupang","lupe","lupi","lupin","lupo","lupus","lure","lured","lurking","lurks","lush","lust","lustful","lustig","lustige","lustigen","luta","lutera","luther","luto","lutte","lutz","luxe","luxor","luxurious","luxury","luzes","lycan","lycee","lydia","lyfe","lying","lykke","lyle","lynch","lynda","lynn","lynne","lynx","lyon","lyons","lyric","lyrical","lyrics","lyubimaya","lyubit","lyublyu","lyubov","lyubovyu","lyubvi","lyudey","lyudi","mabel","maboroshi","mabuse","macabra","macabre","macao","macario","macau","macbeth","macchina","macdonald","mace","macera","mach","macha","machado","machan","machen","machete","machi","machina","machine","machines","machinima","macho","machos","macht","macintyre","maciste","mack","mackenzie","macon","macro","macross","macy","mada","madagascar","madam","madama","madame","madan","madana","madar","madara","madari","madcap","madchen","maddalena","madden","maddie","maddy","made","madea","madeira","madel","madeleine","madeline","mademoiselle","madera","madhavan","madhouse","madhu","madhur","madhura","madhuram","madhuri","madi","madigan","madina","madison","madly","madman","madmen","madness","mado","madoka","madonna","madras","madre","madres","madrid","madrugada","mads","madsen","madu","madurai","maduve","maelstrom","maen","maes","maestra","maestro","maestros","maffia","mafia","maga","magal","magalu","magan","magar","magasin","magasinet","magazin","magazine","magda","magdalena","magdalene","magdamag","mage","magellan","magenta","maggie","maggio","maggiore","magi","magia","magic","magica","magical","magicas","magician","magicians","magick","magico","magicos","magie","magika","maging","magique","magische","magiske","magna","magnet","magnetic","magnificent","magnifici","magnifico","magnifique","magnolia","magnum","magnus","mago","magokoro","magpie","magt","magus","magyar","magyarok","magyarorszag","maha","mahabali","mahabharat","mahabharata","mahadev","mahal","mahalakshmi","mahalin","mahalle","mahan","maharadscha","maharaj","maharaja","maharani","maharashtra","mahasati","mahatma","mahatme","mahatyam","mahaveer","maher","mahesh","mahi","mahima","mahirap","mahiru","mahiwagang","mahjong","mahler","maho","mahogany","mahotsukai","mahou","mahoutsukai","mahtab","maia","maid","maidan","maiden","maidens","maids","maigret","maiko","mail","mailman","maimai","main","maina","maine","mainichi","mainit","mains","mainstream","maintenance","maintenant","maio","maior","maire","mais","maisie","maison","maitre","maitres","maitresse","maiya","maiz","maja","majan","majboor","majestat","majestic","majesty","majha","majhe","majhi","maji","majikaru","majikku","majimak","majin","majnu","majo","major","majority","maju","majutsu","majutsushi","maka","makai","makan","makari","makasalanan","make","maken","makeover","maker","makers","makes","makeup","maki","makin","making","makkal","makkalu","mako","makoto","maku","makura","makyo","mala","malabar","malachi","maladie","maladies","malaga","malai","malaika","malaikat","malak","malam","malar","malas","malay","malaya","malaysia","malchik","malchiki","malcolm","maldicion","maldita","maldito","malditos","male","maledetta","maledetto","malediction","malek","malenkiy","maler","males","malevolence","malevolent","malgre","malheurs","mali","malibu","malice","malicious","malik","malika","malin","mall","malla","malley","malli","mallika","mallorca","mallory","malmo","malo","malone","malos","malou","malta","maltese","malu","malvinas","maly","mama","maman","mamas","mamata","mamba","mambo","mame","mami","mamla","mamma","mammoth","mamnoo","mamoru","mamta","mamu","mamy","mana","management","manager","managing","manaivi","manam","manana","mananas","manara","manas","manasa","manasu","manasulu","manatsu","mancha","manche","manchester","manchi","manchu","mancini","mand","manda","mandala","mandamiento","mandara","mandarin","mandate","mandela","manden","mandi","mandir","mando","mandrake","mandy","mane","maneater","manege","manera","mang","manga","mangal","mangala","mangalsutra","mangalya","mangalyam","mange","manger","mangetsu","mango","mangu","manha","manhas","manhattan","manhood","manhunt","mani","mania","maniac","maniacs","manic","maniere","manifest","manifesto","manik","manila","manipulation","manis","manishi","manithan","manitoba","manja","manjari","manji","manju","mankai","mankind","mann","manna","mannan","mannen","mannequin","manner","manners","manning","manniskor","manny","mano","manolo","manon","manor","manos","mans","mansa","mansfield","mansion","mansions","manson","manta","mantan","mantar","manthan","mantis","manto","mantra","manu","manual","manuel","manuela","manufacturing","manus","manush","manushulu","many","manyu","manyuki","manzai","manzil","maori","maos","maou","mapa","maple","mappillai","mapping","maps","maquina","mara","maradona","maranam","maratha","marathi","marathon","maraton","marauders","maravilhas","maravilla","maravillas","maravilloso","marbella","marble","marbles","marc","marca","marcada","marcado","marcel","marcello","marcelo","march","marcha","marchand","marche","marchen","marches","marching","marcia","marciano","marco","marcos","marcus","mard","mardan","marde","mardi","mare","marea","mares","marfa","marg","margaret","margarita","marge","margem","margherita","margie","margin","marginal","margo","margot","marguerite","mari","maria","mariachi","mariage","mariah","mariam","marian","mariana","marianne","mariano","marias","marido","maridos","marie","mariee","marigold","marii","marija","marijuana","marika","mariko","marilyn","marin","marina","marine","mariner","marines","marino","marins","mario","marion","marionette","mariposa","mariposas","maris","marisa","marisol","marital","mariti","maritime","marito","marius","mariya","marja","marjorie","mark","markandeya","marked","marker","market","marketing","marketplace","markets","marko","marks","markt","markus","marlene","marley","marlin","marlon","marlow","marlowe","marmalade","marn","maro","maroc","marooned","marple","marque","marques","marquez","marquis","marquise","marquises","marr","marrakech","marriage","marriages","married","marry","marrying","mars","marseille","marsh","marsha","marshal","marshall","marshals","marshmallow","mart","marta","marte","martes","martha","marti","martial","martian","martians","martin","martina","martinez","martini","martino","martins","martir","martirio","marty","martyr","martyrs","maru","marubashi","marudashi","maruhi","maruko","marvel","marvellous","marvelous","marvels","marven","marvin","marx","mary","maryada","maryam","maryland","marz","marzi","masa","masacre","masal","masala","masali","masamune","masarap","mascara","mascaras","maschera","maschere","mascot","mascotte","masculinity","mash","masha","mashin","masho","mashup","masih","mask","maska","maske","masked","maskeli","masken","masks","mason","masoom","masque","masquerade","masques","masr","mass","massa","massacre","massacro","massage","masses","massey","massimo","massive","mast","mastan","mastana","maste","master","masterchef","masterclass","mastering","mastermind","masterminds","masterpiece","masterpieces","masters","masti","masuta","masutazu","mata","matabei","matador","mataemon","matan","matar","mataram","mataras","matatabi","match","matchday","matched","matches","matching","matchmaker","matchmaking","mate","mated","maten","matenro","mateo","mater","materi","materia","material","materials","maternal","maternity","mates","math","mathias","mathieu","mathilde","mathis","mathram","maths","mathu","mati","matia","matias","matilda","matilde","matin","matinee","mating","matir","matka","matkalla","matki","mato","matoi","maton","matos","matou","matriarch","matrimonial","matrimonio","matrimonios","matrimony","matrix","mats","matsu","matsudaira","matsumoto","matsuri","matt","matta","matte","matteo","matter","matterhorn","matters","matthew","matthews","matthias","matti","mattino","matto","mattress","matty","mature","maud","maude","maudit","maudite","maudits","mauer","maui","maul","maurice","mauritius","maurizio","mauro","maus","mausam","mausoleum","maut","mauvais","mauvaise","maverick","mavericks","mavi","mavis","mavro","maxi","maxim","maxima","maxime","maximo","maximum","maximus","maxwell","maxx","maya","mayan","maybe","mayday","mayer","mayfair","mayflower","mayhem","maynard","maynila","mayo","mayonaka","mayor","mayores","mayweather","maza","maze","mazha","mazhai","mazi","mazo","mccann","mccarthy","mccartney","mccoy","mcdonald","mcgee","mcgraw","mcgregor","mcguire","mckay","mckenna","mckenzie","mclaren","mcqueen","meadow","meadows","meal","meals","mean","meaning","means","meant","meanwhile","mears","measure","measures","meat","meatballs","meathook","mecanica","mecanique","mecca","mech","mecha","mechanic","mechanical","mechanics","mechant","mechty","mechwarrior","medal","medallion","medan","medea","medecin","medecins","medellin","media","medianoche","medias","medic","medical","medici","medicina","medicine","medico","medicos","medics","medida","medieval","medina","medio","mediodia","meditation","meditations","mediterranean","mediterranee","mediterraneo","medium","medizin","medley","medo","medusa","medved","meek","meen","meena","meenakshi","meendum","meer","meera","mees","meester","meet","meetha","meethi","meeting","meetings","meets","mega","megali","megalo","megalos","megami","megan","megane","megh","megha","meghan","meglio","megumi","meguri","meguru","mehbooba","mehdi","mehman","mehmet","mehndi","mehr","mehta","mehyo","meia","meidan","meiden","meido","meie","meier","meiji","meiki","meikyu","meikyuu","meilleur","meilleure","mein","meine","meinem","meinen","meiner","meines","meio","meisaku","meisje","meisjes","meister","meitantei","meito","mejor","mejores","meju","meka","mekake","mekong","mekura","mela","melancholy","melanie","melati","melbourne","mele","melee","melek","melhor","melhores","meli","melies","melina","melinda","melissa","mellem","mello","melo","melodi","melodia","melodias","melodie","melodien","melodies","melodrama","melody","melon","melrose","melt","meltdown","melting","melvin","member","members","meme","memento","memes","memo","memoir","memoire","memoiren","memoires","memoirs","memorable","memorandum","memoria","memorial","memoriam","memorias","memorie","memories","memorizu","memory","memphis","memsaab","mena","menace","menage","menagerie","menaka","mencari","mend","mendes","mendez","mendieta","mending","mendoza","mene","meneer","menendez","meng","mengele","menina","meninas","menino","meninos","menn","menneske","mennesker","mennesket","meno","menopause","menor","menos","mens","mensaje","mensch","menschen","menschheit","mensen","mensonge","mensonges","ment","mental","mentale","mentality","mentally","mente","mentes","mentira","mentiras","mentor","mentors","menu","menudo","menya","meoto","meow","mephisto","mera","merah","meraviglie","meravigliosa","meray","merc","mercado","mercedes","mercenaries","mercenary","merchant","merchants","merci","mercury","mercy","mere","meredith","merely","meren","merengue","meres","merge","merhaba","meri","meridian","meridiano","merit","merkel","merle","merlin","mermaid","mermaids","merman","mero","merrick","merry","mers","merton","merveilles","merveilleuse","merveilleux","meryem","mesa","mese","mesek","meses","mesh","meshi","mesimeri","mesl","mesmo","mesopotamia","mess","message","messages","messed","messenger","messengers","messer","messi","messiah","messieurs","messy","mest","mesta","meste","mestiere","mesto","mestre","mesu","mesuneko","mesyats","meta","metal","metallica","metamorfosi","metamorphoses","metamorphosis","metaphysical","metaru","metaverse","meteor","meter","meters","meth","method","methode","methods","metier","metiers","metodo","metres","metro","metroid","metropole","metropolis","metropolitan","metros","mets","metti","meurs","meurt","meurtre","meus","mexicali","mexican","mexicana","mexicano","mexicanos","mexico","mexiko","meye","meyer","meyers","mezame","mezhdu","mezi","mezzanotte","mezzo","mezzogiorno","mhanje","miami","mian","miao","mias","miasto","mibojin","mica","micah","micallef","mice","mich","micha","michael","michaels","michal","michel","michelangelo","michele","michelle","michi","michigan","michoacan","mick","mickey","micky","micro","microsoft","microwave","midara","midarana","midare","midareru","midas","middag","midday","middle","middleman","middlesbrough","middleton","miden","midi","midlands","midlife","midnight","midnite","midori","midst","midsummer","midt","midtown","midway","midwest","midwife","midwives","miedo","miedzy","miehen","miei","miel","miele","mientras","mierda","mies","mieux","might","mighty","migliore","mignon","migraine","migrant","migrants","migration","migrations","miguel","mijn","mika","mikado","mikazuki","mike","mikeshowsha","mikey","mikhail","miki","miko","mikres","mikri","mikro","miku","mila","milagre","milagres","milagro","milagros","milan","milano","mild","mildred","mile","milenio","miles","milestones","miley","milf","milhoes","mili","milieu","milion","milionario","milione","milioni","militar","military","militia","milk","milkman","milkshake","milky","mill","millan","mille","millenium","millennial","millennials","millennium","miller","milli","millie","milligan","million","millionaire","millionaires","millionar","millionen","millioner","millions","millon","millonario","millones","mills","milly","milo","milon","milosc","milosci","milton","milwaukee","milyoner","mime","mimi","mimic","mimo","mimpi","mina","minami","minas","minato","mind","mindanao","minded","minden","minder","mindful","mindfulness","minds","mindset","mindy","mine","minecraft","miner","miners","minerva","mines","mineurs","minh","minha","mini","miniature","minimum","mining","minions","minis","miniseries","minisodes","minister","ministers","ministries","ministro","ministry","mink","minky","minna","minnesota","minnie","minor","minority","minors","minotaur","minsan","minstrel","mint","minu","minuit","minus","minut","minuta","minute","minuten","minutes","minuti","minuto","minutos","minutt","minutter","minyeo","mira","miracle","miracles","miracolo","miraculous","mirada","miradas","mirador","mirage","mirai","mirakuru","miranda","mirando","mirar","miras","mirchi","mire","miri","miriam","miro","miroir","mirror","mirrors","miru","mirza","misa","misadventures","misafir","misaki","misao","mischief","mise","miserable","miserables","miseria","misery","miseuteo","misfit","misfits","misfortune","misguided","mish","misha","mishavad","mishi","mishima","mishmash","mishra","misi","misin","mision","misis","misma","mismatch","mismo","misoji","misplaced","miss","missa","missao","missed","misses","misshitsu","missie","missile","missing","mission","missionary","missione","missions","mississippi","missiya","missouri","missy","mist","mista","mistake","mistaken","mistakes","mister","misteri","misterio","misterios","misteriosa","misterioso","mistero","mistico","mistletoe","misto","mistress","mistresses","mists","misty","misunderstood","misuteri","mita","mitad","mitch","mitchell","mito","mitos","mitra","mitsu","mitsuryo","mitt","mitte","mittelalter","mittelmeer","mitten","mittendrin","mitternacht","mitti","mittsu","mitzvah","miwodo","mixed","mixer","mixtape","miya","miyako","miyamoto","miyo","miyuki","mizu","mizuumi","mladi","mmen","mnie","mnoy","moana","mobile","mobius","mobster","mobsters","moby","moca","mocambique","mochi","mochila","mock","mockingbird","mockumentary","moda","modae","modaeru","mode","model","modeling","modell","modelo","modelos","models","modern","moderna","moderne","modernism","moderno","modernos","modi","modified","modo","mods","modus","moeder","moego","moero","moeru","moet","moey","mofuku","mofukuzuma","moglie","mogu","mogudu","mogul","moguls","mohabbat","mohamed","mohammad","mohammed","mohan","mohanlal","mohawk","mohicans","mohini","moins","moira","mois","moises","moitie","moja","mojado","mojave","moje","moji","mojo","moka","moko","moksha","mokushiroku","mold","mole","moliere","molina","molly","molodost","molto","moment","momento","momentos","moments","momentum","momi","momias","momma","mommy","momo","momoiro","momojiri","momotaro","moms","mona","monaca","monaco","monagadu","monalisa","monarch","monarchs","monarchy","monastery","monchengladbach","mond","mondai","monday","mondays","monde","mondes","mondi","mondial","mondiale","mondo","mone","moneda","moner","monet","money","mong","mongol","mongolia","mongolian","mongoose","moni","monica","monika","moningu","monique","monitor","monja","monk","monkey","monkeys","monks","mono","monochrome","monogamy","monogatari","monolith","monologue","monologues","mononoke","monopatia","monopoly","monos","monroe","monsho","monsieur","monsoon","monster","monsters","monstre","monstro","monstrosity","monstrous","monstruo","monstruos","monsuta","monsutazu","mont","montage","montagna","montagne","montagnes","montana","montanas","montanha","montauk","monte","montecristo","montenegro","monterey","montero","monterrey","montes","montevideo","montezuma","montgomery","month","monthly","months","montmartre","montparnasse","montreal","montreux","montserrat","monty","monument","monumental","monuments","monza","monzetsu","mood","moods","moodu","moody","mooi","moon","moondru","mooney","moonlight","moons","moonshine","moonstone","moor","moord","moore","moors","moose","moot","mora","moraimasu","moral","morales","morals","moran","morbid","mord","morde","morden","morder","mordkommission","more","moreau","morena","moreno","moretsu","moretti","morgan","morgana","morgen","morgue","mori","moria","morin","morir","morire","moritz","mormon","mormons","morning","mornings","morningstar","moro","moroccan","morocco","moron","moroz","morph","morphin","morrer","morris","morrison","morro","morrow","mors","morse","morsian","morskie","morskoy","mort","morta","mortal","mortale","mortals","morte","mortel","mortem","morten","mortes","mortgage","morti","mortician","mortimer","mortis","morto","morton","mortos","morts","mortuary","morty","morya","mosafer","mosaic","mosca","moschettieri","moscow","moses","moshe","moshi","moshimo","moskva","mosley","moso","mosquito","moss","most","mostly","mostra","mostri","mostro","mota","mote","motel","moter","moteru","moth","mother","motherhood","motherland","mothers","mothership","mothman","moths","moti","motion","motivation","motive","motives","moto","motocross","motogp","motomete","motor","motorcycle","motorcycles","motorhead","motors","motorsport","motorway","motown","mots","motto","motu","moulin","mouna","mounam","mound","mount","mountain","mountains","mountaintop","mounted","mourir","mourning","mouse","mousikes","mousiki","mousquetaires","moussa","mouth","mouton","mouvement","move","moved","movement","movements","movers","moves","movida","movie","movies","movimento","movimiento","moving","mowgli","moxie","moya","moyers","moyo","moyu","moyuru","mozart","moze","mrbeast","msnbc","muay","mubarak","mubi","much","mucha","muchacha","muchachas","muchacho","muchachos","muchi","mucho","mucize","muck","muda","mudan","mudar","muddu","muddula","muddy","mudhal","muere","mueren","muero","muerta","muertas","muerte","muertes","muerto","muertos","mueve","muffin","mugam","mugen","mugguru","muhabbat","muhammad","muhle","muhtesem","muir","muito","mujer","mujeres","mujhe","mujo","mujrim","mukashi","mukha","mukhtara","muko","mukou","mukti","mula","mulan","mulberry","mule","mules","mulgi","mulher","mulheres","muli","mulino","muller","mullet","mulligan","mult","multi","multiplayer","multiple","multiverse","multo","mumbai","mummies","mummy","mums","muna","munch","munchen","munchies","munchner","mund","munda","munde","mundi","mundial","mundo","mundos","mune","muneca","munecas","munecos","mung","muni","munich","munk","munna","munoz","munting","muoi","muon","muore","muppet","muppets","muqaddar","mura","murai","murakami","mural","murali","murals","murari","murasaki","murasame","murat","murcia","murdaugh","murder","murdered","murderer","murderers","murderous","murders","murdoch","mure","muri","muriel","murio","murmur","muro","muros","murphy","murray","murs","musa","musafir","musashi","muscle","muscles","muse","musee","musekinin","museo","muses","museu","museum","museums","mushi","mushroom","mushrooms","mushuku","musi","music","musica","musical","musicals","musician","musicians","musicien","musik","musim","musings","musique","musk","musketeer","musketeers","muslim","muslims","muso","musou","muss","mussen","mussolini","must","musta","mustafa","mustang","mustard","musu","musuko","musume","muta","mutant","mutants","mutation","mute","muteki","mutha","muthal","muthu","mutiny","mutlu","mutt","mutter","mutual","muyo","muze","muzh","muzhchin","muzhchina","muzhchiny","muzi","muzik","muzika","muzyka","myach","myanmar","mycket","myeong","myeongdong","myers","mykonos","myles","myra","myself","mysore","myst","mystere","mysteres","mysteries","mysteriet","mysterieuse","mysterious","mysterium","mystery","mystic","mystical","mystics","mystika","mystiko","mystique","myth","mythe","mythic","mythical","mythology","mythos","myths","myujikku","nabat","nabi","naburi","nace","nacer","nach","nachalo","nachbarn","nacho","nachrichten","nachste","nacht","nachte","nachts","nacido","nacimiento","nacion","nacional","nackt","nackte","nada","nadaan","nadan","nade","nader","nadezhda","nadezhdy","nadi","nadia","nadie","nadine","nadir","nadiya","nado","nadodi","nadu","naega","nafar","nafas","nafrat","naga","nagadosu","nagai","nagar","nagaram","nagare","nagareboshi","nagaremono","nagasaki","nagashi","nagaya","nagbabagang","nageki","nageune","nagi","nagin","nagisa","nagoya","nagri","nagurikomi","nagy","nahi","nahin","naija","naik","nail","nailed","nails","nain","naina","nairobi","naissance","naito","naitomea","naitsu","naka","nakama","nakano","nakayama","naked","naki","nakon","naku","nala","nalla","nallavan","nalle","nallen","nama","namadori","namae","namak","naman","namaste","namco","name","named","nameless","namen","namens","names","nami","namibia","namida","namja","namma","namo","namus","nana","nanafushigi","nanairo","nanak","nanatsu","nanay","nanban","nancy","nanda","nandi","nandini","nane","nanette","naneun","nang","nangoku","nani","naniwa","nanjing","nankai","nanna","nanny","nano","nante","nantes","nantucket","nanu","naomi","napa","naples","napoleon","napoletano","napoli","nara","naranja","narasimha","narayan","narayana","narc","narciso","narcissist","narcissus","narco","narcos","nare","nareul","narges","nari","naritai","narod","naroda","narodni","narr","narrative","narratives","narrow","naru","naruto","nasa","nasaan","nasanu","nascar","nasce","nase","naseeb","nash","nasha","nashego","nashi","nashville","nasi","nasib","nasil","nasledniki","nasreddin","nasser","nasty","nastya","nasu","nata","natacha","natal","natale","natalia","natalie","natasha","natchathiram","nate","nath","nathalie","nathan","nathaniel","nathi","nati","nation","national","nationale","nations","native","natives","nativity","nato","natsionalnoy","natsu","natsukashi","natsuyasumi","natt","natta","natten","nattens","natun","natur","natura","natural","naturaleza","naturally","nature","naturen","natureza","naufrage","naufrages","naufraghi","naufragio","naughty","naui","nauka","naukar","nava","navajo","naval","nave","navi","navidad","navigating","navigator","navra","navrat","navsegda","navy","nawa","nawab","naya","nayak","nayami","nayi","nayika","nazar","nazareth","naze","nazi","nazis","naznacheniya","nazo","neal","neanderthal","near","nearly","neat","neba","nebbia","nebe","nebel","nebo","nebraska","nebula","necesito","necessary","neck","necklace","necro","necromancer","necronomicon","necropolis","nederland","nederlandse","need","needed","needle","needles","needs","neeku","neel","neela","neeli","neem","neer","neesan","neethi","neeyum","nefarious","nefertiti","nefes","negah","negai","negative","negeri","negima","neglected","negli","negocio","negocios","negra","negras","negre","negro","negroes","negros","neiata","neige","neiges","neighbor","neighborhood","neighbors","neighbour","neighbourhood","neighbours","neil","neill","nein","neither","nekketsu","neko","nelja","nelkul","nell","nella","nelle","nellie","nello","nelly","nelson","nelzya","nema","nemesis","nemico","nemo","nemureru","nemuri","nemuru","nena","nene","neneng","neng","neni","nenu","neoi","neon","nepal","neper","nephilim","neptune","neptunia","nera","nerae","neraka","neram","nerawareta","nerd","nerds","nerdy","nere","nerf","neri","nero","nerve","ness","nessa","nessuna","nessuno","nest","neste","nestor","neta","netflix","netherlands","neto","nets","netto","network","networks","netz","neue","neuen","neues","neuf","neun","neung","neuro","neurons","neutral","neutron","nevada","neve","never","neverending","neverland","nevermore","nevesta","neville","newark","newcastle","newcomers","newfoundland","newlywed","newlyweds","newman","newport","news","newshour","newsnation","newspaper","newsreel","newsroom","newton","next","nexus","nezha","nezumi","ngai","ngalan","ngan","ngao","ngay","ngayon","ngoc","ngoh","ngoi","nguoi","nguyen","nhan","nhung","niagara","nian","niang","niao","nibelungen","nicaragua","nice","nich","nichego","nichi","nichijo","nichijou","nichiren","nichirin","nichiyobi","nicholas","nichols","nicht","nichts","nick","nickel","nickelodeon","nicki","nicktoons","nicky","nico","nicola","nicolas","nicole","nicotine","nido","niebla","niels","nielsen","niemals","niemand","niente","niet","nieto","nietzsche","nieuw","nieuwe","nieuws","nieve","nieves","nigel","nigella","niger","nigeria","nigerian","nigger","night","nightcap","nightclub","nightfall","nighthawks","nightingale","nightlife","nightline","nightly","nightmare","nightmares","nights","nightshade","nightwatch","nightwing","nihen","nihon","nihonjin","niizuma","nije","niji","nijiiro","niju","nika","nikah","nike","niki","nikita","nikki","niko","nikogda","nikola","nikolai","nikos","niks","nikto","niku","nikudan","nikutai","nikuyoku","nila","nilam","nilavu","nilayam","nile","nils","nina","ninas","nindu","nine","nineteen","nineties","ninety","ning","ningen","ninguem","ninguna","ningyo","nini","ninja","ninjago","ninjas","ninjo","ninjutsu","ninki","ninkyo","ninna","ninne","ninnu","nino","ninos","ninpo","ninshin","nintendo","ninth","nioi","nippon","nirahua","niram","nirmala","nirvana","nisa","nise","nisei","nisha","nishan","nishi","nisi","nisse","nisshi","nist","nistam","nite","nitohei","nitoryu","nitro","nivel","niwa","nixon","niye","nizhal","njan","njanum","njpw","nland","nner","noah","noam","noapte","nobel","nobita","noble","nobleza","nobodies","nobody","noboru","nobunaga","noce","noces","noch","noche","noches","nochi","nochnoy","noci","nocni","nocturna","nocturnal","nocturne","nocturnes","nocturno","noddy","node","noel","nofilter","noggin","nogi","nogitsune","nogizaka","noir","noire","noires","noirs","noise","noite","noites","noiva","nola","nolan","nollywood","nomad","nomade","nomades","nomads","nombre","nombres","nome","nomer","nomi","nominated","noms","nona","none","nong","nonna","nono","nonsense","nonstop","noob","noodle","noodles","nooit","noon","noor","noord","noose","nopan","nora","nord","norden","nordens","nordic","norfolk","norge","norges","nori","norm","norma","normal","normale","norman","normandie","normandy","normies","noroi","norris","norsk","norske","norte","north","northeast","northern","northside","northwest","norton","norway","norwegian","norwich","nosatsu","nose","nosferatu","nosotras","nosotros","nossa","nossas","nosso","nossos","nostalgia","nostra","nostradamus","nostre","nostri","nostro","nostrum","nota","notas","note","notebook","noten","notes","nothin","nothing","notice","noticia","noticias","noticiero","noto","notorious","notre","notte","notti","nottingham","notts","nour","nous","nouveau","nouveaux","nouvel","nouvelle","nouvelles","nova","novak","novas","novaya","nove","novel","novela","novelist","november","novembre","novi","novia","novias","novice","novio","novios","novo","novogodniy","novy","novye","novyy","nowe","nowhere","nowy","nozoite","nozokareta","nozoki","nozoku","nozze","nuages","nuan","nube","nubes","nuclear","nuda","nude","nudes","nudist","nudity","nudo","nuefliks","nuestra","nuestras","nuestro","nuestros","nueva","nuevas","nueve","nuevo","nuevos","nugget","nuggets","nuit","nuits","nuke","nukem","nuki","null","nulla","nulle","numa","numb","number","numbered","numbers","numero","nummer","nunca","nuns","nuova","nuove","nuovi","nuovo","nurashite","nurasu","nure","nuremberg","nuren","nureru","nureta","nurete","nuri","nurnberg","nurse","nursery","nurses","nursing","nusumareta","nutcracker","nutrition","nuts","nutshell","nutty","nuvole","nuvve","nuvvu","nyan","nyeo","nyeon","nyhta","nyhtas","nyhtes","nymph","nympho","nyobo","nyomaban","nyonin","nyotai","nytt","nyumon","nyusu","oabare","oakland","oakley","oakleyski","oaks","oasis","oatari","oath","oats","oaxaca","obake","obaketachi","obama","obasan","obby","obelix","oben","ober","oberst","obesity","obey","object","objectif","objective","objects","objetivo","objetos","objets","oblivion","obra","obras","obratnaya","obscur","obscura","obscure","obscurity","observation","observer","obsesion","obsessed","obsession","obsessions","obsessive","obsidian","obvious","ocaso","occasional","occhi","occhio","occident","occult","occupation","occupied","occupy","ocean","oceania","oceano","oceans","ochen","ochi","ochita","ocho","octane","octavio","october","octobre","octonauts","octopus","octubre","oculta","oculto","oddities","oddity","oddly","odds","oden","oder","odessa","odia","odin","odio","odisea","odissea","odna","odnazhdy","odno","odnogo","odnom","odnoy","odore","odori","odoriko","odoru","odos","odyssee","odysseus","odyssey","oedipus","oedo","oeil","oeste","oeuvre","offbeat","offender","offenders","offensive","offer","offering","office","officer","official","offline","offroad","offs","offshore","offside","offspring","offstage","oficina","oficio","oficios","ofrenda","ogasawara","ogen","oggi","oglu","oglum","ogni","ogon","ogre","ogretmen","ohio","ohne","oikogeneia","oiroke","oiseau","oiseaux","oishi","oishii","ojisama","ojisan","ojos","ojosan","okaasan","okaeri","okami","okane","okasantoissho","okasareta","okashi","okashite","okasu","okavango","okay","okean","okey","okhota","okinawa","okite","okkar","oklahoma","okna","okoku","oktober","oktoberfest","okubo","okumade","okurimono","okusama","okusan","olacak","olaf","olas","older","oldest","oldu","olduren","olen","olga","olha","olhar","olho","olhos","olimpia","olive","oliveira","oliver","olivia","olivier","olla","olle","ollie","olly","olmaz","olmek","oloi","olor","olsen","olsenbanden","olson","olsun","oltre","olum","olume","olur","olvidada","olvidados","olvido","olympia","olympiad","olympian","olympians","olympic","olympics","olympus","omae","omaha","oman","omar","ombra","ombre","ombres","omega","omen","omer","omerta","omicidio","omid","ominous","omission","omni","omnia","omnibus","omocha","omoi","omoide","omokage","omote","omul","onanie","onanii","once","oncle","onda","ondas","onde","onder","ondes","ondo","ondu","oneesan","onegai","onegin","oneira","oneiro","oneness","ones","ongaku","onihei","onimusha","onion","oniroku","onkel","online","only","onmitsu","onmyoji","onna","onnanoko","onnatachi","onnu","onore","onrain","onsen","onshu","onslaught","ontario","onyx","onze","ooka","ookami","ooku","oops","oori","oorlog","ooru","open","opened","opening","oper","opera","operacao","operacija","operacion","operasjon","operation","operations","operative","operator","operatsiya","operazione","opfer","ophelia","opinion","opinions","opioid","opium","oportunidad","oppa","oppai","oppenheimer","opportunity","opposite","opposites","opposition","oprah","opry","optimist","option","options","opus","oracle","oracles","orage","orai","oral","orang","orange","oranges","oranje","oras","orbit","orbita","orbital","orca","orchard","orchestra","orchestre","orchid","orchids","orcs","ordeal","orden","order","orders","ordinaire","ordinary","ordnung","ordre","oregon","oreilles","orenji","ores","oretachi","organ","organic","organization","organized","orgasm","orgia","orgulho","orgullo","orgy","orient","oriental","oriente","origami","origem","origen","origenes","origin","original","originals","origine","origines","origini","origins","orilla","orillas","orion","orizuru","orla","orlando","orleans","orman","ornament","orochi","oroshi","orphan","orphanage","orphans","orpheus","orquesta","orso","orson","orte","ortega","orthodox","ortiz","oruvan","orville","orwell","osaka","osama","osanazuma","osbourne","oscar","oscars","oscura","oscuridad","oscuro","osen","oshaberi","oshaburi","oshare","oshi","oshibka","oshichi","oshidori","oshiete","oshiri","osho","osiris","oskar","oslo","osman","osmanli","osomatsu","osomatsusan","osou","ospite","ossan","ostatni","ostatnia","osten","osterreich","osterreichs","ostorozhno","ostrov","ostrova","ostsee","oswald","otaku","otan","otdel","otel","otello","otesi","otets","othello","other","others","otherworldly","otis","otogi","otoko","otokotachi","otome","otona","otono","otosan","ototo","otpusk","otra","otras","otro","otros","otryad","ottawa","otter","otthon","otto","ouaga","oubli","oublie","oubliee","oubliees","oublies","ouest","ougon","ouija","ouji","oukoku","ouro","ouroboros","ourselves","outback","outbreak","outcast","outcasts","outdoor","outdoors","outer","outing","outlander","outlast","outlaw","outlaws","outlook","outono","outpost","outra","outrage","outrageous","outras","outre","outreach","outro","outros","outrun","outs","outside","outsider","outsiders","outspoken","outta","outtakes","ouvert","ouverte","oval","oven","over","overboard","overcome","overcoming","overdose","overdrive","overdue","overkill","overland","overload","overlord","overnight","override","overseas","overtime","overture","overwatch","ovest","ovni","owarai","owaranai","owari","owen","owens","owls","owned","owner","owns","oxford","oxygen","oyabun","oyaji","oyako","oyle","oyster","oyun","oyunu","ozark","ozarks","ozero","ozora","ozumo","ozzy","pablo","pace","pacha","pachinko","pacific","pacifico","pacifique","pack","package","paco","pacquiao","pact","pacto","pada","padam","paddington","paddle","paddy","padilla","padma","padmini","padosan","padova","padre","padres","padrino","padrone","paese","paga","pagal","pagan","paganini","pagbabalik","page","pageant","pages","pagina","paginas","pagla","pago","pahadi","paheli","paid","paidi","paidia","paige","paihnidi","pail","pain","painkiller","pains","paint","paintball","painted","painter","painters","painting","paintings","pair","pais","paisa","paisagem","paisagens","paisaje","paiva","paix","paixao","pajama","pajaro","pajaros","pakhi","pakistan","pakka","pakkam","paku","pala","palabra","palabras","palace","palaces","palacio","palad","paladin","palais","palava","palavra","palavras","palazzo","palco","pale","palenque","palermo","palestina","palestine","palestinian","palette","palhaco","pali","palimpsest","palin","palio","palisades","palladium","pallavi","pallone","palm","palma","palmas","palme","palmen","palmer","palms","palo","paloma","palooka","palos","pals","pame","pamela","pamilya","pampa","pampas","pamyat","pana","panahon","panam","panama","paname","panas","pancake","pancakes","panch","pancha","panchami","panchayat","panchhi","pancho","panda","pandav","panday","pandemia","pandemic","pandemonium","pandey","pandi","pandian","pandilla","pandit","pandora","pandu","pane","panel","pang","panga","pangako","pangarap","panhandle","pani","panic","panico","panik","panikku","panique","panj","panja","panna","panne","panny","pano","panorama","panta","pantai","pantalla","pantanal","pantano","pantera","pantheon","panther","panthers","pantou","pantry","pants","panty","panzer","paolo","papa","paparazzi","papas","papaya","papel","paper","papers","papi","papier","papillon","papillons","papo","pappa","pappu","paprika","papua","papy","parable","parables","parachute","parada","paradaisu","parade","parades","paradies","paradigm","paradijs","paradis","paradise","paradiset","paradiso","paradox","paragon","paraguay","paraiso","paralelo","parallax","parallel","parallele","parallels","paralympic","paralysis","paramedics","paramount","parampara","paramythia","parana","paranoia","paranoid","paranormal","paras","parasite","parathyro","paravai","paraya","paraye","parbat","parc","parcasi","parcel","parco","parda","pardes","pardesh","pardesi","pardon","pare","parea","parece","pared","paredes","pareja","parejas","paren","parent","parental","parenthood","parenting","parents","pares","parfait","parfaite","parfum","pari","pariah","parigi","pariksha","parinayam","paris","parish","parisi","parisian","parisienne","parivaar","parivar","pariwar","park","parker","parking","parkinson","parkour","parks","parkway","parla","parlanchino","parle","parlez","parliament","parlor","parlour","parma","parmi","parni","paro","parodia","parodies","parody","parola","parole","paroles","parque","parr","parrot","parshuram","part","parta","partage","parte","partes","parti","particle","particular","partida","partido","partie","parties","parting","partir","partisan","partita","partition","partner","partners","partnership","parto","parton","partout","partridge","parts","party","paru","parv","parva","parvati","parvaz","parwana","pasa","pasadena","pasado","pasajero","pasanga","pasaporte","pasar","pascal","pase","paseo","pasha","pasion","pasiones","paso","pasolini","pasos","pasquale","pass","passa","passado","passage","passagem","passager","passages","passato","passe","passed","passeio","passenger","passengers","passeport","passer","passes","passi","passing","passion","passionate","passione","passions","passo","passos","passport","password","past","pasta","paste","pastel","pasteur","pasti","pastime","pastor","pastoral","pastores","pastry","pasture","pata","patagonia","patak","patapon","patas","patata","patayin","patch","patchwork","patel","patent","pater","paternity","path","pathfinder","pathfinders","pathos","paths","pathshala","pathway","pathways","pati","patience","patient","patio","patissier","patka","patlu","patmos","patni","pato","patra","patria","patricia","patrick","patrida","patrie","patrimoine","patrimonio","patriot","patriots","patrol","patron","patrouille","patrul","patrulla","patsy","pattern","patterns","patterson","patthar","patti","patty","paul","paula","paulette","pauli","paulie","pauline","paulo","pauly","pauper","paura","paus","pausa","pause","pauvre","pauvres","pavel","pavement","pavilion","pavitra","pavla","pawa","pawan","pawn","pawns","paws","payal","payan","payanam","payaso","payback","payday","paye","payi","paying","payment","payne","pays","paysage","paysans","pazar","pazari","pazuru","pazza","pazzi","pazzo","peace","peaceful","peacemaker","peach","peaches","peacock","peak","peaks","peanut","peanuts","pear","pearl","pearls","pearson","peas","peasant","peau","pebble","pebbles","pecado","pecados","peccati","peccato","peccatrice","peces","pech","peche","peck","pecos","peculiar","pedal","pedar","pedra","pedro","peek","peel","peep","peeping","peer","pega","pegasus","peggy","pehchaan","pehla","pehle","pehli","peine","peintre","peixe","pekin","peking","pekka","pela","pelada","pelangi","pele","pelea","pelican","pelicula","peliculas","peligro","peligrosa","peligroso","pellam","pelle","pelli","pelo","pelos","pelota","pena","penal","penalty","penance","pence","pencil","pendant","pendekar","pending","pendragon","pendulum","penelope","peng","pengantin","penguin","penguins","penhan","peninsula","penitent","penitentiary","penn","penne","pennies","pennsylvania","pennu","penny","pense","penser","pension","pentagon","pente","penthouse","pentru","penumbra","people","peoples","peor","pepa","pepe","pepeng","pepin","pepito","peppa","pepper","peppermint","peppers","peppino","pepsi","pequena","pequenas","pequeno","pequenos","pera","perawan","percent","perception","perceptions","perche","percy","perde","perder","perdicao","perdida","perdidas","perdido","perdidos","perdiendo","perdition","perdon","perdona","perdono","perdre","perdu","perdue","perdues","perdus","perduta","perduto","pere","pered","pereira","perempuan","peres","perestroika","perez","perfect","perfecta","perfection","perfectly","perfecto","perfeito","perfekt","perfekte","perfetta","perfetto","perfidia","perfil","performance","performances","performing","perfume","perhaps","peri","peril","perilous","perils","period","periodismo","peripeteia","periscope","perish","periya","perjanjian","perkins","perla","perle","permaculture","permanent","permis","permiso","permission","pero","peron","perpetua","perpetual","perra","perro","perros","perry","persecucion","persecution","persephone","perseverance","persia","persian","persistence","person","persona","personal","personalities","personality","personas","personne","persons","perspective","perspectives","persuasion","pertama","perto","peru","perugia","pervaya","pervers","perversion","perverso","pervert","pervye","pervyy","pesadilla","pesar","pesca","pescador","pescadores","pesci","pesinde","pesma","pesn","pesni","pesnya","peso","pesos","pessoa","pest","peste","peta","petal","petals","petar","pete","peter","peterburg","peters","petersburg","petersen","peterson","petey","petit","petite","petites","petits","petr","petra","petrol","petrole","petroleo","pets","petter","pettersson","petticoat","petting","petty","petunia","peuple","peur","peut","peux","peyton","pezzi","pfalz","pfarrer","pferd","pfoten","phan","phantasm","phantasmagoria","phantasmat","phantasy","phantom","phantoms","pharaoh","pharaohs","pharm","pharma","pharmacy","phase","phases","phat","phee","phenomena","phenomenal","phenomenon","phere","pheri","phii","phil","philadelphia","philharmonic","philip","philippe","philippine","philippines","philips","phillip","phillips","philly","philo","philosopher","philosophie","philosophy","phineas","phir","phire","phobia","phoebe","phoenix","phone","phool","photo","photograph","photographe","photographer","photographers","photographic","photographs","photography","photos","phra","phrase","phuc","phul","phyllis","physical","physician","physics","piacere","pian","pianeta","pianist","piano","pianos","piao","piazza","pica","picante","picasso","piccadilly","piccola","piccole","piccoli","piccolo","pick","picked","picker","pickers","picking","pickle","pickleball","pickles","picks","pickup","picnic","pico","picross","picture","pictures","piece","pieces","pied","piedi","piedra","piedras","pieds","piege","piel","pieni","pier","pierce","piercing","pierino","piernas","piero","pierre","pierres","pierrot","pies","piet","pieta","pieten","pietra","pietro","pigalle","pige","pigen","pigeon","pigeons","piger","piggy","pigs","pikachu","pike","pikku","pikmin","pilar","pilates","pile","pilgrim","pilgrimage","pilgrims","pili","pilipinas","pilipino","pill","pilla","pillai","pillar","pillars","pillow","pills","pilot","piloto","pilots","pimienta","pimp","pimpernel","pimpin","pimps","pina","pinata","pinay","pinball","pinch","pind","pine","pineapple","pines","ping","pingu","pink","pinkfong","pinku","pinky","pinnacle","pino","pinocchio","pinochet","pinoy","pins","pint","pinto","pintor","pints","pintu","pintura","pioggia","piombo","pioneer","pioneers","piove","pipa","pipe","pipeline","piper","pipes","pipi","pipo","pippi","pique","piraat","piranha","pirata","piratas","pirate","piraten","pirates","pirati","pire","piscina","pisen","pisma","pismo","piso","piss","pista","piste","pistol","pistola","pistolas","pistolero","pistoleros","pistols","pisu","pita","pitbull","pitch","pitcher","piter","pitfall","pitie","pito","pitong","pitt","pittsburgh","pity","pivot","pixar","pixel","pixels","pixie","piya","pizza","place","placebo","placer","places","placid","placido","plage","plague","plain","plains","plaisir","plait","plan","plane","planes","planet","planeta","planetary","planete","planets","planner","planners","planning","plano","plans","plant","planta","plantation","planting","plants","plastic","plata","plate","plateau","plates","platform","platinum","plato","platonic","platoon","platos","platz","play","playa","playback","playbook","playboy","playdate","played","player","players","playground","playhouse","playing","playlist","playmates","playoffs","playroom","plays","playstation","playthings","playthrough","playthroughs","playtime","plaza","plea","pleasant","please","pleasure","pleasures","pledge","plein","plenty","plerng","pleure","plight","plomo","plop","plot","plotagon","plotzlich","pluck","plug","pluie","plum","plumber","plume","plunder","plural","plus","plush","pluto","plymouth","pobeda","pobedy","pobeg","pobre","pobres","pocahontas","poche","pochti","pocket","pockets","poco","pocong","podarok","podcast","pode","poder","poderoso","podium","poem","poema","poems","poesia","poesie","poet","poeta","poetas","poete","poetes","poetic","poetry","poets","poezd","pogi","pogo","pohadky","poids","poika","poing","point","pointe","points","poios","poiskakh","poison","poisoned","poisoning","poisonous","poisson","pojat","pojkar","poka","poke","pokemon","poker","pokerom","poketto","pokus","pola","poland","polanski","polar","polaris","pole","polen","poles","poli","police","policeman","policia","policial","policias","policing","policy","polis","polish","politica","political","politically","politician","politico","politics","politik","politiker","politique","polizei","polizia","poliziotto","polk","polka","pollo","pollock","polly","polo","polonia","polos","polska","polski","polskie","poltergeist","polvere","polvo","poly","pomegranate","pomme","pompei","pompeii","poncho","pond","pong","ponies","ponnu","pono","pont","ponte","pontianak","ponto","pontos","pony","ponzi","pooch","pooh","pooja","pookkal","pool","pools","poop","poor","poot","poove","popa","popcorn","pope","popeye","popolo","popped","poppies","poppin","poppy","pops","popstar","popstars","populaire","popular","population","populi","pora","porcelain","porch","pore","porfirio","pori","pork","porky","porn","porno","pornographer","pornography","pororo","porque","porsche","port","porta","portable","portal","portals","porte","porter","portes","portillo","portland","porto","portr","portrait","portraits","portrat","portret","portugal","portugues","portuguesa","portuguesas","portuguese","portugueses","poruno","porvenir","pose","poseidon","poseidongodofwater","posers","posh","poshte","posible","position","positions","positive","positively","posle","posledni","posledniy","poslednji","poslednyaya","posse","possessed","possession","possessions","possibilities","possible","possum","post","posta","postal","postcard","postcards","poste","poster","postman","postmortem","posto","potato","potatoes","pote","potential","potere","potion","potluck","potro","potseluy","potter","pouco","poule","pound","pounds","poupee","pour","pournami","pourquoi","poursuite","poussiere","pouvoir","poveri","povero","poverty","povest","poveste","povestea","povesti","povo","povorot","povratak","powder","powell","power","powered","powerful","powerhouse","powerless","powerpuff","powers","powrot","pozo","prabhu","praca","practical","practice","prada","prado","prag","prague","praha","praia","prairie","praise","pran","pranam","pranaya","pranayam","prank","pranks","prasad","prasentiert","prata","pratap","prater","pratha","pratigya","prato","pratt","prava","pravda","pravdu","pravdy","pravil","pravila","pravo","praxis","pray","prayanam","prayer","prayers","praying","prazdnik","prazer","preacher","preachers","precinct","precio","precious","precipice","preco","precure","pred","preda","predator","predators","predicament","preet","preethi","preeti","prefere","preferred","pregame","pregnancy","pregnant","pregunta","prehistoric","preis","prejudice","preliminary","prelude","prem","prema","premam","premer","premi","premier","premiere","premieres","premiers","premio","premium","premonition","premonitions","prend","prendre","prends","prensa","prenses","prep","prepare","prepared","preparing","prequel","pres","presa","preschool","prescription","presence","presencia","present","presenta","presentation","presente","presented","presenting","presents","preservation","preserving","presidencial","presidency","president","presidente","presidential","presidents","presidio","presley","preso","presque","press","presse","pressing","pressure","prestige","presto","preston","prestuplenie","prestupleniya","presumed","pret","preta","prete","pretend","pretender","pretenders","preto","pretty","preuve","prevention","preview","previous","prey","prezzo","pribeh","pribehy","prica","price","priceless","pride","priest","prikazni","priklyucheniya","prima","primal","primary","primate","primavera","prime","primeira","primeiro","primeiros","primer","primera","primero","primeros","primetime","primeval","primitive","primo","primrose","prin","princ","prince","princes","princesa","princesas","princess","princesse","princesses","princezna","principal","principe","principessa","principio","principle","principles","prins","prinsesa","prinsesse","prinsipe","print","printemps","prints","printsessa","prinz","prinzessin","prior","priority","pripad","pripady","pris","prise","prism","prisma","prison","prisoner","prisoners","prisons","prithibi","prithvi","prithviraj","privacy","privada","privado","privat","private","prive","privee","privet","privilege","privileged","prix","priya","priyo","prize","prizrak","proba","probably","probation","probe","problem","problema","problemas","problematic","probleme","problems","proc","procedure","proces","proceso","process","procession","processo","prochain","proche","procura","prodigal","prodigy","prodolzhenie","produce","producer","producers","product","production","productions","productos","prof","profane","profesional","profesor","professeur","profession","professional","professionals","professor","profeta","profil","profile","profiles","profit","profits","profondo","profumo","profundo","program","programa","programma","programme","programming","progress","progressive","prohibida","prohibidas","prohibido","prohibition","proibido","proibiti","proibito","proie","proini","proino","project","projection","projectionist","projects","projekt","projet","projeto","prologue","prom","promenade","promesa","promessa","promesse","promessi","prometheus","prometida","promi","promis","promise","promised","promises","promo","promotion","proms","pronto","proof","prop","propaganda","proper","properties","property","prophecies","prophecy","prophet","prophets","propia","propos","proposal","propose","proposition","proposito","props","pros","prosecution","prosecutor","proshchay","proshlogo","prosopa","prosopo","prospect","prospects","prosperity","prosti","prostituta","prostitute","prostitution","prosto","protagonist","protagonistas","protect","protecting","protection","protector","protectors","protege","protest","proti","protiv","proto","protocol","protokoll","prototype","proud","prova","prove","proven","provenance","provence","providence","provincia","provincial","proving","provocateur","proxima","proximity","proximo","proxy","proyecto","proze","prozess","prudence","prueba","prvi","pryor","przez","przygody","psalm","psihologiya","psych","psyche","psychedelic","psychiatrist","psychic","psycho","psychological","psychology","psychopath","psychopaths","psychos","psychosis","psychotic","psyhi","ptitsa","ptitsy","ptsd","pubg","public","publica","publico","publique","puccini","puck","pudding","puddle","puder","pudhiya","pudhu","pueblo","pueblos","pueda","puede","puedes","puedo","puen","puente","puerta","puertas","puerto","puff","puffy","pugad","pugni","pugno","puja","pukar","pula","pulang","pulau","puli","pulis","pull","pulling","pulp","puls","pulse","pulso","puma","pump","pumpkin","pumuckl","puna","punainen","punch","punching","punchline","pune","punha","punisher","punishment","punjab","punjabi","punk","punks","punkt","punnagai","puno","punos","punta","punto","puntos","punya","pupi","pupil","puppe","puppet","puppets","puppies","puppy","pups","pura","puran","purasu","pure","purgatorio","purgatory","purge","puri","purikyua","purinsesu","purinsu","purinsusama","purity","purizumu","purnima","puro","purojekuto","puroresu","purple","purpose","purse","pursuit","pursuits","purush","purushan","pusakal","push","pushed","pusher","pushers","pushing","pushkin","puso","pusong","puss","pussy","pussycat","puta","puteri","puteshestvie","puteshestviye","puthiya","puti","putih","putik","putin","putra","putri","putt","puttar","putting","putu","putul","puyo","puzzle","puzzled","puzzles","pyaar","pyaas","pyar","pyara","pyare","pyari","pyasi","pyat","pygmalion","pyjama","pyongyang","pyos","pyotr","pyramid","pyramide","pyramids","pyrenees","python","qadam","qaidi","qalb","qamar","qanoon","qatar","qatil","qayamat","qian","qiang","qiao","qing","qingchun","qiong","quad","quai","quake","qual","qualcosa","qualcuno","qualifiers","qualifying","quality","qualquer","quan","quand","quando","quanto","quantum","quarantine","quarantined","quark","quarry","quart","quarta","quarter","quarterback","quarters","quartet","quartett","quartier","quarto","quase","quasi","quatre","quatro","quattro","quay","quebec","quebecois","quebrada","queda","quedo","queen","queendom","queens","queensland","queer","queers","quei","quel","quell","quella","quelle","quelli","quello","quelqu","quelque","quelques","quem","quente","quentin","quer","querer","quererte","queria","querida","querido","quero","quest","questa","questi","question","questionable","questione","questions","questo","quete","queue","quiapo","quick","quickie","quickies","quicksand","quien","quieras","quiere","quieres","quiero","quiet","quietly","quijote","quilt","quince","quinceanera","quincy","quinn","quinta","quintet","quinto","quinze","quit","quite","quitter","quixote","quiz","quoi","quota","quotidien","quotidienne","raag","rabb","rabba","rabbi","rabbia","rabbids","rabbit","rabbits","rabe","rabi","rabia","rabid","rabindranath","rabirinsu","rabo","rabota","rabu","racconta","racconti","racconto","raccoon","race","racer","racers","races","rachael","rache","rachel","racial","racines","racing","racism","racist","rack","racket","raconte","raconteur","rada","radar","rade","radern","radha","radhe","radi","radiance","radiant","radiation","radical","radici","radio","radioactive","radius","radost","radosti","rafa","rafael","raffles","rafi","raft","raga","ragam","ragazza","ragazze","ragazzi","ragazzo","rage","ragel","ragged","raghu","raging","ragini","ragione","ragnarok","ragol","rags","ragtime","ragul","raha","rahasia","rahasya","rahasyam","rahat","rahe","rahi","rahim","rahma","rahman","raho","rahu","rahul","raibu","raices","raid","raida","raiden","raider","raiders","raifu","rail","railroad","rails","railway","railways","rain","rainbow","rainbows","rainer","rainforest","rainha","raining","rains","rainy","rais","raise","raised","raisin","raising","raison","raiz","raja","rajakumari","rajan","rajani","rajasthan","rajdhani","rajesh","raji","rajkumar","rajkumari","rajneeti","rajo","rajol","rajput","raju","rajul","rajya","rajyam","rake","rakhi","rakka","rakkauden","rakkaus","rakshak","rakta","raktha","rakuen","rakugo","raleigh","rally","rallye","ralph","rama","ramadan","ramakrishna","raman","ramani","ramanna","ramayan","ramayana","ramayanam","ramazan","rambha","rambo","ramen","ramesh","ramez","ramirez","ramon","ramona","ramos","ramp","rampage","ramsay","ramses","ramsey","ramu","ramudu","ramune","rana","ranbu","ranch","rancher","rancho","rand","randall","rande","randi","rando","randolph","random","randy","rang","ranga","rangbaaz","range","rangeela","rangeen","ranger","rangers","rani","ranjha","ranjuku","rank","ranking","ranko","ranma","ranna","rano","ransom","rant","rantevou","ranto","rants","raoul","rapa","rape","raphael","rapid","rapido","rapids","rapina","rapist","rappaaja","rapper","rapport","raps","rapsodia","rapto","raptor","rapture","rapunzel","raquel","rara","rare","rasa","rascal","rascals","rasen","rash","rashichakra","rashomon","rasmus","rasoi","raspberry","rasplata","rasputin","rasskazy","rasta","rastro","rasuto","rata","ratan","ratas","ratchet","rate","rated","rather","rathri","ratna","rato","raton","ratri","rats","ratsel","rattle","rattlesnake","ratu","rauber","raul","raum","raus","rausch","ravage","ravana","rave","raven","ravens","ravi","raving","rawhide","raya","raye","rayman","raymond","rayo","rayon","rays","raza","raze","razia","razon","razones","razor","razvod","razzia","rdag","reach","reaching","react","reaction","reactions","reactor","reacts","read","reader","readers","reading","readings","reads","ready","reagan","real","reale","realidad","realite","realities","reality","really","realm","realms","realta","reanimated","reap","reaper","reapers","rear","reason","reasonable","reasons","rebeca","rebecca","rebel","rebelde","rebeldes","rebeldia","rebelion","rebelle","rebellion","rebellious","rebels","rebirth","reboot","rebooted","reborn","rebound","rebuild","rebuilding","rebus","recall","recap","recep","reception","recess","recession","receta","recharged","recherche","recht","rechts","recipe","recipes","recital","reckless","reckoning","reclaim","reclaimed","reclaiming","recoil","recollection","recon","reconciliation","reconstruction","record","recorded","recording","recordings","records","recovering","recovery","recreation","recruit","recruits","recuerdo","recuerdos","recycled","redacted","redd","reddo","reddy","rede","redeemed","redeemer","redeeming","redefining","redemption","reden","redencion","redes","redhead","redheads","redi","rediscovered","rediscovering","redline","redneck","rednecks","redonda","redracc","redrum","reds","redux","redwood","reed","reef","reefer","reel","reels","reencuentro","reeperbahn","reese","reet","reeve","reeves","referendum","reflection","reflections","reflejo","reflejos","reflex","reform","reforma","reformation","refrain","refresh","refuge","refugee","refugees","refugiados","refugio","regal","regalo","regan","regard","regarde","regarding","regards","regen","regeneration","reggae","reggaeton","reggie","regime","regiment","regina","region","regional","regis","reglas","regles","regne","regno","regresa","regreso","regression","regresso","regret","regrets","regular","rehab","rehearsal","rehna","reich","reid","reign","reigns","reijo","reijou","reiko","reilly","reimagined","reimei","rein","reina","reinas","reincarnation","reindeer","reine","reino","reinventing","reipu","reis","reise","reisen","reiser","reiter","reject","rejected","rejection","rejects","rejse","rejsen","reka","rekha","reki","rekishi","rekviem","relapse","related","relation","relations","relationship","relationships","relative","relatively","relatives","relativity","relato","relatos","relax","relaxation","relay","release","released","relentless","releve","relic","relics","relief","religion","religions","religious","reload","reloaded","relocation","reluctant","remain","remaining","remains","remaja","remake","remaking","remarkable","remaster","remastered","rembrandt","remedy","remember","remembered","remembering","remembers","remembrance","remi","remix","remixed","remnant","remnants","remo","remorse","remote","removal","removed","remy","rena","renacer","renai","renaissance","renard","renato","renbo","rencontre","rencontres","render","rendez","rendezvous","rendu","rene","renee","renegade","renegades","renewal","renja","renjie","renka","renkinjutsushi","rennen","reno","renovate","renovation","renovations","rent","rental","renzoku","repair","reparation","reparations","repeat","repent","repentance","repente","replacement","replay","replica","repo","report","reportage","reportaje","reporter","reporters","reporting","reports","repoto","representation","repression","reprisal","reps","reptile","repubblica","republic","republica","republican","republik","republika","republique","reputation","request","requiem","requin","required","resa","resan","rescate","rescue","rescued","rescuers","rescues","research","reseau","reservation","reservations","reserve","reservoir","reset","resgate","resham","reshipi","residence","residencia","resident","residents","residue","resilience","resilient","resist","resistance","resistencia","resistenza","resisting","resolution","resolve","resonance","resort","resource","resources","respect","respira","respire","respiro","responder","responders","response","responsible","ressha","rest","resta","restart","restaurant","restaurants","reste","resting","restless","resto","restoration","restored","restoring","restos","restricted","resurgence","resurrected","resurrecting","resurrection","resutoran","reta","retail","retaliation","rete","retire","retired","retirement","retiro","reto","retold","retorcidos","retorno","retour","retrato","retratos","retreat","retribution","retro","retrograde","retrospectiva","retrospective","retsuden","rett","retten","retter","rettet","retto","retur","return","returned","returning","returns","reunion","reunited","reus","revancha","revanche","reve","reveal","revealed","revealing","reveil","revelation","revelations","revenant","revenge","revenger","revengers","rever","reverend","reverie","reversal","reverse","reversed","reversion","reves","revient","revier","review","reviews","revision","revisited","revista","revival","revive","revived","revoir","revolt","revolte","revolting","revolucao","revolucion","revolution","revolutionaries","revolutionary","revolutions","revolver","revolyutsii","revue","reward","rewind","rewrite","reyes","reykjavik","reyna","reynolds","reys","reza","rhapsody","rhein","rhino","rhinos","rhode","rhodes","rhonda","rhyme","rhymes","rhys","rhythm","rhythms","riaru","ribatejo","ribbon","ribelle","ribelli","rica","rican","ricardo","riccardo","ricchi","rice","ricerca","rich","richard","richards","richardson","riche","riches","richesse","richest","richiamo","richie","richman","richmond","richter","rick","rickshaw","ricky","rico","ricochet","ricordi","ricordo","ricos","riddle","riddles","ride","rideau","rider","riders","rides","rideshare","ridge","ridiculous","ridin","riding","ridley","rien","rieu","riff","riffs","rifftrax","rifle","rifles","rift","riga","rigged","right","righteous","rights","rigoletto","rigu","rika","rike","rikets","rikidozan","rikon","riku","rikugun","riley","rimbaud","rime","rimini","rina","rinchi","rincon","rindu","ring","ringer","ringo","rings","ringside","ringu","rinjin","rink","rinku","rios","riot","riots","ripe","ripley","ripped","ripper","ripple","riptide","rire","rirekisho","risa","risas","risco","rise","risen","rises","rishi","rishta","rishte","rishtey","rishton","rising","risk","risky","riso","risque","risques","risto","rita","ritchie","rite","rites","ritmo","ritorno","ritoru","ritratti","ritratto","ritter","ritual","rituals","ritz","riva","rival","rivale","rivalen","rivales","rivalry","rivals","rive","riven","river","rivera","rivers","riverside","riviera","riviere","rivolta","rivoluzione","riyu","riza","rkerskolen","rket","rlighed","rlighedens","rnet","roach","road","roadhouse","roadkill","roadmap","roads","roadshow","roadside","roadtrip","roam","roaming","roar","roaring","roars","roast","roasts","roba","robbed","robber","robbers","robbery","robbie","robbins","robby","robe","robert","roberta","roberto","roberts","robertson","robi","robin","robinhood","robinson","roblox","robo","robocon","robocop","robot","robotics","robots","robotto","robson","robyn","roca","rocambole","rocanrol","rocca","rocco","rocha","roche","rochelle","rocher","rochester","rocio","rock","rockabilly","rockaway","rocked","rockefeller","rocker","rockers","rocket","rockets","rockies","rockin","rocking","rockman","rocks","rockstar","rockstars","rockumentary","rockwell","rocky","roda","rodas","rode","rodeo","rodgers","rodina","rodney","rodnye","rodo","rodrigo","rodriguez","rods","rodzina","roger","rogers","rogoku","rogue","rogues","rois","roja","rojas","rojin","rojo","rojos","roju","rokku","rokkuman","roku","rokudenashi","roland","role","roleplay","roles","rolf","roll","roller","rollercoaster","rollers","rollin","rolling","rollo","rolls","roma","romaenseu","romagna","romain","roman","romana","romance","romancing","romane","romani","romania","romanian","romano","romanov","romans","romansu","romantan","romantic","romantica","romantico","romantics","romantik","romanzo","rome","romeo","romer","romero","rommel","romper","romy","rona","ronald","ronaldo","ronan","rond","ronda","ronde","rondo","rong","ronin","ronnie","ronny","roof","rooftop","rooftops","rooh","rook","rookie","rookies","room","roomies","roommate","roommates","rooms","rooney","roop","roos","roosevelt","roost","rooster","root","rooted","roots","rooye","rooz","rooze","roozhaye","roozi","rope","ropes","roppongi","roque","roro","rory","rosa","rosalie","rosario","rosary","rosas","rose","rosebud","rosemary","rosen","rosenberg","roses","rosetta","roshan","roshi","roshni","roshutsu","rosie","rosita","ross","rossa","rosse","rossellini","rossi","rossii","rossini","rossiya","rosso","rost","rosto","rostro","rostros","rosuto","roswell","rosy","rota","rotas","rotation","rote","roten","roter","roth","roti","roto","rotos","rotta","rotten","rotterdam","rouge","rouges","rough","roughnecks","roulette","round","roundabout","rounds","roundtable","roundup","route","routes","routine","routines","roux","rover","rovers","rowan","rowdy","rowe","roxanne","roxy","roya","royal","royale","royals","royalty","royaume","roza","roze","rozhdeniya","rste","ruan","ruas","rubber","rubbish","rubble","ruben","rubi","rubia","rubicon","rubin","ruby","ruckkehr","rude","rudi","rudis","rudolf","rudolph","rudra","rudy","rueda","ruedas","rues","ruff","ruft","rufus","rugby","rugged","rugrats","ruido","ruin","ruina","ruinas","ruined","ruins","ruisenor","ruiz","ruju","ruka","ruki","rukmini","rule","ruled","ruler","rulers","rules","ruling","rumah","rumba","rumble","rumbo","rumi","rumo","rumor","rumore","rumors","rumu","runa","runatikku","runaway","runaways","rund","runde","rundown","rundt","rune","runes","rung","runner","runners","runnin","running","runs","runt","runway","ruota","rupaiya","rupan","rupaul","rupert","rupture","rural","ruroni","rusa","rusalka","ruse","rush","rusia","russ","russe","russell","russia","russian","russians","russkaya","russki","russkie","russkiy","russland","russo","rust","rustam","rusticana","rustlers","rustom","rusty","ruta","rutas","ruten","ruth","ruthless","ruya","ruyasi","ruzgar","rwanda","rwby","ryadom","ryan","ryder","ryojoku","ryokan","ryoki","ryoko","ryoshoku","ryuko","ryukyu","ryusei","ryuu","saab","saad","saada","saajan","saal","saali","saam","saan","saar","saara","saari","saas","saat","saath","saathi","saati","saaya","saba","sabado","sabah","sabaibaru","sabaku","saban","sabar","sabato","sabbath","sabbia","sabe","sabel","saben","saber","sabes","sabi","sabina","sabine","sable","sables","sabor","sabores","sabotage","sabre","sabrina","sabse","saburo","sabz","sacco","sach","sacha","sache","sachen","sachi","sack","saco","sacra","sacrament","sacramento","sacre","sacred","sacree","sacres","sacrifice","sacrificio","sacro","sada","sadako","sadan","saddam","saddle","saddles","sade","sadhu","sadie","sadistic","sadness","sado","saeng","saetta","safak","safar","safari","safe","safehouse","safer","safety","saffron","saga","sagan","sagar","sagara","sagas","sagase","sagashi","sage","sagebrush","sagen","sagi","sagishi","sagrada","sagrado","sagt","saguri","saha","sahab","sahar","sahara","saheb","sahel","saheli","saher","sahi","sahib","sahra","sahte","saiban","said","saida","saidai","saif","saigo","saigon","saikai","saiko","saikyo","saikyou","sail","sailing","sailor","sailors","sails","sain","saint","sainte","saints","sais","saisei","saishin","saishu","saison","saisons","sait","saitama","saiyaan","saiyan","saiyuki","saizensen","saja","sajan","sajjan","sajna","sajni","saka","sakamoto","sakana","sakazuki","sake","sakebi","sakebu","saken","sakha","sakhi","saki","sakir","sakka","sakli","sakshi","sakti","saku","sakura","sakusen","sala","salaam","salad","salah","salam","salamander","salamat","salang","salaryman","salazar","sale","saleh","salem","sales","salesman","sali","salida","salim","salinas","salir","salle","sally","salma","salman","salmon","salome","salomon","salon","saloon","salsa","salt","salta","salto","salton","saltwater","salty","salud","salut","salute","salva","salvador","salvage","salvaje","salvajes","salvar","salvation","salvatore","salve","salzburg","sama","samaa","samad","samadhi","samaj","samantha","samar","samara","samaritan","samay","samaya","samba","same","samedi","samen","samhain","sami","samir","sammy","samo","samoa","sampai","sampdoria","sampen","sample","sampoorna","sampson","samrat","samsara","samsaram","samson","samstag","samt","samudra","samuel","samurai","samyy","sana","sanada","sanaeha","sanai","sanam","sanatorium","sanbiki","sanchez","sancho","sanctuary","sanctum","sand","sanda","sandai","sandaiki","sandali","sandals","sandbox","sande","sandeep","sander","sanders","sandhya","sandi","sandiego","sandman","sando","sandogasa","sandokan","sandoval","sandra","sands","sandstorm","sandwich","sandy","sane","sang","sanga","sangam","sange","sangeet","sangeki","sangen","sangharsh","sangoku","sangokushi","sangram","sangre","sangrienta","sangriento","sangue","sani","sanity","sanjay","sanji","sanju","sanjushi","sanka","sankara","sankarit","sanki","sankofa","sankt","sanmyaku","sannin","sanningen","sano","sanpei","sanpo","sanremo","sans","sansar","sansara","sansei","sanshimai","sanshiro","sanskar","sansone","sant","santa","santan","santana","santarem","sante","santet","santi","santiago","santo","santos","santuario","sanyasi","sanyushi","saol","sapiens","sapna","sapne","sapno","sapo","sapore","sapos","sapphire","sapporo","sara","saraba","sarah","sarajevo","saram","saramdeul","sarang","sarangeun","saranghae","sarariman","saraswati","sarayashiki","sarbaz","sard","sardar","sare","sareta","sarfarosh","sarga","sargam","sarhad","sari","sarka","sarkar","sarkari","sarki","sarkisi","sarnevesht","saro","sarpanch","sartana","saru","sarutobi","sasaki","sasayaki","sasha","sashichi","saskin","sasori","sasquatch","sass","sassi","sassy","sasu","sasuke","sasurai","sasural","sata","satan","satana","satanas","satanic","satans","satellite","sath","sathi","sathya","sathyam","sati","satin","satire","satisfaction","sato","satomi","satori","satoshi","satrangi","satria","satsui","satsujin","satsujinsha","satsuma","satta","satu","saturday","saturdays","saturn","satya","satyabhama","satyam","saubhagya","saubhagyavati","sauce","saucer","saucy","sauda","saudade","saudagar","saude","saudi","saugandh","saul","sauna","saunders","sausage","sauvage","sauvages","sauve","sava","savage","savages","saval","savana","savannah","savant","savasi","savdhaan","save","saved","saver","savera","savers","saves","saving","savior","saviors","saviour","savitri","savoir","savoy","savvato","savvatokyriako","savvy","sawa","sawan","sawar","sawdust","sawyer","saxon","saya","sayang","saye","sayehaye","sayin","saying","sayonara","says","sazaa","sazae","sazen","scala","scale","scales","scam","scammer","scammers","scams","scan","scandal","scandale","scandalo","scandalous","scandals","scandinavia","scanners","scapegoat","scar","scare","scarecrow","scarecrows","scared","scares","scarf","scarface","scariest","scarlet","scarlett","scarred","scars","scary","scattered","scavenger","scavengers","scelta","scena","scenario","scene","scenen","scener","scenes","scenic","scent","schalke","schaste","schastlivyy","schastya","schastye","schatten","schatz","schatze","schau","scheherazade","scheiden","schein","scheme","schichten","schicksal","schicksals","schiff","schizo","schizophrenia","schlacht","schlafen","schlag","schlager","schlagt","schlemmerreise","schlo","schloss","schmidt","schnee","schneewittchen","schneider","schofield","scholar","scholarship","schon","schone","schonen","schoner","schones","schonheit","schonste","schonsten","school","schooled","schoolhouse","schools","schrecken","schrei","schu","schubert","schuld","schuldig","schule","schulmadchen","schulz","schumacher","schwartz","schwarz","schwarze","schwarzen","schwarzer","schweigen","schweigens","schweiz","schweizer","schwester","schwestern","science","scientific","scientist","scientists","scienza","scifi","scion","scissors","scooby","scoop","scooter","scope","scoperta","scorched","score","scores","scorned","scorpio","scorpion","scot","scotch","scotia","scotland","scots","scotsman","scott","scottish","scotty","scoundrel","scoundrels","scourge","scout","scouting","scouts","scrabble","scramble","scrambled","scrap","scrapbook","scrapper","scrappers","scratch","scream","screamers","screaming","screams","screen","screening","screenplay","screens","screenwriter","screw","screwed","scribbles","script","scripted","scriptgirl","scripts","scripture","scroll","scrolls","scrooge","scuba","sculpting","sculptor","sculpture","scum","scuola","seafood","seagull","seal","sealed","seals","sean","seance","seara","search","searchers","searching","seas","seaside","season","seasoned","seasons","seat","seats","seattle","sebastian","sebastien","sebe","sebelum","sebiro","sebun","sebya","seca","sechs","seclusion","seco","secolo","second","seconda","secondary","seconde","secondes","secondo","seconds","secours","secret","secreta","secretaria","secretary","secretas","secrete","secretes","secretly","secreto","secretos","secrets","sect","secta","section","sector","secuestro","seculo","secure","security","seda","sedaye","sedmoy","sedona","seduccion","seduce","seduced","seducing","seduction","seed","seeds","seeing","seek","seeker","seekers","seeking","seele","seelen","seema","seems","seen","seer","sees","seeta","seetha","sefid","sefr","sega","segment","segno","segodnya","segredo","segredos","segreta","segreti","segreto","segun","segunda","segundo","segundos","seguro","sehen","sehir","sehnsucht","sehr","sehrin","seiai","seidan","seien","seifuku","seigi","seigneur","seigneurs","seihanzai","seijo","seijuku","seikai","seikan","seikatsu","seiken","seiki","seikkailu","seiko","seima","sein","seine","seinen","seiner","seines","seinto","seiran","seirei","seis","seisen","seishun","seitai","seite","seiten","seito","seiya","seiyoku","seiza","seize","seized","seizoroi","sekai","seker","seki","sekiz","sekkan","sekkusu","sekret","sekrety","seks","sekunde","selamanya","selbst","seleccion","select","selection","selena","self","selfie","selfish","selim","selina","sell","seller","sellers","selling","sells","selma","selo","selon","seltsame","selv","selva","selvagem","selvaggia","selvaggio","selvam","selvan","selves","sema","semaine","semana","semanal","seme","semester","semeynye","semeynyy","semi","semilla","semillas","seminar","semper","sempre","semur","semya","sena","senal","senario","senator","send","senda","senden","sender","sendero","sendung","senegal","seng","sengen","sengo","sengoku","senhor","senhora","seni","senin","senior","seniors","senja","senjo","senjou","senka","senkan","senketsu","senki","senko","senkyo","senna","sennen","sennyu","senor","senora","senoras","senores","senorita","senoritas","senpai","senpu","senran","senritsu","senryo","sens","sensation","sensational","sense","sensei","senseless","sensen","senses","senshi","senshu","sensi","sensibility","sensible","sensitive","sensiz","senso","sensory","sensou","sensual","sent","senta","sentai","sentence","sentenced","sentido","sentidos","sentient","sentiero","sentiment","sentimental","sentimentale","sentinel","sentinelles","sentinels","sento","senza","seol","seom","seon","seong","seongnan","seorang","seoul","separate","separated","separation","separe","sepid","seppun","sept","september","septembre","septiembre","septieme","septimo","sequel","sequence","sequestro","sera","serai","seran","seraphim","seras","serbia","serbian","serce","serdtsa","serdtse","sere","serena","serenade","serenata","serendipity","serengeti","serenity","sereno","seres","seret","serge","sergeant","sergey","sergio","seria","serial","serie","series","serio","serious","seriously","sermon","serpent","serpente","serpentine","serpents","serpiente","serra","serseri","sertao","sertoes","serum","servant","servants","serve","served","server","service","services","servicio","serving","servir","servizio","servus","sesame","sesang","sesh","sesion","sesiones","session","sessions","sessiz","sesso","sest","sestra","sestry","seta","setan","setare","sete","seth","seton","sets","sette","settimana","setting","settle","settlement","settlers","settles","settling","setu","setup","seul","seule","seuls","seung","seus","seuss","seva","sevda","sevdim","seven","sevens","seventeen","seventh","seventy","sever","several","severance","severe","severed","severse","sevgi","sevgili","sevgilim","sevilla","seville","sevimli","sevmek","sevom","sewer","sewing","sewol","sexe","sexes","sexiest","sexo","sexos","sexta","sexto","sexton","sextuplets","sexual","sexuality","sexy","seymour","seyo","seytan","seytanin","sezon","sfida","sfinge","sguardo","shaadi","shaan","shab","shabab","shabe","shabnam","shacho","shack","shackles","shackleton","shade","shades","shadi","shadow","shadowed","shadowland","shadowlands","shadowrun","shadows","shady","shaft","shag","shaggy","shah","shaheed","shahenshah","shahi","shahr","shahre","shain","shaitaan","shaitan","shak","shaka","shake","shakedown","shaken","shakers","shakes","shakespeare","shaking","shakthi","shakti","shakuntala","shakur","shall","shallow","shalom","shalonda","shalt","sham","shama","shaman","shamans","shambhala","shame","shameless","shamisen","shamrock","shams","shan","shana","shane","shang","shanghai","shangri","shanhai","shani","shank","shankar","shankara","shannon","shans","shanti","shao","shaolin","shaonian","shaonu","shapath","shape","shaped","shapes","shaping","shaq","shar","sharaf","shards","share","shared","shari","sharif","sharing","shark","sharks","sharma","sharon","sharp","shashin","shastra","shatranj","shatru","shatter","shattered","shattering","shaun","shave","shaving","shaw","shawn","shay","shayad","shaytan","shazam","shea","sheba","shed","sheela","sheen","sheep","sheer","sheet","sheets","sheffield","shehar","shei","sheik","sheikh","sheila","shekar","shekhar","shel","shelby","sheldon","shelf","sheli","shell","shelley","shells","shelly","shelter","sheltered","shelton","shen","shenanigans","shenghuo","shepard","shepherd","shepherds","sher","shera","sheriff","sherlock","sherman","sherni","sherpa","sherri","sherry","sherwood","shesh","shetty","sheytan","shhh","shia","shiawase","shibari","shibire","shibireru","shibuya","shichi","shichihenge","shichinin","shidae","shidai","shido","shield","shields","shift","shifter","shifting","shigan","shigoto","shigure","shih","shiiku","shijie","shijo","shika","shikaku","shikar","shikari","shikei","shiken","shiki","shikijo","shikiyoku","shikkaku","shiloh","shima","shimai","shimajiro","shimasu","shimizu","shin","shinai","shinchan","shinda","shinderera","shindo","shine","shinema","shines","shing","shingeki","shingo","shinigami","shining","shinjin","shinjitsu","shinju","shinjuku","shinkai","shinkansen","shinkon","shinku","shinobi","shinpan","shinpen","shinpi","shinrei","shinri","shinsatsu","shinsei","shinsengumi","shinshaku","shinshi","shinshitsu","shinshokoku","shinshu","shinu","shinwa","shiny","shinya","shinzo","shio","shiobara","shiofuki","shiori","ship","shipping","shippo","shippu","shippuden","ships","shipwreck","shipwrecked","shir","shiranai","shiranui","shiraz","shirei","shiri","shirin","shiritsu","shirizu","shirley","shiro","shiroi","shirt","shirts","shiru","shisei","shisen","shisha","shishei","shishi","shisshin","shisu","shit","shita","shitagi","shitai","shitamachi","shitara","shitatari","shite","shiti","shito","shitsu","shitsuji","shitty","shiv","shiva","shivaji","shivam","shiver","shiyu","shizuka","shizuku","shkola","shoah","shobai","shobu","shock","shocked","shocker","shocking","shockwave","shod","shodh","shoe","shoemaker","shoes","shofu","shogai","shogeki","shogun","shohachi","shohar","shohin","shojo","shokei","shokudo","shokutaku","shola","sholay","shonen","shook","shoot","shooter","shooters","shootin","shooting","shootout","shoots","shop","shopper","shopping","shops","shor","shore","shoreline","shores","shori","short","shortcake","shortcut","shorts","shorty","shot","shotai","shoten","shotgun","shots","shou","shoujo","shoukan","should","shoulder","shoulders","shouldn","shounen","shout","shouting","shovel","show","showa","showbiz","showcase","showdown","shower","showers","showgirl","showing","showman","showroom","shows","showtime","shoya","shozo","shqiperi","shred","shree","shrek","shrew","shri","shrimati","shrimp","shrine","shrink","shrinking","shroud","shuai","shuang","shubh","shudan","shuffle","shufu","shuga","shugo","shui","shujin","shukan","shukla","shukufuku","shukumei","shumatsu","shun","shunen","shunkan","shuo","shura","shuriken","shuru","shuryo","shusse","shuster","shut","shutdown","shuto","shutter","shuttle","shyam","siah","siam","siamo","siapa","siberia","siberian","siberie","sibling","siblings","sicak","sicario","sich","sicilia","sicilian","sicily","sick","sickness","sida","side","sided","sidekick","sidekicks","sidelines","sidemen","sides","sideshow","sidetracked","sidewalk","sidewalks","sideways","sidi","sidney","sidste","sieben","siecle","siedler","sieg","siege","siegel","sieger","siegfried","sieht","siempre","sien","siena","sierra","sierras","siesta","siete","sieu","siga","sigan","sight","sightings","sights","sigil","siglo","siglos","sigma","sign","signal","signals","signature","signe","signed","significant","signing","signo","signor","signora","signore","signorina","signos","signs","sigo","sigue","siguiente","sihina","sihirli","sikandar","sila","silah","silang","silas","silence","silenced","silencer","silences","silencieux","silencio","silencios","silenciosa","silencioso","silent","silenzio","silhouette","silicon","silk","silla","silly","silo","silva","silver","silvestre","silvia","silvio","simba","simcity","simdi","simera","simha","simham","simi","simmons","simon","simone","simple","simplemente","simples","simply","simpson","simpsons","sims","simulation","simulator","sina","sinai","sinaloa","sinatra","sinbad","since","sincerely","sinclair","sind","sindbad","sindhu","sindoor","sindrom","sindrome","sindura","sine","sinema","sinfonia","sinful","sing","singam","singapore","singe","singende","singer","singers","singh","singham","singing","single","singles","sings","singstar","singt","singular","singularity","sinh","sinha","sinifi","sinister","sink","sinking","sinn","sinner","sinners","sino","sins","sint","sinterklaas","sintra","sinverguenza","siopis","sioux","sipahi","sira","siren","sirena","sirene","sirens","sirf","siri","sirius","sirri","sisi","sissy","sista","siste","sistema","sister","sisterhood","sisters","sisyphus","sita","sitara","sitcom","site","sites","sith","siti","sitio","sitt","sittat","sitter","sitters","sitting","situ","situation","situations","situationship","siuat","siva","sixteen","sixth","sixties","sixty","siya","siyah","size","sized","sizzle","skai","skal","skandal","skat","skate","skateboard","skateboarding","skater","skates","skating","skazka","skazki","skeleton","skeletons","skelter","sketch","sketchbook","sketches","sketchy","skia","skibidi","skid","skies","skiing","skill","skills","skin","skinner","skinny","skins","skint","skinwalker","skip","skipper","skippy","skirt","skirts","skit","skits","skizzen","skogen","skola","skole","skool","skoro","skull","skulls","skunk","skvoz","skye","skyline","skylines","skyrim","skyscraper","skywalker","slacker","slade","slag","slam","slang","slant","slap","slash","slasher","slate","slater","slaughter","slaughterhouse","slava","slave","slavery","slaves","slay","slayer","slayers","sleaze","sled","sledge","sleep","sleepaway","sleeper","sleepers","sleeping","sleepless","sleepover","sleeps","sleepwalker","sleepy","slender","slenderman","slendytubbies","slept","sleuth","slice","slices","slick","slide","slider","sliding","slightly","slim","slime","slingshot","slip","slipper","slipping","sloan","sloane","slope","sloppy","slot","slots","slottet","slova","slovensko","slovo","slow","slowly","sluchay","slug","slum","slumber","slunce","slut","smack","smackdown","small","smallest","smalls","smart","smarter","smartest","smartphone","smarts","smash","smasher","smashing","smell","smells","smena","smert","smerti","smeshariki","smierc","smierci","smile","smiles","smiley","smiling","smith","smiths","smithsonian","smog","smoke","smoked","smokey","smokin","smoking","smoky","smooth","smosh","smriti","smrt","smrti","smtv","smuggler","smugglers","smurfs","snack","snacks","snail","snake","snakes","snap","snapchat","snapped","snaps","snapshot","snapshots","snare","snatch","snatched","snatcher","snatchers","sneak","sneaker","sneakers","sneaky","sneg","sneha","sneham","snezhnaya","sniper","snitch","snob","snooker","snoop","snoopy","snova","snow","snowball","snowblind","snowboard","snowboarding","snowfall","snowflake","snowman","snows","snowy","snuff","snyder","soap","soapbox","soar","soba","sobaka","sobe","sober","sobh","sobre","sobrevivir","socal","soccer","soch","sochi","social","sociale","socialism","socialist","socially","sociedad","sociedade","societa","societe","societies","society","socio","sociopath","socios","sock","socks","socom","socorro","socrates","soda","sodan","sodapoppin","sodo","sodom","sodor","soeur","soeurs","sofa","sofia","sofor","soft","softball","softly","software","soga","sogni","sogno","sogra","sohn","sohna","sohne","sohni","soho","sohrab","soil","soir","soiree","sois","soit","sojourn","sokagi","sokak","sokaklar","soker","soko","sokonuke","sokoot","sokrovishcha","sola","solace","solamente","solange","solar","solas","sold","soldado","soldados","soldat","soldaten","soldati","soldato","soldier","soldiers","sole","soledad","soleil","solen","soli","solid","solidarity","soliloquy","solimsa","solis","solitaire","solitario","solitary","solitude","solitudine","soll","solla","sollst","solntsa","solntse","solo","solomon","solos","solstice","soltera","solteras","soltero","solution","solutions","solve","solved","solvers","solving","soma","sombra","sombras","sombrero","some","somebody","someday","somehow","someone","somerset","something","sometimes","somewhat","somewhere","sommar","sommaren","somme","sommer","sommes","somnium","somos","sona","sonador","sonando","sonar","sonata","sonbahar","sonder","sone","song","songbird","songbirds","songbook","songoku","songs","songsar","songwriter","songwriters","sonhar","sonho","sonhos","sonia","sonic","sonido","sonidos","sonikku","sonja","sonne","sonntag","sonny","sono","sonora","sonra","sonrisa","sons","sonsuz","sont","sonu","sony","sonya","sonyeo","sonyeon","soon","sopa","sophia","sophie","sophisticated","sopra","soprano","sopranos","sora","soraya","sorcerer","sorceress","sorciere","sore","soredemo","soreike","sorella","sorelle","sorezore","sori","sorkh","soro","sorok","sorority","sorpresa","sorrento","sorriso","sorrow","sorrows","sorry","sort","sorta","sorte","sortie","soru","sosa","sosahan","sosakan","sose","sosei","soshi","soshiki","soshite","soshuhen","soshun","sospecha","sota","soto","sotsugyo","sotsugyou","sotto","souboj","souffle","soul","soulcalibur","souled","soulless","soulmate","soulmates","souls","sound","soundcheck","sounds","soundtrack","soup","soupe","sour","source","sources","sourire","souris","souru","sous","sousa","south","southampton","southeast","southern","southland","southside","southwest","souvenir","souvenirs","souviens","sovereign","sovereignty","soviet","soweto","soya","space","spaced","spaceman","spaces","spaceship","spacevr","spada","spade","spades","spaghetti","spain","span","spanien","spanish","spanking","spar","spara","spare","spark","sparkle","sparks","sparrow","sparrows","sparta","spartacus","spartan","spartans","spasti","spat","spater","spawn","spazio","speak","speakeasy","speaker","speaking","speaks","spear","spearhead","spears","spec","specchio","special","speciale","specialist","specials","species","spectacle","spectacular","specter","spectral","spectre","spectres","spectrum","speech","speechless","speed","speeding","speedway","speedy","spell","spellbound","spelling","spells","spencer","spend","spent","speranza","sperm","spettacolo","spezial","sphere","spheres","sphinx","spia","spiaggia","spice","spices","spicy","spider","spiderman","spiders","spie","spiegel","spiel","spielberg","spiele","spieler","spielt","spies","spike","spill","spilled","spilt","spin","spine","spinne","spinner","spinning","spinoff","spion","spione","spiral","spirit","spirited","spirito","spirits","spiritual","spirituality","spit","spite","spitfire","spiti","splash","splat","splatter","splendid","splendor","splinter","splintered","splinters","split","splits","splitting","spoiled","spoiler","spoilers","spoils","spoke","spoken","spongebob","sponsor","spontaneous","spoof","spook","spooked","spooks","spooky","spoon","spoons","spoor","spor","spore","sporet","sport","sporting","sportiva","sports","sportsman","sposa","sposi","sposo","spot","spotlight","spots","spotter","sprache","sprak","sprawa","spray","spread","spree","spricht","spring","springer","springfield","springs","springsteen","springtime","sprint","sprout","sprung","spud","spuk","spur","spuren","spurensuche","spurs","spustya","sputnik","spyder","spying","spyro","squad","squadra","squadron","square","squared","squarepants","squares","squash","squat","squatch","squatter","squatters","squeeze","squid","squire","squirrel","squirrels","srbija","srbije","srbiji","srce","srdce","srebrenica","sredi","sree","sridevi","srinivasa","sssr","staat","staatsanwalt","stab","stabbed","stable","stacey","stack","stacked","stacks","stacy","stad","stade","staden","stadium","stadt","stadte","staff","staffel","stafford","stag","stage","stagecoach","staged","stages","stagione","stahl","stain","stained","stains","staircase","stairs","stairway","stake","stakeout","stakes","stal","stale","stalemate","stalin","stalingrad","stalk","stalked","stalker","stalkers","stalking","stall","stallion","stallions","stallone","stamp","stampede","stan","stand","standard","standards","standby","standing","standoff","stands","standup","stanford","stanley","stanton","stanza","star","staraya","stardom","stardust","stare","starfall","starfighter","starfish","starfleet","stargate","stari","staring","stark","starke","starlet","starlight","starlite","starman","starr","starring","starry","stars","starship","starstruck","start","started","starter","starting","starts","startup","starve","starving","starz","stasera","stash","stasi","stat","state","stateless","stateline","statement","staten","states","static","station","stations","stato","statue","status","stay","staya","staycation","stayed","staying","stays","steady","steak","steal","stealer","stealing","steals","stealth","steam","steamboat","steampunk","steel","steele","stefan","stefanie","stefano","steht","stein","steinberg","steine","steiner","steins","stella","stellar","stelle","stem","sten","step","stepbrother","steph","stephan","stephanie","stephen","stepmom","stepmother","steppe","steppin","stepping","steps","ster","sterben","stereo","sterling","stern","sterne","sternen","sterren","sters","stesti","steve","steven","stevens","stevenson","steves","stevie","stew","stewardess","stewart","sthree","stick","stickman","sticks","sticky","stiff","stigma","stigmes","stiletto","still","stille","stiller","stillness","stillwater","stilte","stimme","stimmen","stimpy","stin","stine","sting","stingray","stinky","stir","stirbt","stirring","stis","stitch","stitches","stix","stjerner","stock","stockholm","stocking","stockings","stoke","stoked","stoker","stokes","stole","stolen","stomach","stomp","stomping","ston","stone","stoned","stoner","stoners","stones","stonewall","stood","stooges","stool","stoop","stop","stopped","stopping","stops","stopy","stor","stora","storage","store","stori","storia","storie","stories","stork","storm","storming","storms","stormy","storona","storonu","story","storybook","storyteller","storytellers","storytelling","storytime","stous","stowaway","stra","straat","strada","strade","strage","straight","strain","strait","strakha","strana","strand","stranded","strane","strange","strangelove","strangeness","stranger","strangers","strangest","stranglehold","strangler","straniero","stranitsy","strano","strany","strasti","strata","strategic","strategy","stratos","strauss","straw","strawberry","stray","strays","streak","stream","streamer","streaming","streams","stree","street","streets","streetz","strega","streit","strength","stress","stretch","strictly","strife","strijd","strike","striker","strikers","strikes","striking","string","stringer","strings","strip","stripes","stripped","stripper","strippers","striptease","strive","strogoff","stroke","strokes","strom","strong","stronger","strongest","stronghold","strongman","struck","struggle","struggles","struggling","strung","stryker","stuart","stuck","stud","student","students","studies","studio","studios","studs","study","stuff","stuffed","stuk","stump","stunde","stunden","stunning","stunt","stuntman","stunts","stupid","sturm","stuttgart","style","styled","styles","stylez","stylish","stylist","styx","suami","suan","suarez","suave","subah","subarashii","subarashiki","subconscious","sube","subete","subha","subhadra","subito","subject","sublet","sublime","submarine","submerged","submission","subscribe","substance","substitute","subterranean","suburban","suburbia","suburbs","subway","succeed","succes","success","successful","succession","successor","succubus","sucedio","such","suche","suchen","sucht","suci","sucia","suck","sucker","suckers","sucks","sucre","sudama","sudan","sudba","sudby","sudden","suddenly","suden","sudhu","sudoku","sudsee","sudtirol","sudu","sudwesten","suede","suegra","suelo","suen","suena","sueno","suenos","suerte","suet","suez","suffer","suffering","suga","sugar","sugarland","sugat","sugata","sugiru","sugo","sugoi","sugoroku","suhaag","suhada","suhag","suhagan","suhne","suicida","suicidal","suicide","suicides","suicidio","suikoden","suiri","suis","suisei","suisse","suit","suitable","suitcase","suite","suits","suka","sukai","sukanya","suke","sukeban","sukebe","sukeroku","sukh","sukha","suki","sukimono","sukina","sukuranburu","sukuru","sull","sulla","sulle","sullivan","sultan","sultana","suma","sumangali","sumasshu","sumatra","summarum","summer","summers","summertime","summit","summon","summoner","summoning","sumo","sumu","suna","sunae","sunburn","sund","sundance","sundar","sundara","sundaram","sundari","sunday","sundays","sunde","sunden","sunder","sunderland","sundige","sundown","sune","sunflower","sunflowers","sung","suni","sunken","sunlight","sunny","sunnyside","suno","sunrise","suns","sunset","sunsets","sunshine","sunt","suoi","suomalainen","suomen","suomessa","suomesta","suomi","suono","suor","supa","supai","supe","super","superbike","supercar","supercross","superfan","supergirl","superhero","superheroes","superhuman","superior","superman","supermarket","supermen","supermodel","supernanny","supernatural","supernova","superpower","superpowers","supers","supershow","supersonic","superstar","superstars","superstition","supervivencia","superwoman","supesharu","supesu","supirittsu","supotsu","supper","supply","support","supporting","supposed","suppression","suprema","supremacy","supreme","supremo","sura","suraj","surat","sure","surf","surface","surfer","surfers","surfin","surfing","surga","surge","surgeon","surgery","surgun","suri","suriya","suronin","surprise","surprises","surreal","surrender","surrogate","surrounded","suru","surveillance","survey","survival","survivalist","survivants","survive","survived","surviving","survivor","survivors","survivre","surya","susan","susana","susanna","susannah","susanne","sushi","susi","susie","suspect","suspects","suspended","suspense","suspension","suspicion","suspicious","sustainability","sustainable","susume","suta","sutajiamu","sutazu","suteji","suteki","suteppu","sutori","sutorizu","sutra","sutter","sutton","suvarna","suzanne","suzie","suzuki","suzumiya","suzunosuke","suzy","svadba","svart","svarta","sven","svensk","svenska","svensson","sverige","sveriges","svet","sveta","svete","svetlana","svetlo","svoboda","svoi","svoy","svoya","swag","swallow","swallowed","swallows","swami","swamp","swamy","swan","swans","swansea","swantham","swap","swapna","swapnam","swapnangal","swapped","swapping","swarg","swarga","swarm","swarna","swat","swathi","sway","swayamvar","swear","sweat","sweater","swede","sweden","swedish","sweeney","sweep","sweeper","sweet","sweeter","sweetest","sweetheart","sweethearts","sweetie","sweets","sweetwater","sweety","swell","swiat","swiata","swift","swim","swimmer","swimming","swimsuit","swindle","swine","swing","swinger","swingers","swingin","swinging","swings","swipe","swiped","swiss","switch","switched","switching","switzerland","sword","swords","swordsman","sworn","sxsw","syaitan","sybil","sycamore","sydan","sydney","sykes","sylvester","sylvia","sylvie","symbiosis","symbol","symbols","symmetry","sympathy","symphonic","symphonie","symphony","symposium","syna","sync","synchronicity","syndicate","syndrome","synergy","synora","synth","synthetic","synthwave","syria","syrian","syrup","system","systems","syupeo","szent","szep","szerelem","taal","taam","taan","taare","tabernacle","tabi","tabibito","tabidachi","tabigarasu","tabiji","table","tableau","tables","tabletop","tabloid","taboo","tabu","tabula","tachi","tack","tackle","tackling","taco","tacones","tacos","tactical","tactics","tada","tadaima","tadap","tadhana","tadka","taeyang","tafel","taga","tage","tagebuch","tagen","tages","tagged","tagore","tagu","tahiti","tahoe","taht","tahu","taifu","taiga","taiheiki","taiheiyo","taiho","taii","taika","taikai","taiken","taiketsu","taiko","taikoki","taikutsu","tail","tailed","tailgate","tailor","tails","taimu","tain","taina","tainted","taipei","tairiku","tais","taisen","taishi","taisho","taistelu","taitei","taiwan","taiyo","taizai","tajemnica","tajemnice","tajemstvi","tajna","tajne","taka","takada","takahashi","takao","takara","takas","takaya","take","takeaway","takedown","taken","takeover","taker","takers","takes","takeshi","takht","taki","takim","takimi","takin","taking","takip","takkar","tako","taksi","takumi","takut","tala","talash","talata","tale","talent","talented","talento","talentos","talents","tales","tali","talia","taliban","talihsiz","talion","talisman","talk","talker","talkh","talkies","talkin","talking","talks","talkshow","tall","taller","talli","talo","talon","talons","talwar","tama","tamad","tamago","tamagotchi","tamam","tamanna","tamara","tamas","tamasha","tamashii","tamayura","tambem","tambien","tambour","tame","tamed","tameiki","tamer","tamil","taming","tammy","tamo","tampa","tana","tanah","tanaka","tanbo","tandem","tane","tanets","tang","tange","tanger","tangle","tangled","tango","tanha","tanhayi","tani","tania","tanima","tanin","tanjo","tank","tanken","tanks","tanner","tanpa","tant","tanta","tante","tantei","tanteidan","tanto","tantra","tantsy","tanuki","tanya","tanz","tanzania","tanzen","tanzerin","tanzt","taong","tapang","tape","tapers","tapes","tapestry","tapper","taqdeer","tara","tarang","tarantula","taras","tard","tarde","tardes","tare","tareeq","target","targeted","targets","tari","tarih","tarik","tarina","tarinoita","tariq","tarkovsky","tarnished","taro","tarot","tarou","tart","taru","tarzan","task","taskmaster","tasmania","tasmanian","tasogare","taste","tastes","tasting","tasty","tasuke","tasveer","tata","tatak","tatakae","tatakai","tatakau","tatay","tate","tater","tati","tatiana","tatli","tatlo","tatlong","tato","tatort","tatsu","tatsujin","tatsumaki","tatta","tattoo","tattooed","tattoos","taught","tausend","tavern","tawa","tawamure","tawan","taxes","taxi","taxidi","taxista","taylor","tayna","tayny","tayo","tchaikovsky","teach","teacher","teachers","teaches","teaching","teachings","team","teams","tear","teardrop","tears","tease","teaser","teater","teatre","teatro","tebe","tebya","tech","technical","technically","technik","technique","techniques","techno","technology","techo","tecmo","tecnica","teddy","teen","teenage","teenager","teenagers","teens","teer","teesri","teeth","tegami","tegara","tegen","teheran","tehlikeli","tehni","tehnis","tehran","teikoku","teil","teio","teiruzu","teishu","teiso","teja","tejo","teki","tekka","tekkamen","tekken","tela","tele","telefon","telefono","teleftaia","teleftaio","teleftaios","telegraph","telemundo","telenovela","telephone","telescope","teleteatro","telethon","televised","television","tell","tellement","teller","telling","tells","telltale","telly","telos","telstar","telugu","tema","temas","temoin","temoins","temp","tempel","temperature","tempest","tempesta","tempestad","tempete","tempi","templar","temple","temples","tempo","temporada","temporal","temporary","tempos","temps","temptation","temptations","tempted","tempting","temptress","tempus","tenali","tenant","tenants","tenchi","tenchu","tender","tenderfoot","tendre","tendresse","tenebre","tenebres","tenebris","tenemos","teng","tengai","tengo","tengoku","tengu","teni","tenichibo","tenis","tenisu","tenjo","tenka","tenku","tenma","tennessee","tennis","tenor","tenorio","tenpo","tens","tensai","tense","tensei","tenshi","tension","tent","tentacion","tentaciones","tentacle","tentation","tenth","tents","tenyu","teoria","tepe","tequila","tera","terakhir","terapia","terceiro","tercer","tercera","tere","terebi","terence","teresa","tereza","terezin","teri","terlarang","term","termina","terminal","terminally","termination","terminator","terminus","terms","ternura","terra","terrace","terrain","terras","terre","terremoto","terres","terrestrial","terreur","terri","terrible","terrific","terrifying","territoire","territories","territorio","territoriya","territory","terror","terrore","terrorism","terrorist","terrorists","terrors","terry","teru","terug","terza","terzo","tesla","tesoro","tesouro","tess","tessa","test","testa","testament","testamento","teste","tested","testigo","testigos","testimonios","testimony","testing","tete","tetes","tethered","tetris","tetsu","tetsudo","tetsudou","tetsujin","tetsuro","tetsuwan","teufel","teufels","texan","texas","text","thai","thailand","thakur","thalaivan","thalassa","thalatha","thali","tham","thaman","thambi","thames","thanatos","thanatou","thang","thanga","thangai","thangam","thanh","thani","thank","thanks","thanksgiving","thatcher","thaw","thay","thayi","thea","theater","theaters","theatre","theatrical","theatro","thedi","thee","theerpu","theft","theke","thelma","thema","theme","themis","themselves","then","theo","theodor","theodore","theorie","theories","theory","theou","therapie","therapist","therapy","theresa","therese","theroux","theru","thesis","thessaloniki","thessalonikis","thick","thicker","thief","thien","thieves","thikana","thin","thing","things","think","thinkers","thinking","thinks","third","thirst","thirsty","thirteen","thirteenth","thirty","thiru","thoda","thoi","thom","thomas","thompson","thon","thong","thor","thorn","thorne","thorns","thornton","thoroughbred","thou","though","thought","thoughts","thousand","thousands","thread","threads","threat","three","threesome","threshold","thrift","thrill","thriller","thrills","thrive","thriving","throat","throne","thrones","throttle","through","throw","throwback","throwdown","throwing","thrown","thru","thug","thugs","thuis","thumb","thumbs","thunder","thunderbird","thunderbirds","thunderbolt","thundering","thung","thursday","thursdays","thus","tiao","tiara","tibet","tibetan","tiburon","ticha","tick","ticket","tickets","ticking","tickle","tidal","tide","tiden","tider","tides","tidings","tied","tiefe","tiempo","tiempos","tien","tiene","tienen","tienes","tier","tiere","tierra","tierras","ties","tiffany","tiga","tiger","tigers","tigh","tight","tightrope","tigre","tigres","tijd","tijden","tijuana","tikhie","tiki","tiktok","tila","tilak","tilbage","tiles","till","tillbaka","tillie","tilly","tilt","timber","timbuktu","time","timeless","timeline","timer","timers","times","timi","timing","timmy","timo","timon","timor","timothy","timur","tina","tinder","tine","ting","tinh","tinieblas","tinker","tino","tinsel","tinseltown","tinta","tintin","tinto","tiny","tipo","tipos","tipping","tips","tipsy","tira","tirana","tire","tired","tiro","tirol","tisch","tita","titan","titanic","titans","titchmarsh","titel","tithe","titi","title","tito","tits","titus","tivoli","tjpw","tkkg","tmnt","toad","toaru","toast","toaster","toba","tobacco","tobakushi","tobe","tobi","tobias","tobira","tobo","toboy","tobu","toby","toca","tocca","tochka","tochter","tock","toda","todas","todavia","today","todd","toddler","tode","todes","todliche","todo","todos","toekomst","toen","toes","tofu","toge","together","togo","toile","toilet","toire","toit","toits","tojin","toka","tokage","tokai","tokaido","toke","token","tokens","toki","tokidoki","tokimeki","tokio","tokkyu","toko","tokoro","toku","tokubetsu","tokudane","tokugawa","tokumei","tokusatsu","tokushu","tokuso","tokyo","told","toledo","tolerance","tolko","toll","tolle","tollsten","toma","tomahawk","tomake","tomar","tomaranai","tomas","tomate","tomato","tomatoes","tomay","tomb","tombe","tomboy","tombstone","tomcat","tome","tomei","tomi","tommy","tomo","tomodachi","tomorrow","tomorrows","tomoshibi","toms","tomu","tona","tonari","tonchinkan","tondo","tone","tong","tonga","tongue","tongues","toni","tonic","tonight","tonino","tonite","tonk","tonka","tono","tonosama","tons","tonto","tony","toofan","toofani","took","tool","toolbox","toole","tools","toon","tooned","toons","toot","tooth","topi","topics","topless","topo","topos","topp","toppa","toppen","topper","toppu","toprak","tops","toque","tora","torajiro","torakku","torch","torchwood","tore","torero","tori","toride","toriko","torimono","torimonocho","torino","torment","tormenta","tormented","tormento","torn","torna","tornado","torno","toro","torokeru","toronto","toros","torpedo","torre","torrent","torrente","torres","tortenet","tortenete","tortenetek","tortoise","tortuga","tortura","torture","tortured","toru","toruko","tory","tosatsu","tosca","tosei","toshi","toshigoro","toshinden","toshokan","toso","toss","tosui","tota","total","totally","tote","totem","toten","toto","totoy","tots","totsugeki","tottenham","tottoko","touch","touchdown","touche","touched","touching","tough","tougher","toughest","touhoku","touhou","toujours","touken","toukyou","toulouse","tour","tourbillon","touring","tourist","tourists","tourmente","tournament","tournaments","tourne","tournee","tours","tous","tousen","toussaint","tout","toute","toutes","tovarishch","towa","towairaito","toward","towards","towel","tower","towers","town","towns","townsend","township","toxic","toyama","toybox","toyland","toyo","toyota","toys","trabajo","trabalho","tracce","trace","traces","tracey","tracing","track","tracker","trackers","tracking","trackmania","tracks","traction","tractor","tracy","trad","trade","trader","traders","trades","tradicion","tradicionales","trading","tradition","traditional","traditions","traffic","trafficked","traffickers","trafficking","trafic","traficante","traficantes","trafico","tragedia","tragedie","tragedy","tragic","tragica","tragico","trago","tragodie","tragoudi","tragoudia","trai","traicao","traicion","trail","trailblazer","trailblazers","trailer","trailers","trailing","trails","train","trained","trainer","training","trains","trainwreck","traitor","traitors","tram","tramonto","tramp","trampa","tramps","tran","trance","tranen","trang","tranquility","tranquille","trans","transatlantic","transcendence","transcendent","transcending","transfer","transference","transformation","transformations","transformed","transformers","transforming","transgender","transient","transit","transition","transito","translation","translator","transmission","transmissions","transparent","transplant","transport","transylvania","trap","trapalhao","trapalhoes","trapo","trapped","trapper","traps","tras","trash","trato","traum","trauma","traume","traumen","travail","travaux","travel","traveled","traveler","travelers","traveling","travelled","traveller","travellers","travelling","travels","travers","traverse","traversee","traves","travesia","travessia","travesty","traviata","travis","trax","treacherous","treachery","tread","treading","treason","treasure","treasures","treat","treatment","treats","treaty","trece","tredje","tree","treehouse","trees","treffpunkt","tregua","trei","treis","trek","treks","trellos","trem","treme","tren","trench","trenches","trend","trending","trends","treno","trent","trente","tres","tresor","tresors","trespass","trespasser","trespassing","tretiy","treue","trevor","trey","tria","triad","trial","trials","triangle","triangles","triangulo","tribal","tribe","tribes","tribu","tribulation","tribulations","tribunal","tribute","tributo","trick","tricked","tricks","tricky","trident","tried","tries","trieste","trifft","trigger","triggered","trillion","trilogia","trilogie","trilogy","trim","trinidad","trinita","trinity","trio","trionfo","trip","triple","triplets","tripoli","trippin","tripping","trips","triptych","trish","trisha","trishna","tristan","triste","tristes","tristeza","triton","trittico","triumph","triunfo","trivia","trivial","trixie","troe","troi","trois","troisieme","trojan","troll","trolley","trollface","trolls","trom","troma","trompe","tron","trong","trono","troop","trooper","troopers","troops","trop","tropa","tropez","trophy","tropic","tropical","tropico","tropics","troppo","tror","tros","trot","trotsky","trou","troubadour","trouble","troubled","troublemaker","troubles","troublesome","troupe","trout","troy","troya","truc","truce","truck","trucker","truckers","trucks","trudy","true","truly","truman","trump","trumpet","trumps","trunk","trust","truth","truths","truyen","trying","trzy","tsar","tsarstvo","tsena","tsubaki","tsubasa","tsubo","tsubomi","tsuchi","tsugaru","tsugi","tsugu","tsugunai","tsuioku","tsuiseki","tsuite","tsukahara","tsukai","tsuki","tsukigata","tsukiyo","tsukuru","tsuma","tsumatachi","tsume","tsumi","tsunagu","tsunami","tsurai","tsuri","tsuribaka","tsurugi","tsuya","tsuyoku","tsuyu","tsvety","tuan","tube","tubes","tuch","tuck","tucker","tucson","tudo","tudor","tuer","tuesday","tuesdays","tueur","tuff","tugboat","tuhan","tuition","tujhe","tukaram","tukso","tula","tulasi","tuli","tulip","tulsa","tulsi","tulsidas","tumba","tumbal","tumbas","tumble","tumbleweed","tumbling","tumhara","tumhare","tumhari","tumi","tumor","tumse","tuna","tunay","tundra","tune","tuned","tunel","tuner","tunes","tung","tuning","tunisia","tunnel","tunnels","tuntematon","tuoi","tupac","turandot","turbine","turbo","turbulence","ture","turen","turf","turhapuro","turin","turismo","turist","turista","turistas","turk","turkey","turkish","turkiye","turkusu","turma","turmoil","turn","turnabout","turnaround","turned","turner","turning","turno","turns","turnt","turpin","turquoise","turtle","turtles","tuscany","tusk","tuskegee","tussen","tutankhamun","tutor","tutorial","tutorials","tutta","tutte","tutti","tutto","tutu","tuvo","tuya","tuyo","tvar","tvoi","tvoy","twain","twas","twee","tweet","twelfth","twelve","twenties","twentieth","twenty","twice","twilight","twin","twinkle","twins","twist","twisted","twister","twitch","twitter","tycoon","tyler","tylko","type","types","typewriter","typhoon","typical","typing","typisch","tyranny","tyrant","tyrone","tyson","tytto","ubawareta","uber","uberall","uberfall","uberleben","ubit","ubiystva","ubiystvo","ubuntu","uccide","uccidere","uchi","uchitel","uchu","uchuu","udaan","udar","uden","uefa","ueno","ufos","uganda","ugly","ugoku","ugruna","uhaw","ujala","ukhodit","ukiyo","ukraina","ukraine","ukrainian","ukulele","ulagam","ulan","ulica","ulisse","ulitsa","ulla","ullam","ulster","ultima","ultimas","ultimate","ultimatum","ultime","ultimi","ultimo","ultimos","ultra","ultraman","ultras","ulysse","ulysses","umaga","umana","umar","umareta","umbra","umbral","umbrella","umeed","umeki","umibe","umineko","umon","umut","unafraid","unakkaga","unang","unanswered","unapologetic","unarmed","unas","unauthorized","unbearable","unbeatable","unbekannte","unbekanntes","unbelievable","unborn","unbound","unboxed","unboxing","unbreakable","unbridled","unbroken","uncaged","uncanny","uncensored","uncertain","uncertainty","unchained","uncharted","unclaimed","uncle","uncomfortable","uncommon","unconditional","unconscious","unconventional","uncorked","uncovered","uncovering","uncut","undaunted","undead","undefeated","undeniable","under","underbelly","undercover","undercurrent","underdog","underdogs","underground","underneath","undersea","understand","understanding","understudy","undertaker","undertale","undertow","underwater","underworld","undiscovered","undisputed","undo","undocumented","undoing","undone","undressed","undying","unearthed","unearthing","uneasy","unei","unemployed","unemployment","unexpected","unexplained","unfair","unfaithful","unfiltered","unfinished","unfolding","unforeseen","unforgettable","unforgivable","unforgiven","unforgotten","unfortunate","unga","ungdom","unge","ungodly","ungrounded","unhappy","unheard","unheimliche","unhinged","unholy","unica","unico","unicorn","unicorns","unidad","unidentified","unidos","unified","uniform","uninvited","union","unique","unit","unita","unite","united","unity","univers","universal","universalis","universe","universidad","university","universo","universum","univision","unknown","unknowns","unlawful","unleash","unleashed","unlikely","unlimited","unlock","unlocked","unlocking","unlucky","unmaking","unmarried","unmasked","unmasking","unmei","unnai","unnamed","unnatural","unnecessary","unni","unofficial","unorthodox","unos","unpacked","unplanned","unplugged","unprotected","unquiet","unraveled","unraveling","unreal","unreasonable","unrequited","unrest","unruly","unsafe","unsaid","unschuld","unscripted","unseen","unser","unsere","unserer","unsettled","unsichtbare","unsigned","unsinkable","unsolved","unsound","unspeakable","unspoken","unstable","unstoppable","unsung","untamed","unten","unter","untergang","unterm","unternehmen","unterwegs","unterwelt","untethered","unthinkable","until","untitle","untitled","unto","untold","untouchable","untouchables","untouched","untuk","unui","unusual","unveiled","unveiling","unwanted","unwelcome","unwrapped","unwritten","unzipped","uogashi","uomini","uomo","update","updates","upendra","upgrade","uphill","upon","uppdrag","upper","uprising","uprooted","upside","upstairs","upstate","upstream","uptown","upward","uragiri","uramachi","urami","uranai","uranium","uranus","urban","urbana","urbano","urbanos","urbis","urdu","ureta","urge","urgence","urgente","urimasu","urlaub","urlo","uroki","ursula","ursus","uruguay","urusei","urutora","urutoraman","urvashi","usagi","used","useful","useless","user","usha","usher","ushi","ushinawareta","ushio","ushiro","usine","using","usotsuki","ussr","usta","ustaad","ustad","usted","ustedes","usual","utage","utah","utan","utau","utawarerumono","uten","utero","utha","utolso","utopia","utopie","utro","utsu","utsukushii","utsukushiki","uttar","uuno","uwaki","uwakizuma","uwasa","uyir","uzuki","uzuku","uzumaki","uzun","vaada","vaanam","vaat","vaca","vacaciones","vacances","vacancy","vacant","vacanza","vacanze","vacas","vacation","vacations","vaccine","vachan","vache","vaches","vacia","vacio","vacuum","vader","vadha","vadis","vadisi","vado","vagabond","vagabundo","vagen","vaght","vaghte","vaghti","vagina","vagon","vagrant","vague","vagy","vagyok","vahshi","vahsi","vain","vais","vajra","vala","valdes","valdez","vale","valencia","valente","valentin","valentina","valentine","valentines","valentino","valeria","valerie","valet","valg","valhalla","vali","valiant","valiente","valientes","valkoinen","valkommen","valkyrie","valladolid","valle","vallee","valley","valleys","valli","valmiki","valo","valor","valorant","valore","valour","vals","valse","value","values","vamos","vamp","vampir","vampira","vampire","vampires","vampiro","vampiros","vamps","vampyr","vampyre","vamsam","vana","vance","vancouver","vanda","vandal","vande","vanderpump","vanessa","vang","vanga","vangelo","vanguard","vani","vanilla","vanished","vanishing","vanitas","vanity","vanna","vanner","vanpaia","vans","vanya","vapor","vaquero","vara","varai","varanasi","vare","varela","varen","vares","varg","vargas","vari","variant","variations","variete","varieties","variety","varld","varlden","varldens","varma","varos","varsity","vart","varum","varvara","vary","vasantha","vasantham","vasco","vash","vast","vatan","vater","vaterland","vaters","vatican","vaudeville","vaughan","vaughn","vault","vaya","vayasu","vazhi","vecchia","vece","veces","vecher","vecindad","vecino","vecinos","veckans","vector","veda","vedi","vedma","vedova","veedu","veena","veendum","veer","veera","veeran","veetu","vega","vegan","vegas","vegetarian","veggietales","vehicle","veil","veiled","veils","vein","veins","veinte","veka","vela","velazquez","velha","velho","veli","velicham","velikaya","velikiy","velka","velke","velky","vella","velo","velocity","velvet","vemos","vencer","vencidos","vende","vendedor","vender","vendetta","vendi","vendicatore","vendor","vendre","vendredi","vendum","venedig","veneno","venerdi","venere","venetian","venezia","veneziano","venezuela","venga","vengador","venganza","vengeance","vengeful","vengo","veni","venice","venir","venise","venner","vennori","venom","vent","venta","ventana","vento","ventos","ventre","vents","ventura","venture","ventures","venus","vera","veracruz","verano","verao","veras","verbena","verborgen","verboten","verbotene","verbrechen","verdad","verdade","verdadera","verdadero","verdades","verdammt","verde","verden","verdens","verdes","verdi","verdict","verdugo","verdun","verdwenen","vere","vergangenheit","verge","vergessen","vergessene","vergeten","vergine","verguenza","verhaal","verhalen","verified","verit","verita","veritable","veritas","verite","verity","verliebt","verliefd","verloren","verlorene","verlorenen","vermachtnis","vermeer","vermelha","vermelho","vermilion","vermin","vermont","verne","vernon","vero","verona","veronica","veronika","veronique","verra","verre","verruckt","verruckte","vers","versa","versace","versailles","verschwinden","verschwundene","verse","verses","version","versions","versiya","verso","verstehen","versuchung","versus","vert","verte","vertical","vertige","vertigo","verts","very","vesna","vessel","vest","vesti","vestido","veta","vetar","veter","veteran","veterans","vetra","vetri","vetro","vets","vettai","veut","veux","vevo","vezes","viagem","viagens","viaggio","viaje","viajero","viajeros","viajes","viata","viatge","vibe","vibes","vibrations","vicar","vice","vicente","vichitra","vicini","vicio","vicious","vick","vicki","vicky","victim","victima","victimas","victims","victoire","victor","victoria","victorian","victorious","victory","vida","vidal","vidas","vide","video","videobiography","videocart","videogame","videos","videotape","vidhi","vidi","vidya","vieil","vieille","vieja","viejo","viejos","viel","viele","viena","viendra","viene","vienen","vienna","vienne","viens","vient","viento","vientos","vier","vierge","viernes","vierte","vies","viet","vietnam","vieux","view","viewing","viewpoint","views","viggo","vigil","vigilant","vigilante","vigilantes","vignettes","vigo","viii","viimeinen","vijay","vijaya","vijayam","vikend","viki","viking","vikings","vikram","viktor","viktoria","vila","vilag","vilakku","vilde","vile","vill","villa","village","villages","villain","villains","villarreal","villas","ville","villes","vilma","vimata","vina","vince","vincent","vincenzo","vinci","vindication","vindictive","vine","vines","vineyard","vinganca","vingt","vinnie","vinny","vino","vintage","vinyl","viol","viola","violation","violence","violencia","violent","violenta","violento","violenza","violet","violeta","violetta","violette","violin","violinist","viper","vips","vira","viral","virgem","virgen","virgenes","virgil","virgin","virginia","virginie","virginity","virgins","virgo","virtua","virtual","virtually","virtue","virtues","virtuoso","virtuous","virus","visa","visage","visages","visceral","visconti","vise","vishnu","vishwa","vishwamitra","vishwas","visibility","visible","vision","visionaries","visionary","visione","visions","visit","visita","visite","visiting","visitor","visitors","visits","vista","vistas","visto","visual","vita","vital","vitamin","vite","vitesse","vitez","vito","vitoria","vittoria","vittorio","viuda","viudas","viva","vivah","vivaldi","vivan","vivant","vivante","vivants","vivas","vive","viver","vivere","vivi","vivian","viviana","vivid","viviendo","vivienne","vivimos","vivir","vivo","vivos","vivre","vixen","vixens","vizinhos","vizio","vkus","vlaamse","vlaanderen","vlad","vladimir","vlast","vliegende","vlog","vlogs","vmeste","vocation","voce","voces","voci","voda","vode","vodka","vody","voennogo","vogel","voglia","voglio","vogue","voice","voiceless","voices","void","voie","voila","voile","voir","voisins","voiture","voix","vola","volando","volant","volante","volar","volare","volcan","volcano","volcanoes","vole","voleur","voleurs","volevo","volga","volk","volker","volkes","volki","voll","volle","voller","volley","volleyball","volo","volonte","volshebnik","volt","volta","voltage","volte","volti","volto","volume","volunteer","volunteers","volver","vong","vont","voodoo","voor","vores","vorhang","voros","vorrei","vorsicht","vortex","voss","vostok","vote","votes","voting","voto","votre","voulait","vous","vows","voyage","voyager","voyagers","voyages","voyageur","voyageurs","voyeur","voyna","voyny","vozes","vozrast","vozvrashchenie","vrag","vragi","vrai","vraie","vrata","vreme","vremena","vremeni","vremya","vriend","vrienden","vrouw","vrouwen","vsechno","vsegda","vsekh","vsem","vstrecha","vstrechi","vsyo","vtoraya","vtoroy","vuelo","vuelta","vuelve","vuelven","vues","vulkan","vulture","vultures","vuoi","vuole","vuosi","vuoto","vuur","vylet","vypusk","vystrel","vyzhivshie","vzglyad","waan","waar","wacken","wacky","waco","wada","wade","wadi","wafa","wafaa","waffen","waffle","waffles","wafuku","waga","wagamama","wagaya","wage","wager","wages","wagner","wagon","wagons","wags","wahala","wahan","wahed","wahi","wahl","wahn","wahnsinn","wahre","wahrheit","waifu","waikiki","wairudo","waisetsu","wait","waiter","waiting","waitress","waits","wajah","waka","wakadaisho","wakadanna","wakai","wakaki","wakakusa","wakamono","wakamusha","wakare","wakasama","wakashu","wakazuma","wake","wakefield","wakes","waking","wakodo","waktu","waku","wakusei","wala","walang","wald","walden","walder","waldo","wale","wales","wali","walk","walkabout","walked","walker","walkers","walking","walks","wall","wallace","wallenberg","wallet","wallflower","wallpaper","walls","wally","walrus","walsh","walt","walter","walters","walton","waltz","walzer","wana","wand","wanda","wandarando","wander","wanderer","wanderers","wandering","wanderlust","wang","wanita","wanna","wannabe","want","wanted","wants","waqt","wara","warai","warau","warcraft","ward","warda","warden","wardrobe","ware","warehouse","waren","warera","warfare","warhammer","warhol","wario","waris","warlock","warlord","warlords","warm","warming","warmth","warner","warning","warp","warpath","warped","warrant","warren","warrior","warriors","wars","warsaw","warship","warszawa","warten","wartime","waru","warudo","warui","warum","warutsu","warzone","wash","washed","washing","washington","wasn","wasp","wasser","waste","wasted","wasteland","wasurenai","wata","watan","wataridori","wataru","watashi","watashitachi","watch","watched","watcher","watchers","watches","watching","watchman","watchmen","watchtower","water","waterfall","waterfront","watergate","waterloo","waterman","watermelon","waters","watershed","waterworld","watford","watkins","watson","watt","watts","wave","waverly","waves","wayne","ways","wayward","weak","weakest","weakness","wealth","wealthy","weapon","weapons","wear","wearing","wears","weather","weave","weaver","weavers","webb","webcam","weber","webisodes","webserie","webseries","webster","webtoon","wedding","weddings","wedge","wednesday","wednesdays","weds","weed","weeds","week","weekend","weekender","weekends","weekly","weeks","weep","weeping","weer","weet","wege","wegen","wehshi","weib","weight","weightless","weihnachten","weil","wein","weinen","weir","weird","weirdest","weirdo","weirdos","weiss","weisse","weit","weiter","welad","welch","welcome","weld","welfare","welkom","well","welle","welles","wellington","wellness","wells","welsh","welt","welten","weltkrieg","wembley","wende","wendigo","wendy","wenn","went","werd","werde","werden","werder","wereld","werewolf","werewolves","werk","werner","werther","wesley","west","westen","western","westerns","westminster","weston","westside","westward","westwood","westworld","wetter","whack","whacked","whale","whales","wham","wharf","whatever","whats","wheat","wheel","wheelchair","wheeler","wheels","wherever","whicker","while","whimsy","whip","whiplash","whirlpool","whirlwind","whiskers","whiskey","whisky","whisper","whisperer","whispering","whispers","whistle","whistleblower","whistleblowers","whistler","whistling","white","whites","whitetail","whitey","whitman","whitney","whiz","whole","whom","whore","whores","whose","wick","wicked","wicker","wicket","widaehan","wide","wider","widerstand","widow","widower","widows","wieder","wiedersehen","wielka","wien","wiener","wiese","wife","wifi","wigan","wiggle","wiggles","wight","wilbur","wild","wildcard","wildcat","wildcats","wilde","wilden","wilder","wilderness","wildes","wildest","wildfire","wildflower","wildlife","wildnis","wilds","wilfred","wilhelm","willard","wille","willem","willen","willi","william","williams","williamson","willie","willing","willis","willkommen","willow","willows","wills","willy","wilson","wimbledon","wimpy","winchester","wind","windfall","winding","windmill","window","windows","windrush","winds","windsor","windsors","windy","wine","winehouse","wing","winged","wingman","wingmen","wings","wink","winkle","winner","winners","winnetou","winnie","winning","winnipeg","wins","winslow","winston","winter","winterreise","winters","winx","wipe","wipeout","wird","wire","wired","wireless","wires","wirklich","wirklichkeit","wirtin","wirtschaft","wisconsin","wisdom","wise","wiseguy","wish","wishbone","wishes","wishing","wissen","witch","witchcraft","witcher","witches","witching","withered","within","without","witness","witnesses","wits","witte","wives","wizard","wizardry","wizards","wnba","woche","wochenende","wogan","wohi","wohin","wohnen","wojna","wojny","woke","wolf","wolfe","wolfenstein","wolff","wolfgang","wolfman","wolfsburg","wolken","wollen","wolverhampton","wolverine","wolves","woman","womanhood","womb","wombat","women","wonder","wonderful","wonderland","wonders","wondrous","wong","wonka","wood","wooden","woodland","woodpecker","woods","woodsman","woodstock","woody","woof","wool","woolf","woolly","woord","word","words","wordt","wore","work","worker","workers","working","workout","workouts","workplace","works","workshop","world","worlds","worldwide","worm","worms","wormwood","worry","worrying","worse","worship","worsley","worst","wort","worte","worth","worthy","would","wouldn","wound","wounded","wounds","woven","wozu","wraith","wrangler","wrap","wrapped","wrath","wreck","wreckage","wrecked","wrecker","wrecking","wrench","wrestle","wrestlemania","wrestler","wrestlers","wrestling","wretched","wright","write","writer","writers","writes","writing","written","wrong","wrongs","wrote","wszystko","wuhan","wukong","wunder","wunderbare","wunderland","wunsche","wurde","wuste","wuthering","wwii","wyatt","wynkoop","wynn","wyoming","xanadu","xavier","xbox","xchange","xena","xian","xiang","xiao","xiii","xing","xingfu","xiong","xmas","xoxo","xpress","xtra","xtreme","xuan","xuxa","xviii","yaad","yaar","yaara","yaari","yaaro","yaban","yabanci","yabo","yabou","yabure","yaburi","yacht","yado","yaga","yagmur","yagyu","yahan","yahoo","yahya","yaiba","yaji","yajikita","yaju","yakata","yakin","yakko","yako","yaku","yakusha","yakusoku","yakuza","yakyu","yakyuu","yalan","yalanci","yale","yalla","yalniz","yama","yamada","yamamoto","yaman","yamanaka","yamashita","yamato","yami","yamikin","yamuna","yana","yanagawa","yandere","yang","yangin","yangtze","yangu","yani","yank","yankee","yankees","yanki","yanks","yaprak","yaqui","yara","yarali","yarasi","yard","yards","yari","yarim","yarin","yarn","yaro","yaru","yasak","yasam","yasamak","yasashii","yasei","yasha","yashiki","yashoda","yasmin","yassine","yasubei","yasuke","yata","yataro","yates","yathra","yatra","yatsu","yatsura","yatte","yavrum","yawa","yawahada","yaya","yeager","yeah","year","yearbook","yearning","years","yedi","yego","yehi","yeki","yell","yellow","yellowstone","yemen","yeni","yeniden","yeoin","yeoja","yeojaga","yeojaui","yeol","yeon","yeonae","yeong","yeonin","yesil","yesterday","yesterdays","yeter","yeti","yeung","yeux","ygeia","yiddish","yigit","yildiz","yildizi","yildizlar","yillar","ying","yingxiong","yisrael","yoake","yobai","yobu","yoda","yoddha","yodha","yoen","yoga","yogi","yogiri","yoidore","yojinbo","yojohan","yokai","yoke","yoki","yoko","yokocho","yokohama","yokoso","yoku","yokubo","yokujo","yolanda","yolculari","yolculuk","yolcusu","yolki","yollar","yolo","yolu","yolunda","yome","yomigaeru","yona","yonder","yong","yoni","yori","york","yorker","yorkshire","yorokobi","yoromeki","yoroshiku","yoru","yosei","yoshi","yoshida","yoshitsune","yotamono","yotsuya","youkai","youm","youn","young","youngblood","younger","youngest","youngstown","yourself","yousei","youth","youthful","youtube","youtuber","youtubers","yowamushi","yoyo","yparhei","yuan","yubi","yubisaki","yubiwa","yucatan","yuddha","yudh","yudham","yuen","yuet","yuga","yugi","yugo","yuhi","yujo","yukai","yukan","yukari","yuke","yuki","yukinojo","yukon","yuku","yukue","yukyo","yukyoden","yule","yuletide","yuma","yume","yumi","yummy","yumruk","yuna","yung","yunost","yunus","yurei","yureru","yuri","yusha","yusuf","yuugiou","yuuki","yuuna","yuusha","yuva","yuvasi","yuwaku","yuzu","yuzuki","yves","yvette","yvonne","zaak","zach","zack","zagadka","zagovor","zahlt","zahra","zaka","zakari","zakhm","zakhmi","zakon","zakona","zakonam","zakone","zakura","zalam","zalim","zama","zaman","zamana","zamani","zamanlar","zamba","zameen","zamin","zamurai","zamuzh","zane","zang","zange","zanjeer","zankoku","zankyo","zanzibar","zapata","zapatos","zapp","zappa","zapping","zara","zaragoza","zare","zashchita","zastava","zatoichi","zauber","zavtra","zaza","zdes","zdravstvuy","zealand","zebra","zeccho","zehirli","zehn","zeichen","zeit","zeiten","zeitgeist","zeitreise","zekkyo","zelda","zelle","zelyonyy","zeme","zemi","zemle","zemli","zemlja","zemlya","zempen","zena","zenda","zende","zendegi","zene","zengo","zeni","zenigata","zenith","zenkoku","zenobureido","zenpen","zenshin","zenshu","zeny","zephyr","zeppelin","zerkalo","zero","zeroes","zeros","zeruda","zessho","zeta","zetcho","zetsugi","zetsurin","zettai","zetto","zeuge","zeugen","zeus","zeven","zhai","zhan","zhang","zhao","zhelaniy","zhen","zhena","zheng","zhenshchina","zhenshchiny","zhenskaya","zhenskiy","zhit","zhivoy","zhizn","zhizni","zhong","zhongguo","zhou","zhua","zhuan","zhuang","zhui","zhuo","ziba","ziddi","zieht","ziel","ziemi","zien","ziggy","zigzag","zijn","zima","zimbabwe","zimmer","zina","zinda","zindabad","zindagi","zing","zingara","zion","zire","zirkus","zita","ziva","zivot","zivota","zlata","zlate","zlatni","zlato","zlocin","znak","znaki","znayu","zodiac","zoek","zoekt","zoey","zoids","zois","zoku","zolotaya","zoloto","zolotoy","zombi","zombie","zombies","zomer","zona","zonbi","zondag","zonder","zone","zones","zong","zony","zooey","zookeeper","zoologico","zoom","zoon","zora","zori","zorn","zorori","zorro","zoshi","zoya","zuhause","zuid","zukan","zukin","zulm","zulu","zuma","zumba","zurich"]`),Oe=class{constructor({baseUrl:e=`https://omdb-proxy.joselon79.workers.dev`,fetchFunction:t=globalThis.fetch.bind(globalThis)}={}){this.baseUrl=e.replace(/\/+$/,``),this.fetchFunction=t}async search(e){if(typeof e!=`string`||!e.trim())throw Error(`Search title is required`);let t=new URLSearchParams({title:e.trim()}),n=await this.request(`/search?${t}`);return n.Response===`False`?[]:n.Search??[]}async getDetails(e){if(typeof e!=`string`||!e.trim())throw Error(`OMDb ID is required`);let t=new URLSearchParams({id:e.trim()}),n=await this.request(`/detail?${t}`);if(n.Response===`False`)throw Error(n.Error||`OMDb details not found`);return n}async request(e){let t=new AbortController,n=setTimeout(()=>t.abort(),8e3);try{let n=await this.fetchFunction(`${this.baseUrl}${e}`,{signal:t.signal});if(!n.ok)throw Error(`OMDb request failed: ${n.status}`);return await n.json()}finally{clearTimeout(n)}}},ke=10,Ae=class{constructor({omdbService:e=new Oe,getRandomWord:t,random:n=Math.random,maxAttempts:r=ke}={}){if(!Number.isInteger(r)||r<1)throw Error(`maxAttempts must be a positive integer`);this.omdbService=e,this.random=n,this.maxAttempts=r,this.getRandomWord=t??(()=>De[Math.floor(this.random()*De.length)])}async discoverRandomMovie(){let e=0;for(;e<this.maxAttempts;){let t=this.getRandomWord();if(e++,typeof t==`string`&&t.trim())try{let e=await this.omdbService.search(t);if(!Array.isArray(e))continue;let n=e.filter(e=>e?.Type===`movie`&&typeof e.imdbID==`string`&&e.imdbID.trim());if(n.length===0)continue;let r=n[Math.floor(this.random()*n.length)],i=await this.omdbService.getDetails(r.imdbID);if(i?.Type!==`movie`||i.imdbID!==r.imdbID)continue;return i}catch{}}throw Error(`No se pudo encontrar una película`)}},X=class{constructor(e){this.watchList=e}addItem({title:e,type:t,year:n,originalTitle:r,genres:i,platforms:a}){let o=null,s=!1;try{o=new H({title:e,type:t,year:n,originalTitle:r,genres:i});let c=new G({mediaId:o.id,platforms:a});return this.watchList.addMedia(o),s=!0,this.watchList.addWatchItem(c),{success:!0}}catch(e){return s&&this.watchList.removeMedia(o.id),{success:!1,error:e.message}}}updateItem({mediaId:e,media:t,watchItem:n,omdbDetails:r}){let i=this.watchList.media.find(t=>t.id===e),a=this.watchList.watchItems.find(t=>t.mediaId===e);if(!i||!a)return{success:!1,error:`Item not found`};let o=r&&r.imdbID!==i.omdbId,s=t.poster?.trim()?t.poster.trim():o?void 0:i.poster;try{let o=new H({id:e,title:t.title,type:t.type,year:t.year,originalTitle:t.originalTitle,genres:t.genres,trailer:t.trailer?.trim()||void 0,runtimeMinutes:i.runtimeMinutes,ratings:i.ratings,director:i.director,country:i.country,actors:i.actors,plot:i.plot,awards:i.awards,omdbId:i.omdbId,poster:s});if(this.watchList.media.some(t=>t.id!==e&&t.matchKey===o.matchKey))throw Error(`Media already exists`);if(r){let e=this.updateOmdbDetails({media:o,details:r});if(!e.success)throw Error(e.error)}return i.title=o.title,i.type=o.type,i.year=o.year,i.originalTitle=o.originalTitle,i.genres=o.genres,i.runtimeMinutes=o.runtimeMinutes,i.ratings=o.ratings,i.director=o.director,i.country=o.country,i.actors=o.actors,i.plot=o.plot,i.awards=o.awards,i.omdbId=o.omdbId,i.poster=o.poster,i.trailer=o.trailer,a.platforms=n.platforms,a.reason=n.reason,a.spanishAudio=n.spanishAudio,a.spanishSubtitles=n.spanishSubtitles,a.userRating=n.userRating,a.progress=n.progress,{success:!0}}catch(e){return{success:!1,error:e.message}}}changeStatus(e,t){let n=this.watchList.watchItems.find(t=>t.mediaId===e);if(!n)return{success:!1,error:`WatchItem not found`};try{switch(t){case U.WATCHING:if(n.status===U.PENDING)n.start();else if(n.status===U.PAUSED)n.resume();else throw Error(`Invalid status transition`);break;case U.PAUSED:if(n.status!==U.WATCHING)throw Error(`Invalid status transition`);n.pause();break;case U.WATCHED:if(n.status!==U.WATCHING)throw Error(`Invalid status transition`);n.markAsWatched();break;case U.PENDING:if(n.status!==U.DISCARDED&&n.status!==U.WATCHED)throw Error(`Invalid status transition`);n.markAsUnwatched();break;case U.DISCARDED:if(n.status===U.DISCARDED)throw Error(`Invalid status transition`);n.discard();break;default:throw Error(`Invalid status transition`)}let e=new G({mediaId:n.mediaId,platforms:n.platforms,reason:n.reason,spanishAudio:n.spanishAudio,spanishSubtitles:n.spanishSubtitles,status:n.status,userRating:n.userRating,progress:n.progress,addedAt:n.addedAt,watchedAt:n.watchedAt}),r=this.watchList.watchItems.indexOf(n);return this.watchList.watchItems[r]=e,{success:!0}}catch(e){return{success:!1,error:e.message}}}renameWatchList(e){return!e||!e.trim()?{success:!1,error:`El nombre no puede estar vacío`}:(this.watchList.name=e.trim(),{success:!0})}deleteItem(e){return this.watchList.removeWatchItem(e)?(this.watchList.watchItems.some(t=>t.mediaId===e)||this.watchList.removeMedia(e),{success:!0}):{success:!1,error:`Item not found`}}getItems(){return this.watchList.watchItems.map(e=>({media:this.watchList.media.find(t=>t.id===e.mediaId),watchItem:e}))}updateOmdbDetails({media:e,details:t}){if(!e||!t)return{success:!1,error:`Media and OMDb details are required`};if(t.Response===`False`||typeof t.imdbID!=`string`||!t.imdbID.trim())return{success:!1,error:`Invalid OMDb details`};e.poster||=t.Poster&&t.Poster!==`N/A`?t.Poster:void 0;let n=typeof t.Runtime==`string`?t.Runtime.match(/^(\d+)\s+min$/i):null,r=Array.isArray(t.Ratings)?t.Ratings.filter(e=>e?.Source&&e?.Value):[],i=e=>typeof e==`string`&&e.trim()&&e!==`N/A`?e.trim():void 0;return e.omdbId=t.imdbID.trim(),e.runtimeMinutes=n?Number(n[1]):void 0,e.ratings=r,e.director=i(t.Director),e.country=i(t.Country),e.actors=i(t.Actors),e.plot=i(t.Plot),e.awards=i(t.Awards),{success:!0}}clearOmdbDetails({mediaId:e}){let t=this.watchList.media.find(t=>t.id===e);return t?(t.omdbId=void 0,t.runtimeMinutes=void 0,t.ratings=void 0,t.director=void 0,t.country=void 0,t.actors=void 0,t.plot=void 0,t.awards=void 0,{success:!0}):{success:!1,error:`Media not found`}}addMovieFromOmdb(e){let t=null,n=!1;try{if(e?.Response!==`True`||e?.Type!==`movie`||typeof e?.imdbID!=`string`||!e.imdbID.trim()||typeof e?.Title!=`string`||!e.Title.trim())throw Error(`La ficha de OMDb no es válida`);let r=e.Year?.match(/^\d{4}/),i=r?Number(r[0]):void 0;if(t=new H({title:e.Title,type:`movie`,year:i}),this.updateOmdbDetails({media:t,details:e})?.success===!1)throw Error(`No se pudieron actualizar los datos de OMDb`);let a=new G({mediaId:t.id});return this.watchList.addMedia(t),n=!0,this.watchList.addWatchItem(a),{success:!0}}catch(e){return n&&this.watchList.removeMedia(t.id),{success:!1,error:e.message}}}},je=class extends B{static properties={_helpOpen:{state:!0}};constructor(){super(),this._helpOpen=!1}static styles=o`
+        :host {
+            display: block;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        a {
+            color: var(--text);
+            text-decoration: none;
+            transition:
+                color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        a:hover {
+            color: #ffffff;
+        }
+
+        /* Cabecera */
+
+        header {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(70, 70, 70, 0.95),
+                    rgba(35, 35, 35, 0.95)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.1rem 1.3rem 1.3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(255, 107, 44, 0.18);
+            color: #ffd7bf;
+            font-size: 0.82rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            color: white;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent),
+                    var(--accent-2)
+                );
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 18px;
+            padding: 0.7rem 1rem;
+            margin: 0.2rem auto 0.75rem;
+            box-shadow: 0 8px 20px rgba(255, 107, 44, 0.2);
+            max-width: 720px;
+        }
+
+        .hero-subtitle {
+            max-width: 720px;
+            margin: 0 auto 1rem;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+
+        .a-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+            padding: 0.65rem 1rem;
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+            font: inherit;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .a-button:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .a-button:focus-visible,
+        .close-button:focus-visible {
+            outline: 2px solid var(--accent-2);
+            outline-offset: 3px;
+        }
+
+        .help-button {
+            border-color: rgba(255, 154, 60, 0.4);
+            color: #ffd7bf;
+        }
+
+        .help-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.35rem;
+            height: 1.35rem;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Overlay de ayuda */
+
+        .help-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.78);
+            backdrop-filter: blur(5px);
+        }
+
+        .help-panel {
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+
+            background:
+                radial-gradient(
+                    ellipse at top right,
+                    rgba(255, 107, 44, 0.12),
+                    transparent 55%
+                ),
+                #202020;
+
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 1.4rem;
+            color: var(--text);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .help-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .help-heading h2 {
+            margin: 0;
+            color: white;
+            font-size: 1.55rem;
+        }
+
+        .help-intro {
+            margin: 0 0 1.2rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .close-button {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .help-steps {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+
+        .help-card {
+            min-width: 0;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .step-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .step-icon {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 12px;
+            background: rgba(255, 107, 44, 0.16);
+            font-size: 1.35rem;
+        }
+
+        .step-number {
+            display: block;
+            margin-bottom: 0.1rem;
+            color: var(--accent-2);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .help-card h3 {
+            margin: 0;
+            color: white;
+            font-size: 1rem;
+            line-height: 1.3;
+        }
+
+        .help-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.91rem;
+            line-height: 1.55;
+        }
+
+        .help-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid rgba(255, 154, 60, 0.3);
+            border-radius: 14px;
+            background: rgba(255, 107, 44, 0.09);
+        }
+
+        .help-note-icon {
+            flex-shrink: 0;
+            font-size: 1.3rem;
+        }
+
+        .help-note p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+
+        .help-note strong {
+            color: #ffd7bf;
+        }
+
+        .help-footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.2rem;
+        }
+
+        .close-text-button {
+            background: linear-gradient(
+                135deg,
+                var(--accent),
+                var(--accent-2)
+            );
+            border: 0;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 5px 16px rgba(255, 107, 44, 0.18);
+        }
+
+        .close-text-button:hover {
+            background: linear-gradient(
+                135deg,
+                var(--accent-2),
+                var(--accent)
+            );
+        }
+
+        /* Móvil */
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 0.8rem 1.1rem;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero-actions {
+                gap: 0.55rem;
+            }
+
+            .help-overlay {
+                padding: 0.65rem;
+                align-items: center;
+            }
+
+            .help-panel {
+                max-height: 92vh;
+                padding: 1rem;
+                border-radius: 18px;
+            }
+
+            .help-heading h2 {
+                font-size: 1.35rem;
+            }
+
+            .help-steps {
+                grid-template-columns: 1fr;
+                gap: 0.65rem;
+            }
+
+            .help-card {
+                padding: 0.85rem;
+            }
+
+            .step-heading {
+                margin-bottom: 0.4rem;
+            }
+
+            .help-card p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            a,
+            .a-button {
+                transition: none;
+            }
+        }
+    `;_openHelp(){this._helpOpen=!0}_closeHelp(){this._helpOpen=!1}_handleHelpKeydown(e){e.key===`Escape`&&(e.preventDefault(),e.stopPropagation(),this._closeHelp())}handleDiscoverMovie(){this.dispatchEvent(new CustomEvent(`discover-movie`,{bubbles:!0,composed:!0}))}render(){return j`
+            <header>
+                <div class="hero-badge">
+                    LAB EXPERIMENTAL
+                </div>
+
+                <h1 @click=${this.handleDiscoverMovie}>¿Qué Vemos?</h1>
+
+                <p class="hero-subtitle">
+                    Tu listado de pelis y series local con gestión de recomendaciones
+                </p>
+
+                <p class="hero-subtitle">
+                    <small>
+                        No olvides exportarlo para evitar perderlo al cambiar
+                        de dispositivo/navegador o limpiar los datos de navegación
+                    </small>
+                </p>
+
+                <div class="hero-actions">
+                    <a class="a-button" href="/">
+                        ← Volver a Joselon79 Lab
+                    </a>
+
+                    <button
+                        class="a-button help-button"
+                        type="button"
+                        @click=${this._openHelp}
+                        aria-haspopup="dialog"
+                        aria-expanded=${this._helpOpen}
+                    >
+                        <span class="help-icon" aria-hidden="true">i</span>
+                        ¿Cómo funciona?
+                    </button>
+                </div>
+            </header>
+
+            ${this._helpOpen?j`
+                <div
+                    class="help-overlay"
+                    @click=${e=>{e.target===e.currentTarget&&this._closeHelp()}}
+                    @keydown=${this._handleHelpKeydown}
+                >
+                    <section
+                        class="help-panel"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="help-title"
+                        aria-describedby="help-description"
+                    >
+                        <div class="help-heading">
+                            <h2 id="help-title">
+                                ¿Cómo funciona QueVemos?
+                            </h2>
+
+                            <button
+                                class="close-button"
+                                type="button"
+                                @click=${this._closeHelp}
+                                aria-label="Cerrar ayuda"
+                                autofocus
+                            >
+                                ×
+                            </button>
+                        </div>
+
+                        <p class="help-intro" id="help-description">
+                            Organiza lo que quieres ver, lleva el seguimiento de visionado
+                            y comparte tus descubrimientos con los demás.
+                        </p>
+
+                        <div class="help-steps">
+                            <article class="help-card">
+                                <div class="step-heading">
+                                    <span class="step-icon"
+                                        aria-hidden="true">🎬</span>
+                                    <div>
+                                        <span class="step-number">Paso 1</span>
+                                        <h3>Tu lista, a tu manera</h3>
+                                    </div>
+                                </div>
+
+                                <p>
+                                    Añade películas, series y videojuegos.
+                                    Completa sus datos cuando quieras con el botón Editar(📝) y marca
+                                    si están pendientes, en curso, en pausa
+                                    o terminados con los botones del pie de la tarjeta.
+                                </p>
+                                <p>
+                                    <strong>¿Por dónde ibas?</strong>
+                                    Guarda la temporada, el episodio o el
+                                    minuto para retomarlos después editando. 
+                                    Puedes editar para anotarlo y consultarlo con el botón <span class="help-icon" aria-hidden="true">i</span>
+                                </p>
+                            </article>
+
+                            <article class="help-card">
+                                <div class="step-heading">
+                                    <span class="step-icon"
+                                        aria-hidden="true">⏯️</span>
+                                    <div>
+                                        <span class="step-number">Paso 2</span>
+                                        <h3>Decide qué hacer con cada título</h3>
+                                    </div>
+                                </div>
+
+                                <p>
+                                    Si te interesa, déjalo pendiente o empieza
+                                    a verlo. Si no te convence, puedes
+                                    descartarlo <span style="background-color:red; border-radius:33px">🗃️</span> e indicar el motivo editando.
+                                </p>
+                                <p>
+                                    <strong>¡No lo pierdes!</strong>
+                                    El título descartado se conserva para
+                                    consultar más adelante por qué no te
+                                    interesaba.
+                                </p>
+                            </article>
+
+                            <article class="help-card">
+                                <div class="step-heading">
+                                    <span class="step-icon"
+                                        aria-hidden="true">📨</span>
+                                    <div>
+                                        <span class="step-number">Paso 3</span>
+                                        <h3>Comparte tus recomendaciones</h3>
+                                    </div>
+                                </div>
+
+                                <p>
+                                    Elige títulos de tu lista y crea un enlace
+                                    para compartirlos con familiares o amigos.
+                                    Así podrán recibir tus propuestas en su
+                                    propia aplicación.
+                                </p>
+                                <p>
+                                    El motivo puede servir para contar por qué
+                                    recomiendas una película o qué te llamó
+                                    la atención. Edítalo antes de crear el enlace.
+                                </p>
+                            </article>
+
+                            <article class="help-card">
+                                <div class="step-heading">
+                                    <span class="step-icon"
+                                        aria-hidden="true">📬</span>
+                                    <div>
+                                        <span class="step-number">Paso 4</span>
+                                        <h3>Recibe y decide</h3>
+                                    </div>
+                                </div>
+
+                                <p>
+                                    Revisa las recomendaciones que recibas 
+                                    en la bandeja de entrada tras abrir el 
+                                    enlace. Puedes aceptarlas
+                                    para añadirlas a tu lista o descartarlas.
+                                </p>
+                                <p>
+                                    Si tienes guardada la web como aplicación
+                                    tendras que usar el botón 🔗 <small>Importar enlace</small>
+                                    para pegar el enlace recibido.
+                                </p>
+                                <p>
+                                    Si el título ya está en tu lista, puedes 
+                                    fusionar la recomendación con ese registro 
+                                    en lugar de crear otro. Incluso seleccionar 
+                                    que campos quieres fusionar
+                                </p>
+                            </article>
+                        </div>
+
+                        <div class="help-note">
+                            <span class="help-note-icon"
+                                aria-hidden="true">💾</span>
+                            <p>
+                                <strong>Importante: tus datos son locales.</strong>
+                                Tu lista se guarda en el navegador y dispositivo
+                                donde utilizas la aplicación.
+                                Exporta una copia de seguridad periódicamente
+                                y guárdala en un lugar seguro.
+                            </p>
+                        </div>
+
+                        <div class="help-note">
+                            <span class="help-note-icon"
+                                aria-hidden="true">📲</span>
+                            <p>
+                                Desde tu navegador pulsa en compartir
+                                y "Añadir a la pantalla de Inicio"
+                                para usar la web como Aplicación.
+                            </p>
+                        </div>
+
+                        <div class="help-footer">
+                            <button
+                                class="a-button close-text-button"
+                                type="button"
+                                @click=${this._closeHelp}
+                            >
+                                ¡Entendido!
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            `:``}
+        `}};customElements.define(`app-header`,je);var Me=class extends B{static styles=o`
+        :host {
+            display: block;
+        }
+            
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        a {
+            color: var(--text);
+            text-decoration: none;
+            transition:
+                color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        a:hover {
+            color: #ffffff;
+        }
+
+        /* Footer */
+        
+        footer {
+            position: relative;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(70, 70, 70, 0.95),
+                    rgba(35, 35, 35, 0.95)
+                );
+
+            font-size: 12px;
+            text-align: center;
+
+            width: 100%;
+
+            padding: 1rem 0.8rem;
+            margin-top: 1.2rem;
+
+            border-radius: 18px;
+            border: 1px solid var(--border);
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        footer a {
+            color: var(--muted);
+        }
+
+        footer a:hover {
+            color: #ffffff;
+        }
+        
+    `;render(){return j`
+            <footer>
+                <p>
+                    Contacto por Correo
+                    (<a href="mailto:joselon79@gmail.com">
+                        joselon79@gmail.com
+                    </a>)
+                </p>
+
+                <p>
+                    <a href="https://neocities.org/">
+                        Perfil Neocities
+                    </a>
+                </p>
+
+                <p>
+                    <a href="https://neocities.org/">
+                        Política de Cookies de Neocities.org
+                    </a>
+                </p>
+
+                <p>
+                    Copyleft © Joselon79
+                </p>
+            </footer>
+        `}};customElements.define(`app-footer`,Me);var Ne=class{export(e){return JSON.stringify(e,null,2)}import(e){let t=this.parse(e);this.validate(t);let n=t.media.map(e=>new H(e)),r=t.watchItems.map(e=>new G(e));return new K({version:t.version,id:t.id,name:t.name,media:n,watchItems:r})}parse(e){try{return JSON.parse(e)}catch{throw Error(`Invalid JSON`)}}validate(e){if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Invalid WatchList file`);if(!Number.isInteger(e.version)||e.version<1||e.version>1)throw Error(`Unsupported WatchList version`);if(!Array.isArray(e.media))throw Error(`WatchList media is not an array`);if(!Array.isArray(e.watchItems))throw Error(`WatchList watchItems is not an array`)}},Pe=class e{constructor({id:t=e.generateId(),name:n=void 0,recommendations:r=void 0,version:i=1,createdAt:a=new Date().toISOString()}={}){this.id=t,this.name=e.validateName(n),this.recommendations=e.validatesRecommendations(r),this.version=e.validateVersion(i),this.createdAt=a}static generateId(){return crypto.randomUUID()}static validateName(e){if(!e||typeof e!=`string`)throw Error(`name is required`);return e}static validatesRecommendations(e){if(e||=[],!Array.isArray(e))throw Error(`recommendations is not an array`);return e.forEach(e=>{if(!(e instanceof J))throw Error(`recommendations must contain only Recommendation`)}),e}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported recommendation list version`);return e}},Z=class e{constructor({id:t=e.generateId(),version:n=1,createdAt:r=new Date().toISOString(),sender:i,items:a=[]}={}){this.id=t,this.version=e.validateVersion(n),this.createdAt=r,this.sender=e.validateSender(i),this.items=e.validateItems(a)}static generateId(){return crypto.randomUUID()}static validateVersion(e){if(!Number.isInteger(e)||e<1||e>1)throw Error(`Unsupported RecommendationExchange version`);return e}static validateSender(e){if(!e||typeof e!=`string`)throw Error(`sender is required`);return e}static validateItems(e){if(!Array.isArray(e))throw Error(`items is not an array`);return e}},Q=class{createRecommendation(e,t){if(!e.watchItems.some(e=>e===t))throw Error(`WatchItem is not in WatchList`);return new J({mediaId:t.mediaId,platforms:[...t.platforms],spanishAudio:t.spanishAudio,spanishSubtitles:t.spanishSubtitles,reason:t.reason,recommenderRating:t.userRating})}createRecommendationList(e,t){let n=t.map(t=>this.createRecommendation(e,t));return new Pe({name:`Recomendaciones desde : `+e.name,recommendations:n})}createRecommendationExchange(e,t){let n=e.recommendations.map(e=>{let n=t.media.find(t=>t.id===e.mediaId);if(!n)throw Error(`Media not found in WatchList: ${e.mediaId}`);return{media:{id:n.id,title:n.title,originalTitle:n.originalTitle,type:n.type,year:n.year,runtimeMinutes:n.runtimeMinutes,genres:[...n.genres],omdbId:n.omdbId,poster:n.poster,trailer:n.trailer,ratings:n.ratings,director:n.director,country:n.country,actors:n.actors,plot:n.plot,awards:n.awards,matchKey:n.matchKey},recommendation:e}});return new Z({sender:e.name,items:n})}createIncomingRecommendationList(e){if(!(e instanceof Z))throw Error(`exchange must be a RecommendationExchange`);return new Y({id:e.id,name:e.sender,media:e.items.map(e=>e.media),recommendations:e.items.map(e=>new J(e.recommendation)),version:1,createdAt:e.createdAt})}deleteIncomingList(e,t){return e.findIndex(e=>e.id===t)===-1?null:e.filter(e=>e.id!==t)}prepareComparison(e,t){if(!t)throw Error(`No WatchList loaded`);return{incomingRecommendationList:e,watchList:t}}compareRecommendations(e,t){return e.recommendations.map(n=>{let r=e.media.find(e=>e.id===n.mediaId),i=this.findMediaCandidates(r,t),a=`new`;return i.some(e=>e.matches.includes(`omdbId`))?a=`matched`:i.length>0&&(a=`candidate`),{recommendation:n,media:r,matches:i,status:a}})}findMediaCandidates(e,t){let n=[];for(let r of t.media){let t=[];e.omdbId&&r.omdbId&&e.omdbId===r.omdbId&&t.push(`omdbId`),e.matchKey===r.matchKey&&t.push(`matchKey`);let i=e.title.trim().toLowerCase(),a=r.title.trim().toLowerCase();i!==a&&(i.includes(a)||a.includes(i))&&t.push(`partialTitle`),t.length>0&&n.push({media:r,matches:t,differences:this.compareMedia(e,r)})}return n}compareMedia(e,t){let n=[];for(let r of[`title`,`originalTitle`,`type`,`year`,`runtimeMinutes`,`genres`,`poster`])JSON.stringify(e[r])!==JSON.stringify(t[r])&&n.push(r);return!t.omdbId&&e.omdbId&&n.push(`omdbId`),n}acceptRecommendation(e,t,n){let r=t.media.find(t=>t.id===e.mediaId);if(!r)throw Error(`Media not found in recommendationList`);let{id:i,...a}=r,o=new H(a);n.addMedia(o);let s=[t.name];e.recommenderRating!==void 0&&(s[0]+=` | (Nota: ${e.recommenderRating})`),e.reason&&s.push(e.reason);let c=new G({mediaId:o.id,platforms:e.platforms,spanishAudio:e.spanishAudio,spanishSubtitles:e.spanishSubtitles,reason:s.join(` | `)});return n.addWatchItem(c),e.status=q.ACCEPTED,c}mergeRecommendation({incomingRecommendationList:e,incomingRecommendation:t,watchList:n,targetMediaId:r,mediaFields:i=[]}){if(r===void 0)throw Error(`targetMediaId is required for merge`);let a=e.media.find(e=>e.id===t.mediaId);if(!a)throw Error(`Media not found in recommendationList`);let o=n.media.find(e=>e.id===r);if(!o)throw Error(`Target media not found in watchList`);let s=n.watchItems.find(e=>e.mediaId===o.id);if(!s)throw Error(`WatchItem not found for target media`);if(!Array.isArray(i))throw Error(`mediaFields must be an array`);let c=[`title`,`originalTitle`,`type`,`year`,`runtimeMinutes`,`genres`,`omdbId`,`poster`,`ratings`,`director`,`country`,`actors`,`plot`,`awards`,`trailer`];for(let e of i)if(!c.includes(e))throw Error(`Invalid media field: ${e}`);let l={};for(let e of i){let t=a[e];t!==void 0&&(l[e]=Array.isArray(t)?[...t]:t)}let u=new H({...o,...l,id:o.id});if(n.media.some(e=>e.id!==o.id&&e.matchKey===u.matchKey))throw Error(`Media already exists`);let d=[e.name];t.recommenderRating!==void 0&&d.push(`(Nota: ${t.recommenderRating})`),t.reason&&d.push(t.reason);let f=d.join(` | `),p=s.reason?.trim();if(p&&p.includes(f))throw Error(`Recommendation already added to WatchItem`);for(let[e,t]of Object.entries(l))o[e]=t;return s.reason=p?`${p} | ${f}`:f,t.status=q.ACCEPTED,s}discardRecommendation(e){return e.status=q.DISCARDED,e}resolveRecommendation({incomingRecommendationList:e,incomingRecommendation:t,decision:n,watchList:r,targetMediaId:i,mediaFields:a=[]}){if(t.status===q.ACCEPTED)throw Error(`Recommendation already accepted`);switch(n){case`create`:return this.acceptRecommendation(t,e,r);case`merge`:return this.mergeRecommendation({incomingRecommendationList:e,incomingRecommendation:t,watchList:r,targetMediaId:i,mediaFields:a});case`discard`:return this.discardRecommendation(t);default:throw Error(`Invalid decision`)}}},Fe=class{async encode(e){if(!e||typeof e!=`object`||Array.isArray(e))throw TypeError(`recommendationExchange debe ser un objeto`);let t=JSON.stringify(e),n=new TextEncoder().encode(t),r=await this.compress(n);return this.encodeBase64Url(r)}async decode(e){if(typeof e!=`string`||e.length===0)throw TypeError(`encodedData debe ser una cadena no vacía`);let t=this.decodeBase64Url(e),n=await this.decompress(t),r=new TextDecoder(`utf-8`,{fatal:!0}).decode(n);return JSON.parse(r)}async compress(e){if(typeof CompressionStream>`u`)throw Error(`Este navegador no soporta CompressionStream`);let t=new Blob([e]).stream().pipeThrough(new CompressionStream(`deflate`));return new Uint8Array(await new Response(t).arrayBuffer())}async decompress(e){if(typeof DecompressionStream>`u`)throw Error(`Este navegador no soporta DecompressionStream`);let t=new Blob([e]).stream().pipeThrough(new DecompressionStream(`deflate`));return new Uint8Array(await new Response(t).arrayBuffer())}encodeBase64Url(e){let t=``;for(let n=0;n<e.length;n+=32768)t+=String.fromCharCode(...e.subarray(n,n+32768));return btoa(t).replace(/\+/g,`-`).replace(/\//g,`_`).replace(/=+$/,``)}decodeBase64Url(e){let t=e.replace(/-/g,`+`).replace(/_/g,`/`),n=t+`=`.repeat((4-t.length%4)%4),r=atob(n);return Uint8Array.from(r,e=>e.charCodeAt(0))}},$={version:1,mediaTypes:[{id:`movie`,name:`Película`},{id:`series`,name:`Serie`},{id:`videogame`,name:`Videojuego`}],genres:[{id:`action`,name:`Acción`},{id:`adventure`,name:`Aventuras`},{id:`animation`,name:`Animación`},{id:`comedy`,name:`Comedia`},{id:`crime`,name:`Crimen`},{id:`documentary`,name:`Documental`},{id:`drama`,name:`Drama`},{id:`family`,name:`Familiar`},{id:`fantasy`,name:`Fantasía`},{id:`history`,name:`Historia`},{id:`horror`,name:`Terror`},{id:`music`,name:`Musical`},{id:`mystery`,name:`Misterio`},{id:`romance`,name:`Romance`},{id:`science-fiction`,name:`Ciencia ficción`},{id:`sport`,name:`Deporte`},{id:`thriller`,name:`Thriller`},{id:`war`,name:`Bélica`},{id:`western`,name:`Western`}],watchStatuses:[{id:`pending`,name:`Pendiente`},{id:`watching`,name:`Viendo`},{id:`paused`,name:`En pausa`},{id:`watched`,name:`Vista`},{id:`discarded`,name:`Descartada`}],platforms:[{id:`netflix-es`,name:`Netflix`,country:`ES`,active:!0,logo:`netflix`},{id:`max-es`,name:`HBO Max`,country:`ES`,active:!0,logo:`max`},{id:`prime-video-es`,name:`Prime`,country:`ES`,active:!0,logo:`prime-video`},{id:`disney-plus-es`,name:`Disney+`,country:`ES`,active:!0,logo:`disney-plus`},{id:`movistar-plus-es`,name:`Movistar Plus+`,country:`ES`,active:!0,logo:`movistar-plus`},{id:`apple-tv-plus-es`,name:`Apple TV+`,country:`ES`,active:!0,logo:`apple-tv-plus`},{id:`filmin-es`,name:`Filmin`,country:`ES`,active:!0,logo:`filmin`},{id:`skyshowtime-es`,name:`SkyShowtime`,country:`ES`,active:!0,logo:`skyshowtime`},{id:`atresplayer-es`,name:`Atresplayer`,country:`ES`,active:!0,logo:`atresplayer`},{id:`rtve-play-es`,name:`RTVE Play`,country:`ES`,active:!0,logo:`rtve-play`},{id:`youtube-es`,name:`YouTube`,country:`ES`,active:!0,logo:`youtube`},{id:`steam-pc`,name:`SteamPC`,country:`ES`,active:!0,logo:`steam`},{id:`xbox-eu`,name:`XboxGamePass`,country:`ES`,active:!0,logo:`xbox`},{id:`playstation-eu`,name:`PlayStationStore`,country:`ES`,active:!0,logo:`playstation`},{id:`switch-eu`,name:`NintendoSwitch`,country:`ES`,active:!0,logo:`switch`},{id:`others`,name:`Otras Fuentes...`,country:`ES`,active:!0,logo:`unknow`}]},Ie=class e extends B{static styles=o`
+        :host {
+            display: block;
+        }
+
+        :host(.overlay-open) {
+            position: relative;
+            z-index: 10;
+        }
+            
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        .media-card {
+            position: relative;
+
+            display: grid;
+            grid-template-columns: 180px minmax(0, 1fr);
+
+            overflow: visible;
+
+            border: 2px solid rgba(250, 62, 0, 0.7);
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(202, 155, 121, 0.96),
+                    rgba(161, 114, 89, 0.96)
+                );
+
+            box-shadow:
+                0 10px 24px rgba(0, 0, 0, 0.2);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .media-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 14px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        #overlay {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            top: 3.8rem;
+            right: 1.2rem;
+
+            width: 280px;
+            max-width: calc(100vw - 2rem);
+
+            background: var(--surface-strong);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+
+            color: var(--text);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        #overlay.opened {
+            display: block;
+        }    
+            
+        .overlay-section {
+            padding: 0.65rem 0;
+        }
+
+        .overlay-section + .overlay-section {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .overlay-section a {
+            color: rgba(0, 123, 255, 0.45);
+        }
+
+        /* -------------------------
+        Poster
+        ------------------------- */
+
+        .poster {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.65rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.12);
+        }
+
+        .poster img {
+            display: block;
+
+            width: 100%;
+            max-width: 150px;
+            height: auto;
+
+            border-radius: 10px;
+
+            object-fit: cover;
+
+            box-shadow:
+                0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        .poster-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+            max-width: 150px;
+            aspect-ratio: 2 / 3;
+
+            border-radius: 10px;
+
+            background: rgba(0, 0, 0, 0.18);
+
+            color: rgba(255, 255, 255, 0.7);
+
+            font-size: 2.5rem;
+        }
+
+        /* -------------------------
+        Información
+        ------------------------- */
+
+        .media-content {
+            display: flex;
+            flex-direction: column;
+
+            min-width: 0;
+        }
+
+        .information {
+            position: relative;
+            padding: 1rem 1.2rem;
+
+            flex: 1;
+        }
+
+        .information-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+
+            gap: 1rem;
+        }
+
+        .information-header h2 {
+            min-width: 0;
+            margin: 0;
+            color: #ffffff;
+            font-size: 1.15rem;
+        }
+
+        .information-actions {
+            display: flex;
+            gap: 0.4rem;
+
+            flex-shrink: 0;
+        }
+
+        .watchitem-title {
+            align-self: start;
+            overflow-wrap: anywhere;
+        }
+
+        /* -------------------------
+        Metadatos
+        ------------------------- */
+
+        .metadata {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 0.4rem;
+
+            margin-top: 0.5rem;
+        }
+
+        .metadata span,
+        .platform {
+            display: inline-flex;
+            align-items: center;
+
+            padding: 0.25rem 0.55rem;
+
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.12);
+
+            color: var(--text);
+
+            font-size: 0.74rem;
+        }
+
+        .platforms {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 0.4rem;
+
+            margin-top: 0.6rem;
+        }
+
+        .genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .25rem .5rem;
+            margin-top: .5rem;
+        }
+
+        .genre {
+            font-size: .72rem;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .genre:not(:last-child)::after {
+            content: " ·";
+        }
+
+        /* -------------------------
+        Barra inferior
+        ------------------------- */
+        .share-button {
+            position: absolute;
+            top: 0.8rem;
+            left: 0.8rem;
+            z-index: 2;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 38px;
+            height: 38px;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50%;
+
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(3px);
+
+            color: #ffffff;
+
+            font-size: 1rem;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .share-button:hover {
+            background: rgba(0, 0, 0, 0.65);
+            transform: scale(1.05);
+        }
+
+        .share-button.selected {
+            background: #4caf50;
+            color: white;
+        }
+
+        .media-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 1rem;
+
+            padding: 0.65rem 1rem;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
+
+            background: rgba(0, 0, 0, 0.16);
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+
+            padding: 0.35rem 0.7rem;
+
+            border-radius: 999px;
+
+            color: #ffffff;
+
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.35);
+        }
+
+        .status-watching {
+            background: rgba(40, 167, 69, 0.45);
+        }
+
+        .status-paused {
+            background: rgba(255, 152, 0, 0.45);
+        }
+
+        .status-watched {
+            background: rgba(0, 123, 255, 0.45);
+        }
+
+        .status-discarded {
+            background: rgba(220, 53, 69, 0.45);
+        }
+
+        .status-actions {
+            display: flex;
+            align-items: center;
+
+            gap: 0.4rem;
+        }
+
+        /* -------------------------
+        Botones
+        ------------------------- */
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 34px;
+            height: 34px;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+
+            transform: translateY(-1px);
+        }
+
+        .discard-button {
+            flex-shrink: 0;
+            color: #ffffff;
+            background: rgba(220, 53, 69, 0.35);
+            border-color: rgba(220, 53, 69, 0.7);
+        }
+
+        .discard-button:hover {
+            background: rgba(220, 53, 69, 0.65);
+        }
+
+        /* -------------------------
+        Móvil
+        ------------------------- */
+
+        @media (max-width: 650px) {
+
+            .media-card {
+                grid-template-columns: 110px minmax(0, 1fr);
+            }
+
+            .poster {
+                padding: 0.65rem;
+            }
+
+            .information {
+                padding: 0.8rem;
+            }
+
+            .information-header h3 {
+                font-size: 1rem;
+            }
+
+            .media-actions {
+                padding: 0.55rem 0.7rem;
+            }
+
+            .action-button {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    `;static properties={media:{type:Object},watchItem:{type:Object},overlayOpened:{type:Boolean},selectedToShare:{type:Boolean}};static getCatalogName(e,t){return e.find(e=>e.id===t)?.name??t}constructor(){super(),this.overlayOpened=!1}editItem(){this.dispatchEvent(new CustomEvent(`edit-item`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}changeStatus(e){(e!==U.DISCARDED||confirm(`¿Quieres descartar este elemento de tu lista? 
+ (Sólo lo verás filtrando por 'Descartadas')`))&&this.dispatchEvent(new CustomEvent(`change-status`,{detail:{mediaId:this.media.id,status:e},bubbles:!0,composed:!0}))}showInformation(){this.overlayOpened=!this.overlayOpened,this.classList.toggle(`overlay-open`,this.overlayOpened)}formatDate(e){return new Date(e).toLocaleDateString(`es-ES`)}toggleRecommendation(){this.dispatchEvent(new CustomEvent(`toggle-recommendation`,{detail:{media:this.media,watchItem:this.watchItem},bubbles:!0,composed:!0}))}renderProgress(){let e=this.watchItem.progress;return e?e.minute===void 0?e.season!==void 0&&e.episode!==void 0?`Temporada ${e.season}, episodio ${e.episode}`:``:`${e.minute} min`:``}renderDiscardButton(){return this.watchItem.status===U.DISCARDED?``:j`
+            <button
+                type="button"
+                class="action-button discard-button"
+                title="Descartar"
+                aria-label="Descartar ${this.media.title}"
+                @click=${()=>this.changeStatus(U.DISCARDED)}
+            >
+                <i class="fa fa-archive" aria-hidden="true"></i>
+            </button>
+        `}renderStatusActions(){switch(this.watchItem.status){case U.PENDING:return j`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Empezar"
+                        @click=${()=>this.changeStatus(U.WATCHING)}
+                    >
+                        <i class="fa fa-play"></i>
+                    </button>
+                `;case U.WATCHING:return j`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Pausar"
+                        @click=${()=>this.changeStatus(U.PAUSED)}
+                    >
+                        <i class="fa fa-pause"></i>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Marcar como vista"
+                        @click=${()=>this.changeStatus(U.WATCHED)}
+                    >
+                        <i class="fa fa-check"></i>
+                    </button>
+                `;case U.PAUSED:return j`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Continuar"
+                        @click=${()=>this.changeStatus(U.WATCHING)}
+                    >
+                        <i class="fa fa-play"></i>
+                    </button>
+                `;case U.WATCHED:case U.DISCARDED:return j`
+                    <button
+                        type="button"
+                        class="action-button"
+                        title="Reiniciar"
+                        aria-label="Reiniciar ${this.media.title}"
+                        @click=${()=>this.changeStatus(U.PENDING)}
+                    >
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                `;default:return``}}renderInformation(){let t=e.getCatalogName($.mediaTypes,this.media.type),n=this.media.genres.map(t=>e.getCatalogName($.genres,t)),r=this.watchItem.platforms.map(t=>e.getCatalogName($.platforms,t)),i=Array.isArray(this.media.ratings)?this.media.ratings.filter(e=>e?.Source&&e?.Value):[{Source:`IMDb`,Value:this.media.ratings?.imdb},{Source:`Metascore`,Value:this.media.ratings?.metascore}].filter(e=>e.Value);return j`
+                    <div class="information-header">
+                    <div class="information-actions">
+                            <button
+                                type="button"
+                                class="action-button"
+                                title="Información"
+                                id="trigger"
+                                @click=${this.showInformation}
+                            >
+                                <i class="fa fa-info-circle"></i>
+                            </button>
+                            
+                            <button
+                                type="button"
+                                class="action-button"
+                                title="Editar"
+                                @click=${this.editItem}
+                            >
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        </div>
+                        <h2 class="watchitem-title">
+                            ${this.media.title}
+                        </h2>
+   
+                        
+                    </div>
+
+                    <div id="overlay" class="${this.overlayOpened?`opened`:``}">
+                            
+                        ${this.watchItem.reason?j`
+                                <div class="overlay-section">
+                                    <strong>Motivo</strong>
+                                    <p>${this.watchItem.reason}</p>
+                                </div>
+                            `:``}
+
+                        <div class="overlay-section">
+                            <strong>Audio</strong>
+                            <span>
+                                ${this.watchItem.spanishAudio?`Español`:`Original`}
+                            </span>
+                        </div>
+
+                        <div class="overlay-section">
+                            <strong>Subtítulos</strong>
+                            <span>
+                                ${this.watchItem.spanishSubtitles?`Español`:`No`}
+                            </span>
+                        </div>
+
+                        ${this.watchItem.userRating===void 0?``:j`
+                                <div class="overlay-section">
+                                    <strong>Mi valoración</strong>
+                                    <span>${this.watchItem.userRating} / 10</span>
+                                </div>
+                            `}
+                        
+                        ${i.length?j`
+                                <div class="overlay-section">
+                                    <strong>Valoraciones</strong>
+                                    ${i.map(e=>j`
+                                            <div>
+                                                <span>${e.Source}: ${e.Value}</span>
+                                            </div>
+                                        `)}
+                                </div>
+                            `:``}
+
+                        ${this.watchItem.addedAt?j`
+                                <div class="overlay-section">
+                                    <strong>Añadida</strong>
+                                    <span>${this.formatDate(this.watchItem.addedAt)}</span>
+                                </div>
+                            `:``}
+
+                        ${this.watchItem.watchedAt?j`
+                                <div class="overlay-section">
+                                    <strong>Vista</strong>
+                                    <span>${this.formatDate(this.watchItem.watchedAt)}</span>
+                                </div>
+                            `:``}
+
+                        ${this.watchItem.progress?j`
+                                <div class="overlay-section">
+                                    <strong>Progreso</strong>
+                                    <span>${this.renderProgress()}</span>
+                                </div>
+                            `:``}
+
+                        ${this.media.country?j`
+                                <div class="overlay-section">
+                                    <strong>País</strong>
+                                    <span>${this.media.country}</span>
+                                </div>
+                            `:``}
+
+                        ${this.media.plot?j`
+                                <div class="overlay-section">
+                                    <strong>Sinopsis</strong>
+                                    <p>${this.media.plot}</p>
+                                </div>
+                            `:``}
+
+                        ${this.media.trailer?j`
+                                <div class="overlay-section">
+                                    <strong>Tráiler</strong>
+                                    <a
+                                        href=${this.media.trailer}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                        Ver tráiler
+                                    </a>
+                                </div>
+                            `:``}
+
+                        ${this.media.awards?j`
+                                <div class="overlay-section">
+                                    <strong>Premios</strong>
+                                    <span>${this.media.awards}</span>
+                                </div>
+                            `:``}
+                        
+                    </div>
+
+                    <div class="metadata">
+
+                        <span class="media-type">${t}</span>
+
+                        ${this.media.year?j`<span>${this.media.year}</span>`:``}
+                        ${this.media.runtimeMinutes?j`
+                                <span>
+                                    ${this.media.runtimeMinutes} min
+                                </span>
+                            `:``}
+                        ${this.media.director?j`
+                                <div class="overlay-section">
+                                    <strong>Dirección</strong>
+                                    <span>${this.media.director}</span>
+                                </div>
+                            `:``}
+
+                        ${this.media.actors?j`
+                                <div class="overlay-section">
+                                    <strong>Reparto</strong>
+                                    <span>${this.media.actors}</span>
+                                </div>
+                            `:``}
+                    </div>
+                    
+
+                    ${n.length?j`
+                            <div class="genres">
+                                ${n.map(e=>j`
+                                        <span class="genre">${e}</span>
+                                    `)}
+                            </div>
+                        `:``}
+
+                    ${r.length?j`
+                            <div class="platforms">
+                                <i class="fa fa-tv"></i> ${r.join(` · `)}
+                            </div>
+                        `:``}
+                </div>
+        `}render(){if(!this.media||!this.watchItem)return j``;let t=e.getCatalogName($.watchStatuses,this.watchItem.status),n=`status-${this.watchItem.status}`;return j`
+            <link
+                rel="stylesheet"
+                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
+            >
+           
+            <article class="media-card">
+
+                <div class="poster">
+                    ${this.media.poster?j`
+                            <img
+                                src=${this.media.poster}
+                                alt="Cartel de ${this.media.title}"
+                            >
+                        `:j`
+                            ${this.media.type===V.VIDEOGAMES?j`
+                                <div class="poster-placeholder">
+                                <i class="fa fa-gamepad"></i>
+                                </div>
+                            `:j`
+                                <div class="poster-placeholder">
+                                    <i class="fa fa-film"></i>
+                                </div>
+                            `}
+                            
+                        `}
+                    ${this.renderDiscardButton()}
+                </div>
+
+                <button
+                    class=${this.selectedToShare?`share-button selected`:`share-button`}
+                    title="Seleccionara para Recomendar"
+                    @click=${this.toggleRecommendation}
+                >
+                    <i class=${this.selectedToShare?`fa fa-share`:`fa fa-share-alt`}></i>
+                </button>
+
+                <div class="media-content">
+                    
+                    <div class="information">
+                        ${this.renderInformation()}
+                    </div>
+
+                    <div class="media-actions">
+                    ${t?j`
+                            <div class="status ${n}">
+                                ${t}
+                            </div>
+                        `:``}
+                        <div class="status-actions">
+                            ${this.renderStatusActions()}
+                        </div>
+                    </div>
+                </div>
+                
+            </article>
+        `}};customElements.define(`watch-item-view`,Ie);var Le=class extends B{static styles=o`
+        :host {
+            display: block;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+            
+        a {
+            color: var(--text);
+            text-decoration: none;
+            transition:
+                color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        a:hover {
+            color: #ffffff;
+        }
+
+        .field {
+            margin-bottom: 1rem;
+        }
+        
+        .fit-content {
+            width: fit-content; 
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.35rem;
+            color: var(--text);
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface-strong);
+            color: var(--text);
+        }
+
+        .checkbox-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .checkbox input {
+            width: auto;
+        }
+        .details-button {
+            margin-bottom: 1rem;
+            padding: 0.45rem 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .details-button:hover {
+            color: var(--text);
+            border-color: var(--accent);
+        }
+
+        .details {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+    `;static properties={showDetails:{state:!0}};constructor(){super(),this.showDetails=!1}addItem(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value);this.dispatchEvent(new CustomEvent(`add-item`,{detail:{title:t.title.value.trim(),type:t.type.value,year:t.year?.value?Number(t.year.value):void 0,originalTitle:t.originalTitle?.value.trim()||void 0,genres:n,platforms:r},bubbles:!0,composed:!0}))}resetForm(){this.renderRoot.querySelector(`form`).reset(),this.showDetails=!1}toggleDetails(){this.showDetails=!this.showDetails}render(){return j`
+            <hr class="divider"></hr>
+            <div class="header">
+                <div class="header-icon">
+                    <i class="fa fa-plus"></i>
+                </div>
+
+                <div>
+                    <h2>Añadir elemento (manual)</h2>
+                </div>
+            </div>
+            <form @submit=${this.addItem}>
+                <div class="field">
+                    <label for="title">
+                        Título
+                    </label>
+
+                    <input
+                        id="title"
+                        name="title"
+                        type="text"
+                        placeholder="Título"
+                        required
+                    >
+                </div>
+
+                <div class="field fit-content">
+                    <label for="type">
+                        Tipo
+                    </label>
+
+                    <select id="type" name="type">
+                        ${$.mediaTypes.map(e=>j`
+                            <option value=${e.id}>
+                                ${e.name}
+                            </option>
+                        `)}
+                    </select>
+                </div>
+
+                <button
+                    type="button"
+                    class="details-button"
+                    @click=${this.toggleDetails}
+                >
+                    ${this.showDetails?`− Ocultar detalles`:`+ Más detalles`}
+                </button>
+
+                ${this.showDetails?j`
+                        <div class="details">
+
+                            <div class="field fit-content">
+                                <label for="year">
+                                    Año
+                                </label>
+
+                                <input
+                                    id="year"
+                                    name="year"
+                                    type="number"
+                                    min="1888"
+                                    max="2100"
+                                    placeholder="Año"
+                                >
+                            </div>
+                            <div class="field">
+                                <label>
+                                    Plataformas
+                                </label>
+
+                                <div class="checkbox-list">
+                                    ${$.platforms.filter(e=>e.active).map(e=>j`
+                                            <label class="checkbox">
+                                                <input
+                                                    type="checkbox"
+                                                    name="platforms"
+                                                    value=${e.id}
+                                                >
+                                                ${e.name}
+                                            </label>
+                                        `)}
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label for="originalTitle">
+                                    Título original
+                                </label>
+
+                                <input
+                                    id="originalTitle"
+                                    name="originalTitle"
+                                    type="text"
+                                    placeholder="Título original"
+                                >
+                            </div>
+
+                            <div class="field">
+                                <label>
+                                    Géneros
+                                </label>
+
+                                <div class="checkbox-list">
+                                    ${$.genres.map(e=>j`
+                                        <label class="checkbox">
+                                            <input
+                                                type="checkbox"
+                                                name="genres"
+                                                value=${e.id}
+                                            >
+                                            ${e.name}
+                                        </label>
+                                    `)}
+                                </div>
+                            </div>
+                            
+                        </div>
+                    `:``}
+
+                <button type="submit">
+                    Añadir
+                </button>
+
+            </form>
+           <hr class="divider"></hr>
+        `}};customElements.define(`add-item-form`,Le);var Re=class extends B{static styles=o`
+        :host {
+            display: block;
+        }
+            
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :host {
+            display: block;
+        }
+
+        form {
+            padding: 1.5rem;
+            border: 2px solid var(--accent-2);
+            border-radius: 14px;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 107, 44, 0.22),
+                rgba(255, 154, 60, 0.12)
+            );
+            box-shadow:
+                0 0 0 1px rgba(255, 154, 60, 0.15),
+                0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header-icon {
+            font-size: 1.4rem;
+            color: var(--accent-2);
+        }
+
+        .header h2 {
+            margin: 0;
+            color: var(--text);
+            font-size: 1.2rem;
+        }
+
+        .header p {
+            margin: 0.2rem 0 0;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .field {
+            margin-bottom: 1rem;
+        }
+
+        .fit-content {
+            width: fit-content; 
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.35rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface-strong);
+            color: var(--text);
+            font: inherit;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-2);
+            box-shadow: 0 0 0 2px rgba(255, 154, 60, 0.15);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: normal;
+        }
+
+        .checkbox input {
+            width: auto;
+        }
+
+        .progress {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        button {
+            padding: 0.7rem 1.1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font: inherit;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+        }
+
+        button[type="submit"] {
+            border-color: var(--accent-2);
+            background: var(--accent);
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        button[type="submit"]:hover {
+            background: var(--accent-2);
+        }
+
+        button[type="button"] {
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--muted);
+        }
+
+        button[type="button"]:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+
+        button.delete-button {
+            border-color: #c0392b;
+            background: rgba(192, 57, 43, 0.2);
+            color: #ff8a80;
+        }
+
+        button.delete-button:hover {
+            border-color: #e74c3c;
+            background: rgba(192, 57, 43, 0.35);
+        }
+
+        .omdb-results,
+        .omdb-preview {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.18);
+        }
+
+        .omdb-result {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1rem;
+            width: 100%;
+            margin-top: 0.5rem;
+            text-align: left;
+        }
+
+        .omdb-result img {
+            width: 56px;
+            max-height: 84px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .omdb-result span {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .omdb-result small {
+            color: var(--muted);
+        }
+
+        .omdb-preview p {
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                padding: 1rem;
+            }
+
+            .progress {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .actions {
+                flex-direction: column-reverse;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    `;static properties={media:{attribute:!1},watchItem:{attribute:!1},omdbResults:{state:!0},omdbPreview:{state:!0},omdbSearching:{state:!0},omdbLoadingDetails:{state:!0},omdbError:{state:!0},showAllPlatforms:{state:!0},showAllGenres:{state:!0}};constructor(){super(),this.mediaInfoService=new Oe,this.media=void 0,this.watchItem=void 0,this.omdbResults=[],this.omdbPreview=void 0,this.omdbSearching=!1,this.omdbLoadingDetails=!1,this.omdbError=void 0,this.showAllPlatforms=!1,this.showAllGenres=!1}save(e){e.preventDefault();let t=e.target,n=[...t.querySelectorAll(`input[name="genres"]:checked`)].map(e=>e.value),r=[...t.querySelectorAll(`input[name="platforms"]:checked`)].map(e=>e.value),i=this.createProgress(t);this.dispatchEvent(new CustomEvent(`save-item`,{detail:{mediaId:this.media.id,media:{title:t.title.value.trim(),type:t.type.value,year:t.year.value?Number(t.year.value):void 0,originalTitle:t.originalTitle.value.trim()||void 0,genres:n,poster:t.poster.value.trim()||void 0,trailer:t.trailer.value.trim()||void 0},omdbDetails:this.omdbPreview,watchItem:{platforms:r,reason:t.reason.value.trim()||void 0,spanishAudio:t.spanishAudio.checked,spanishSubtitles:t.spanishSubtitles.checked,userRating:t.userRating.value?Number(t.userRating.value):void 0,progress:i}},bubbles:!0,composed:!0}))}async searchOmdb(){let e=this.renderRoot.querySelector(`[name="originalTitle"]`).value.trim();if(this.omdbError=void 0,this.omdbResults=[],this.omdbPreview=void 0,!e){this.omdbError=`Introduce un título para buscar.`;return}this.omdbSearching=!0;try{this.omdbResults=await this.mediaInfoService.search(e),this.omdbResults.length===0&&(this.omdbError=`OMDb no ha encontrado resultados.`)}catch(e){this.omdbError=`Error al buscar en OMDb: ${e.message}`}finally{this.omdbSearching=!1}}async selectOmdbResult(e){this.omdbError=void 0,this.omdbPreview=void 0,this.omdbLoadingDetails=!0;try{this.omdbPreview=await this.mediaInfoService.getDetails(e.imdbID),await this.updateComplete,this.renderRoot.querySelector(`.omdb-preview`)?.scrollIntoView({behavior:`smooth`,block:`start`})}catch(e){this.omdbError=`No se pudieron obtener los detalles: ${e.message}`}finally{this.omdbLoadingDetails=!1}}deleteItem(){this.dispatchEvent(new CustomEvent(`delete-item`,{detail:{mediaId:this.media.id},bubbles:!0,composed:!0}))}createProgress(e){if(this.media.type===V.SERIES){let t=e.season.value,n=e.episode.value,r=e.minute.value;return!t&&!n?void 0:new W({season:t?Number(t):void 0,episode:n?Number(n):void 0,minute:r?Number(r):void 0})}let t=e.minute.value;if(t)return new W({minute:Number(t)})}getProgressValue(e){return this.watchItem?.progress?.[e]??``}isGenreSelected(e){return this.media?.genres?.includes(e)}isPlatformSelected(e){return this.watchItem?.platforms?.includes(e)}renderProgress(){return this.media?.type===V.SERIES?j`
+                <div class="progress">
+
+                    <div class="field fit-content">
+                        <label for="season">
+                            Temporada
+                        </label>
+
+                        <input
+                            id="season"
+                            name="season"
+                            type="number"
+                            min="1"
+                            value=${this.getProgressValue(`season`)}
+                        >
+                    </div>
+
+                    <div class="field fit-content">
+                        <label for="episode">
+                            Episodio
+                        </label>
+
+                        <input
+                            id="episode"
+                            name="episode"
+                            type="number"
+                            min="1"
+                            value=${this.getProgressValue(`episode`)}
+                        >
+                    </div>
+
+                    <div class="field fit-content">
+                        <label for="minute">
+                        (minutos)
+                        </label>
+
+                        <input
+                            id="minute"
+                            name="minute"
+                            type="number"
+                            min="0"
+                            value=${this.getProgressValue(`minute`)}
+                        >
+                    </div>
+
+                </div>
+            `:j`
+            <div class="field fit-content">
+                <label for="minute">
+                    Progreso (minutos)
+                </label>
+
+                <input
+                    id="minute"
+                    name="minute"
+                    type="number"
+                    min="0"
+                    value=${this.getProgressValue(`minute`)}
+                >
+            </div>
+        `}renderOmdbSearch(){return j`
+            ${this.omdbSearching?j`<p>Buscando en OMDb...</p>`:``}
+
+            ${this.omdbError?j`
+                    <p role="status">${this.omdbError}</p>
+                `:``}
+
+            ${this.omdbResults.length?j`
+                    <div class="omdb-results">
+                        <h3>Resultados de OMDb</h3>
+
+                        ${this.omdbResults.map(e=>j`
+                            <button
+                                type="button"
+                                class="omdb-result"
+                                @click=${()=>this.selectOmdbResult(e)}
+                            >
+                                ${e.Poster&&e.Poster!==`N/A`?j`
+                                        <img
+                                            src=${e.Poster}
+                                            alt=""
+                                        >
+                                    `:``}
+
+                                <span>
+                                    <strong>${e.Title}</strong>
+                                    <span>
+                                        ${e.Year??``}
+                                        · ${e.Type??``}
+                                    </span>
+                                    <!--<small>${e.imdbID}</small>-->
+                                </span>
+                            </button>
+                        `)}
+                    </div>
+                `:``}
+            ${this.omdbLoadingDetails?j`<p>Cargando ficha completa...</p>`:``}
+
+            ${this.omdbPreview?this.renderOmdbPreview():``}
+        `}renderOmdbPreview(){let e=this.omdbPreview,t=Array.isArray(e.Ratings)?e.Ratings.filter(e=>e?.Source&&e?.Value):[];return j`
+            <section class="omdb-preview">
+                <h3>Vista previa del resultado seleccionado</h3>
+                <p class="omdb-preview-notice" role="status">
+                    Estos son los datos de OMDb que se guardarán al pulsar
+                    Guardar. Si cancelas, no se aplicarán los cambios.
+                </p>
+                <p>
+                    <strong>${e.Title}</strong>
+                    ${e.Year?` (${e.Year})`:``}
+                </p>
+
+                <p>
+                    <strong>ID OMDb:</strong>
+                    ${e.imdbID}
+                </p>
+
+                ${e.Runtime&&e.Runtime!==`N/A`?j`<p><strong>Duración:</strong> ${e.Runtime}</p>`:``}
+
+                ${e.Genre&&e.Genre!==`N/A`?j`<p><strong>Géneros OMDb:</strong> ${e.Genre}</p>`:``}
+
+                ${e.Director&&e.Director!==`N/A`?j`<p><strong>Dirección:</strong> ${e.Director}</p>`:``}
+
+                ${e.Country&&e.Country!==`N/A`?j`<p><strong>País:</strong> ${e.Country}</p>`:``}
+
+                ${e.Actors&&e.Actors!==`N/A`?j`<p><strong>Reparto:</strong> ${e.Actors}</p>`:``}
+
+                ${e.Plot&&e.Plot!==`N/A`?j`<p><strong>Sinopsis:</strong> ${e.Plot}</p>`:``}
+
+                ${e.Awards&&e.Awards!==`N/A`?j`<p><strong>Premios:</strong> ${e.Awards}</p>`:``}
+
+                ${t.length?j`
+                        <div>
+                            <strong>Valoraciones externas:</strong>
+                            <ul>
+                                ${t.map(e=>j`
+                                    <li>
+                                        ${e.Source}: ${e.Value}
+                                    </li>
+                                `)}
+                            </ul>
+                        </div>
+                    `:``}
+            </section>
+        `}render(){return!this.media||!this.watchItem?``:j`
+            <div class="header">
+                <div class="header-icon">
+                    <i class="fa fa-pencil"></i>
+                </div>
+
+                <div>
+                    <h2>Editar elemento</h2>
+                    <p>Estás modificando un elemento de tu lista</p>
+                </div>
+            </div>
+            <form @submit=${this.save}>
+
+                <div class="field">
+                    <label for="title">
+                        Título
+                    </label>
+
+                    <input
+                        id="title"
+                        name="title"
+                        type="text"
+                        value=${this.media.title}
+                        required
+                    >
+                </div>
+
+                <div class="field fit-content">
+                    <label for="type">
+                        Tipo
+                    </label>
+
+                    <select
+                        id="type"
+                        name="type"
+                    >
+                        ${$.mediaTypes.map(e=>j`
+                            <option
+                                value=${e.id}
+                                ?selected=${e.id===this.media.type}
+                            >
+                                ${e.name}
+                            </option>
+                        `)}
+                    </select>
+                </div>
+
+                <div class="field fit-content">
+                    <label for="year">
+                       ~ Año ~
+                    </label>
+
+                    <input
+                        id="year"
+                        name="year"
+                        type="number"
+                        min="1888"
+                        max="2100"
+                        placeholder="aaaa"
+                        value=${this.media.year??``}
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Plataformas</label>
+
+                    <div class="checkbox-list">
+                        ${$.platforms.filter(e=>e.active).filter(e=>this.showAllPlatforms||this.isPlatformSelected(e.id)).map(e=>j`
+                                <label class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="platforms"
+                                        value=${e.id}
+                                        ?checked=${this.isPlatformSelected(e.id)}
+                                    >
+                                    ${e.name}
+                                </label>
+                            `)}
+                    </div>
+
+                    ${$.platforms.filter(e=>e.active&&!this.isPlatformSelected(e.id)).length?j`
+                            <button
+                                type="button"
+                                @click=${()=>{this.showAllPlatforms=!this.showAllPlatforms}}
+                            >
+                                ${this.showAllPlatforms?`Ocultar opciones`:`Añadir plataformas`}
+                            </button>
+                        `:``}
+                </div>
+
+                <div class="field">
+                    <label>
+                        Audio y subtítulos
+                    </label>
+
+                    <div class="checkbox-list">
+
+                        <label class="checkbox">
+                            <input
+                                type="checkbox"
+                                name="spanishAudio"
+                                ?checked=${this.watchItem.spanishAudio}
+                            >
+                            Audio español
+                        </label>
+
+                        <label class="checkbox">
+                            <input
+                                type="checkbox"
+                                name="spanishSubtitles"
+                                ?checked=${this.watchItem.spanishSubtitles}
+                            >
+                            Subtítulos español
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="reason">
+                        Motivo / observaciones
+                    </label>
+
+                    <textarea
+                        id="reason"
+                        name="reason"
+                        placeholder="¿Por qué quieres ver esta película o serie?"
+                    >${this.watchItem.reason??``}</textarea>
+                </div>
+
+                 <div class="field fit-content">
+                    <label>
+                        Progreso
+                    </label>
+
+                    ${this.renderProgress()}
+                </div>
+
+                <div class="field fit-content">
+                    <label for="userRating">
+                        Valoración personal
+                    </label>
+
+                    <input
+                        id="userRating"
+                        name="userRating"
+                        type="number"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        value=${this.watchItem.userRating??``}
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Géneros</label>
+
+                    <div class="checkbox-list">
+                        ${$.genres.filter(e=>this.showAllGenres||this.isGenreSelected(e.id)).map(e=>j`
+                                <label class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        name="genres"
+                                        value=${e.id}
+                                        ?checked=${this.isGenreSelected(e.id)}
+                                    >
+                                    ${e.name}
+                                </label>
+                            `)}
+                    </div>
+
+                    ${$.genres.some(e=>!this.isGenreSelected(e.id))?j`
+                            <button
+                                type="button"
+                                @click=${()=>{this.showAllGenres=!this.showAllGenres}}
+                            >
+                                ${this.showAllGenres?`Ocultar opciones`:`Añadir géneros`}
+                            </button>
+                        `:``}
+                </div>
+                <div class="field">
+                    <label for="poster">
+                        URL del póster
+                    </label>
+
+                    <input
+                        id="poster"
+                        name="poster"
+                        type="url"
+                        placeholder="https://..."
+                        value=${this.media.poster??``}
+                    >
+
+                    <small>
+                        Déjalo vacío para utilizar el póster de OMDb.
+                    </small>
+                </div>
+
+                <div class="field">
+                    <label for="trailer">URL del tráiler</label>
+
+                    <input
+                        id="trailer"
+                        name="trailer"
+                        type="url"
+                        placeholder="https://..."
+                        value=${this.media.trailer??``}
+                    >
+
+                    <small>
+                        Enlace al tráiler en Youtube u otras fuentes.
+                    </small>
+                </div>
+
+                <div class="field">
+                    <label for="originalTitle">
+                        Título Uniforme (V.O.)
+                    </label>
+
+                    <input
+                        id="originalTitle"
+                        name="originalTitle"
+                        type="text"
+                        value=${this.media.originalTitle??``}
+                    >
+                    <button
+                        type="button"
+                        @click=${this.searchOmdb}
+                    >
+                        <span role="img" aria-label="Buscar">🔍</span>
+                        Buscar en OMDb
+                    </button>
+                </div>
+                
+                <!--Resultados-->
+                ${this.renderOmdbSearch()}
+
+                <div class="actions">
+                    <button type="submit">
+                        Guardar
+                    </button>
+                    <button
+                        type="button"
+                        class="delete-button"
+                        @click=${this.deleteItem}
+                    >
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        Eliminar
+                    </button>
+                    <button
+                        type="button"
+                        @click=${()=>this.dispatchEvent(new CustomEvent(`cancel-edit`,{bubbles:!0,composed:!0}))}
+                    >
+                        Cancelar
+                    </button>
+                </div>
+
+            </form>
+        `}};customElements.define(`edit-item-form`,Re);var ze=class extends B{static styles=o`
+        :host {
+            display: block;
+        }
+            
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        /* Lista */
+
+        .list-header {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(70, 70, 70, 0.95),
+                    rgba(35, 35, 35, 0.95)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.1rem 1.3rem 1.3rem;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.25);
+
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            padding: 0.35rem 0.8rem;
+
+            border-radius: 999px;
+
+            background: rgba(255, 107, 44, 0.18);
+            color: #ffd7bf;
+
+            font-size: 0.82rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .media-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        
+        .empty {
+            margin: 1rem 0 0;
+            padding: 1rem;
+
+            border-radius: 14px;
+
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--muted);
+
+            text-align: center;
+        }
+
+        .item-container {
+            position: relative;
+        }
+
+        .edit-transition {
+            animation: edit-in 0.25s ease;
+        }
+
+        @keyframes edit-in {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* -------------------------
+        Botones
+        ------------------------- */
+        .savedlist-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 34px;
+            padding: 0.45rem 0.8rem;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 34px;
+            height: 34px;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+        .savedlist-button:hover,
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+
+            transform: translateY(-1px);
+        }
+
+        .add-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+        }
+
+        .add-item-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 64px;
+            height: 64px;
+
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+
+            background: rgba(255, 107, 44, 0.15);
+            color: var(--accent);
+
+            font-size: 1.8rem;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .add-item-button:hover {
+            background: rgba(255, 107, 44, 0.25);
+            transform: scale(1.05);
+        }
+
+        
+        .recommendation-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            width: 100%;
+            min-height: 4.5rem;
+            padding: 0.65rem 1rem;
+            padding-bottom: calc(
+                0.65rem + env(safe-area-inset-bottom, 0px)
+            );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 100;
+
+            background: rgba(46, 125, 50, 0.78);
+            border-top: 1px solid rgba(129, 199, 132, 0.55);
+            box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.22);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .recommend-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+
+            min-height: 42px;
+            padding: 0.65rem 1.25rem;
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 999px;
+
+            background: #2e7d32;
+            color: #fff;
+
+            font-size: 0.95rem;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .recommend-button:hover {
+            background: #388e3c;
+            transform: translateY(-1px);
+        }
+
+        .recommend-button:active {
+            transform: translateY(0);
+        }
+
+        .recommend-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 22px;
+            height: 22px;
+            padding: 0 6px;
+
+            border-radius: 999px;
+
+            background: #fff;
+            color: #2e7d32;
+
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+
+        .recommend-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 20px;
+            height: 20px;
+
+            padding: 0 6px;
+
+            border-radius: 10px;
+
+            background: white;
+            color: #333;
+
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .list-actions {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            position: relative;
+        }
+
+        .action-button.active {
+            background: rgba(255, 107, 44, 0.25);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-container {
+            position: relative;
+            display: inline-flex;
+        }
+
+        .filter-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            z-index: 20;
+
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            min-width: 180px;
+            padding: 0.4rem;
+
+            background: #292929;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .filter-option {
+            padding: 0.65rem 0.8rem;
+
+            border: none;
+            border-radius: 8px;
+
+            background: transparent;
+            color: var(--text);
+
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .filter-option:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .filter-option.selected {
+            background: rgba(255, 107, 44, 0.18);
+            color: var(--accent);
+        }
+
+        .filter-description {
+            display: inline-block;
+            margin-bottom: 0.7rem;
+        }
+
+        .filter-separator {
+            height: 1px;
+            margin: 0.35rem 0;
+            background: var(--border);
+        }
+
+        .search-container {
+            width: 100%;
+            margin: 0 0 .5rem;
+            padding: .5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            min-width: 0;
+            padding: .75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+            color: var(--text);
+            font: inherit;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(255, 107, 44, .15);
+        }
+
+        .search-input::placeholder {
+            color: var(--muted);
+        }
+
+        .search-hint {
+            margin: 0 0 .75rem;
+            color: var(--muted);
+            font-size: .85rem;
+        }
+        
+        /* Móvil */
+
+        @media (max-width: 768px) {
+            .list-header {
+                padding: 1rem 0.8rem 1.1rem;
+            }
+
+            .action-button {
+                width: 32px;
+                height: 32px;
+            }
+            .savedlist-button {
+                min-height: 32px;
+                padding: 0.4rem 0.7rem;
+            }
+        }
+    `;static properties={watchList:{attribute:!1},dataVersion:{type:Number},items:{state:!0},editingItem:{state:!0},listName:{state:!0},addingItem:{type:Boolean},selectedItemsToShare:{state:!0},linkCopied:{state:!0},filters:{state:!0},sortMode:{state:!0},showFilterOptions:{state:!0},showSearch:{state:!0},searchText:{state:!0}};constructor(){super(),this.watchList=void 0,this.service=void 0,this.items=[],this.listName=``,this.fileStorage=new Ne,this.recommendService=new Q,this.editingItem=void 0,this.addingItem=!1,this.selectedItemsToShare=[],this.linkCopied=!1,this.filters={status:null,type:null},this.sortMode=`DEFAULT`,this.showFilterOptions=!1,this.showSearch=!1,this.searchText=``}willUpdate(e){e.has(`watchList`)&&this.watchList&&(this.service=new X(this.watchList)),this.service&&(e.has(`watchList`)||e.has(`dataVersion`))&&(this.listName=this.service.watchList.name,this.items=this.service.getItems())}notifyWatchListChanged(){this.dispatchEvent(new CustomEvent(`watch-list-changed`,{detail:{watchList:this.service.watchList},bubbles:!0,composed:!0}))}refreshItems(){this.items=[...this.service.getItems()],this.listName=this.service.watchList.name}showAddItemForm(){this.addingItem=!0}addItem(e){let{title:t,type:n}=e.detail;if(!t)return;let r=this.service.addItem(e.detail);if(!r.success){console.error(r.error);return}this.items=this.service.getItems(),this.notifyWatchListChanged(),e.target.resetForm(),this.hideAddItemForm()}hideAddItemForm(){this.addingItem=!1}editItem(e){this.editingItem=e.detail}cancelEdit(){this.editingItem=void 0}deleteItem(e){let{mediaId:t}=e.detail;if(!confirm(`¿Quieres eliminar este elemento de tu lista?`))return;let n=this.service.deleteItem(t);if(!n.success){console.error(n.error);return}this.notifyWatchListChanged(),this.items=this.service.getItems(),this.editingItem=void 0}saveItem(e){let t=this.service.updateItem(e.detail);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.items=this.service.getItems(),this.editingItem=void 0}changeStatus(e){let t=this.service.changeStatus(e.detail.mediaId,e.detail.status);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.items=[...this.service.getItems()]}toggleRecommendation(e){let t=e.detail;if(this.selectedItemsToShare.some(e=>e.media.id===t.media.id)){this.selectedItemsToShare=this.selectedItemsToShare.filter(e=>e.media.id!==t.media.id);return}this.selectedItemsToShare=[...this.selectedItemsToShare,t]}isSelectedToShare(e){return this.selectedItemsToShare.some(t=>t.media.id===e.media.id)}createRecommendationExchange(){if(this.selectedItemsToShare.length===0)return;let e=this.selectedItemsToShare.map(e=>e.watchItem),t=this.recommendService.createRecommendationList(this.service.watchList,e),n=this.recommendService.createRecommendationExchange(t,this.service.watchList);this.shareRecommendationExchange(n)}async shareRecommendationExchange(e){let t=await new Fe().encode(e),n=new URL(`https://joselon79.neocities.org/quevemos`);n.searchParams.set(`recommendation`,t);try{await navigator.clipboard.writeText(n.toString()),this.linkCopied=!0,setTimeout(()=>{this.linkCopied=!1},2e3)}catch(e){console.error(`No se pudo copiar el enlace:`,e)}}editListName(){let e=prompt(`Ingrese el nuevo nombre para la lista:`,this.service.watchList.name);if(!e)return;let t=this.service.renameWatchList(e);if(!t.success){console.error(t.error);return}this.notifyWatchListChanged(),this.listName=this.service.watchList.name}exportWatchList(){let e=this.fileStorage.export(this.service.watchList),t=new Blob([e],{type:`application/json`}),n=URL.createObjectURL(t),r=document.createElement(`a`);r.href=n,r.download=`quevemos-watchlist.json`,r.click(),URL.revokeObjectURL(n)}importWatchList(){if(!confirm(`La lista actual será sustituida por la lista importada. ¿Deseas continuar?`))return;let e=document.createElement(`input`);e.type=`file`,e.accept=`application/json,.json`,e.addEventListener(`change`,async()=>{let t=e.files[0];if(t)try{let e=await t.text(),n=this.fileStorage.import(e);this.service=new X(n),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.editingItem=void 0,this.notifyWatchListChanged()}catch(e){console.error(e),alert(`No se pudo importar la lista:\n${e.message}`)}}),e.click()}resetWatchList(){if(!confirm(`Se perderán todos los datos de la lista. ¿Deseas continuar?`))return;let e=new K({name:`Mi nueva lista`});this.service=new X(e),this.listName=this.service.watchList.name,this.items=this.service.getItems(),this.notifyWatchListChanged()}getStatusLabel(e){return{[U.PENDING]:`Pendientes`,[U.WATCHING]:`En curso`,[U.PAUSED]:`Pausadas`,[U.WATCHED]:`Vistas`,[U.DISCARDED]:`Descartadas`}[e]??e}getAvailableStatuses(){return Object.values(U)}getVisibleItems(){let e=this.normalizeSearchText(this.searchText.trim()),t=this.items.filter(t=>{let n=t.watchItem.status,r=this.filters.status?n===this.filters.status:n!==U.DISCARDED,i=!this.filters.type||t.media.type===this.filters.type,a=this.matchesSearch(t,e);return r&&i&&a});return this.sortMode===`AZ`?t.sort((e,t)=>e.media.title.localeCompare(t.media.title,`es`,{sensitivity:`base`})):this.sortMode===`ZA`&&t.sort((e,t)=>t.media.title.localeCompare(e.media.title,`es`,{sensitivity:`base`})),t}getFilterDescription(){let e=[];return this.filters.type&&e.push(this.getMediaTypeFilterLabel(this.filters.type)),this.filters.status&&e.push(this.getStatusLabel(this.filters.status)),e.length===0?`Mostrando todos los elementos`:`Mostrando solo ${e.join(` · `)}`}toggleFilterOptions(){this.showFilterOptions=!this.showFilterOptions}setStatusFilter(e){this.filters={...this.filters,status:e},this.showFilterOptions=!1}toggleSort(){let e={DEFAULT:`AZ`,AZ:`ZA`,ZA:`DEFAULT`};this.sortMode=e[this.sortMode]}getMediaTypeFilterLabel(e){return{[V.MOVIE]:`Películas`,[V.SERIES]:`Series`,[V.VIDEOGAMES]:`Videojuegos`}[e]??e}getAvailableMediaTypes(){return Object.values(V)}setMediaTypeFilter(e){this.filters={...this.filters,type:e},this.showFilterOptions=!1}getSearchableValues(e){let{media:t,watchItem:n}=e,r=(t.genres??[]).flatMap(e=>[e,$.genres.find(t=>t.id===e)?.name]),i=(n.platforms??[]).flatMap(e=>[e,$.platforms.find(t=>t.id===e)?.name]),a=$.mediaTypes.find(e=>e.id===t.type);return[t.title,t.originalTitle,t.year,t.director,t.actors,t.country,t.plot,t.awards,r,i,t.type,a?.name,n.reason,n.status,this.getStatusLabel(n.status)]}matchesSearch(e,t){return t.length<3||this.getSearchableValues(e).flat(1/0).filter(e=>e!=null).some(e=>this.normalizeSearchText(String(e)).includes(t))}toggleSearch(){this.showSearch=!this.showSearch,this.showSearch||(this.searchText=``)}handleSearchInput(e){this.searchText=e.target.value}normalizeSearchText(e){return e.normalize(`NFD`).replace(/[\u0300-\u036f]/g,``).toLocaleLowerCase(`es`)}render(){let e=this.getVisibleItems();return j`
+            <link
+                rel="stylesheet"
+                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
+            >
+            <div class="list-header">
+                <div class="storage-actions">
+                    <button
+                        type="button"
+                        class="savedlist-button"
+                        @click=${this.exportWatchList}
+                    >
+                        <i class="fa fa-download"></i>
+                        Exportar lista
+                    </button>
+
+                    <button
+                        type="button"
+                        class="savedlist-button"
+                        @click=${this.importWatchList}
+                    >
+                        <i class="fa fa-upload"></i>
+                        Importar lista
+                    </button>
+
+                    <button
+                        type="button"
+                        class="savedlist-button"
+                        @click=${this.resetWatchList}
+                    >
+                        <i class="fa fa-refresh"></i>
+                        Reset
+                    </button>
+                </div>
+                <h2>${this.listName} <button
+                        type="button"
+                        class="action-button"
+                        title="Editar Nombre de la lista"
+                        @click=${this.editListName}
+                    >
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                </h2>
+            </div>
+            
+            ${this.items.length===0?j`
+                    <p class="empty">
+                        La lista está vacía.
+                    </p>
+                    <div class= "add-item">
+                    ${this.addingItem?j`
+                            <add-item-form
+                                @add-item=${this.addItem}
+                            ></add-item-form>
+                            <button
+                                type="button"
+                                class="add-item-button"
+                                title="Ocultar Añadir elemento"
+                                @click=${this.hideAddItemForm}
+                            >
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        `:j`
+                            <button
+                                type="button"
+                                class="add-item-button"
+                                title="Añadir elemento"
+                                @click=${this.showAddItemForm}
+                            >
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        `}
+
+                    </div> 
+                `:j` 
+                    <div class="media-list">
+                        
+                        <div class="list-header">
+                            <div class="hero-badge filter-description">
+                                ${this.getFilterDescription()}
+                            </div>
+
+                            <div class="list-actions">
+                                <button
+                                    type="button"
+                                    class="action-button ${this.sortMode===`DEFAULT`?``:`active`}"
+                                    title=${this.sortMode===`DEFAULT`?`Ordenar A-Z`:this.sortMode===`AZ`?`Ordenar Z-A`:`Volver al orden original`}
+                                    aria-label=${this.sortMode===`DEFAULT`?`Orden original`:this.sortMode===`AZ`?`Orden alfabético A-Z`:`Orden alfabético Z-A`}
+                                    @click=${this.toggleSort}
+                                >
+                                    <i class=${this.sortMode===`DEFAULT`?`fa fa-sort`:this.sortMode===`AZ`?`fa fa-sort-alpha-asc`:`fa fa-sort-alpha-desc`}></i>
+                                </button>
+
+                                <div class="filter-container">
+                                    <button
+                                        type="button"
+                                        class="action-button ${this.filters.status||this.filters.type?`active`:``}"
+                                        title="Filtrar por estado"
+                                        aria-label="Filtrar por estado"
+                                        aria-expanded=${this.showFilterOptions}
+                                        @click=${this.toggleFilterOptions}
+                                    >
+                                        <i class="fa fa-filter"></i>
+                                    </button>
+
+                                    ${this.showFilterOptions?j`
+                                            <div class="filter-menu">
+                                                <button
+                                                    type="button"
+                                                    class="filter-option ${this.filters.status?``:`selected`}"
+                                                    @click=${()=>this.setStatusFilter(null)}
+                                                >
+                                                    Todos los estados (excepto Descartadas)
+                                                </button>
+
+                                                ${this.getAvailableStatuses().map(e=>j`
+                                                    <button
+                                                        type="button"
+                                                        class="filter-option ${this.filters.status===e?`selected`:``}"
+                                                        @click=${()=>this.setStatusFilter(e)}
+                                                    >
+                                                        ${this.getStatusLabel(e)}
+                                                    </button>
+                                                `)}
+
+                                                <div class="filter-separator"></div>
+
+                                                <button
+                                                    type="button"
+                                                    class="filter-option ${this.filters.type?``:`selected`}"
+                                                    @click=${()=>this.setMediaTypeFilter(null)}
+                                                >
+                                                    Todos los tipos
+                                                </button>
+
+                                                ${this.getAvailableMediaTypes().map(e=>j`
+                                                    <button
+                                                        type="button"
+                                                        class="filter-option ${this.filters.type===e?`selected`:``}"
+                                                        @click=${()=>this.setMediaTypeFilter(e)}
+                                                    >
+                                                        ${this.getMediaTypeFilterLabel(e)}
+                                                    </button>
+                                                `)}
+                                            </div>
+                                        `:``}
+                                </div>
+                                <button
+                                    type="button"
+                                    class="action-button ${this.showSearch?`active`:``}"
+                                    aria-label="${this.showSearch?`Cerrar búsqueda`:`Buscar por cualquier campo`}"
+                                    aria-expanded=${this.showSearch}
+                                    @click=${this.toggleSearch}
+                                >
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                            ${this.showSearch?j`
+                                <div class="search-container">
+                                    <input
+                                        class="search-input"
+                                        type="search"
+                                        placeholder="Buscar por cualquier campo (mín. 3 caracteres)"
+                                        aria-label="Buscar por cualquier campo"
+                                        .value=${this.searchText}
+                                        @input=${this.handleSearchInput}
+                                    />
+                                </div>
+                                ${this.searchText.trim().length>0&&this.searchText.trim().length<3?j`
+                                        <p class="search-hint">
+                                            Escribe al menos 3 caracteres para buscar.
+                                        </p>
+                                    `:``}
+                            `:``}
+                        </div>
+
+                        ${e.length===0?j`
+                                <p class="empty">
+                                    ${this.searchText.trim().length>=3?`No hay títulos que coincidan con la búsqueda y los filtros.`:`No hay elementos que coincidan con los filtros.`}
+                                </p>
+                            `:e.map(e=>j`
+                                    <div class="item-container">
+                                        ${this.editingItem?.media.id===e.media.id?j`
+                                                <div class="edit-transition">
+                                                    <edit-item-form
+                                                        .media=${e.media}
+                                                        .watchItem=${e.watchItem}
+                                                        @save-item=${this.saveItem}
+                                                        @cancel-edit=${this.cancelEdit}
+                                                        @delete-item=${this.deleteItem}
+                                                    ></edit-item-form>
+                                                </div>
+                                            `:j`
+                                                <div class="edit-transition">
+                                                    <watch-item-view
+                                                        .media=${e.media}
+                                                        .watchItem=${e.watchItem}
+                                                        .selectedToShare=${this.isSelectedToShare(e)}
+                                                        @edit-item=${this.editItem}
+                                                        @change-status=${this.changeStatus}
+                                                        @toggle-recommendation=${this.toggleRecommendation}
+                                                    ></watch-item-view>
+                                                </div>
+                                            `}
+                                    </div>
+                                `)}
+                        ${this.selectedItemsToShare.length>0?j`
+                                <div class="recommendation-bar">
+                                    <button
+                                        class="recommend-button"
+                                        title="Recomendar seleccionados"
+                                        @click=${this.createRecommendationExchange}
+                                    >
+                                        <i class="fa fa-share-alt"></i>
+                                        <span>Recomendar</span>
+                                        <span class="recommend-badge">
+                                            ${this.selectedItemsToShare.length}
+                                        </span>
+                                        ${this.linkCopied?j`
+                                                <div class="toast-overlay">
+                                                    <div class="toast">
+                                                        <span>✓</span>
+                                                        Enlace copiado
+                                                    </div>
+                                                </div>
+                                            `:``}
+                                    </button>
+                                </div>
+                            `:``}
+
+                        ${this.editingItem?``:j`
+                            <div class= "add-item">
+                                ${this.addingItem?j`
+                                        <add-item-form
+                                            @add-item=${this.addItem}
+                                        ></add-item-form>
+                                        <button
+                                            type="button"
+                                            class="add-item-button"
+                                            title="Ocultar Añadir elemento"
+                                            @click=${this.hideAddItemForm}
+                                        >
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    `:j`
+                                        <button
+                                            type="button"
+                                            class="add-item-button"
+                                            title="Añadir elemento"
+                                            @click=${this.showAddItemForm}
+                                        >
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    `}
+
+                            </div>
+                            `}
+
+                    </div>
+                    
+                `}
+        `}};customElements.define(`watch-list-view`,ze);var Be=class{export(e){return JSON.stringify(e,null,2)}import(e){let t=this.parse(e);return this.validate(t),t.map(e=>new Y({version:e.version,id:e.id,name:e.name,recommendations:e.recommendations.map(e=>new J(e)),createdAt:e.createdAt}))}parse(e){try{return JSON.parse(e)}catch{throw Error(`Invalid JSON`)}}validate(e){if(!Array.isArray(e))throw Error(`Invalid Inbox's file`);e.forEach(e=>{if(!Number.isInteger(e.version)||e.version<1||e.version>1)throw Error(`Unsupported IncomingRecommendationList version`);if(!Array.isArray(e.recommendations))throw Error(`IncomingRecommendationList recommendations is not an array`)})}},Ve=class{constructor(e=new Fe,t=`recommendation`){this.codec=e,this.parameterName=t}async read(e){let t=new URL(e).searchParams.get(this.parameterName);if(!t)return null;try{return new Z(await this.codec.decode(t))}catch{throw Error(`Invalid recommendation link`)}}},He=class e extends B{static styles=o`
+        :host {
+            display: block;
+        }
+
+        .recommendation {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+        }
+
+        .poster {
+            width: 100px;
+            aspect-ratio: 2 / 3;
+            overflow: hidden;
+            border-radius: 6px;
+            background: var(--surface-strong);
+        }
+
+        .poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .poster-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.4;
+        }
+
+        .information {
+            min-width: 0;
+        }
+
+        h3 {
+            margin: 0 0 0.35rem;
+        }
+
+        .original-title {
+            margin: 0 0 0.5rem;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            background: var(--surface-strong);
+        }
+
+        .status {
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status.matched {
+            color: var(--accent);
+        }
+
+        .status.new {
+            color: var(--text);
+        }
+
+        .reason {
+            margin: 0 0 0.75rem;
+            white-space: pre-line;
+        }
+
+        .rating {
+            margin-bottom: 0.75rem;
+        }
+
+        .differences {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+
+        .differences-title {
+            margin-bottom: 0.35rem;
+            font-weight: 600;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        button {
+            padding: 0.6rem 0.9rem;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .candidates {
+            margin-top: 1rem;
+        }
+
+        .candidate-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.5rem;
+        }
+
+        .candidate {
+            min-width: 0;
+            padding: 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface-strong);
+            color: var(--text);
+            text-align: left;
+            overflow-wrap: anywhere;
+        }
+
+        .candidate.selected {
+            border-color: var(--accent);
+            box-shadow: inset 0 0 0 1px var(--accent);
+        }
+
+        .candidate-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-top: 0.6rem;
+        }
+
+        .merge-fields {
+            display: grid;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+        }
+
+        .merge-fields label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .actions {
+            flex-wrap: wrap;
+        }
+
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .candidate-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .recommendation {
+                grid-template-columns: 70px 1fr;
+            }
+
+            .poster {
+                width: 70px;
+            }
+        }
+    `;static properties={comparison:{attribute:!1},selectedCandidateId:{state:!0},candidatePage:{state:!0},selectedMediaFields:{state:!0}};static getCatalogName(e,t){return e.find(e=>e.id===t)?.name??t}constructor(){super(),this.comparison=void 0,this.selectedCandidateId=null,this.candidatePage=0,this.selectedMediaFields=[]}get candidatePageCount(){return Math.ceil(this.matches.length/5)}get visibleCandidates(){return this.matches.slice(this.candidatePage*5,this.candidatePage*5+5)}get selectedCandidate(){return this.matches.find(e=>e.media.id===this.selectedCandidateId)}updated(e){e.has(`comparison`)&&(this.selectedCandidateId=null,this.candidatePage=0,this.selectedMediaFields=[])}selectCandidate(e){this.selectedCandidateId=e.media.id,this.selectedMediaFields=[]}toggleMediaField(e,t){this.selectedMediaFields=t?[...new Set([...this.selectedMediaFields,e])]:this.selectedMediaFields.filter(t=>t!==e)}previousCandidatePage(){this.candidatePage=Math.max(0,this.candidatePage-1)}nextCandidatePage(){this.candidatePage=Math.min(this.candidatePageCount-1,this.candidatePage+1)}get media(){return this.comparison?.media}get recommendation(){return this.comparison?.recommendation}get matches(){return this.comparison?.matches??[]}get differences(){return this.matches.length===0?[]:this.matches[0].differences??[]}isNew(){return this.comparison?.status===`new`}isMatched(){return this.comparison?.status===`matched`}accept(e){(e!==`merge`||this.selectedCandidate&&this.selectedMediaFields.length!==0)&&this.dispatchEvent(new CustomEvent(`accept-recommendation`,{detail:{comparison:this.comparison,decision:e,targetMediaId:e===`merge`?this.selectedCandidate.media.id:void 0,mediaFields:e===`merge`?[...this.selectedMediaFields]:[]},bubbles:!0,composed:!0}))}discard(){this.dispatchEvent(new CustomEvent(`discard-recommendation`,{detail:{comparison:this.comparison},bubbles:!0,composed:!0}))}renderStatus(){return this.isNew()?j`
+                <div class="status new">
+                    <i class="fa fa-plus-circle"></i>
+                    No está en tu lista
+                </div>
+            `:this.isMatched()?j`
+                <div class="status matched">
+                    <i class="fa fa-check-circle"></i>
+                    Ya está en tu lista
+                </div>
+            `:j`
+            <div class="status">
+                Posible coincidencia
+            </div>
+        `}renderDifferences(){return!this.isMatched()||this.differences.length===0?``:j`
+            <div>
+                <div class="differences-title">
+                    Diferencias
+                </div>
+
+                <ul class="differences">
+                    ${this.differences.map(e=>j`
+                        <li>${e}</li>
+                    `)}
+                </ul>
+            </div>
+        `}render(){if(!this.comparison)return``;let t=this.media,n=this.recommendation;return j`
+            <article class="recommendation">
+
+                <div class="poster">
+                    ${t?.poster?j`
+                            <img
+                                src=${t.poster}
+                                alt="Cartel de ${t.title}"
+                            >
+                        `:j`
+                            <div class="poster-placeholder">
+                                <i class="fa fa-film"></i>
+                            </div>
+                        `}
+                </div>
+
+                <div class="information">
+
+                    <h3>
+                        ${t?.title}
+                    </h3>
+
+                    ${t?.originalTitle?j`
+                            <p class="original-title">
+                                ${t.originalTitle}
+                            </p>
+                        `:``}
+
+                    <div class="meta">
+
+                        ${t?.year?j`
+                                <span class="badge">
+                                    ${t.year}
+                                </span>
+                            `:``}
+
+                        ${t?.type?j`
+                                <span class="badge">
+                                    ${e.getCatalogName($.mediaTypes,t.type)}
+                                </span>
+                            `:``}
+
+                    </div>
+
+                    ${this.renderStatus()}
+
+                    ${n?.recommenderRating===void 0?``:j`
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                ${n.recommenderRating}/10
+                            </div>
+                        `}
+
+                    ${n?.reason?j`
+                            <p class="reason">
+                                ${n.reason}
+                            </p>
+                        `:``}
+
+                    ${this.renderDifferences()}
+
+                    ${this.matches.length>0?j`
+                        <section class="candidates">
+                            <div class="differences-title">
+                                Candidatos para fusionar
+                            </div>
+
+                            <div class="candidate-grid">
+                                ${this.visibleCandidates.map(e=>j`
+                                    <button
+                                        type="button"
+                                        class="candidate ${e.media.id===this.selectedCandidateId?`selected`:``}"
+                                        aria-pressed=${e.media.id===this.selectedCandidateId}
+                                        @click=${()=>this.selectCandidate(e)}
+                                    >
+                                        <strong>${e.media.title}</strong>
+                                        <div>${e.media.year??`Año desconocido`}</div>
+                                        <small>Motivo: ${e.matches.join(`, `)}</small>
+                                    </button>
+                                `)}
+                            </div>
+
+                            ${this.candidatePageCount>1?j`
+                                <div class="candidate-navigation">
+                                    <button
+                                        type="button"
+                                        ?disabled=${this.candidatePage===0}
+                                        @click=${this.previousCandidatePage}
+                                    >
+                                        Anteriores
+                                    </button>
+
+                                    <span>
+                                        ${this.candidatePage+1}
+                                        / ${this.candidatePageCount}
+                                    </span>
+
+                                    <button
+                                        type="button"
+                                        ?disabled=${this.candidatePage>=this.candidatePageCount-1}
+                                        @click=${this.nextCandidatePage}
+                                    >
+                                        Siguientes
+                                    </button>
+                                </div>
+                            `:``}
+
+                            ${this.selectedCandidate?j`
+                                <div class="merge-fields">
+                                    <strong>
+                                        Campos que se actualizarán en
+                                        ${this.selectedCandidate.media.title}
+                                    </strong>
+
+                                    ${this.selectedCandidate.differences.map(e=>j`
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                .checked=${this.selectedMediaFields.includes(e)}
+                                                @change=${t=>this.toggleMediaField(e,t.target.checked)}
+                                            >
+                                            ${e}
+                                        </label>
+                                    `)}
+                                </div>
+                            `:``}
+                        </section>
+                        `:``}
+                    <div class="actions">
+                        <button
+                            type="button"
+                            ?disabled=${n.status===q.ACCEPTED}
+                            @click=${()=>this.accept(`create`)}
+                        >
+                            <i class="fa fa-plus"></i>
+                            Añadir como nuevo
+                        </button>
+
+                        <button
+                            type="button"
+                            ?disabled=${n.status===q.ACCEPTED||!this.selectedCandidate||this.selectedMediaFields.length===0}
+                            @click=${()=>this.accept(`merge`)}
+                        >
+                            <i class="fa fa-code-fork"></i>
+                            Fusionar
+                        </button>
+
+                        <button
+                            type="button"
+                            ?disabled=${n.status===q.ACCEPTED}
+                            @click=${this.discard}
+                        >
+                            <i class="fa fa-times"></i>
+                            Descartar
+                        </button>
+                    </div>
+
+                </div>
+
+            </article>
+        `}};customElements.define(`recommendation-item-view`,He);var Ue=class extends B{static styles=o`
+        :host {
+            display: block;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        .recommendation-list {
+            margin-top: 0.9rem;
+
+            border: 1px solid var(--border);
+            border-radius: 16px;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            overflow: hidden;
+        }
+
+        /* -------------------------
+           Cabecera
+           ------------------------- */
+
+        .list-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            padding: 1rem 1.1rem;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(70, 70, 70, 0.95),
+                    rgba(35, 35, 35, 0.95)
+                );
+        }
+
+        .list-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .list-info h3 {
+            margin: 0;
+
+            font-size: 1.05rem;
+        }
+
+        .list-count {
+            margin-top: 0.2rem;
+
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* -------------------------
+           Estados
+           ------------------------- */
+
+        .status-counts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+
+            margin-top: 0.5rem;
+        }
+
+        .status {
+            color: var(--muted);
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+
+        .status.pending {
+            color: var(--accent-2);
+        }
+
+        .status.accepted {
+            color: #8fd694;
+        }
+
+        .status.discarded {
+            color: #e59a9a;
+        }
+
+        /* -------------------------
+           Acciones
+           ------------------------- */
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 34px;
+            height: 34px;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* -------------------------
+           Contenido
+           ------------------------- */
+
+        .list-content {
+            padding: 1rem;
+        }
+
+        /* -------------------------
+           Móvil
+           ------------------------- */
+
+        @media (max-width: 768px) {
+
+            .list-header {
+                align-items: flex-start;
+                padding: 0.9rem;
+            }
+
+            .actions {
+                flex-shrink: 0;
+            }
+
+            .status-counts {
+                gap: 0.4rem;
+            }
+
+            .status {
+                font-size: 0.78rem;
+            }
+
+            .list-content {
+                padding: 0.8rem;
+            }
+        }
+    `;static properties={incomingList:{attribute:!1},watchList:{attribute:!1},dataVersion:{type:Number},comparisons:{state:!0},expanded:{state:!0},showProcessed:{state:!0}};constructor(){super(),this.watchListStorage=void 0,this.watchList=void 0,this.service=new Q,this.comparisons=[],this.expanded=!1,this.showProcessed=!1}updated(e){e.has(`incomingList`)&&(this.showProcessed=!1,this.expanded=!1),(e.has(`incomingList`)||e.has(`watchList`)||e.has(`dataVersion`))&&this.incomingList&&this.watchList&&this.updateComparisons()}updateComparisons(){this.comparisons=this.service.compareRecommendations(this.incomingList,this.watchList)}getStatusCount(e){return this.incomingList.recommendations.filter(t=>t.status===e).length}getVisibleComparisons(){return this.showProcessed?this.comparisons:this.comparisons.filter(e=>e.recommendation.status===q.PENDING)}toggleExpanded(){this.expanded=!this.expanded,this.showProcessed=!0}handleAccept(e){let{comparison:t,decision:n,targetMediaId:r,mediaFields:i}=e.detail;this.resolveRecommendation(t,n,{targetMediaId:r,mediaFields:i})}handleDiscard(e){this.resolveRecommendation(e.detail.comparison,`discard`)}resolveRecommendation(e,t,n={}){try{this.service.resolveRecommendation({incomingRecommendationList:this.incomingList,incomingRecommendation:e.recommendation,decision:t,watchList:this.watchList,targetMediaId:n.targetMediaId,mediaFields:n.mediaFields??[]}),this.updateComparisons(),this.dispatchEvent(new CustomEvent(`recommendation-resolved`,{detail:{watchList:this.watchList,incomingList:this.incomingList},bubbles:!0,composed:!0}))}catch(t){console.error(`No se pudo resolver la recomendación:`,t),this.dispatchEvent(new CustomEvent(`recommendation-error`,{detail:{error:t,comparison:e},bubbles:!0,composed:!0}))}}render(){if(!this.incomingList)return j``;let e=this.getStatusCount(`pending`),t=this.getStatusCount(`accepted`),n=this.getStatusCount(`discarded`),r=this.showProcessed?this.comparisons.filter(e=>e.recommendation.status!==q.PENDING):this.comparisons.filter(e=>e.recommendation.status===q.PENDING),i=t+n>0,a=e===0&&i;return j`
+            <link
+                rel="stylesheet"
+                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
+            >
+            <article class="recommendation-list">
+
+                <header class="list-header">
+
+                    <div class="list-info">
+
+                        <h3>
+                            ${this.incomingList.name}
+                        </h3>
+
+                        <div class="list-count">
+                            ${this.incomingList.recommendations.length}
+                            recomendaciones
+                        </div>
+
+                        <div class="status-counts">
+
+                            ${e>0?j`
+                                    <span class="status pending">
+                                        ● ${e} pendientes
+                                    </span>
+                                `:``}
+
+                            ${t>0?j`
+                                    <span class="status accepted">
+                                        ✓ ${t} aceptadas
+                                    </span>
+                                `:``}
+
+                            ${n>0?j`
+                                    <span class="status discarded">
+                                        × ${n} descartadas
+                                    </span>
+                                `:``}
+
+                        </div>
+
+                    </div>
+
+                    <div class="actions">
+
+                    ${a?j`
+                            <button
+                                type="button"
+                                class="action-button"
+                                title="Ver recomendaciones procesadas"
+                                @click=${this.toggleExpanded}
+                            >
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                        `:``}
+
+                    </div>
+
+                </header>
+
+                ${this.expanded&&this.showProcessed?j`
+                        <div class="list-content">
+                            ${r.map(e=>j`
+                                    <recommendation-item-view
+                                        .comparison=${e}
+                                        @accept-recommendation=${this.handleAccept}
+                                        @discard-recommendation=${this.handleDiscard}
+                                    ></recommendation-item-view>
+                                `)}
+                        </div>
+                    `:e===0?j`
+                            <div class="list-content">
+                                <p class="empty-message">
+                                    No quedan recomendaciones pendientes.
+                                </p>
+                            </div>
+                        `:j`
+                            <div class="list-content">
+                                ${r.map(e=>j`
+                                        <recommendation-item-view
+                                            .comparison=${e}
+                                            @accept-recommendation=${this.handleAccept}
+                                            @discard-recommendation=${this.handleDiscard}
+                                        ></recommendation-item-view>
+                                    `)}
+                            </div>
+                        `}
+
+            </article>
+        `}};customElements.define(`recommendation-list-view`,Ue);var We=class extends B{static styles=o`
+        .inbox {
+            margin-top: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 1rem;
+            padding: 1rem 1.2rem;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(70, 70, 70, 0.95),
+                    rgba(35, 35, 35, 0.95)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .section-header h2 {
+            margin: 0;
+        }
+
+        /* -------------------------
+           Botones
+           ------------------------- */
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 34px;
+            padding: 0.45rem 0.8rem;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .delete-button {
+            justify-self: end;
+            align-self: end;
+            color: red;
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .action-button i {
+            margin-right: 0.4rem;
+        }
+            
+        /* -------------------------
+           Lista de recomendaciones
+           ------------------------- */
+
+        .lists {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .list-opened {
+            border: 2px solid var(--accent);
+            border-radius: 27%;
+            background: rgba(255, 107, 44, 0.15);
+            color: var(--accent);
+            width: fit-content;
+            justify-self: center;
+
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            width: 100%;
+            padding: 1rem;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            background: rgba(255, 255, 255, 0.06);
+
+            color: var(--text);
+
+            text-align: left;
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .list:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .list strong,
+        .list span {
+            display: block;
+            font-size: 1rem;
+        }
+        
+        .list small {
+            align-self: end;
+        }
+
+        .list span {
+            margin-top: 0.25rem;
+            opacity: 0.7;
+
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .list--highlighted {
+            position: relative;
+            border: 2px solid var(--accent);
+            background: rgba(255, 107, 44, 0.16);
+            box-shadow: 0 0 0 2px rgba(255, 107, 44, 0.12);
+            animation: recommendation-pulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes recommendation-pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 2px rgba(255, 107, 44, 0.12);
+                border-color: var(--accent);
+            }
+
+            50% {
+                box-shadow: 0 0 18px 5px rgba(255, 107, 44, 0.38);
+                border-color: var(--accent-2);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .list--highlighted {
+                animation: none;
+                border-color: var(--accent-2);
+                box-shadow: 0 0 0 3px rgba(255, 107, 44, 0.25);
+            }
+        }
+
+        /* -------------------------
+           Vacía
+           ------------------------- */
+
+        .empty {
+            opacity: 0.7;
+            margin: 1rem 0 0;
+            padding: 1rem;
+
+            border-radius: 14px;
+
+            background: rgba(255, 255, 255, 0.06);
+
+            color: var(--muted);
+
+            text-align: center;
+        }
+
+        /* -------------------------
+           Móvil
+           ------------------------- */
+
+        @media (max-width: 768px) {
+
+            .section-header {
+                align-items: flex-start;
+                gap: 0.8rem;
+                padding: 1rem 0.8rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .action-button {
+                min-height: 32px;
+                padding: 0.4rem 0.7rem;
+            }
+        }
+    `;static properties={lists:{state:!0},watchList:{attribute:!1},dataVersion:{type:Number},selectedList:{state:!0},showImportLink:{type:Boolean},importLink:{type:String}};constructor(){super(),this.fileStorage=new Be,this.linkReader=new Ve,this.service=new Q,this.selectedList=void 0,this.highlightedListId=null,this.scrollToListPending=!1,this.showImportLink=!1,this.importLink=``}updated(){if(!this.scrollToListPending||!this.highlightedListId)return;let e=[...this.renderRoot.querySelectorAll(`[data-recommendation-list-id]`)].find(e=>e.dataset.recommendationListId===this.highlightedListId);e&&(e.scrollIntoView({behavior:`smooth`,block:`center`}),this.scrollToListPending=!1)}async connectedCallback(){super.connectedCallback(),await this.importRecommendationFromUrl()}async importRecommendationFromUrl(){let e=await this.linkReader.read(window.location.href);if(!e)return;let t=this.lists.find(t=>t.id===e.id);if(t){this.highlightIncomingList(t.id),this.clearRecommendationUrlParameter();return}let n=this.service.createIncomingRecommendationList(e);this.highlightIncomingList(n.id),this.notifyInboxChanged([...this.lists,n]),this.clearRecommendationUrlParameter()}clearRecommendationUrlParameter(){let e=new URL(window.location.href);e.searchParams.delete(`recommendation`),window.history.replaceState(window.history.state,``,e.pathname+e.search+e.hash)}importRecommendations(){this.showImportLink=!0}cancelImportLink(){this.showImportLink=!1,this.importLink=``}highlightIncomingList(e){this.highlightedListId=e,this.scrollToListPending=!0,this.requestUpdate()}openRecommendationsLink(e){e.preventDefault();let t=this.importLink.trim();if(!t)return;let n;try{n=new URL(t)}catch{return}(n.protocol===`https:`||n.protocol===`http:`)&&(window.location.href=n.href)}selectList(e){this.highlightedListId=null,this.scrollToListPending=!1,this.selectedList=e}closeList(){this.selectedList=void 0}notifyInboxChanged(e){this.dispatchEvent(new CustomEvent(`inbox-changed`,{detail:{inbox:e},bubbles:!0,composed:!0}))}formatDate(e){return new Date(e).toLocaleString(`es-ES`)}canDeleteIncomingList(e){return e.recommendations.length>0&&e.recommendations.every(e=>e.status!==q.PENDING)}deleteIncomingList(e){let t=this.service.deleteIncomingList(this.lists,e.id);t!==null&&(this.lists=t,this.notifyInboxChanged([...this.lists]))}render(){return j`
+            <link
+                rel="stylesheet"
+                href="/assets/icons/font-awesome-4.7.0/css/font-awesome.min.css"
+            >
+
+            <section class="inbox">
+
+                <header class="section-header">
+                    <i class="fa fa-inbox"></i>
+                    <h2>Buzón de entrada</h2>
+
+                    ${this.showImportLink?j`
+                            <form class="import-link-form"
+                                @submit=${this.openRecommendationsLink}
+                            >
+                                <input
+                                    type="url"
+                                    placeholder="Pega aquí el enlace de recomendaciones"
+                                    .value=${this.importLink}
+                                    @input=${e=>this.importLink=e.target.value}
+                                    required
+                                >
+
+                                <button type="submit" class="action-button">
+                                    <i class="fa fa-link"></i>
+                                    Abrir enlace
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="action-button"
+                                    @click=${this.cancelImportLink}
+                                >
+                                    Cancelar
+                                </button>
+                            </form>
+                        `:j`
+                            <button
+                                type="button"
+                                class="action-button"
+                                @click=${this.importRecommendations}
+                            >
+                                <i class="fa fa-link"></i>
+                                Importar enlace
+                            </button>
+                        `}
+                </header>
+
+                ${this.lists.length===0?j`
+                        <p class="empty">
+                            No tienes recomendaciones recibidas.
+                        </p>
+                    `:j`
+                        ${this.selectedList?j`
+                        <div class="lists list-opened">
+                            <button
+                                class="list"
+                                @click=${()=>this.closeList()}
+                            >
+                                <strong>
+                                 <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
+                                    Cerrar
+                                </strong>
+                            </button>
+                            `:j`
+                        <div class="lists" >
+                            ${this.lists.map(e=>j`
+                                    <button
+                                        class="list ${this.highlightedListId===e.id?`list--highlighted`:``}"
+                                        data-recommendation-list-id=${e.id}
+                                        @click=${()=>this.selectList(e)}
+                                    >
+                                        <strong>
+                                        <i class="fa fa-envelope-o" aria-hidden="true"></i></big> ${e.name}</strong>
+                                        <small> ${this.formatDate(e.createdAt)} </small>
+                                        <span>
+                                            ${e.recommendations.length}
+                                            recomendaciones
+                                        </span>
+                                       ${this.canDeleteIncomingList(e)?j`
+                                            <button
+                                                type="button"
+                                                class="action-button delete-button"
+                                                title="Borrar lista de recomendaciones"
+                                                aria-label="Borrar lista de recomendaciones"
+                                                @click=${t=>{t.stopPropagation(),this.deleteIncomingList(e)}}
+                                            >
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                Borrar
+                                            </button>
+                                        `:``} 
+                                    </button>
+                            `)}
+                        </div>
+                        `}
+                    `}
+
+                ${this.selectedList?j`
+                        <recommendation-list-view
+                            .incomingList=${this.selectedList}
+                            .watchList=${this.watchList}
+                            .dataVersion=${this.dataVersion}
+                        ></recommendation-list-view>
+                   
+                    `:j`
+                   
+                    `}
+                
+                
+            </section>
+        `}};customElements.define(`inbox-view`,We);var Ge=class extends B{static properties={movie:{type:Object},loading:{type:Boolean},error:{type:String}};static styles=o`
+        :host {
+            display: block;
+            color: var(--text);
+        }
+
+        .backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.78);
+        }
+
+        .dialog {
+            position: relative;
+            width: min(100%, 680px);
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: var(--surface-strong);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+        }
+
+        .movie {
+            display: grid;
+            grid-template-columns: minmax(110px, 180px) minmax(0, 1fr);
+            gap: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .poster {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .placeholder {
+            display: grid;
+            place-items: center;
+            min-height: 160px;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: var(--surface);
+            text-align: center;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        button {
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            background: var(--surface);
+            cursor: pointer;
+        }
+
+        .primary {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #111;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        @media (max-width: 480px) {
+            .movie {
+                grid-template-columns: 100px minmax(0, 1fr);
+                gap: 0.75rem;
+            }
+
+            .dialog {
+                padding: 1rem;
+            }
+        }
+    `;constructor(){super(),this.movie=null,this.loading=!1,this.error=``}emit(e,t={}){this.dispatchEvent(new CustomEvent(e,{detail:t,bubbles:!0,composed:!0}))}close(){this.emit(`close-random-movie`)}discoverAnother(){this.emit(`discover-another-movie`)}addMovie(){this.movie&&!this.loading&&this.emit(`add-random-movie`,{details:this.movie})}render(){return j`
+            <div
+                class="backdrop"
+                @click=${this.close}
+            >
+                <section
+                    class="dialog"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="random-movie-title"
+                    @click=${e=>e.stopPropagation()}
+                >
+                    <button
+                        class="close"
+                        aria-label="Cerrar"
+                        @click=${this.close}
+                    >✕</button>
+
+                    <h2 id="random-movie-title">
+                        ¿Qué vemos hoy?
+                    </h2>
+
+                    ${this.loading?j`
+                        <p role="status">
+                            Buscando una película...
+                        </p>
+                    `:this.error?j`
+                        <p role="alert">${this.error}</p>
+                    `:this.movie?j`
+                        <div class="movie">
+                            ${this.movie.Poster&&this.movie.Poster!==`N/A`?j`
+                                <img
+                                    class="poster"
+                                    src=${this.movie.Poster}
+                                    alt="Cartel de ${this.movie.Title}"
+                                />
+                            `:j`
+                                <div class="placeholder">
+                                    Sin cartel disponible
+                                </div>
+                            `}
+
+                            <div>
+                                <h3>${this.movie.Title}</h3>
+                                <p class="muted">
+                                    ${this.movie.Year||``}
+                                    ${this.movie.Runtime&&this.movie.Runtime!==`N/A`?` · ${this.movie.Runtime}`:``}
+                                </p>
+                                <p>${this.movie.Genre&&this.movie.Genre!==`N/A`?this.movie.Genre:``}
+                                </p>
+                                <p>${this.movie.Plot&&this.movie.Plot!==`N/A`?this.movie.Plot:`Sin sinopsis disponible.`}
+                                </p>
+                                <p class="muted">
+                                    Dirección: ${this.movie.Director&&this.movie.Director!==`N/A`?this.movie.Director:`No disponible`}
+                                </p>
+                                <p class="muted">
+                                    IMDb: ${this.movie.imdbRating&&this.movie.imdbRating!==`N/A`?this.movie.imdbRating:`Sin puntuación`}
+                                </p>
+                            </div>
+                        </div>
+                    `:j`
+                        <p>Vamos a buscar una película.</p>
+                    `}
+
+                    <div class="actions">
+                        <button
+                            @click=${this.discoverAnother}
+                            ?disabled=${this.loading}
+                        >
+                            Otra película
+                        </button>
+
+                        <button
+                            class="primary"
+                            @click=${this.addMovie}
+                            ?disabled=${this.loading||!this.movie}
+                        >
+                            Añadir a mi lista
+                        </button>
+                    </div>
+                </section>
+            </div>
+        `}};customElements.define(`random-movie-view`,Ge);var Ke=class extends B{static styles=o`
+        :host {
+            display: block;
+            min-height: 100vh;
+            box-sizing: border-box;
+
+            --bg: #111111;
+            --surface: rgba(38, 38, 38, 0.92);
+            --surface-strong: rgba(58, 58, 58, 0.97);
+            --accent: #ff6b2c;
+            --accent-2: #ff9a3c;
+            --text: #f8f2ea;
+            --muted: #d7c8bb;
+            --border: rgba(255, 255, 255, 0.16);
+
+            color: var(--text);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(255, 107, 44, 0.28),
+                    transparent 22%
+                ),
+                linear-gradient(
+                    135deg,
+                    #111111 0%,
+                    #1e1e1e 100%
+                );
+
+            padding: 20px 16px 40px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        a {
+            color: var(--text);
+            text-decoration: none;
+            transition:
+                color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        a:hover {
+            color: #ffffff;
+        }
+
+        /* Contenido */
+
+        main {
+            margin-top: 24px;
+        }
+
+        .content {
+            background: var(--surface);
+
+            border-radius: 20px;
+            border: 1px solid var(--border);
+
+            padding: 1.2rem 1.2rem 1.4rem;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .content h2 {
+            margin: 0 0 1rem;
+            text-align: center;
+        }
+
+        /* Móvil */
+
+        @media (max-width: 768px) {
+            :host {
+                padding: 12px 10px 28px;
+            }
+
+            .content {
+                padding: 1rem 0.8rem 1.2rem;
+            }
+
+        }
+    `;static properties={watchList:{state:!0},inbox:{state:!0},dataVersion:{state:!0},randomMovieOpen:{state:!0},randomMovie:{state:!0},randomMovieLoading:{state:!0},randomMovieError:{state:!0}};constructor(){super(),this.watchListStorage=new Te(localStorage),this.inboxStorage=new Ee(localStorage),this.watchList=this.watchListStorage.load(),this.inbox=this.inboxStorage.load(),this.randomMovieService=new Ae,this.randomMovieOpen=!1,this.randomMovie=null,this.randomMovieLoading=!1,this.randomMovieError=``,this.dataVersion=0}saveChanges(){this.watchListStorage.save(this.watchList),this.inboxStorage.save(this.inbox)}handleInboxChanged(e){this.inbox=e.detail.inbox,this.saveChanges(),this.dataVersion++}handleRecommendationResolved(e){this.watchList=e.detail.watchList,this.saveChanges(),this.dataVersion++}handleWatchListChanged(e){this.watchList=e.detail.watchList,this.saveChanges(),this.dataVersion++}async handleDiscoverMovie(){this.randomMovieOpen=!0,await this.discoverRandomMovie()}async discoverRandomMovie(){this.randomMovieLoading=!0,this.randomMovieError=``,this.randomMovie=null;try{this.randomMovie=await this.randomMovieService.discoverRandomMovie()}catch{this.randomMovieError=`No hemos encontrado una película. Inténtalo de nuevo.`}finally{this.randomMovieLoading=!1}}handleCloseRandomMovie(){this.randomMovieOpen=!1}async handleAddRandomMovie(e){let{details:t}=e.detail,n=new X(this.watchList).addMovieFromOmdb(t);if(!n.success){this.randomMovieError=n.error||`No se pudo añadir la película.`;return}this.saveChanges(),this.dataVersion++,this.randomMovieOpen=!1,this.randomMovie=null}render(){return j`
+            <app-header
+             @discover-movie=${this.handleDiscoverMovie}
+            ></app-header>
+            ${this.randomMovieOpen?j`
+                <random-movie-view
+                    .movie=${this.randomMovie}
+                    .loading=${this.randomMovieLoading}
+                    .error=${this.randomMovieError}
+                    @discover-another-movie=${this.discoverRandomMovie}
+                    @close-random-movie=${this.handleCloseRandomMovie}
+                    @add-random-movie=${this.handleAddRandomMovie}
+                ></random-movie-view>
+            `:``}
+            
+            <main>
+                <section class="content">
+                    <watch-list-view
+                        .watchList=${this.watchList}
+                        .dataVersion=${this.dataVersion}
+                        @watch-list-changed=${this.handleWatchListChanged}
+                    ></watch-list-view>
+                </section>
+                <hr/>
+                <section class="content">
+                    <inbox-view
+                        .lists=${this.inbox}
+                        .watchList=${this.watchList}
+                        .dataVersion=${this.dataVersion}
+                        @inbox-changed=${this.handleInboxChanged}
+                        @recommendation-resolved=${this.handleRecommendationResolved}
+                    ></inbox-view>
+                </section>
+            </main>
+
+            <app-footer></app-footer>
+        `}};customElements.define(`quevemos-app`,Ke);
