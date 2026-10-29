@@ -357,6 +357,39 @@ export class WatchListView extends LitElement {
             margin: 0.35rem 0;
             background: var(--border);
         }
+
+        .search-container {
+            width: 100%;
+            margin: 0 0 .5rem;
+            padding: .5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            min-width: 0;
+            padding: .75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+            color: var(--text);
+            font: inherit;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(255, 107, 44, .15);
+        }
+
+        .search-input::placeholder {
+            color: var(--muted);
+        }
+
+        .search-hint {
+            margin: 0 0 .75rem;
+            color: var(--muted);
+            font-size: .85rem;
+        }
         
         /* Móvil */
 
@@ -388,6 +421,8 @@ export class WatchListView extends LitElement {
         filters: { state: true },
         sortMode: { state: true },
         showFilterOptions: { state: true },
+        showSearch: { state: true },
+        searchText: { state: true },
     };
 
     constructor() {
@@ -413,6 +448,8 @@ export class WatchListView extends LitElement {
 
         this.sortMode = "DEFAULT";
         this.showFilterOptions = false;
+        this.showSearch = false;
+        this.searchText = "";
     }
 
     willUpdate(changedProperties) {
@@ -745,6 +782,10 @@ export class WatchListView extends LitElement {
     }
 
     getVisibleItems() {
+        const searchText = this.normalizeSearchText(
+            this.searchText.trim()
+        );
+
         let items = this.items.filter(item => {
             const status = item.watchItem.status;
             
@@ -756,7 +797,12 @@ export class WatchListView extends LitElement {
                 !this.filters.type ||
                 item.media.type === this.filters.type;
 
-            return matchesStatus && matchesType;
+            const matchesTitle =
+                searchText.length < 3 ||
+                this.normalizeSearchText(item.media.title)
+                    .includes(searchText);
+
+            return matchesStatus && matchesType && matchesTitle;
         });
 
         if (this.sortMode === "AZ") {
@@ -845,7 +891,25 @@ export class WatchListView extends LitElement {
 
         this.showFilterOptions = false;
     }
-        
+
+    toggleSearch() {
+        this.showSearch = !this.showSearch;
+
+        if (!this.showSearch) {
+            this.searchText = "";
+        }
+    }
+
+    handleSearchInput(event) {
+        this.searchText = event.target.value;
+    }
+
+    normalizeSearchText(text) {
+        return text
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLocaleLowerCase("es");
+    }   
     render() {
         const items = this.getVisibleItems();
 
@@ -1032,13 +1096,44 @@ export class WatchListView extends LitElement {
                                         : ""
                                     }
                                 </div>
+                                <button
+                                    type="button"
+                                    class="action-button ${this.showSearch ? "active" : ""}"
+                                    aria-label="${this.showSearch ? "Cerrar búsqueda" : "Buscar por título"}"
+                                    aria-expanded=${this.showSearch}
+                                    @click=${this.toggleSearch}
+                                >
+                                    <i class="fa fa-search"></i>
+                                </button>
                             </div>
+                            ${this.showSearch ? html`
+                                <div class="search-container">
+                                    <input
+                                        class="search-input"
+                                        type="search"
+                                        placeholder="Buscar título (mín. 3 caracteres)"
+                                        aria-label="Buscar por título"
+                                        .value=${this.searchText}
+                                        @input=${this.handleSearchInput}
+                                    />
+                                </div>
+                                ${this.searchText.trim().length > 0 &&
+                                this.searchText.trim().length < 3
+                                    ? html`
+                                        <p class="search-hint">
+                                            Escribe al menos 3 caracteres para buscar.
+                                        </p>
+                                    `
+                                    : ""}
+                            ` : ""}
                         </div>
 
                         ${items.length === 0
                             ? html`
                                 <p class="empty">
-                                    No hay elementos que coincidan con el filtro.
+                                    ${this.searchText.trim().length >= 3
+                                        ? "No hay títulos que coincidan con la búsqueda y los filtros."
+                                        : "No hay elementos que coincidan con los filtros."}
                                 </p>
                             `
                             : items.map(item => {
