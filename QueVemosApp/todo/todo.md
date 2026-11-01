@@ -14,7 +14,7 @@ Tareas Version 0.1.0:
 - [x] Exportar buzón
 - [x] Cambiar icono por defecto según type y uno por defecto común por si añadimos más tipos a MediaType y settings
 - [x] meter incomingList dentro de botón inbox (convertir en botón cerrar que no se confunda con otra lista)
-- [ ] hacer el titulo boton busca aleatoria en pendientes
+- [x] hacer el titulo boton busca aleatoria en pendientes
 - [x] separar secciones en overlay con hr
 - [x] cambiar nombre puntuacion personal a valoracion personal en editform
 - [x] corregir la perdida de sinopsis y premios tras recibir una pelicula recomendada (si ya tiene omdbId no graba la info?) revisar pruebas.
@@ -26,5 +26,12 @@ Tareas Version 0.1.0:
 - [ ] Actualizar todos los test
 - [ ] Mejorar comparaciones para la fusión.
 - [x] titulo bajo botones en watchItemView
-- [ ] busqueda en lista propia (lupa junto a filtros depliega input text resultado busqueda)
+- [x] busqueda en lista propia (lupa junto a filtros depliega input text resultado busqueda)
 - [ ] paginado omdb
+- [ ] list-actions filtros flotante al hacer scroll
+- [ ] limpiar palabras otros idiomas en la busqueda aleatoria
+- [ ] import-export plegado
+- [ ] boton scrollTo inbox
+- [ ] separar generos y plataformas de videojuegod y cargar dinamicamente en new y edit y show
+- [x] buscar por la palabra trailer te saca todas las que tengan enlace
+- [x] ultimo estado ordenar marcado es fecha inversa

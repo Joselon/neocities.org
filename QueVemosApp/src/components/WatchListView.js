@@ -822,6 +822,11 @@ export class WatchListView extends LitElement {
                     { sensitivity: "base" }
                 )
             );
+        } else if (this.sortMode === "RECENT") {
+            items.sort((a, b) =>
+                (Date.parse(b.watchItem.addedAt) || 0) -
+                (Date.parse(a.watchItem.addedAt) || 0)
+            );
         }
 
         return items;
@@ -864,7 +869,8 @@ export class WatchListView extends LitElement {
         const nextMode = {
             DEFAULT: "AZ",
             AZ: "ZA",
-            ZA: "DEFAULT"
+            ZA: "RECENT",
+            RECENT: "DEFAULT"
         };
 
         this.sortMode = nextMode[this.sortMode];
@@ -937,6 +943,14 @@ export class WatchListView extends LitElement {
 
     matchesSearch(item, searchText) {
         if (searchText.length < 3) {
+            return true;
+        }
+
+        const searchesTrailer = searchText
+            .split(/\s+/)
+            .includes("trailer");
+
+        if (searchesTrailer && item.media.trailer) {
             return true;
         }
 
@@ -1061,29 +1075,28 @@ export class WatchListView extends LitElement {
                                 <button
                                     type="button"
                                     class="action-button ${this.sortMode !== "DEFAULT" ? "active" : ""}"
-                                    title=${
-                                        this.sortMode === "DEFAULT"
-                                            ? "Ordenar A-Z"
-                                            : this.sortMode === "AZ"
-                                                ? "Ordenar Z-A"
-                                                : "Volver al orden original"
-                                    }
-                                    aria-label=${
-                                        this.sortMode === "DEFAULT"
-                                            ? "Orden original"
-                                            : this.sortMode === "AZ"
-                                                ? "Orden alfabético A-Z"
-                                                : "Orden alfabético Z-A"
-                                    }
+                                    title=${{
+                                        DEFAULT: "Orden por fecha de inclusión",
+                                        AZ: "Orden alfabético A-Z",
+                                        ZA: "Orden alfabético Z-A",
+                                        RECENT: "Más recientes primero"
+                                    }[this.sortMode]}
+                                    aria-label=${{
+                                        DEFAULT: "Orden por fecha de inclusión",
+                                        AZ: "Orden alfabético A-Z",
+                                        ZA: "Orden alfabético Z-A",
+                                        RECENT: "Más recientes primero"
+                                    }[this.sortMode]}
                                     @click=${this.toggleSort}
                                 >
-                                    <i class=${
-                                        this.sortMode === "DEFAULT"
-                                            ? "fa fa-sort"
-                                            : this.sortMode === "AZ"
-                                                ? "fa fa-sort-alpha-asc"
-                                                : "fa fa-sort-alpha-desc"
-                                    }></i>
+                                    <i class=${this.sortMode === "DEFAULT"
+                                        ? "fa fa-sort"
+                                        : this.sortMode === "AZ"
+                                            ? "fa fa-sort-alpha-asc"
+                                            : this.sortMode === "ZA"
+                                                ? "fa fa-sort-alpha-desc"
+                                                : "fa fa-clock-o"}>
+                                    </i>
                                 </button>
 
                                 <div class="filter-container">
