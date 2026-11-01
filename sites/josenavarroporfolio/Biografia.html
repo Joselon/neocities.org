@@ -1,200 +1,406 @@
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta  content="text/html; charset=UTF-8" http-equiv="content-type">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jose Navarro Porfolio</title>
-    
-     <link rel="apple-touch-icon"  href="images/apple-icon.png">
-      
-        <link rel="icon" type="image/png"  href="images/favicon.ico">
-    <!-- The style.css file allows you to change the look of your web pages.
-         If you include the next line in all your web pages, they will all share the same look.
-         This makes it easier to make new pages for your site. -->
-     <!--Bootstrap CSS -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <!--jQuery -->
-        <script src="js/jquery.min.js"></script>
-        <!--Bootstrap JavaScript -->
-        <script src="js/bootstrap.min.js"></script>
-        
-         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-        <style type="text/css">
-         .goog-te-gadget-simple {
-              margin-bottom:50px ;
-            }
-            
-         </style>
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
-    
-  </head>
-  <body id="todo">
-      <header>
-      <div class="container-fluid">
-          <nav class="navbar navbar-inverse">
-           <div class="container-fluid">
+
+    <title>Biografía | Jose Navarro Porfolio</title>
+    <meta name="description" content="Trayectoria profesional, proyectos personales y biografía de José Navarro Osta.">
+
+    <link rel="apple-touch-icon" href="images/apple-icon.png">
+    <link rel="icon" type="image/png" href="images/favicon.ico">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/biografia.css">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+
+<body id="todo" class="bio-page">
+
+<header class="bio-header">
+    <nav class="navbar bio-navbar">
+        <div class="container">
+
             <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#miMenu">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span> 
-              </button>
-            <a class="navbar-brand" href="index.html" style="padding-top: 0px;"><button type="button" class="btn btn-default btn-lg">
-          <span class="glyphicon glyphicon-home"></span> Inicio
-        </button></a>
+                <button type="button"
+                        class="navbar-toggle"
+                        data-toggle="collapse"
+                        data-target="#miMenu"
+                        aria-expanded="false">
+                    <span class="sr-only">Abrir menú</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="index.html">
+                    José Navarro Portfolio
+                </a>
             </div>
+
             <div class="collapse navbar-collapse" id="miMenu">
-              <ul class="nav nav-pills nav-justified">
-               <li class="disabled"><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
-              
-              <li role="presentation" class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catálogo<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.html">Inicio</a></li>
                     <li><a href="portfolio.html">Portfolio</a></li>
-                    <li ><a  href="https://joselon79.neocities.org/index.html">Lab <span class="glyphicon glyphicon-share"></span></a></li>
-                  </ul>
-              </li>
-              <!--<li role="presentation" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Servicios<span class="caret"></span></a>
-                <ul class="dropdown-menu"> 
-                  <li class="disabled">
-                     <a href="#">En Construcción</a></li>
-                  <li>
-                    <a href="#">...</a></li>
+                    <li>
+                        <a href="https://joselon79.neocities.org/index.html"
+                           target="_blank" rel="noopener">
+                            Joselón Lab ↗
+                        </a>
+                    </li>
+                    <li class="active"><a href="Biografia.html">Biografía</a></li>
+                    <li>
+                        <a href="mailto:jose.navarro.osta@gmail.com">Contacto</a>
+                    </li>
                 </ul>
-              </li> -->
-              <li role="presentation" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Contacto<span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                              <li><a href="Biografia.html">Biografía</a></li>
-                              <li><a  href="mailto:jose.navarro.osta@gmail.com">Contacto por Correo <span class="glyphicon glyphicon-envelope"></span></a></li>
-                      </ul>
-                       <li><a href="index.html#bienvenida">Sobre Mí</a></li>
-                      <li ><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#miMenu"><a class="btn btn-info btn-lg"><span class="glyphicon glyphicon-hand-up"></span></a></button></li> 
+            </div>
+
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <!-- Presentación -->
+    <section class="bio-hero">
+        <div class="container">
+            <div class="bio-hero-content">
+                <span class="bio-eyebrow">SOBRE MÍ</span>
+
+                <h1>Biografía</h1>
+
+                <p class="bio-intro">
+                    Soy José Navarro Osta, desarrollador y consultor técnico.
+                    Ingeniero Técnico en Telecomunicaciones y en Sistemas
+                    Electrónicos Industriales.
+                </p>
+
+                <p class="bio-location">
+                    <span class="glyphicon glyphicon-map-marker"></span>
+                    Tenerife · Islas Canarias · España
+                </p>
+
+                <div class="bio-hero-links">
+                    <a href="https://www.linkedin.com/in/jos%C3%A9-navarro-osta-81631251/"
+                       target="_blank" rel="noopener">
+                        LinkedIn <span>↗</span>
+                    </a>
+                    <a href="mailto:jose.navarro.osta@gmail.com">
+                        Contactar <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trayectoria -->
+    <section class="bio-section">
+        <div class="container">
+
+            <div class="bio-section-heading">
+                <span class="bio-eyebrow">HITOS</span>
+                <h2>Logros desbloqueados</h2>
+                <p>
+                    Aprendizaje, proyectos y cambios
+                    que han ido marcando el camino.
+                </p>
+            </div>
+
+            <div class="bio-timeline">
+
+                
+
+                <article class="bio-timeline-item">
+                    <div class="bio-timeline-date">Actualidad</div>
+                    <div class="bio-timeline-content">
+                        <h3>Trabajar cerca de casa</h3>
+                        <p>
+                            Encontrar un equilibrio diferente entre trabajo
+                            y vida personal: trabajar a solo dos minutos
+                            andando de casa.
+                        </p>
+                    </div>
+                </article>
+                <article class="bio-timeline-item bio-project">
+                    <div class="bio-timeline-date">Proyecto</div>
+                    <div class="bio-timeline-content">
+                        <span class="bio-tag">DESARROLLO WEB</span>
+                        <h3>QueVemos</h3>
+                        <p>
+                            Desarrollo de una aplicación personal para
+                            organizar películas, series y documentales,
+                            gestionar listas de visionado y compartir
+                            recomendaciones.
+                        </p>
+                        <a class="bio-project-link"
+                           href="https://joselon79.neocities.org/quevemos"
+                           target="_blank" rel="noopener">
+                            Visitar QueVemos <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+                <article class="bio-timeline-item bio-project">
+                    <div class="bio-timeline-date">Proyecto</div>
+                    <div class="bio-timeline-content">
+                        <span class="bio-tag">INTELIGENCIA ARTIFICIAL</span>
+                        <h3>iadime</h3>
+                        <p>
+                            Una solución propia para poder utilizar
+                            inteligencia artificial en el iPad mini 4,
+                            aprovechando al máximo las posibilidades
+                            de un dispositivo veterano.
+                        </p>
+                        <a class="bio-project-link"
+                           href="https://github.com/Joselon/iadime"
+                           target="_blank" rel="noopener">
+                            Conocer el proyecto iadime <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+
+                
+
+                <article class="bio-timeline-item bio-personal">
+                    <div class="bio-timeline-date">Personal</div>
+                    <div class="bio-timeline-content">
+                        <h3>Mi primer gato</h3>
+                        <p>
+                            Adoptado en 2022, un gato negro llamado Gofio hijo de una anciana gata de Ravelo,
+                            se ha convertido en un héroe en los dos barrios donde hemos vivido.
+                        </p>
+                    </div>
+                </article>
+                <article class="bio-timeline-item">
+                    <div class="bio-timeline-date">2020</div>
+                    <div class="bio-timeline-content">
+                        <h3>De Madrid a Canarias</h3>
+                        <p>
+                            Dejar Madrid para comenzar una nueva etapa
+                            en las Islas Canarias. Un cambio importante
+                            tanto personal como profesional.
+                        </p>
+                    </div>
+                </article>
+                <div class="bio-period-separator">
+                            <span>Etapa Madrileña</span>
+                            <strong>2005 — 2019</strong>
+                </div>
+                <article class="bio-timeline-item">
+                    <div class="bio-timeline-date">2019</div>
+                    <div class="bio-timeline-content">
+                        <h3>Primeras publicaciones</h3>
+                        <p>
+                            Publicación de <a
+                            href="https://joselon79.neocities.org/Gringazos/index.html"
+                            target="_blank" rel="noopener">Gringazos</a>
+                            en App Store y Google Play, incorporando
+                            publicidad mediante Google Ads.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="bio-timeline-item">
+                    <div class="bio-timeline-date">2018</div>
+                    <div class="bio-timeline-content">
+                        <h3>Desarrollo con Unity 3D</h3>
+                        <p>
+                            Cursos y tutoriales online con Hektor Profe
+                            y Mr Jocyf. Desarrollo multiplataforma con WebGL
+                            y evolución del proyecto Gringazos.
+                        </p>
+                        <p>
+                            Colaboración artística con
+                            <a href="https://raulruiz.myportfolio.com/"
+                               target="_blank" rel="noopener">Raúl Ruiz</a>.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="bio-timeline-item">
+                    <div class="bio-timeline-date">2017</div>
+                    <div class="bio-timeline-content">
+                        <h3>Primeros proyectos web modernos</h3>
+                        <ul>
+                            <li>
+                                <a href="https://joselon79.neocities.org/indexangular.html#/"
+                                   target="_blank" rel="noopener">Primeros pasos con AngularJS</a>.
+                            </li>
+                            <li>
+                                <a href="https://github.com/Joselon/JamWeb"
+                                   target="_blank" rel="noopener">JamOnLine</a>,
+                                aplicación con NodeJS e integración con Angular.
+                            </li>
+                            <li>
+                                <a href="https://joselon79.neocities.org/TDOTD/index.html"
+                                   target="_blank" rel="noopener">The Day of The Danza</a>,
+                                versión 1.1 con CreateJS.
+                            </li>
                         </ul>
                     </div>
-                </div>    
-            </nav>
-            
-      </div>      
-  </header>
-  <center><p class="text-info"><span class="glyphicon glyphicon-warning-sign"></span>...en Construcción...<span class="glyphicon glyphicon-warning-sign"></span></p>
-          <img class="img-fluid" style="max-width: 100%;height: auto;" src="images/contacta.png"/> </center>
+                </article>
 
-   
+                <article class="bio-timeline-item">
+                    <div class="bio-timeline-date">2016</div>
+                    <div class="bio-timeline-content">
+                        <h3>Mi primera Game Jam</h3>
+                        <p>
+                            Participación en una Game Jam de 48 horas
+                            y presentación del proyecto en Global Game Jam.
+                        </p>
+                        <p>
+                            Gracias a
+                            <a href="http://videogamearmy.com/"
+                               target="_blank" rel="noopener">Video Game Army</a>.
+                        </p>
+                        <div class="bio-video">
+                            <iframe
+                                src="https://www.youtube.com/embed/KJnrU5UP7s8"
+                                title="Presentación en Global Game Jam"
+                                loading="lazy"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </article>
 
-    
-<div class="conteiner-fluid jumbotron">
-<center> <h1>PERFILES</h1>
-    
-<p>Nombre:José Navarro Osta</p>
-<p>Ubicación (Ciudad):Santa Cruz de Tenerife</p>
+                <article class="bio-timeline-item">
+                    <div class="bio-timeline-date">2015</div>
+                    <div class="bio-timeline-content">
+                        <h3>NodeJS y desarrollo de videojuegos</h3>
+                        <p>
+                            Curso de NodeJS en MiriadaX y evolución de
+                            <a href="https://github.com/Joselon/quiz"
+                               target="_blank" rel="noopener">Quiz-Evolution</a>.
+                        </p>
+                        <p>
+                            Colaboración con
+                            <a href="http://www.triptika.es/"
+                               target="_blank" rel="noopener">Pedro y Carlos López Lagarda</a>
+                            para desarrollar un primer videojuego con Unity3D.
+                        </p>
+                    </div>
+                </article>
 
-<p><img class="img-fluid" style="height:50px" src="images/linkedin_logo.png"/>Linkedin: <a href="http://es.linkedin.com/in/josé-navarro-osta-81631251"> José Navarro Osta</a></p>
-<p><span class="glyphicon glyphicon-envelope"></span> : <a  href="mailto:jose.navarro.osta@gmail.com">jose.navarro.osta@gmail.com</a></p>
-<p>Donaciones: <a href="https://neocities.org/site/joselon79"> <img class="img-fluid" style="height:50px" src="images/Paypal.png"/> Perfil Neocities (Send a Tip)</a>
- <small> LAS DONACIONES SERÁN DESTINADAS A INVERTIR HORAS DE DESARROLLO EN EL PROYECTO QUE SE INDIQUE, PAGAR LAS CUOTAS A NEOCITIES.ORG Y LAS LICENCIAS DE DESARROLLADOR DE APPLE Y GOOGLE</small></p>
-  
-<pre>
-<h3>Biografía</h3>
-Programador de videojuegos y saxofonista.
+                <article class="bio-timeline-item">
+                    <div class="bio-timeline-date">2014</div>
+                    <div class="bio-timeline-content">
+                        <h3>Desarrollo para iOS y música</h3>
+                        <p>
+                            Primeros pasos con Xcode y diseño de una aplicación
+                            para transponer melodías de saxofón alto y tenor,
+                            practicar escalas y trabajar acordes.
+                        </p>
+                    </div>
+                </article>
 
-<h2>HITOS</h2>
+                <article class="bio-timeline-item">
+                    <div class="bio-timeline-date">2012</div>
+                    <div class="bio-timeline-content">
+                        <h3>El comienzo</h3>
+                        <p>
+                            Comienzo de mi recorrido en el mundo del desarrollo,
+                            compatibilizando el aprendizaje y los proyectos
+                            personales con mi actividad profesional.
+                        </p>
+                    </div>
+                </article>          
+            </div>
+        </div>
+    </section>
 
-2019:
+    <!-- Perfil técnico -->
+    <section class="bio-skills">
+        <div class="container">
+            <div class="bio-section-heading">
+                <span class="bio-eyebrow">EXPERIENCIA</span>
+                <h2>Mi perfil técnico</h2>
+                <p>
+                    A lo largo de los años he trabajado con diferentes
+                    tecnologías, herramientas y entornos de desarrollo.
+                </p>
+            </div>
 
- Publicación en AppStore y GooglePlay con Anuncios de GoogleAds :
- 
-- <a href="https://joselon79.neocities.org/Gringazos/index.html"  target="_blank">Gringazos</a>
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="bio-skill-card">
+                        <h3>Desarrollo web</h3>
+                        <p>HTML, CSS, JavaScript, WebComponents, LitElements, Vite, WordPress, PHP...</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="bio-skill-card">
+                        <h3>Aplicaciones</h3>
+                        <p>C#, .NET (WinForms, MAUI, Blazor), Java, Ruby, Python, JavaScript (Node, Angular, Cordova, Ionic).</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="bio-skill-card">
+                        <h3>Datos y herramientas</h3>
+                        <p>Shell Scripts, SQL, PostgreSQL, Git, SAP, Excel y automatización.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="bio-skill-card">
+                        <h3>Creatividad</h3>
+                        <p>Unity3D, Godot, CreateJS, videojuegos y proyectos multimedia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-2018:
+    <!-- Música -->
+    <section class="bio-music">
+        <div class="container">
+            <span class="bio-eyebrow">OTRA FACETA</span>
+            <h2>También hay música</h2>
+            <p>
+                La tecnología no es mi única inquietud.
+                La música y el saxofón han formado parte de mi trayectoria desde Sevilla
+            </p>
+            <a href="https://www.youtube.com/playlist?list=PLgBYg1PtMJEQS7NgymxaduExEwg9Mc0uU"
+               target="_blank" rel="noopener">
+                Ver vídeos de Los Depósitos <span>↗</span>
+            </a>
+        </div>
+    </section>
 
- Cursos y Tutoriales On-line de Unity 3D con Hektor Profe y Mr Jocyf:
- 
-- <a href="https://joselon79.neocities.org/PruebaTutorial/index.html">Multiplataformas con WebGL</a>
+    <!-- Contacto -->
+    <section class="bio-contact">
+        <div class="container text-center">
+            <span class="bio-eyebrow">¿HABLAMOS?</span>
+            <h2>Contacto</h2>
+            <p>Si quieres contactar conmigo, puedes hacerlo por correo electrónico.</p>
+            <a class="bio-contact-button"
+               href="mailto:jose.navarro.osta@gmail.com">
+                Enviar un correo <span>→</span>
+            </a>
+        </div>
+    </section>
 
-- <a href="http://joselon79.neocities.org/Gringazos/index.html">Gringazos :Inicio Videojuego para dispositivos móviles</a>
+</main>
 
- Colaborando con <a href="https://raulruiz.myportfolio.com/"  target="_blank"> Raúl Ruiz </a> con todo su arte.
-
-
-2017:
-
- <a href="https://joselon79.neocities.org/indexangular.html#/">Inicio con AngularJS</a>
-
-<a href="https://jamweb2.herokuapp.com">Web para JamOnLine con NodeJS para integrar con Angular</a>
-
-<a href="https://joselon79.neocities.org/TDOTD/index.html"> The Day of The Danza v.1.1 con CreateJS </a>
-
-2016:
-
-Primera participación en GameJam de 48 horas:
-
-<iframe src="https://youtube.com/embed/KJnrU5UP7s8" frameborder="0" allowfullscreen autoplay="1" controls="2"></iframe><br><a href="https://youtu.be/KJnrU5UP7s8">
-Video presentando en GlobalGameJamon</a>
-
-Gracias a <a href="http://videogamearmy.com/"> Video Game Army</a>
-*En desarrollo: <a href="http://www.thedayofthedanza.com/">TDOTD</a>
-Aprendiendo HTML5 para aplicarlo al portal lab de juegos
-<a href="http://joselon79.neocities.org/"> Web de Joselon79 </a>
-
-2015:
-
-Curso de Nodejs en MiriadaX:
-Evolución del ejercicio pendiente: <a href="https://joselonode.herokuapp.com/">Quiz-Evolution</a>
-
-Colaborando con <a href="http://www.triptika.es/">Pedro y Carlos López Lagarda</a> para realizar un primer videojuego en Unity3D:
-<a href="https://youtu.be/Zin6_Y7S-kw">Video probando el entorno de trabajo</a>
-(*Pendiente)
-
-2014:
-
-Curso de introducción a X-Code
-
-Pendiente publicación AppStore y adaptar a Web una aplicación que ayuda a transponer melodias
-para saxo alto y tenor, y practicar escalas y acordes.Una aplicación para facilitar 
-el aprendizaje musical.
-
-...desde 2012 intentando meter la cabeza en el mundillo. Compatibilizando con el trabajo.
-
-Además algunos pinitos como saxofonista:
-<a href="https://www.youtube.com/playlist?list=PLgBYg1PtMJEQS7NgymxaduExEwg9Mc0uU"> <p>Lista de reproducción de Youtube:</p>
-Videos de los Depósitos</a>
-</pre>
-</center> 
-<center><a  href="#todo" role="button">
-                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-                    <span class="sr-only">Ir al Menú</span>
-                </a>
-                </center>
-  <center>
-
-   <small> <p>Redes Sociales Personales:
-Twitter: <a href="https://twitter.com/Joselon79">Joselon79  </a>
-Instagram: <a href="https://www.instagram.com/joselon79/?hl=es">joselon79 </a> 
-Soundcloud: <a href="https://soundcloud.com/jose-navarro-18"> José Navarro </a>
-</p> </small>
-</center>
-</div>
- <footer id="sticky-footer" class="footer">
+<footer class="bio-footer">
     <div class="container text-center">
-      <small>Copyleft <img src="images/800px-Copyleft.svg.png" class="img-circle" height=10px> Joselon79 
-      Donaciones:<a href="https://neocities.org/site/joselon79"> <img class="img-fluid" style="height:50px" src="images/Paypal.png"/>  Perfil Neocities (Send a Tip) </a></small>
- 
- <small>
- <p><a href="https://join.skype.com/invite/b92vEQypcOXg" target="_blank"><span class="glyphicon glyphicon-earphone"></span>Llamar por Skype </a>   <a href="mailto:jose.navarro.osta@gmail.com"><span class="glyphicon glyphicon-envelope"></span> Escribe un correo eléctrónico </a> </p>
+        <p>
+            © José Navarro Osta · Joselon79
+        </p>
+        <p>
+            <a href="index.html">Inicio</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="mailto:jose.navarro.osta@gmail.com">Contacto</a>
+            <a href="https://neocities.org/terms" target="_blank" rel="noopener">
+                Neocities
+            </a>
+        </p>
+        <a href="#todo" class="bio-back-top">Volver arriba ↑</a>
+    </div>
+</footer>
 
-
- <a href="https://neocities.org/terms" target="_blank"><img class="img-fluid" style="height:15px" src="images/neocities.png"/> Política de Cookies de Neocities.org</a></small>
-  </div>
-  
- </footer>
-   <script>  
-            function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'todo');
-}
-  
-</script>  
-  </body>
+</body>
 </html>

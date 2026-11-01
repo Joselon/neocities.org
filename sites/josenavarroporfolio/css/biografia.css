@@ -1,0 +1,430 @@
+
+/* =========================================
+   BIOGRAFÍA - JOSE NAVARRO PORTFOLIO
+   ========================================= */
+
+.bio-page {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    color: #343a40;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+}
+
+.bio-page a {
+    color: #2879a8;
+    text-decoration: none;
+}
+
+.bio-page a:hover,
+.bio-page a:focus {
+    color: #165477;
+    text-decoration: underline;
+}
+
+/* Navegación */
+
+.bio-header {
+    background: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.bio-navbar {
+    margin-bottom: 0;
+    border: 0;
+    border-radius: 0;
+    background: #ffffff;
+}
+
+.bio-navbar .navbar-brand {
+    color: #263746;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.bio-navbar .navbar-nav > li > a {
+    color: #555555;
+    font-size: 14px;
+}
+
+.bio-navbar .navbar-nav > li > a:hover,
+.bio-navbar .navbar-nav > .active > a {
+    color: #2879a8;
+    background: transparent;
+}
+
+.bio-navbar .navbar-toggle {
+    border-color: #dddddd;
+}
+
+.bio-navbar .navbar-toggle .icon-bar {
+    background-color: #555555;
+}
+
+/* Presentación */
+
+.bio-hero {
+    padding: 100px 0 90px;
+    background: linear-gradient(135deg, #f7f9fb 0%, #ffffff 100%);
+    border-bottom: 1px solid #eeeeee;
+}
+
+.bio-hero-content {
+    max-width: 850px;
+}
+
+.bio-eyebrow {
+    display: block;
+    margin-bottom: 15px;
+    color: #2879a8;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.bio-hero h1 {
+    margin: 0 0 18px;
+    color: #777;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.bio-hero h2 {
+    margin: 0 0 10px;
+    color: #333;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.bio-hero  p {
+    margin: 0;
+    color: #777;
+    font-size: 16px;
+}
+
+.bio-intro {
+    max-width: 700px;
+    color: #666666;
+    font-size: 19px;
+    line-height: 1.8;
+}
+
+.bio-location {
+    margin-top: 25px;
+    color: #777777;
+    font-size: 14px;
+}
+
+.bio-location .glyphicon {
+    margin-right: 5px;
+    color: #2879a8;
+}
+
+.bio-hero-links {
+    margin-top: 30px;
+}
+
+.bio-hero-links a {
+    display: inline-block;
+    margin-right: 25px;
+    font-weight: 600;
+}
+
+/* Secciones */
+
+.bio-section {
+    padding: 85px 0;
+}
+
+.bio-section-heading {
+    max-width: 650px;
+    margin-bottom: 55px;
+}
+
+.bio-section-heading h2,
+.bio-music h2,
+.bio-contact h2 {
+    margin: 0 0 18px;
+    color: #263746;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.bio-section-heading p,
+.bio-music p,
+.bio-contact p {
+    color: #777777;
+    font-size: 16px;
+}
+
+/* Cronología */
+
+.bio-timeline {
+    position: relative;
+    max-width: 900px;
+    margin-left: 5px;
+    padding-left: 35px;
+    border-left: 2px solid #e8edf1;
+}
+
+.bio-timeline-item {
+    position: relative;
+    display: flex;
+    gap: 35px;
+    margin-bottom: 45px;
+}
+
+.bio-timeline-item::before {
+    position: absolute;
+    top: 7px;
+    left: -43px;
+    width: 14px;
+    height: 14px;
+    content: "";
+    background: #ffffff;
+    border: 3px solid #4093bd;
+    border-radius: 50%;
+}
+
+.bio-timeline-date {
+    flex: 0 0 105px;
+    color: #89949e;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.bio-timeline-content {
+    flex: 1;
+    padding-bottom: 5px;
+}
+
+.bio-timeline-content h3 {
+    margin: 0 0 12px;
+    color: #34495a;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.bio-timeline-content p,
+.bio-timeline-content li {
+    color: #6c757d;
+    font-size: 15px;
+}
+
+.bio-timeline-content ul {
+    padding-left: 20px;
+}
+
+.bio-timeline-content li {
+    margin-bottom: 8px;
+}
+
+.bio-period-separator {
+    margin: 65px 0 45px;
+    padding: 25px 30px;
+    background: #f3f7fa;
+    border-left: 3px solid #4093bd;
+}
+
+.bio-period-separator span {
+    display: block;
+    color: #7c8994;
+    font-size: 13px;
+}
+
+.bio-period-separator strong {
+    display: block;
+    margin-top: 5px;
+    color: #34495a;
+    font-size: 23px;
+}
+
+.bio-tag {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 4px 9px;
+    color: #2879a8;
+    background: #eaf3f8;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.bio-project-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.bio-personal::before {
+    border-color: #8b9b83;
+}
+
+/* Vídeo */
+
+.bio-video {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    margin-top: 20px;
+    aspect-ratio: 16 / 9;
+    background: #f2f2f2;
+}
+
+.bio-video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Perfil técnico */
+
+.bio-skills {
+    padding: 85px 0;
+    background: #f7f9fb;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.bio-skill-card {
+    min-height: 165px;
+    margin-bottom: 20px;
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #e8edf1;
+    border-radius: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bio-skill-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.bio-skill-card h3 {
+    margin: 0 0 15px;
+    color: #34495a;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.bio-skill-card p {
+    color: #777777;
+    font-size: 14px;
+}
+
+/* Música */
+
+.bio-music {
+    padding: 75px 0;
+    background: #ffffff;
+}
+
+.bio-music p {
+    max-width: 650px;
+    margin-bottom: 20px;
+}
+
+/* Contacto */
+
+.bio-contact {
+    padding: 80px 0;
+    background: #f3f7fa;
+}
+
+.bio-contact-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    color: #ffffff !important;
+    background: #2879a8;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.bio-contact-button:hover {
+    background: #165477;
+    text-decoration: none !important;
+}
+
+/* Pie */
+
+.bio-footer {
+    padding: 35px 0;
+    color: #888888;
+    background: #ffffff;
+    border-top: 1px solid #eeeeee;
+    font-size: 13px;
+}
+
+.bio-footer p {
+    margin-bottom: 12px;
+}
+
+.bio-footer a {
+    margin: 0 8px;
+}
+
+.bio-back-top {
+    display: inline-block;
+    margin-top: 10px !important;
+}
+
+/* Adaptación móvil */
+
+@media (max-width: 767px) {
+
+    .bio-hero {
+        padding: 65px 0;
+    }
+
+    .bio-hero h1 {
+        font-size: 33px;
+    }
+
+    .bio-intro {
+        font-size: 17px;
+    }
+
+    .bio-section,
+    .bio-skills {
+        padding: 60px 0;
+    }
+
+    .bio-section-heading h2,
+    .bio-music h2,
+    .bio-contact h2 {
+        font-size: 27px;
+    }
+
+    .bio-timeline {
+        padding-left: 25px;
+    }
+
+    .bio-timeline-item {
+        display: block;
+        margin-bottom: 40px;
+    }
+
+    .bio-timeline-item::before {
+        left: -33px;
+    }
+
+    .bio-timeline-date {
+        margin-bottom: 8px;
+    }
+
+    .bio-skill-card {
+        min-height: auto;
+    }
+
+    .bio-footer a {
+        display: inline-block;
+        margin: 5px;
+    }
+}
