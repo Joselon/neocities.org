@@ -1,0 +1,405 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Neocities - Editing index.html</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- <link rel="manifest" href="/manifest.json"> -->
+    <meta itemprop="name"           content="Neocities.org">
+    <meta itemprop="description"    content="Free web hosting and tools that allow anyone to create a website. Join our community today!">
+    <meta name="description"        content="Free web hosting and tools that allow anyone to create a website. Join our community today!">
+    <meta name="keywords"           content="free website, html, css, learn to code, free hosting, build a website, create a web page">
+    <meta property="og:title"       content="Neocities">
+    <meta property="og:site_name"   content="Neocities | neocities.org">
+    <meta property="og:type"        content="website">
+    <meta property="og:image"       content="/img/cat-larger.png">
+    <meta property="og:url"         content="https://www.neocities.org">
+    <meta property="og:description" content="Neocities is the new Geocities. Create your own free home page, and do whatever you want with it.">
+    <meta name="referrer"           content="no-referrer-when-downgrade">
+
+
+    <link href="/css/neo.css" rel="stylesheet" type="text/css" media="all">
+
+    <link href="/favicon.ico?v=4" rel="shortcut icon" type="image/ico">
+
+    <!-- Mobile Meta -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized"  content="320">
+    <meta name="viewport"         content="width=device-width, minimum-scale=1, initial-scale=1">
+
+      <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+      <meta http-equiv="Pragma" content="no-cache">
+      <meta http-equiv="Expires" content="0">
+
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="/js/html5.min.js"></script>
+    <![endif]-->
+
+    <script src="/js/jquery-1.11.0.min.js"></script>
+
+    <script src="/js/highlight.pack.js"></script>
+    <link rel="stylesheet" href="/css/highlight/styles/tomorrow-night.css">
+    <script>hljs.initHighlightingOnLoad()</script>
+  </head>
+
+  <body class="interior">
+    <div class="page">
+      <header class="header-Base">
+
+  <nav class="header-Nav clearfix" role="navigation">
+
+    <a href="#!" title="show small screen nav" class="small-Nav">
+      <img src="/img/nav-Icon.png" alt="navigation icon" />
+    </a>
+
+    <ul class="h-Nav constant-Nav">
+        <li>
+    <a href="/browse">Websites</a>
+  </li>
+  <li>
+    <a href="/activity">Activity</a>
+  </li>
+  <li>
+    <a href="/tutorials">Learn</a>
+  </li>
+
+      <li>
+        <a href="/supporter">Upgrade to Supporter<i class="fa fa-heart"><i class="fa fa-heart"></i></i></a>
+      </li>
+
+    </ul>
+
+    <ul class="status-Nav">
+        <li class="dropdown">
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+            joselon79
+            <span class="info">
+              <i class="fa fa-caret-down"></i>
+            </span>
+          </a>
+          <ul class="dropdown-menu">
+              <li><a href="/site/joselon79">Profile</a></li>
+              <li>
+                <a href="/?activity=mine"><span class="float-Left">Activity</span>
+                </a>
+              </li>
+              <li class="divider"></li>
+            <li><a href="/dashboard">Edit Site</a></li>
+            <li><a href="https://joselon79.neocities.org" target="_blank">View Site</a></li>
+            <li class="divider"></li>
+            <li><a href="/settings">Settings</a></li>
+
+              <li class="dropdown-submenu pull-left">
+                <a tabindex="-1" href="#" onclick="return false">Switch Site</a>
+                <ul class="dropdown-menu">
+                    <li>
+                      <a href="/signin/josenavarroportfolio">josenavarroportfolio</a>
+                    </li>
+                </ul>
+              </li>
+
+
+            <li><a href="#" onclick="$('#signoutForm').submit()">Sign Out</a></li>
+            <form id="signoutForm" method="POST" action="/signout" style="display: none">
+              <input name="csrf_token" type="hidden" value="GYwEraeBUBbZKt/G7Xq4RV2+DdNFOWhOsPVRK9EQDtk=">
+            </form>
+          </ul>
+        </li>
+
+      </ul>
+  </nav>
+
+  <h1 class="logo int-Logo">
+    <a href="/" title="back to home">
+      <span class="hidden">Neocities.org</span>
+      <img src="/img/cat.png" alt="Neocities.org" />
+    </a>
+  </h1>
+</header>
+
+      <style>
+  html {
+    overflow-y: hidden;
+  }
+  #editor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .theme-Code{
+    float:right;
+    position:relative;
+    top:-50px;
+  }
+  .page {
+    background: #1D1F21;
+    position: fixed;
+    height: 100%;
+  }
+  .footer-Base {
+    display: none;
+  }
+</style>
+
+<div class="header-Outro editor">
+  <div class="row content">
+    <div class="breadcrumbs">
+      <a href="/dashboard">Dashboard</a> >
+      <span class="filename">
+        index.html
+      </span>
+    </div>
+    <div class="tools">
+      <div class="theme">
+        Theme:
+        <select id="theme" size="1" onchange="setTheme();" onkeyup="setTheme();">
+          <optgroup label="Bright">
+            <option value="ace/theme/chrome">Chrome</option>
+            <option value="ace/theme/clouds">Clouds</option>
+            <option value="ace/theme/crimson_editor">Crimson Editor</option>
+            <option value="ace/theme/dawn">Dawn</option>
+            <option value="ace/theme/dreamweaver">Dreamweaver</option>
+            <option value="ace/theme/eclipse">Eclipse</option>
+            <option value="ace/theme/github">GitHub</option>
+            <option value="ace/theme/solarized_light">Solarized Light</option>
+            <option value="ace/theme/textmate">TextMate</option>
+            <option value="ace/theme/tomorrow">Tomorrow</option>
+            <option value="ace/theme/xcode">XCode</option>
+          </optgroup>
+          <optgroup label="Dark">
+            <option value="ace/theme/ambiance">Ambiance</option>
+            <option value="ace/theme/chaos">Chaos</option>
+            <option value="ace/theme/clouds_midnight">Clouds Midnight</option>
+            <option value="ace/theme/cobalt">Cobalt</option>
+            <option value="ace/theme/idle_fingers">idleFingers</option>
+            <option value="ace/theme/kr_theme">krTheme</option>
+            <option value="ace/theme/merbivore">Merbivore</option>
+            <option value="ace/theme/merbivore_soft">Merbivore Soft</option>
+            <option value="ace/theme/mono_industrial">Mono Industrial</option>
+            <option value="ace/theme/monokai">Monokai</option>
+            <option value="ace/theme/pastel_on_dark">Pastel on dark</option>
+            <option value="ace/theme/solarized_dark">Solarized Dark</option>
+            <option value="ace/theme/terminal">Terminal</option>
+            <option value="ace/theme/tomorrow_night" selected="selected">Tomorrow Night</option>
+            <option value="ace/theme/tomorrow_night_blue">Tomorrow Night Blue</option>
+            <option value="ace/theme/tomorrow_night_bright">Tomorrow Night Bright</option>
+            <option value="ace/theme/tomorrow_night_eighties">Tomorrow Night 80s</option>
+            <option value="ace/theme/twilight">Twilight</option>
+            <option value="ace/theme/vibrant_ink">Vibrant Ink</option>
+          </optgroup>
+        </select>
+      </div>
+      <a id="saveButton" class="btn-Action" href="#" onclick="saveTextFile(false); return false" style="opacity: 0.5"><span class="hide-on-mobile"><i class="fa fa-save"></i></span>Save</a>
+      <span class="hide-on-mobile">
+        <a class="btn-Action" href="https://joselon79.neocities.org/" target="_blank">View</a>
+        <a href="#" id="shareButton" class="btn-Action" data-container="body" data-toggle="popover" data-placement="bottom" data-content='<a href="/site/joselon79.rss" target="_blank"><span>RSS/Atom Feed</span></a>
+<br>
+<a href="https://facebook.com/sharer.php?u=u=https%3A%2F%2Fjoselon79.neocities.org%2Findex.html" target="_blank">Facebook</a>
+<br>
+<a href="https://twitter.com/intent/tweet?text=JoseNavarroPortfolio%3A+https%3A%2F%2Fjoselon79.neocities.org%2Findex.html" target="_blank">Twitter</a>
+<br>
+<a href="https://www.reddit.com/submit?title=JoseNavarroPortfolio&amp;url=https%3A%2F%2Fjoselon79.neocities.org%2Findex.html" target="_blank">Reddit</a>
+<br>
+<a href="https://www.tumblr.com/share?v=3&amp;u=https%3A%2F%2Fjoselon79.neocities.org%2Findex.html&amp;t=JoseNavarroPortfolio" target="_blank">Tumblr</a>
+<br>
+<a href="https://www.stumbleupon.com/submit?url=https%3A%2F%2Fjoselon79.neocities.org%2Findex.html&amp;title=JoseNavarroPortfolio" target="_blank">StumbleUpon</a>
+<br>
+<a href="https://del.icio.us/post?url=https%3A%2F%2Fjoselon79.neocities.org%2Findex.html&amp;title=JoseNavarroPortfolio" target="_blank">Del.ici.ous</a>
+<br>
+<a href="https://plus.google.com/share?url=https%3A%2F%2Fjoselon79.neocities.org%2Findex.html" target="_blank">Google+</a>
+'>Share</a>
+      </span>
+    <!-- <a id="saveAndExitButton" class="btn-Action" href="#" onclick="saveTextFile(true); return false" style="opacity: 0.5"><i class="fa fa-save"></i>&nbsp;&nbsp;Save and Exit</a> -->
+      <div id="editorUpdates" class="tooltip fade bottom in hidden" style="top: 90px;right: 12.5em;">
+        <div class="tooltip-arrow"></div>
+        <div class="tooltip-inner">
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row editor">
+  <div class="col col-100">
+    <div id="editor"><h3>Loading...</h3></div>
+  </div>
+</div>
+
+<script src="/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+  var unsavedChanges = false
+
+  function setTheme(name) {
+    var editorTheme = $('#theme option:selected')
+    editor.setTheme(editorTheme.val())
+    $.post('/site/joselon79/set_editor_theme', {
+      csrf_token: 'GYwEraeBUBbZKt/G7Xq4RV2+DdNFOWhOsPVRK9EQDtk=',
+      editor_theme: editorTheme.text()
+    })
+  }
+
+    $('#theme option').filter(function() {
+      return ($(this).text() == 'Tomorrow Night')
+    }).prop('selected', true)
+
+  function saveTextFile(quit) {
+    if(unsavedChanges == false)
+      return
+    $.ajax({
+      url: "/site_files/upload?csrf_token=GYwEraeBUBbZKt%2FG7Xq4RV2%2BDdNFOWhOsPVRK9EQDtk%3D&filename=index.html&site_id=70965",
+      data: editor.getValue(),
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      error: function(jqXHR, textStatus, errorThrown) {
+        var errorMessage = 'There has been an error saving your file, please try again. If it continues to fail, make a copy of the file locally so you don\'t lose your changes!'
+
+        if(jqXHR.responseText)
+          errorMessage += ' ERROR MESSAGE: '+jqXHR.responseText
+
+        $('#saveButton').tooltip('show')
+        $('#editorUpdates span').text(errorMessage)
+        $('#editorUpdates').fadeIn()
+        $('#editorUpdates').removeClass('hidden')
+      },
+      success: function(response, textStatus, xhr){
+        console.log(xhr.status)
+        if(xhr.status == 200) {
+          unsavedChanges = false
+          if(quit === true) {
+            window.location = '/dashboard'
+          } else {
+            $('#editorUpdates span').html('<i class="fa fa-check"></i>&nbsp;&nbsp;Your file has been saved.')
+            $('a#saveButton,a#saveAndExitButton').css('opacity', 0.5)
+            setTimeout(function() {
+              $('#editorUpdates').fadeOut();  //.addClass('hidden');
+            }, 2000)
+          }
+
+        } else {
+          $('#saveButton').tooltip('show')
+          $('#editorUpdates span').text(response)
+        }
+        $('#editorUpdates').fadeIn()
+        $('#editorUpdates').removeClass('hidden')
+
+      }
+    })
+  }
+
+  var editor = {}
+
+  $(document).ready(function() {
+    $.get("/site_files/download/index.html", function(resp) {
+      editor = ace.edit("editor")
+      setTheme()
+        editor.getSession().setMode("ace/mode/html")
+      editor.getSession().setTabSize(2)
+      editor.getSession().setUseWrapMode(true)
+      editor.setFontSize(14)
+      editor.setShowPrintMargin(false)
+      editor.setOptions({
+        maxLines: Infinity,
+        autoScrollEditorIntoView: true
+      })
+
+      // Disable autocomplete
+      editor.setBehavioursEnabled(false)
+
+      editor.setValue(resp, -1)
+
+      editor.on('change', function(obj) {
+        $('a#saveButton,a#saveAndExitButton').css('opacity', 1)
+        unsavedChanges = true
+      })
+
+      editor.commands.addCommand({
+          name: 'saveCommand',
+          bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
+          exec: function(editor) {
+            saveTextFile(false)
+          }
+      })
+    })
+  })
+
+  window.onbeforeunload = function() {
+    if(unsavedChanges == true)
+      return "You have unsaved changes!"
+  }
+
+  $('a#saveButton,a#saveAndExitButton').click(function() {
+    if(!unsavedChanges)
+      return false
+    return true
+  })
+
+</script>
+
+    </div>
+    <footer class="footer-Base">
+      <aside class="footer-Outro">
+  <div class="footer-Content">
+
+    <div class="row">
+      <p class="tiny col credits">
+        <a href="https://neocities.org" title="Neocities.org" style="text-decoration:none;">Neocities</a> is <a href="https://github.com/neocities" title="Neocities on GitHub">open source</a>. Follow us on <a href="https://twitter.com/neocities">Twitter</a> or <a href="https://www.facebook.com/neocities">Facebook</a>
+      </p>
+
+      <nav class="footer-Nav col">
+        <ul class="tiny h-Nav">
+          <li><a href="/about">About</a></li>
+          <li><a href="/donate">Donate</a></li>
+          <li><a href="/cli">CLI</a></li>
+            <li><a href="//blog.neocities.org">Blog</a></li>
+            <li><a href="/api">API</a></li>
+            <li><a href="/press">Press</a></li>
+          <li><a href="http://status.neocitiesops.net/">Status</a></li>
+          <li><a href="/terms" rel="nofollow">Terms</a></li>
+          <li><a href="/contact" rel="nofollow">Contact</a></li>
+        </ul>
+      </nav>
+
+    </div> <!-- end .row -->
+
+  </div>
+</aside>
+
+    </footer>
+
+    <script src="/js/underscore-min.js"></script>
+    <script src="/js/nav.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/typeahead.bundle.js"></script>
+
+    <script>
+      $("a#like").tooltip({html: true})
+      $("a.comment_like").tooltip({html: true})
+      $('#shareButton').popover({html: true})
+      $('#tipButton').popover({html: true})
+
+      $('.typeahead').typeahead({
+        minLength: 2,
+        highlight: true
+      }, {
+        name: 'tags',
+        source: function(query, callback) {
+          $.get('/tags/autocomplete/'+query+'.json', function(data) {
+            var suggestions = JSON.parse(data)
+            var suggestionObjects = []
+            for(var i=0; i<suggestions.length; i++)
+              suggestionObjects.push({value: suggestions[i]})
+
+            callback(suggestionObjects)
+          })
+        }
+      }).on('typeahead:selected', function(e) {
+        e.target.form.submit()
+      })
+    </script>
+  </body>
+</html>
+

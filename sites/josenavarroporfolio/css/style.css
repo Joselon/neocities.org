@@ -1,0 +1,49 @@
+/* CSS is how you can add style to your website, such as colors, fonts, and positioning of your
+   HTML content. To learn how to do something, just try searching Google for questions like
+   "how to change link color." */
+
+html {
+    position: relative;
+    min-height: 100%;
+  }
+
+body {
+  /* Margin bottom by footer height */
+   margin-bottom: 70px;
+            
+  background-color: white;
+  color: black;
+  font-family: Verdana;
+  }
+
+ .goog-te-gadget-simple {
+    margin-bottom:70px ;
+  }
+  .linea {
+    border-top: 1px solid black;
+    height: 2px;
+    max-width: 200px;
+    padding: 0;
+    margin: 5px auto 0 auto;
+}
+            
+  .carousel-inner .item img,
+  .carousel-inner .item img               { /*width: 100%;*/}
+  .container .carousel-indicators .active { background-color:orange;}
+  .container .carousel-indicators li      { border: 1px solid orange;}
+  .container .panel-footer                { margin-top:20px;}
+            
+            
+  .footer {
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+ /* Set the fixed height of the footer here */
+     height: 70px;
+     background-color: #f5f5f5;
+     flex-shrink: none;
+  }
+  #contenido {
+    display:contents;
+  }
+         
