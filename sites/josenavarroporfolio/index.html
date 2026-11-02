@@ -3,7 +3,7 @@
     <head>
         <meta  content="text/html; charset=UTF-8"  http-equiv="content-type">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Jose Navarro Portfolio</title> 
+        <title>Jose Navarro: Portfolio</title> 
         
         <link rel="apple-touch-icon"  href="images/apple-icon.png">
         <link rel="icon" type="image/png"  href="images/favicon.ico"> 
@@ -24,90 +24,70 @@
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
+        <link rel="stylesheet" href="css/biografia.css">
            
     </head>
     <body id="todo">
-     <header>
-      <div class="container-fluid">
-          <nav class="navbar navbar-inverse">
-           <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#miMenu">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span> 
-              </button>
-            <a class="navbar-brand" href="index.html" style="padding-top: 0px;"><button type="button" class="btn btn-default btn-lg">
-          <span class="glyphicon glyphicon-home"></span> Inicio
-        </button></a>
+      <header class="bio-header">
+        <nav class="navbar bio-navbar">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <button type="button"
+                            class="navbar-toggle"
+                            data-toggle="collapse"
+                            data-target="#miMenu"
+                            aria-expanded="false">
+                        <span class="sr-only">Abrir menú</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="index.html">
+                        José Navarro: Portfolio
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="miMenu">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="index.html">Inicio</a></li>
+                        <li ><a href="Biografia.html">Biografía</a></li>
+                        <li>
+                            <a href="mailto:jose.navarro.osta@gmail.com">Contacto <span class="glyphicon glyphicon-envelope"></span></a>
+                        </li>
+                        <li>
+                            <a href="https://joselon79.neocities.org/index.html"
+                            target="_blank" rel="noopener">
+                                Joselon79 Lab ↗
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
-            <div class="collapse navbar-collapse" id="miMenu">
-              <ul class="nav nav-pills nav-justified">
-               <li class="disabled"><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
-              
-              <li role="presentation" class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catálogo<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li ><a  href="https://joselon79.neocities.org/index.html" target="_blank">Lab <span class="glyphicon glyphicon-share"></span></a></li>
-                  </ul>
-              </li>
-              <!--<li role="presentation" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Servicios<span class="caret"></span></a>
-                <ul class="dropdown-menu"> 
-                  <li class="disabled">
-                     <a href="#">En Construcción</a></li>
-                  <li>
-                    <a href="#">...</a></li>
-                </ul>
-              </li> -->
-              <li role="presentation" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Contacto<span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                              <li><a href="Biografia.html">Biografía</a></li>
-                              <li><a  href="mailto:jose.navarro.osta@gmail.com">Contacto por Correo <span class="glyphicon glyphicon-envelope"></span></a></li>
-                      </ul>
-                       <li><a href="#bienvenida">Sobre Mí</a></li>
-                      <li ><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#miMenu"><a class="btn btn-info btn-lg"><span class="glyphicon glyphicon-hand-up"></span></a></button></li> 
-                        </ul>
-                    </div>
-                </div>    
-            </nav>
-            
-      </div>      
-  </header>
+        </nav>
+    </header>
  <section>
- <center><p class="text-info"><span class="glyphicon glyphicon-warning-sign"></span>...en Construcción...<span class="glyphicon glyphicon-warning-sign"></span></p></center>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!--menú -->
                 <ol class="carousel-indicators">
                     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                     <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                   
-                  
                 </ol>
-
                 <!-- slides -->
                 <div class="carousel-inner" role="listbox">
                    
                      <div class="item active">
-                        <a href="portfolio.html">
-                            <center> <img class="img-responsive" src="images/contacta.png" alt="Portfolio" width="954" height="410"></center>
+                        <a href="index.html#bienvenida">
+                            <center> <img class="img-responsive" src="images/contacta.png" alt="Biografía" width="954" height="410"></center>
                         </a>
                     </div>
                      <div class="item">
-                        <a href="#bienvenida">
+                        <a href="Biografia.html">
                             <center> <img class="img-responsive" src="images/perfil.png" alt="SobreMi" width="954" height="410"></center>
                         </a>
                     </div>
-                    <div class="item">
-                        <a href="https://joselon79.neocities.org/index.html">
-                           <center>  <img class="img-responsive" src="images/contacta.png" alt="Lab" width="954" height="410"></center>
-                        </a>
-                    </div>
-                   
                 </div>
 
                 <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -127,10 +107,9 @@
 <center>
 <h1>CATÁLOGO</h1>
 
-<p><a href="portfolio.html">PORTFOLIO</a></p>
+<p><a href="https://joselon79.neocities.org/index.html">LAB <span class="glyphicon glyphicon-share"></span></a></p>
 <div class="linea"></div>
 <p></p>
-<p><a href="https://joselon79.neocities.org/index.html">LAB <span class="glyphicon glyphicon-share"></span></a></p>
 
 </center>
 </div>
@@ -179,13 +158,15 @@
 
 <hr/>
 <section>
-<div class="container-fluid jumbotron">
+<div class="container-fluid jumbotron" id="contacto">
 <center>
 <h1>CONTACTO</h1>
 
 <p><a href="Biografia.html">BIOGRAFÍA</a></p>
 <p><a href="mailto:jose.navarro.osta@gmail.com">ENVIAR E-MAIL <span class="glyphicon glyphicon-envelope"></span></a></p>
- 
+<div class="linea"></div>
+<p></p>
+<p><a href="portfolio2020.html">PROYECTOS ANTERIORES A 2020 </a></p>
 </center>
 </div>
 
@@ -198,7 +179,7 @@
                 </a>
                 </center>
  <div class="container-fluid text-center">
- <small><span class="glyphicon glyphicon-warning-sign"></span> Volver al inicio</small>
+ <small> Volver al inicio</small>
  </div>
 </section>
 <footer id="sticky-footer" class="footer">
@@ -206,15 +187,14 @@
       <small>Copyleft <img src="images/800px-Copyleft.svg.png" class="img-circle" height=10px> Joselon79 
       Donaciones:<a href="https://neocities.org/site/joselon79"> <img class="img-fluid" style="height:50px" src="images/Paypal.png"/>  Perfil Neocities (Send a Tip) </a></small>
       
-  <br>
+        <br>
 
- <small>
- <p><a href="https://join.skype.com/invite/b92vEQypcOXg" target="_blank"><span class="glyphicon glyphicon-earphone"></span>Llamar por Skype </a>   <a href="mailto:jose.navarro.osta@gmail.com"><span class="glyphicon glyphicon-envelope"></span> Escribe un correo eléctrónico </a> </p>
-
-
- <a href="https://neocities.org/terms" target="_blank"><img class="img-fluid" style="height:15px" src="images/neocities.png"/> Política de Cookies de Neocities.org</a></small>
-  </div>
-  
+        <small>
+        <p><a href="https://discord.com/users/305449591803871242" target="_blank"><span class="glyphicon glyphicon-earphone"></span>Llamar por Discord</a>
+            <a href="mailto:jose.navarro.osta@gmail.com"><span class="glyphicon glyphicon-envelope"></span> Escribe un correo eléctrónico </a>
+        </p>
+            <a href="https://neocities.org/terms" target="_blank"><img class="img-fluid" style="height:15px" src="images/neocities.png"/> Política de Cookies de Neocities.org</a></small>
+        </div>
  </footer>
    <script>  
             function googleTranslateElementInit() {
